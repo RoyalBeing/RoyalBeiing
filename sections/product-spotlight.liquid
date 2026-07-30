@@ -7,6 +7,9 @@
           assign poster = section.settings.poster
           assign video = section.settings.video
           assign video_url = section.settings.video_url
+          if video_url == blank
+            assign video_url = 'rb-watermelon-fusion.mp4' | asset_url
+          endif
         -%}
         {%- if video != blank -%}
           <div class="rb-film__player" data-hover-video>
@@ -38,7 +41,7 @@
           </div>
         {%- else -%}
           <div class="rb-film__player rb-film__player--empty">
-            <p class="note">Add the Watermelon Fusion film URL in Theme settings.</p>
+            <p class="note">Add the Watermelon Fusion film in Theme settings.</p>
           </div>
         {%- endif -%}
       </div>
@@ -65,11 +68,6 @@
             {%- if section.settings.meta_natural != blank -%}<span><b>{{ section.settings.meta_natural }}</b></span>{%- endif -%}
             {%- if section.settings.meta_weight != blank -%}<span>Weight: <b>{{ section.settings.meta_weight }}</b></span>{%- endif -%}
             <span>Price: <b>{{ product.price | money }}</b></span>
-            {%- if section.settings.meta_sku != blank -%}
-              <span>SKU: <b>{{ section.settings.meta_sku }}</b></span>
-            {%- elsif product.selected_or_first_available_variant.sku != blank -%}
-              <span>SKU: <b>{{ product.selected_or_first_available_variant.sku }}</b></span>
-            {%- endif -%}
           </div>
         {%- endif -%}
 
@@ -89,15 +87,14 @@
     { "type": "image_picker", "id": "image", "label": "Image (if no video)" },
     { "type": "image_picker", "id": "poster", "label": "Video poster" },
     { "type": "video", "id": "video", "label": "Shopify-hosted video" },
-    { "type": "text", "id": "video_url", "label": "Or MP4 URL", "default": "https://cdn.shopify.com/videos/c/o/v/4ea7ed019d114331a66343175f778527.mp4" },
+    { "type": "text", "id": "video_url", "label": "Or direct MP4 URL", "info": "Leave blank to use the theme Watermelon Fusion film" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A SIGNATURE ESCAPE" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Watermelon Fusion" },
     { "type": "text", "id": "subheading", "label": "Subheading", "default": "The Ritual of Being" },
-    { "type": "textarea", "id": "text", "label": "Main text", "default": "Elevate your skincare cleansing routine with Watermelon Fusion. This luxurious herbal bar combines nourishing goat’s milk, refreshing watermelon, cooling peppermint, and gentle poppy-seed exfoliation.\n\nIts creamy lather gently cleanses and polishes while leaving the skin feeling smoother, softer, refreshed, and renewed. With every use, its bright tropical aroma transforms an everyday routine into a joyful sensory escape." },
+    { "type": "textarea", "id": "text", "label": "Main text", "default": "Elevate your skincare cleansing routine with Watermelon Fusion — a luxurious herbal bar with goat’s milk, watermelon, peppermint, and gentle poppy-seed exfoliation." },
     { "type": "text", "id": "closing", "label": "Closing line", "default": "Elevate your daily cleansing into a sacred spa ritual." },
     { "type": "text", "id": "meta_natural", "label": "Natural line", "default": "100% Natural & Handmade" },
     { "type": "text", "id": "meta_weight", "label": "Weight", "default": "6.7 oz" },
-    { "type": "text", "id": "meta_sku", "label": "SKU override", "default": "WM-ORG-BR-04-ST" },
     { "type": "text", "id": "button_label", "label": "Primary button", "default": "SHOP WATERMELON FUSION" },
     { "type": "url", "id": "button_link", "label": "Primary link (if no product)" }
   ],

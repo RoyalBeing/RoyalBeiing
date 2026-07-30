@@ -691,7 +691,15 @@ p{margin:0 0 1rem}
 }
 .rb-film--spotlight .rb-film__grid{
   grid-template-columns:minmax(360px,1.4fr) minmax(260px,.8fr);
+  align-items:center;
 }
+.rb-film--spotlight .rb-film__copy{
+  min-height:100%;
+  justify-content:center;
+}
+.rb-film--spotlight .rb-film__text{max-width:34ch;margin-bottom:18px}
+.rb-film--spotlight .rb-film__sub{margin:-2px 0 14px}
+.rb-film--spotlight h2{margin-bottom:10px}
 .rb-film__copy{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding-inline:clamp(8px,1.5vw,20px);
