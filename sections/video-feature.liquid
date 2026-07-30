@@ -3,10 +3,10 @@
     <div class="sec-head center reveal">
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
       <h2>{{ section.settings.heading }}</h2>
-      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text | newline_to_br }}</p>{%- endif -%}
     </div>
 
-    <div class="filmstrip reveal" style="aspect-ratio: {{ section.settings.aspect_ratio | default: '16 / 9' }}">
+    <div class="filmstrip filmstrip--empty reveal" style="aspect-ratio: {{ section.settings.aspect_ratio | default: '16 / 9' }}">
       {%- liquid
         assign poster = section.settings.poster
         assign video = section.settings.video
@@ -20,21 +20,16 @@
           controls
           playsinline
           preload="none"
-          {% if poster != blank %}poster="{{ poster | image_url: width: 1600 }}"{% else %}poster="{{ 'rb-hero.jpg' | asset_url }}"{% endif %}
+          {% if poster != blank %}poster="{{ poster | image_url: width: 1600 }}"{% endif %}
           aria-label="{{ section.settings.heading | escape }}"
         >
           <source src="{{ video_url }}" type="video/mp4">
         </video>
       {%- else -%}
-        <button
-          type="button"
-          class="filmstrip__poster"
-          style="background-image:url({% if poster != blank %}{{ poster | image_url: width: 1600 }}{% else %}{{ 'rb-hero.jpg' | asset_url }}{% endif %})"
-          aria-label="Upload promotional video in theme editor"
-        >
-          <span class="play-btn">{% render 'icon', name: 'play' %}</span>
-        </button>
-        <p class="filmstrip__hint note">Add the Royal Being promotional video in the Theme Editor (Shopify Files URL or hosted video).</p>
+        <div class="filmstrip__empty" role="img" aria-label="Promotional video coming soon">
+          <p class="eyebrow" style="color:var(--rb-gold-500);margin:0 0 8px">Video</p>
+          <p style="margin:0;color:rgba(250,247,240,.75)">Promotional film will appear here.</p>
+        </div>
       {%- endif -%}
     </div>
 

@@ -26,7 +26,7 @@
 
   {{ 'rb-main.css' | asset_url | stylesheet_tag }}
   {{ content_for_header }}
-  <!-- rb-theme:homepage-v2 -->
+  <!-- rb-theme:homepage-v3-forced -->
 </head>
 <body class="template-{{ template.name }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix }}{% endif %}">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -35,7 +35,31 @@
   {% section 'header' %}
 
   <main id="main" role="main">
-    {{ content_for_layout }}
+    {%- comment -%}
+      Homepage sections are forced here so a stale Theme Editor index.json
+      cannot hide the approved homepage stack. Other templates use JSON as usual.
+    {%- endcomment -%}
+    {%- if template.name == 'index' -%}
+      {% section 'hero' %}
+      {% section 'trust-bar' %}
+      {% section 'collection-showcase' %}
+      {% section 'video-feature' %}
+      {% section 'featured-products' %}
+      {% section 'product-spotlight' %}
+      {% section 'ritual-grid' %}
+      {% section 'image-with-text' %}
+      {% section 'brand-promise' %}
+      {% section 'ambassador' %}
+      {% section 'subscriptions' %}
+      {% section 'customer-reviews' %}
+      {% section 'review-invite' %}
+      {% section 'newsletter' %}
+      {% section 'social-media' %}
+      {% section 'faq-preview' %}
+      {% section 'cta-final' %}
+    {%- else -%}
+      {{ content_for_layout }}
+    {%- endif -%}
   </main>
 
   {% section 'footer' %}

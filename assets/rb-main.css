@@ -496,6 +496,8 @@ p{margin:0 0 1rem}
 .product-spotlight .split__media{aspect-ratio:16/10}
 .product-spotlight .rb-video,.filmstrip .rb-video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
 .filmstrip__hint{position:absolute;left:16px;right:16px;bottom:16px;z-index:3;color:#fff;text-align:center}
+.filmstrip--empty{background:var(--rb-green-900);display:grid;place-items:center}
+.filmstrip__empty{text-align:center;padding:32px}
 
 .sub-benefits{list-style:none;margin:24px auto;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;max-width:640px;text-align:left}
 .sub-benefits li{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:#55584f}

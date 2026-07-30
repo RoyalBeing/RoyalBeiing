@@ -43,7 +43,9 @@
         <a class="btn btn-primary" href="{% if product != blank %}{{ product.url }}{% else %}{{ section.settings.button_link }}{% endif %}">{{ section.settings.button_label }}</a>
       {%- endif -%}
       {%- if section.settings.button2_label != blank -%}
-        <a class="btn btn-outline" href="{{ section.settings.button2_link | default: '#watermelon-film' }}">{{ section.settings.button2_label }}</a>
+        {%- if section.settings.video != blank or section.settings.video_url != blank -%}
+          <a class="btn btn-outline" href="{{ section.settings.button2_link | default: '#watermelon-film' }}">{{ section.settings.button2_label }}</a>
+        {%- endif -%}
       {%- endif -%}
     </div>
   </div>
@@ -88,7 +90,7 @@
     { "type": "text", "id": "meta_sku", "label": "SKU override", "default": "WM-ORG-BR-04-ST" },
     { "type": "text", "id": "button_label", "label": "Primary button", "default": "SHOP WATERMELON FUSION" },
     { "type": "url", "id": "button_link", "label": "Primary link (if no product)" },
-    { "type": "text", "id": "button2_label", "label": "Secondary button", "default": "WATCH THE WATERMELON FILM" },
+    { "type": "text", "id": "button2_label", "label": "Secondary button (shown only when video is set)", "default": "" },
     { "type": "url", "id": "button2_link", "label": "Secondary link" }
   ],
   "presets": [{ "name": "Product spotlight" }]
