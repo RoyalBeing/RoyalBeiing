@@ -207,8 +207,36 @@
           "button_label": "DISCOVER OUR STORY",
           "button_link": "shopify://pages/about",
           "aspect_ratio": "16 / 9",
-          "video_url": ""
-        }
+          "video_url": "https://cdn.shopify.com/videos/c/o/v/117cb97df2d84d3797ee650ab396e790.mp4"
+        },
+        "blocks": {
+          "v1": {
+            "type": "clip",
+            "settings": {
+              "label": "Royal Being Film",
+              "video_url": "https://cdn.shopify.com/videos/c/o/v/73d871756d4f43bd8e1c1f56dd667d75.mp4"
+            }
+          },
+          "v2": {
+            "type": "clip",
+            "settings": {
+              "label": "Ritual Film",
+              "video_url": "https://cdn.shopify.com/videos/c/o/v/2fff40c66732440f996bd139b1162f25.mp4"
+            }
+          },
+          "v3": {
+            "type": "clip",
+            "settings": {
+              "label": "Watermelon Fusion",
+              "video_url": "https://cdn.shopify.com/videos/c/o/v/4ea7ed019d114331a66343175f778527.mp4"
+            }
+          }
+        },
+        "block_order": [
+          "v1",
+          "v2",
+          "v3"
+        ]
       },
       "featured-products": {
         "type": "featured-products",
@@ -226,7 +254,7 @@
         "settings": {
           "product": "watermelon-fusion",
           "reverse": true,
-          "show_film_below": false,
+          "show_film_below": true,
           "eyebrow": "A SIGNATURE ESCAPE",
           "heading": "Watermelon Fusion",
           "subheading": "The Ritual of Being",
@@ -236,9 +264,9 @@
           "meta_weight": "6.7 oz",
           "meta_sku": "WM-ORG-BR-04-ST",
           "button_label": "SHOP WATERMELON FUSION",
-          "button2_label": "",
-          "button2_link": "",
-          "video_url": ""
+          "button2_label": "WATCH THE WATERMELON FILM",
+          "button2_link": "#watermelon-film",
+          "video_url": "https://cdn.shopify.com/videos/c/o/v/4ea7ed019d114331a66343175f778527.mp4"
         }
       },
       "ritual-grid": {

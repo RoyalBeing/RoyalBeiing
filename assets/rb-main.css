@@ -625,6 +625,11 @@ p{margin:0 0 1rem}
 .filmstrip__hint{position:absolute;left:16px;right:16px;bottom:16px;z-index:3;color:#fff;text-align:center}
 .filmstrip--empty{background:var(--rb-green-900);display:grid;place-items:center}
 .filmstrip__empty{text-align:center;padding:32px}
+.film-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.film-grid__item{margin:0}
+.film-grid__label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;color:var(--rb-sage-600);font-weight:600;margin-top:10px}
+@media(max-width:900px){.film-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.film-grid{grid-template-columns:1fr}}
 
 .sub-benefits{list-style:none;margin:24px auto;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;max-width:640px;text-align:left}
 .sub-benefits li{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:#55584f}

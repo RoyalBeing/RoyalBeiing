@@ -6,12 +6,17 @@
       {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text | newline_to_br }}</p>{%- endif -%}
     </div>
 
-    <div class="filmstrip filmstrip--empty reveal" style="aspect-ratio: {{ section.settings.aspect_ratio | default: '16 / 9' }}">
-      {%- liquid
-        assign poster = section.settings.poster
-        assign video = section.settings.video
-        assign video_url = section.settings.video_url
-      -%}
+    {%- liquid
+      assign poster = section.settings.poster
+      assign video = section.settings.video
+      assign video_url = section.settings.video_url
+      assign has_main = false
+      if video != blank or video_url != blank
+        assign has_main = true
+      endif
+    -%}
+
+    <div class="filmstrip{% unless has_main %} filmstrip--empty{% endunless %} reveal" style="aspect-ratio: {{ section.settings.aspect_ratio | default: '16 / 9' }}">
       {%- if video != blank -%}
         {{ video | video_tag: image_size: '1200x', controls: true, muted: false, autoplay: false, loop: false, class: 'rb-video' }}
       {%- elsif video_url != blank -%}
@@ -19,7 +24,7 @@
           class="rb-video"
           controls
           playsinline
-          preload="none"
+          preload="metadata"
           {% if poster != blank %}poster="{{ poster | image_url: width: 1600 }}"{% endif %}
           aria-label="{{ section.settings.heading | escape }}"
         >
@@ -32,6 +37,25 @@
         </div>
       {%- endif -%}
     </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="film-grid reveal">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.video_url != blank -%}
+            <figure class="film-grid__item" {{ block.shopify_attributes }}>
+              <div class="filmstrip" style="aspect-ratio:16/9">
+                <video class="rb-video" controls playsinline preload="metadata" aria-label="{{ block.settings.label | default: 'Royal Being film' | escape }}">
+                  <source src="{{ block.settings.video_url }}" type="video/mp4">
+                </video>
+              </div>
+              {%- if block.settings.label != blank -%}
+                <figcaption class="film-grid__label">{{ block.settings.label }}</figcaption>
+              {%- endif -%}
+            </figure>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
 
     {%- if section.settings.button_label != blank -%}
       <div class="center" style="margin-top:32px">
@@ -54,6 +78,16 @@
     { "type": "text", "id": "aspect_ratio", "label": "Aspect ratio", "default": "16 / 9" },
     { "type": "text", "id": "button_label", "label": "Button", "default": "DISCOVER OUR STORY" },
     { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "clip",
+      "name": "Additional film",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Film" },
+        { "type": "text", "id": "video_url", "label": "MP4 URL" }
+      ]
+    }
   ],
   "presets": [{ "name": "Video feature" }]
 }
