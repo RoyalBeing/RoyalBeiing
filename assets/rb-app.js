@@ -218,6 +218,35 @@
     p.style.display = 'none'; v.setAttribute('controls', ''); v.play();
   }));
 
+  /* Brand film: play on hover (muted), pause on leave; tap toggle on touch */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  $$('[data-hover-video]').forEach((wrap) => {
+    const v = wrap.querySelector('video');
+    if (!v) return;
+    v.muted = true;
+    v.playsInline = true;
+    const play = () => {
+      if (reduceMotion) return;
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+      wrap.classList.add('is-playing');
+    };
+    const pause = () => {
+      v.pause();
+      wrap.classList.remove('is-playing');
+    };
+    wrap.addEventListener('mouseenter', play);
+    wrap.addEventListener('mouseleave', pause);
+    wrap.addEventListener('focusin', play);
+    wrap.addEventListener('focusout', pause);
+    wrap.addEventListener('click', () => {
+      if (v.paused) play(); else pause();
+    });
+    wrap.setAttribute('tabindex', '0');
+    wrap.setAttribute('role', 'button');
+    wrap.setAttribute('aria-label', 'Play promotional film');
+  });
+
   $$('.pdp__thumbs button').forEach((b) => b.addEventListener('click', () => {
     const main = $('#pdp-main-img');
     if (main && b.dataset.img) main.innerHTML = `<img src="${b.dataset.img}" alt="${b.dataset.alt || ''}">`;
