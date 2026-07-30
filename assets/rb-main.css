@@ -630,23 +630,27 @@ p{margin:0 0 1rem}
 /* Brand film — split editorial */
 .rb-film__grid{
   display:grid;
-  grid-template-columns:minmax(280px,.95fr) minmax(320px,1.15fr);
-  gap:clamp(28px,4vw,64px);
+  grid-template-columns:minmax(260px,.8fr) minmax(360px,1.4fr);
+  gap:clamp(24px,3.5vw,48px);
   align-items:center;
 }
+.rb-film__copy{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding-inline:clamp(8px,1.5vw,20px);
+}
 .rb-film__copy h2{margin-bottom:16px;color:var(--rb-green-900)}
-.rb-film__text{margin:0 0 26px;max-width:42ch}
+.rb-film__text{margin:0 auto 26px;max-width:40ch}
 .rb-film__copy .btn{margin-top:4px}
 .rb-film__player{
   position:relative;border-radius:var(--radius-lg);overflow:hidden;
-  background:var(--rb-mist);aspect-ratio:16/10;isolation:isolate;
+  background:#111;aspect-ratio:16/9;isolation:isolate;min-height:clamp(280px,36vw,520px);
 }
 .rb-film__player .rb-video,
 .rb-film__player video{
-  width:100%;height:100%;object-fit:cover;display:block;background:#111;
+  width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:#111;
 }
 .rb-film__hint{
-  position:absolute;left:16px;bottom:16px;z-index:2;
+  position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:2;
   font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
   color:var(--rb-charcoal);background:rgba(250,247,240,.92);
   padding:8px 12px;border-radius:20px;pointer-events:none;
@@ -658,11 +662,8 @@ p{margin:0 0 1rem}
 @media(max-width:860px){
   .rb-film__grid{grid-template-columns:1fr;gap:22px}
   .rb-film__media{order:2}
-  .rb-film__copy{order:1}
-  .rb-film__player{aspect-ratio:16/9}
-  .rb-film__hint{content:none}
-  .rb-film__hint{opacity:1}
-  .rb-film__hint::after{content:""}
+  .rb-film__copy{order:1;padding-inline:0}
+  .rb-film__player{aspect-ratio:16/9;min-height:0}
 }
 
 .sub-benefits{list-style:none;margin:24px auto;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;max-width:640px;text-align:left}
