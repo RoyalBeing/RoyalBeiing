@@ -123,14 +123,84 @@
   const track = $('.announce__track');
   if (track && track.dataset.msgs) {
     try {
-      const msgs = JSON.parse(track.dataset.msgs); let i = 0;
-      setInterval(() => {
-        i = (i + 1) % msgs.length;
-        track.style.opacity = 0;
-        setTimeout(() => { track.innerHTML = msgs[i]; track.style.opacity = 1; }, 400);
-      }, 5000);
+      const msgs = JSON.parse(track.dataset.msgs).filter((m) => m && String(m).trim());
+      let i = 0;
+      if (msgs.length > 1) {
+        setInterval(() => {
+          i = (i + 1) % msgs.length;
+          track.style.opacity = 0;
+          setTimeout(() => { track.textContent = msgs[i]; track.style.opacity = 1; }, 400);
+        }, 5000);
+      }
     } catch (_) {}
   }
+
+  /* Hero slider */
+  $$('[data-hero-slider]').forEach((root) => {
+    const slides = $$('[data-slide]', root);
+    const dots = $$('[data-hero-dot]', root);
+    if (slides.length < 2) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const interval = Number(root.dataset.interval) || 5500;
+    const tr = Number(root.dataset.transition) || 600;
+    root.style.setProperty('--hero-tr', tr + 'ms');
+    let i = 0;
+    let timer = null;
+    let paused = false;
+    let startX = 0;
+
+    function go(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, idx) => {
+        const on = idx === i;
+        s.classList.toggle('is-active', on);
+        s.setAttribute('aria-hidden', on ? 'false' : 'true');
+      });
+      dots.forEach((d, idx) => {
+        const on = idx === i;
+        d.classList.toggle('is-active', on);
+        d.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+    }
+    function next() { go(i + 1); }
+    function prev() { go(i - 1); }
+    function stop() { paused = true; if (timer) { clearInterval(timer); timer = null; } }
+    function start() {
+      if (reduce || paused) return;
+      if (timer) clearInterval(timer);
+      timer = setInterval(next, interval);
+    }
+
+    root.querySelector('[data-hero-next]')?.addEventListener('click', () => { stop(); next(); });
+    root.querySelector('[data-hero-prev]')?.addEventListener('click', () => { stop(); prev(); });
+    dots.forEach((d) => d.addEventListener('click', () => { stop(); go(Number(d.dataset.heroDot)); }));
+
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { stop(); next(); }
+      if (e.key === 'ArrowLeft') { stop(); prev(); }
+    });
+    root.setAttribute('tabindex', '0');
+
+    root.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].clientX; }, { passive: true });
+    root.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) < 40) return;
+      stop();
+      if (dx < 0) next(); else prev();
+    }, { passive: true });
+
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('focusin', stop);
+    start();
+  });
+
+  /* Accordion a11y */
+  $$('.acc>button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const open = btn.parentElement.classList.contains('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
 
   const qEl = $('#pdp-qty');
   if (qEl) $$('[data-qty]').forEach((b) => b.addEventListener('click', () => {

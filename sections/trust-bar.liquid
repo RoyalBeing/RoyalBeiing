@@ -1,9 +1,14 @@
-<section class="trust" {{ section.shopify_attributes }}>
-  <div class="trust__row wrap">
+<section class="trust trust--benefits" {{ section.shopify_attributes }}>
+  <div class="trust__grid wrap">
     {%- for block in section.blocks -%}
-      <div class="trust__item" {{ block.shopify_attributes }}>
+      <div class="trust__item trust__item--rich" {{ block.shopify_attributes }}>
         {% render 'icon', name: block.settings.icon %}
-        {{ block.settings.label }}
+        <div>
+          <div class="trust__label">{{ block.settings.label }}</div>
+          {%- if block.settings.text != blank -%}
+            <p class="trust__text">{{ block.settings.text }}</p>
+          {%- endif -%}
+        </div>
       </div>
     {%- endfor -%}
   </div>
@@ -22,19 +27,21 @@
           { "value": "leaf", "label": "Leaf" },
           { "value": "drop", "label": "Drop" },
           { "value": "heart", "label": "Heart" },
-          { "value": "flag", "label": "Flag" }
+          { "value": "flag", "label": "Flag" },
+          { "value": "check", "label": "Check" }
         ], "default": "leaf" },
-        { "type": "text", "id": "label", "label": "Label", "default": "100% Handmade" }
+        { "type": "text", "id": "label", "label": "Label", "default": "HANDMADE IN SMALL BATCHES" },
+        { "type": "textarea", "id": "text", "label": "Supporting text", "default": "Carefully crafted and hand-poured for freshness, quality, and attention to detail." }
       ]
     }
   ],
   "presets": [{
     "name": "Trust bar",
     "blocks": [
-      { "type": "item", "settings": { "icon": "leaf", "label": "100% Handmade" } },
-      { "type": "item", "settings": { "icon": "drop", "label": "Small Batches" } },
-      { "type": "item", "settings": { "icon": "heart", "label": "Cruelty-Free" } },
-      { "type": "item", "settings": { "icon": "flag", "label": "Made in USA" } }
+      { "type": "item", "settings": { "icon": "leaf", "label": "HANDMADE IN SMALL BATCHES", "text": "Carefully crafted and hand-poured for freshness, quality, and attention to detail." } },
+      { "type": "item", "settings": { "icon": "drop", "label": "LONG-LASTING PREMIUM BARS", "text": "Generously sized herbal soaps created to last through ritual after ritual." } },
+      { "type": "item", "settings": { "icon": "heart", "label": "NATURALLY INSPIRED", "text": "Made with nourishing oils, butters, botanicals, clays, milks, and mindful ingredients." } },
+      { "type": "item", "settings": { "icon": "flag", "label": "FOR EVERY ROYAL BEING", "text": "Distinct collections for women, men, children, and a wide range of skincare preferences." } }
     ]
   }]
 }

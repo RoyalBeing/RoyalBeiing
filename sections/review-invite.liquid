@@ -1,0 +1,28 @@
+<section class="section" id="share-review" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="card-soft reveal" style="max-width:760px;margin:0 auto;text-align:center">
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="lead" style="margin-inline:auto">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.consent != blank -%}
+        <p class="note" style="margin:18px auto;max-width:52ch">{{ section.settings.consent }}</p>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn btn-gold" href="{{ section.settings.button_link | default: '/pages/reviews' }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Review media invite",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Share Your Royal Being Ritual" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Show us how Royal Being fits into your self-care routine. Upload a photo or video with your review and help inspire our growing community." },
+    { "type": "textarea", "id": "consent", "label": "Consent notice", "default": "By uploading media, you confirm you own the rights to the content and grant Royal Being permission to display it publicly on this website and social channels. Do not upload images of minors without parental consent." },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "UPLOAD YOUR REVIEW" },
+    { "type": "url", "id": "button_link", "label": "Upload / review app link" }
+  ],
+  "presets": [{ "name": "Review media invite" }]
+}
+{% endschema %}

@@ -1,0 +1,86 @@
+<section class="section" id="collections" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <div style="margin-top:22px">
+          <a class="btn btn-outline" href="{{ section.settings.button_link | default: routes.collections_url }}">{{ section.settings.button_label }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="collection-showcase reveal">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign col = collections[block.settings.collection]
+          assign href = '#'
+          if col != blank
+            assign href = col.url
+          elsif block.settings.fallback_link != blank
+            assign href = block.settings.fallback_link
+          endif
+        -%}
+        <article class="cshow" {{ block.shopify_attributes }}>
+          <a class="cshow__media" href="{{ href }}" aria-label="{{ block.settings.title | default: col.title | escape }}">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ block.settings.image.alt | default: block.settings.title | escape }}" loading="lazy" width="1200" height="900">
+            {%- elsif col != blank and col.featured_image -%}
+              <img src="{{ col.featured_image | image_url: width: 1200 }}" alt="{{ col.title | escape }}" loading="lazy">
+            {%- else -%}
+              {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', handle: block.settings.collection %}{%- endcapture -%}
+              {%- if rb_col_src != blank -%}
+                <img src="{{ rb_col_src | strip }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+              {%- else -%}
+                <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+              {%- endif -%}
+            {%- endif -%}
+          </a>
+          <div class="cshow__body">
+            {%- if block.settings.short_line != blank -%}<p class="eyebrow">{{ block.settings.short_line }}</p>{%- endif -%}
+            <h3><a href="{{ href }}">{{ block.settings.title | default: col.title }}</a></h3>
+            {%- if block.settings.description != blank -%}<p>{{ block.settings.description }}</p>{%- endif -%}
+            {%- if block.settings.products_text != blank -%}
+              <p class="cshow__products muted">{{ block.settings.products_text }}</p>
+            {%- endif -%}
+            {%- if block.settings.button_label != blank -%}
+              <a class="btn btn-outline btn-sm" href="{{ href }}">{{ block.settings.button_label }}</a>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection showcase",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "DISCOVER YOUR RITUAL" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Five Collections. One Royal Experience." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every Royal Being soap belongs to a thoughtfully curated collection. Explore refined florals, signature herbal blends, everyday essentials, distinguished men’s bars, and gentle creations for children—without the clutter of an overwhelming catalog." },
+    { "type": "text", "id": "button_label", "label": "Intro button", "default": "VIEW ALL COLLECTIONS" },
+    { "type": "url", "id": "button_link", "label": "Intro button link" }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection card",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Shopify collection" },
+        { "type": "image_picker", "id": "image", "label": "Card image (optional override)" },
+        { "type": "url", "id": "fallback_link", "label": "Fallback link if collection unset" },
+        { "type": "text", "id": "title", "label": "Title", "default": "The Royal Collection" },
+        { "type": "text", "id": "short_line", "label": "Short line", "default": "For the woman who turns self-care into ceremony." },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "textarea", "id": "products_text", "label": "Product names (supporting)" },
+        { "type": "text", "id": "button_label", "label": "Button", "default": "EXPLORE THE ROYAL COLLECTION" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Collection showcase" }]
+}
+{% endschema %}

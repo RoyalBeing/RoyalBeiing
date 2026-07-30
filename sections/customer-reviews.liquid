@@ -1,0 +1,65 @@
+<section class="section" style="background:var(--rb-mist)" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text | newline_to_br }}</p>{%- endif -%}
+    </div>
+
+    {%- if section.settings.app_block_note != blank -%}
+      <p class="note center reveal" style="margin-bottom:28px">{{ section.settings.app_block_note }}</p>
+    {%- endif -%}
+
+    {%- comment -%} App blocks can be added in the Theme Editor below this section content via @app if supported; we keep CTA path clear. {%- endcomment -%}
+
+    <div class="center reveal" style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn btn-primary" href="{{ section.settings.button_link | default: '/pages/reviews' }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+      {%- if section.settings.button2_label != blank -%}
+        <a class="btn btn-outline" href="{{ section.settings.button2_link | default: '#share-review' }}">{{ section.settings.button2_label }}</a>
+      {%- endif -%}
+    </div>
+
+    <ul class="review-formats reveal">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>{{ block.settings.label }}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer reviews",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE ROYAL COMMUNITY" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Real Rituals. Real Experiences." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Discover how customers are incorporating Royal Being into their daily skincare and wellness routines.\n\nFrom written stories to photos and video testimonials, every review helps another Royal Being find the collection that feels right for them." },
+    { "type": "text", "id": "app_block_note", "label": "App note", "default": "Install or enable your review app widgets in the Theme Editor for live ratings, photos, and verified reviews. No decorative fake reviews are shown here." },
+    { "type": "text", "id": "button_label", "label": "Primary button", "default": "READ CUSTOMER REVIEWS" },
+    { "type": "url", "id": "button_link", "label": "Primary link" },
+    { "type": "text", "id": "button2_label", "label": "Secondary button", "default": "SHARE YOUR EXPERIENCE" },
+    { "type": "url", "id": "button2_link", "label": "Secondary link" }
+  ],
+  "blocks": [
+    {
+      "type": "format",
+      "name": "Supported format",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Written reviews" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Customer reviews",
+    "blocks": [
+      { "type": "format", "settings": { "label": "Written reviews" } },
+      { "type": "format", "settings": { "label": "Star ratings" } },
+      { "type": "format", "settings": { "label": "Customer photos" } },
+      { "type": "format", "settings": { "label": "Customer video reviews" } },
+      { "type": "format", "settings": { "label": "Verified-purchase labels" } }
+    ]
+  }]
+}
+{% endschema %}

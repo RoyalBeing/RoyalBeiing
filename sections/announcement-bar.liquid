@@ -2,7 +2,7 @@
 <div class="announce" {{ section.shopify_attributes }}>
   <div
     class="announce__track"
-    data-msgs='[{{ section.settings.message_1 | json }},{{ section.settings.message_2 | json }},{{ section.settings.message_3 | json }}]'
+    data-msgs='[{{ section.settings.message_1 | json }},{{ section.settings.message_2 | json }},{{ section.settings.message_3 | json }},{{ section.settings.message_4 | json }},{{ section.settings.message_5 | json }}]'
   >{{ section.settings.message_1 }}</div>
 </div>
 {%- endif -%}
@@ -12,9 +12,11 @@
   "name": "Announcement bar",
   "settings": [
     { "type": "checkbox", "id": "enable", "label": "Show announcement bar", "default": true },
-    { "type": "text", "id": "message_1", "label": "Message 1", "default": "Handmade and hand-poured in small batches." },
-    { "type": "text", "id": "message_2", "label": "Message 2", "default": "Shipping to the USA, Netherlands & Belgium." },
-    { "type": "text", "id": "message_3", "label": "Message 3", "default": "Use ROYAL 20 for 20% off your first ritual." }
+    { "type": "text", "id": "message_1", "label": "Message 1", "default": "ENJOY 20% OFF WITH CODE ROYAL20" },
+    { "type": "text", "id": "message_2", "label": "Message 2", "default": "HANDMADE AND HAND-POURED IN SMALL BATCHES" },
+    { "type": "text", "id": "message_3", "label": "Message 3", "default": "SHIPPING TO THE USA, NETHERLANDS, AND BELGIUM" },
+    { "type": "text", "id": "message_4", "label": "Message 4", "default": "LONG-LASTING PREMIUM HERBAL BARS" },
+    { "type": "text", "id": "message_5", "label": "Message 5", "default": "MONTHLY SOAP SUBSCRIPTIONS AVAILABLE" }
   ]
 }
 {% endschema %}

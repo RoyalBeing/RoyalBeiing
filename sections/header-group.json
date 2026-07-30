@@ -4,7 +4,14 @@
   "sections": {
     "announcement": {
       "type": "announcement-bar",
-      "settings": {}
+      "settings": {
+        "enable": true,
+        "message_1": "ENJOY 20% OFF WITH CODE ROYAL20",
+        "message_2": "HANDMADE AND HAND-POURED IN SMALL BATCHES",
+        "message_3": "SHIPPING TO THE USA, NETHERLANDS, AND BELGIUM",
+        "message_4": "LONG-LASTING PREMIUM HERBAL BARS",
+        "message_5": "MONTHLY SOAP SUBSCRIPTIONS AVAILABLE"
+      }
     },
     "header": {
       "type": "header",

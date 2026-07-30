@@ -3,8 +3,11 @@
     <p class="eyebrow" style="color:var(--rb-gold-500)">{{ section.settings.eyebrow }}</p>
     <h2>{{ section.settings.heading }}</h2>
     <p>{{ section.settings.text }}</p>
+    {%- if section.settings.discount_message != blank -%}
+      <p class="newsletter__discount"><b>{{ section.settings.discount_message }}</b></p>
+    {%- endif -%}
     {% form 'customer', class: 'news-form' %}
-      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input type="hidden" name="contact[tags]" value="newsletter,royal-circle">
       <input type="email" name="contact[email]" required placeholder="{{ section.settings.placeholder }}" aria-label="Email address">
       <button class="btn btn-gold" type="submit">{{ section.settings.button_label }}</button>
       {%- if form.posted_successfully? -%}
@@ -14,6 +17,9 @@
         <p class="form-status form-status--error" style="width:100%">{{ form.errors | default_errors }}</p>
       {%- endif -%}
     {% endform %}
+    {%- if section.settings.legal != blank -%}
+      <p class="newsletter__legal">{{ section.settings.legal }}</p>
+    {%- endif -%}
   </div>
 </section>
 
@@ -21,12 +27,14 @@
 {
   "name": "Newsletter",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Join the Ritual" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Become a Royal Being" },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Early access to new bars, small-batch restocks, and the occasional ritual note." },
-    { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "Your email address" },
-    { "type": "text", "id": "button_label", "label": "Button", "default": "Subscribe" },
-    { "type": "text", "id": "success", "label": "Success message", "default": "Welcome to the ritual — please check your inbox." }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "JOIN THE ROYAL CIRCLE" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Receive 20% Off Your Royal Being Order" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Subscribe for product releases, collection updates, skincare rituals, restock announcements, and exclusive Royal Being offers." },
+    { "type": "text", "id": "discount_message", "label": "Discount message", "default": "Use code ROYAL20 to receive 20% off eligible products." },
+    { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "Enter your email address" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "JOIN THE ROYAL CIRCLE" },
+    { "type": "text", "id": "success", "label": "Success message", "default": "Welcome to the Royal Circle — please check your inbox." },
+    { "type": "textarea", "id": "legal", "label": "Legal text", "default": "By subscribing, you agree to receive Royal Being news and promotional emails. You may unsubscribe at any time." }
   ],
   "presets": [{ "name": "Newsletter" }]
 }

@@ -9,7 +9,7 @@
   <div class="reveal" style="padding-inline:var(--pad-x)">
     {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
     <h2>{{ section.settings.heading }}</h2>
-    {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
+    {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text | newline_to_br }}</p>{%- endif -%}
     {%- if section.settings.body != blank -%}<div class="rte">{{ section.settings.body }}</div>{%- endif -%}
     {%- if section.settings.button_label != blank -%}
       <a class="btn {{ section.settings.button_style }}" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
@@ -23,11 +23,11 @@
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Image" },
     { "type": "checkbox", "id": "reverse", "label": "Reverse layout", "default": false },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Ritual of Being" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "From nature to your bathroom counter" },
-    { "type": "textarea", "id": "text", "label": "Lead text" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "OUR PHILOSOPHY" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Wholesome Goodness, Made with Intention" },
+    { "type": "textarea", "id": "text", "label": "Lead text", "default": "Royal Being began with a simple belief: daily self-care should feel honest, intentional, and deeply nourishing." },
     { "type": "richtext", "id": "body", "label": "Body" },
-    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "READ OUR STORY" },
     { "type": "url", "id": "button_link", "label": "Button link" },
     { "type": "select", "id": "button_style", "label": "Button style", "options": [
       { "value": "btn-primary", "label": "Primary" },

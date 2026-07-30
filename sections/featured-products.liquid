@@ -1,8 +1,9 @@
 <section class="section" style="background:var(--rb-mist)" {{ section.shopify_attributes }}>
   <div class="wrap">
-    <div class="sec-head reveal">
+    <div class="sec-head center reveal">
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
       <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
     </div>
     <div class="product-grid reveal">
       {%- liquid
@@ -31,11 +32,12 @@
 {
   "name": "Featured products",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Small-Batch Favourites" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Featured Soaps" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FEATURED RITUALS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find Your New Favourite Bar" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Explore a curated selection of Royal Being herbal soaps, chosen from across our collections. Each bar offers its own combination of aroma, ingredients, character, and cleansing experience." },
     { "type": "collection", "id": "collection", "label": "Collection (optional — leave blank for all)" },
     { "type": "range", "id": "products_to_show", "min": 4, "max": 16, "step": 1, "label": "Products to show", "default": 8 },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "View All Soaps" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "SHOP ALL SOAPS" },
     { "type": "url", "id": "button_link", "label": "Button link" }
   ],
   "presets": [{ "name": "Featured products" }]
