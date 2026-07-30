@@ -3,7 +3,7 @@
     {%- if section.settings.image != blank -%}
       <img src="{{ section.settings.image | image_url: width: 2400 }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}" loading="eager">
     {%- else -%}
-      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      <img src="{{ 'rb-hero.jpg' | asset_url }}" alt="{{ section.settings.heading | escape }}" loading="eager" width="2400" height="1600">
     {%- endif -%}
   </div>
   <div class="hero__scrim"></div>

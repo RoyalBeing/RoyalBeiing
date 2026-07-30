@@ -13,7 +13,12 @@
             {%- if col.featured_image -%}
               <img src="{{ col.featured_image | image_url: width: 1200 }}" alt="{{ col.title | escape }}" loading="lazy">
             {%- else -%}
-              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', collection: col %}{%- endcapture -%}
+              {%- if rb_col_src != blank -%}
+                <img src="{{ rb_col_src | strip }}" alt="{{ col.title | escape }}" loading="lazy">
+              {%- else -%}
+                <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ col.title | escape }}" loading="lazy">
+              {%- endif -%}
             {%- endif -%}
             <div class="col-card__body">
               {%- if block.settings.eyebrow != blank -%}<p class="eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
@@ -29,6 +34,13 @@
             <a class="col-card" href="{{ col.url }}">
               {%- if col.featured_image -%}
                 <img src="{{ col.featured_image | image_url: width: 1200 }}" alt="{{ col.title | escape }}" loading="lazy">
+              {%- else -%}
+                {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', collection: col %}{%- endcapture -%}
+                {%- if rb_col_src != blank -%}
+                  <img src="{{ rb_col_src | strip }}" alt="{{ col.title | escape }}" loading="lazy">
+                {%- else -%}
+                  <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ col.title | escape }}" loading="lazy">
+                {%- endif -%}
               {%- endif -%}
               <div class="col-card__body">
                 <h3>{{ col.title }}</h3>

@@ -20,7 +20,12 @@
           {%- if media -%}
             <img src="{{ media | image_url: width: 1400 }}" alt="{{ media.alt | default: product.title | escape }}">
           {%- else -%}
-            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- capture rb_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
+            {%- if rb_img != blank -%}
+              <img src="{{ rb_img | strip }}" alt="{{ product.title | escape }}" width="1400" height="1400">
+            {%- else -%}
+              <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ product.title | escape }}">
+            {%- endif -%}
           {%- endif -%}
         </div>
         {%- if product.media.size > 1 -%}

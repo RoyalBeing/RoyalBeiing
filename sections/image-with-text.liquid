@@ -3,7 +3,7 @@
     {%- if section.settings.image != blank -%}
       <img src="{{ section.settings.image | image_url: width: 1400 }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}" loading="lazy">
     {%- else -%}
-      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      <img src="{{ 'rb-story.jpg' | asset_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" width="1400" height="1050">
     {%- endif -%}
   </div>
   <div class="reveal" style="padding-inline:var(--pad-x)">
