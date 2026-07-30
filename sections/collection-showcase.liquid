@@ -1,54 +1,90 @@
-<section class="section" id="collections" {{ section.shopify_attributes }}>
+<section class="section cshow-section" id="collections" {{ section.shopify_attributes }}>
   <div class="wrap">
-    <div class="sec-head center reveal">
-      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-      <h2>{{ section.settings.heading }}</h2>
-      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
-      {%- if section.settings.button_label != blank -%}
-        <div style="margin-top:22px">
+    <div class="cshow-grid reveal">
+      <div class="cshow-intro">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="cshow-intro__heading">{{ section.settings.heading | newline_to_br }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <p class="cshow-intro__text">{{ section.settings.text }}</p>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
           <a class="btn btn-outline" href="{{ section.settings.button_link | default: routes.collections_url }}">{{ section.settings.button_label }}</a>
-        </div>
-      {%- endif -%}
-    </div>
+        {%- endif -%}
+      </div>
 
-    <div class="collection-showcase reveal">
       {%- for block in section.blocks -%}
         {%- liquid
           assign col = collections[block.settings.collection]
-          assign href = '#'
+          assign href = routes.collections_url
           if col != blank
             assign href = col.url
           elsif block.settings.fallback_link != blank
             assign href = block.settings.fallback_link
           endif
+          assign label = block.settings.label
+          if label == blank
+            assign label = block.settings.title
+          endif
+          if label == blank and col != blank
+            assign label = col.title
+          endif
+          assign span = block.settings.span | default: 'standard'
         -%}
-        <article class="cshow" {{ block.shopify_attributes }}>
-          <a class="cshow__media" href="{{ href }}" aria-label="{{ block.settings.title | default: col.title | escape }}">
+        <a
+          class="cshow-card cshow-card--{{ span }}{% if forloop.first %} cshow-card--featured{% endif %}"
+          href="{{ href }}"
+          {{ block.shopify_attributes }}
+        >
+          <span class="cshow-card__media">
             {%- if block.settings.image != blank -%}
-              <img src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ block.settings.image.alt | default: block.settings.title | escape }}" loading="lazy" width="1200" height="900">
+              <img
+                src="{{ block.settings.image | image_url: width: 1400 }}"
+                alt="{{ block.settings.image.alt | default: label | escape }}"
+                loading="lazy"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+              >
             {%- elsif col != blank and col.featured_image -%}
-              <img src="{{ col.featured_image | image_url: width: 1200 }}" alt="{{ col.title | escape }}" loading="lazy">
+              <img src="{{ col.featured_image | image_url: width: 1400 }}" alt="{{ col.title | escape }}" loading="lazy">
+            {%- elsif block.settings.fallback_asset != blank -%}
+              <img src="{{ block.settings.fallback_asset | asset_url }}" alt="{{ label | escape }}" loading="lazy" width="1200" height="900">
             {%- else -%}
               {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', handle: block.settings.collection %}{%- endcapture -%}
               {%- if rb_col_src != blank -%}
-                <img src="{{ rb_col_src | strip }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+                <img src="{{ rb_col_src | strip }}" alt="{{ label | escape }}" loading="lazy">
               {%- else -%}
-                <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+                <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ label | escape }}" loading="lazy">
               {%- endif -%}
             {%- endif -%}
-          </a>
-          <div class="cshow__body">
-            {%- if block.settings.short_line != blank -%}<p class="eyebrow">{{ block.settings.short_line }}</p>{%- endif -%}
-            <h3><a href="{{ href }}">{{ block.settings.title | default: col.title }}</a></h3>
-            {%- if block.settings.description != blank -%}<p>{{ block.settings.description }}</p>{%- endif -%}
-            {%- if block.settings.products_text != blank -%}
-              <p class="cshow__products muted">{{ block.settings.products_text }}</p>
-            {%- endif -%}
-            {%- if block.settings.button_label != blank -%}
-              <a class="btn btn-outline btn-sm" href="{{ href }}">{{ block.settings.button_label }}</a>
-            {%- endif -%}
-          </div>
-        </article>
+          </span>
+          <span class="cshow-card__label">{{ label }}</span>
+        </a>
+      {%- else -%}
+        {%- comment -%}Defaults when Theme Editor has no blocks{%- endcomment -%}
+        <a class="cshow-card cshow-card--featured" href="/collections/royal">
+          <span class="cshow-card__media"><img src="{{ 'rb-col-royal.jpg' | asset_url }}" alt="The Royal Collection" loading="lazy" width="1200" height="900"></span>
+          <span class="cshow-card__label">THE ROYAL COLLECTION</span>
+        </a>
+        <a class="cshow-card cshow-card--tall" href="/collections/signature">
+          <span class="cshow-card__media"><img src="{{ 'rb-col-signature.jpg' | asset_url }}" alt="The Signature Collection" loading="lazy" width="900" height="1200"></span>
+          <span class="cshow-card__label">THE SIGNATURE COLLECTION</span>
+        </a>
+        <a class="cshow-card" href="/collections/common">
+          <span class="cshow-card__media"><img src="{{ 'rb-col-common.jpg' | asset_url }}" alt="The Common Collection" loading="lazy" width="1200" height="800"></span>
+          <span class="cshow-card__label">THE COMMON COLLECTION</span>
+        </a>
+        <a class="cshow-card" href="/collections/royal-duke">
+          <span class="cshow-card__media"><img src="{{ 'rb-col-royal-duke.jpg' | asset_url }}" alt="The Royal Duke Collection" loading="lazy" width="1200" height="800"></span>
+          <span class="cshow-card__label">THE ROYAL DUKE COLLECTION</span>
+        </a>
+        <a class="cshow-card" href="/collections/royal-kid">
+          <span class="cshow-card__media"><img src="{{ 'rb-col-royal-kid.jpg' | asset_url }}" alt="The Royal Kid Herbal Collection" loading="lazy" width="1200" height="800"></span>
+          <span class="cshow-card__label">THE ROYAL KID HERBAL COLLECTION</span>
+        </a>
       {%- endfor -%}
     </div>
   </div>
@@ -59,11 +95,11 @@
   "name": "Collection showcase",
   "max_blocks": 5,
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "DISCOVER YOUR RITUAL" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Five Collections. One Royal Experience." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Five Collections.\nOne Royal Experience." },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Every Royal Being soap belongs to a thoughtfully curated collection. Explore refined florals, signature herbal blends, everyday essentials, distinguished men’s bars, and gentle creations for children—without the clutter of an overwhelming catalog." },
-    { "type": "text", "id": "button_label", "label": "Intro button", "default": "VIEW ALL COLLECTIONS" },
-    { "type": "url", "id": "button_link", "label": "Intro button link" }
+    { "type": "text", "id": "button_label", "label": "Button", "default": "VIEW ALL COLLECTIONS" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
   ],
   "blocks": [
     {
@@ -72,15 +108,27 @@
       "settings": [
         { "type": "collection", "id": "collection", "label": "Shopify collection" },
         { "type": "image_picker", "id": "image", "label": "Card image (optional override)" },
+        { "type": "text", "id": "fallback_asset", "label": "Theme asset fallback", "info": "e.g. rb-col-royal.jpg" },
         { "type": "url", "id": "fallback_link", "label": "Fallback link if collection unset" },
-        { "type": "text", "id": "title", "label": "Title", "default": "The Royal Collection" },
-        { "type": "text", "id": "short_line", "label": "Short line", "default": "For the woman who turns self-care into ceremony." },
-        { "type": "textarea", "id": "description", "label": "Description" },
-        { "type": "textarea", "id": "products_text", "label": "Product names (supporting)" },
-        { "type": "text", "id": "button_label", "label": "Button", "default": "EXPLORE THE ROYAL COLLECTION" }
+        { "type": "text", "id": "label", "label": "Label (uppercase)", "default": "THE ROYAL COLLECTION" },
+        { "type": "text", "id": "title", "label": "Title (legacy)" },
+        { "type": "select", "id": "span", "label": "Card emphasis", "options": [
+          { "value": "featured", "label": "Featured (top large)" },
+          { "value": "tall", "label": "Tall (vertical)" },
+          { "value": "standard", "label": "Standard" }
+        ], "default": "standard" }
       ]
     }
   ],
-  "presets": [{ "name": "Collection showcase" }]
+  "presets": [{
+    "name": "Collection showcase",
+    "blocks": [
+      { "type": "collection", "settings": { "collection": "royal", "label": "THE ROYAL COLLECTION", "fallback_asset": "rb-col-royal.jpg", "span": "featured", "fallback_link": "/collections/royal" } },
+      { "type": "collection", "settings": { "collection": "signature", "label": "THE SIGNATURE COLLECTION", "fallback_asset": "rb-col-signature.jpg", "span": "tall", "fallback_link": "/collections/signature" } },
+      { "type": "collection", "settings": { "collection": "common", "label": "THE COMMON COLLECTION", "fallback_asset": "rb-col-common.jpg", "span": "standard", "fallback_link": "/collections/common" } },
+      { "type": "collection", "settings": { "collection": "royal-duke", "label": "THE ROYAL DUKE COLLECTION", "fallback_asset": "rb-col-royal-duke.jpg", "span": "standard", "fallback_link": "/collections/royal-duke" } },
+      { "type": "collection", "settings": { "collection": "royal-kid", "label": "THE ROYAL KID HERBAL COLLECTION", "fallback_asset": "rb-col-royal-kid.jpg", "span": "standard", "fallback_link": "/collections/royal-kid" } }
+    ]
+  }]
 }
 {% endschema %}

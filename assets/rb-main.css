@@ -480,6 +480,10 @@ p{margin:0 0 1rem}
 .hero__slide--panel-left .hero__panel{justify-content:flex-start}
 .hero__slide--panel-right .hero__panel{justify-content:flex-end}
 .hero__slide--panel-right .hero__inner{text-align:left}
+.hero--split .hero__nav{border-color:rgba(53,94,77,.35);background:rgba(250,247,240,.9);color:var(--rb-green-900)}
+.hero--split .hero__nav:hover{background:#fff;border-color:var(--rb-green-900)}
+.hero--split .hero__dot{background:rgba(53,94,77,.28)}
+.hero--split .hero__dot.is-active{background:var(--rb-gold-500)}
 
 @media(max-width:900px){
   .hero--split .hero__inner{max-width:min(420px,48vw)}
@@ -524,6 +528,89 @@ p{margin:0 0 1rem}
 .cshow__products{font-size:.78rem;margin:4px 0 16px}
 .cshow__body .btn{margin-top:auto;align-self:flex-start}
 @media(max-width:640px){.cshow__products{display:none}}
+
+/* Editorial collections showcase (reference grid) */
+.cshow-section{padding-block:var(--sec-y);background:var(--rb-ivory-50)}
+.cshow-grid{
+  display:grid;
+  grid-template-columns:minmax(240px,1.05fr) minmax(280px,1.35fr) minmax(220px,.95fr);
+  grid-template-rows:minmax(280px,auto) minmax(240px,auto);
+  gap:10px;
+  align-items:stretch;
+}
+.cshow-intro{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(8px,1.5vw,20px) clamp(8px,2vw,28px) clamp(8px,1.5vw,20px) 0;
+  grid-column:1;grid-row:1;
+}
+.cshow-intro__heading{
+  color:var(--rb-green-900);
+  font-size:clamp(2rem,3.4vw,3.1rem);
+  line-height:1.08;
+  margin:0 0 18px;
+  max-width:14ch;
+}
+.cshow-intro__text{
+  color:#55584f;
+  font-size:clamp(.9rem,1.05vw,1rem);
+  line-height:1.65;
+  margin:0 0 26px;
+  max-width:38ch;
+}
+.cshow-intro .btn{align-self:flex-start}
+.cshow-card{
+  display:flex;flex-direction:column;background:#fff;
+  border:1px solid var(--rb-line);overflow:hidden;min-height:0;
+  transition:box-shadow .3s var(--ease),transform .3s var(--ease);
+}
+.cshow-card:hover{box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.cshow-card__media{
+  display:block;flex:1;min-height:180px;overflow:hidden;background:var(--rb-mist);position:relative;
+}
+.cshow-card__media img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .7s var(--ease);
+}
+.cshow-card:hover .cshow-card__media img{transform:scale(1.04)}
+.cshow-card__label{
+  display:block;flex-shrink:0;background:#fff;color:var(--rb-green-900);
+  font-family:var(--font-body);font-size:.68rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;text-align:center;
+  padding:14px 12px;border-top:1px solid var(--rb-line);
+}
+/* Intro is child 1; cards are children 2–6 */
+.cshow-grid > .cshow-card:nth-child(2){grid-column:2;grid-row:1}
+.cshow-grid > .cshow-card:nth-child(3){grid-column:3;grid-row:1}
+.cshow-grid > .cshow-card:nth-child(4){grid-column:1;grid-row:2}
+.cshow-grid > .cshow-card:nth-child(5){grid-column:2;grid-row:2}
+.cshow-grid > .cshow-card:nth-child(6){grid-column:3;grid-row:2}
+.cshow-grid > .cshow-card:nth-child(2) .cshow-card__media{aspect-ratio:5/4;flex:none;min-height:0;height:auto}
+.cshow-grid > .cshow-card:nth-child(3) .cshow-card__media{aspect-ratio:3/4;flex:none;min-height:0;height:auto}
+.cshow-grid > .cshow-card:nth-child(4) .cshow-card__media,
+.cshow-grid > .cshow-card:nth-child(5) .cshow-card__media,
+.cshow-grid > .cshow-card:nth-child(6) .cshow-card__media{aspect-ratio:16/11;flex:none;min-height:0;height:auto}
+
+@media(max-width:1024px){
+  .cshow-grid{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto;
+  }
+  .cshow-intro{grid-column:1 / -1;grid-row:auto;padding:0 0 12px}
+  .cshow-grid > .cshow-card:nth-child(n){grid-column:auto;grid-row:auto}
+  .cshow-grid > .cshow-card:nth-child(2){grid-column:1 / -1} /* royal full width */
+  .cshow-grid > .cshow-card:nth-child(2) .cshow-card__media{aspect-ratio:16/9}
+  .cshow-grid > .cshow-card:nth-child(3) .cshow-card__media,
+  .cshow-grid > .cshow-card:nth-child(4) .cshow-card__media,
+  .cshow-grid > .cshow-card:nth-child(5) .cshow-card__media,
+  .cshow-grid > .cshow-card:nth-child(6) .cshow-card__media{aspect-ratio:4/3}
+}
+@media(max-width:640px){
+  .cshow-grid{grid-template-columns:1fr;gap:12px}
+  .cshow-intro__heading{max-width:none;font-size:clamp(1.9rem,8vw,2.4rem)}
+  .cshow-intro .btn{width:100%;justify-content:center}
+  .cshow-grid > .cshow-card:nth-child(n){grid-column:1}
+  .cshow-card__label{font-size:.62rem;padding:12px 10px}
+}
 
 .ritual-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .ritual-card{background:#fff;border:1px solid var(--rb-line);border-radius:var(--radius);padding:28px 24px;display:flex;flex-direction:column;gap:12px;min-height:100%}

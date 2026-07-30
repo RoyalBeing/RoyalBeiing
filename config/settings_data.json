@@ -132,71 +132,61 @@
       "collection-showcase": {
         "type": "collection-showcase",
         "settings": {
-          "eyebrow": "DISCOVER YOUR RITUAL",
-          "heading": "Five Collections. One Royal Experience.",
+          "eyebrow": "",
+          "heading": "Five Collections.\nOne Royal Experience.",
           "text": "Every Royal Being soap belongs to a thoughtfully curated collection. Explore refined florals, signature herbal blends, everyday essentials, distinguished men\u2019s bars, and gentle creations for children\u2014without the clutter of an overwhelming catalog.",
           "button_label": "VIEW ALL COLLECTIONS",
-          "button_link": "shopify://collections"
+          "button_link": "/collections"
         },
         "blocks": {
           "royal": {
             "type": "collection",
             "settings": {
               "collection": "royal",
-              "title": "The Royal Collection",
-              "short_line": "For the woman who turns self-care into ceremony.",
-              "description": "Discover elegant floral aromas, regal botanicals, luminous ingredients, and sophisticated bars created to make every cleanse feel extraordinary.",
-              "products_text": "Glow-rify, The Rose Garden, Fresh Floral Fiesta, The Enchanted Garden, Gilded Age, The Reiny, and The Duchess.",
-              "button_label": "EXPLORE THE ROYAL COLLECTION",
-              "fallback_link": "shopify://collections"
+              "label": "THE ROYAL COLLECTION",
+              "fallback_asset": "rb-col-royal.jpg",
+              "span": "featured",
+              "fallback_link": "/collections/royal"
             }
           },
           "signature": {
             "type": "collection",
             "settings": {
               "collection": "signature",
-              "title": "The Signature Collection",
-              "short_line": "The defining rituals of Royal Being.",
-              "description": "A diverse collection of distinctive herbal soaps inspired by rich botanicals, global ingredients, refreshing aromas, and unforgettable sensory experiences.",
-              "products_text": "African Rhapsody, Aquatic Escape, Herbal Galaxy Renewal Soap, Sweet Madagascar, Melanin Popping, Turmeric Swirl, Charcoal Moment, Islander, Watermelon Fusion, and Zen Moment.",
-              "button_label": "EXPLORE THE SIGNATURE COLLECTION",
-              "fallback_link": "shopify://collections"
+              "label": "THE SIGNATURE COLLECTION",
+              "fallback_asset": "rb-col-signature.jpg",
+              "span": "tall",
+              "fallback_link": "/collections/signature"
             }
           },
           "common": {
             "type": "collection",
             "settings": {
               "collection": "common",
-              "title": "The Common Collection",
-              "short_line": "Elevated essentials for everyday care.",
-              "description": "Approachable, purposefully formulated herbal bars created for cleansing, hydration, comfort, renewal, and daily skincare rituals.",
-              "products_text": "Anti-Aging Herbal Soap, Aloe Vera Wave, Beef Tallow, Blissful Lavender, Detoxify, Citrus Heaven, and Calm.",
-              "button_label": "EXPLORE THE COMMON COLLECTION",
-              "fallback_link": "shopify://collections"
+              "label": "THE COMMON COLLECTION",
+              "fallback_asset": "rb-col-common.jpg",
+              "span": "standard",
+              "fallback_link": "/collections/common"
             }
           },
           "duke": {
             "type": "collection",
             "settings": {
               "collection": "royal-duke",
-              "title": "The Royal Duke Collection",
-              "short_line": "Distinguished herbal care for men.",
-              "description": "Rich, grounding, and confidently refined. Discover long-lasting aromas inspired by woods, oud, bamboo, amber, spice, and timeless masculine character.",
-              "products_text": "The Ethan, The Aristocrat, Woody, Bamboozled, and Teakwood.",
-              "button_label": "EXPLORE THE ROYAL DUKE COLLECTION",
-              "fallback_link": "shopify://collections"
+              "label": "THE ROYAL DUKE COLLECTION",
+              "fallback_asset": "rb-col-royal-duke.jpg",
+              "span": "standard",
+              "fallback_link": "/collections/royal-duke"
             }
           },
           "kid": {
             "type": "collection",
             "settings": {
               "collection": "royal-kid",
-              "title": "The Royal Kid Herbal Collection",
-              "short_line": "Gentle care for your littlest Royal Beings.",
-              "description": "Playful shapes, comforting aromas, and carefully selected ingredients come together to make bath time feel gentle, joyful, and special.",
-              "products_text": "The Chloe, The Bodhi, The Matthew, and The Iris.",
-              "button_label": "EXPLORE THE ROYAL KID COLLECTION",
-              "fallback_link": "shopify://collections"
+              "label": "THE ROYAL KID HERBAL COLLECTION",
+              "fallback_asset": "rb-col-royal-kid.jpg",
+              "span": "standard",
+              "fallback_link": "/collections/royal-kid"
             }
           }
         },
