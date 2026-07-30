@@ -146,7 +146,6 @@
     root.style.setProperty('--hero-tr', tr + 'ms');
     let i = 0;
     let timer = null;
-    let paused = false;
     let startX = 0;
 
     function go(n) {
@@ -164,20 +163,25 @@
     }
     function next() { go(i + 1); }
     function prev() { go(i - 1); }
-    function stop() { paused = true; if (timer) { clearInterval(timer); timer = null; } }
+    function pause() { if (timer) { clearInterval(timer); timer = null; } }
     function start() {
-      if (reduce || paused) return;
-      if (timer) clearInterval(timer);
+      if (reduce) return;
+      pause();
       timer = setInterval(next, interval);
     }
+    function userGo(fn) {
+      pause();
+      fn();
+      start();
+    }
 
-    root.querySelector('[data-hero-next]')?.addEventListener('click', () => { stop(); next(); });
-    root.querySelector('[data-hero-prev]')?.addEventListener('click', () => { stop(); prev(); });
-    dots.forEach((d) => d.addEventListener('click', () => { stop(); go(Number(d.dataset.heroDot)); }));
+    root.querySelector('[data-hero-next]')?.addEventListener('click', () => userGo(next));
+    root.querySelector('[data-hero-prev]')?.addEventListener('click', () => userGo(prev));
+    dots.forEach((d) => d.addEventListener('click', () => userGo(() => go(Number(d.dataset.heroDot)))));
 
     root.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') { stop(); next(); }
-      if (e.key === 'ArrowLeft') { stop(); prev(); }
+      if (e.key === 'ArrowRight') userGo(next);
+      if (e.key === 'ArrowLeft') userGo(prev);
     });
     root.setAttribute('tabindex', '0');
 
@@ -185,12 +189,13 @@
     root.addEventListener('touchend', (e) => {
       const dx = e.changedTouches[0].clientX - startX;
       if (Math.abs(dx) < 40) return;
-      stop();
-      if (dx < 0) next(); else prev();
+      userGo(() => { if (dx < 0) next(); else prev(); });
     }, { passive: true });
 
-    root.addEventListener('mouseenter', stop);
-    root.addEventListener('focusin', stop);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pause();
+      else start();
+    });
     start();
   });
 
