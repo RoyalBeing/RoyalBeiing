@@ -192,7 +192,62 @@ p{margin:0 0 1rem}
 .col-card__count{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;display:inline-flex;align-items:center;gap:8px}
 .col-card__count::before{content:"";width:22px;height:1px;background:var(--rb-gold-500)}
 
-/* ---------- Product cards ---------- */
+/* ---------- Featured product carousel ---------- */
+.pcar-section .sec-head{margin-bottom:clamp(24px,4vw,40px)}
+.pcar{position:relative;display:grid;grid-template-columns:44px 1fr 44px;gap:10px;align-items:center}
+.pcar__viewport{overflow:hidden;width:100%}
+.pcar__track{display:flex;transition:transform .55s var(--ease);will-change:transform}
+.pcar__slide{flex:0 0 auto;padding:0 8px;box-sizing:border-box}
+.pcar__nav{
+  width:44px;height:44px;border-radius:50%;border:1.5px solid var(--rb-line);
+  background:#fff;color:var(--rb-green-900);font-size:1.55rem;line-height:1;
+  display:grid;place-items:center;transition:border-color .2s,background .2s;
+}
+.pcar__nav:hover{border-color:var(--rb-green-900);background:var(--rb-ivory-50)}
+.pcar__nav:disabled{opacity:.35;cursor:default}
+.pcar__dots{display:flex;justify-content:center;gap:10px;margin-top:22px;flex-wrap:wrap}
+.pcar__dot{
+  width:10px;height:10px;border-radius:50%;padding:0;border:1.5px solid var(--rb-green-900);
+  background:transparent;transition:background .2s,transform .2s;
+}
+.pcar__dot.is-active{background:var(--rb-green-900);transform:scale(1.08)}
+
+.pcar-card{
+  display:flex;flex-direction:column;height:100%;text-align:center;
+  transition:transform .3s var(--ease);
+}
+.pcar-card:hover{transform:translateY(-3px)}
+.pcar-card__media{
+  position:relative;display:grid;place-items:center;aspect-ratio:1;
+  background:#fff;border:1px solid var(--rb-line);overflow:hidden;
+}
+.pcar-card__media img{
+  width:100%;height:100%;object-fit:contain;padding:12%;
+  transition:transform .6s var(--ease);
+}
+.pcar-card:hover .pcar-card__media img{transform:scale(1.04)}
+.pcar-card__sale{
+  position:absolute;top:10px;left:10px;z-index:2;
+  background:#c45c4a;color:#fff;font-size:.58rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;
+}
+.pcar-card__body{padding:16px 8px 4px;display:flex;flex-direction:column;gap:6px}
+.pcar-card__name{
+  font-family:var(--font-body);font-size:.72rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--rb-charcoal);line-height:1.35;
+}
+.pcar-card__price{font-size:.95rem;font-weight:600;color:var(--rb-charcoal)}
+.pcar-card__compare{margin-left:8px;font-weight:500;color:#8a8d82;text-decoration:line-through;font-size:.85em}
+
+@media(max-width:1024px){
+  .pcar__nav{width:40px;height:40px}
+}
+@media(max-width:860px){
+  .pcar{grid-template-columns:36px 1fr 36px;gap:6px}
+  .pcar__nav{width:36px;height:36px;font-size:1.35rem}
+}
+
+/* ---------- Product cards (collection/PDP grids) ---------- */
 .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:28px}
 .pcard{background:#fff;border:1px solid var(--rb-line);border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s}
 .pcard:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}

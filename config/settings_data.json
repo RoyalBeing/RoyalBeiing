@@ -215,9 +215,9 @@
           "eyebrow": "FEATURED RITUALS",
           "heading": "Find Your New Favourite Bar",
           "text": "Explore a curated selection of Royal Being herbal soaps, chosen from across our collections. Each bar offers its own combination of aroma, ingredients, character, and cleansing experience.",
-          "products_to_show": 8,
           "button_label": "SHOP ALL SOAPS",
-          "button_link": "shopify://collections/all"
+          "button_link": "shopify://collections/all",
+          "interval": 5000
         }
       },
       "product-spotlight": {

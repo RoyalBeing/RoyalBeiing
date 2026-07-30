@@ -1,27 +1,56 @@
-<section class="section" style="background:var(--rb-mist)" {{ section.shopify_attributes }}>
+<section
+  class="section section--compact pcar-section"
+  style="background:var(--rb-mist)"
+  data-product-carousel
+  data-interval="{{ section.settings.interval | default: 5000 }}"
+  {{ section.shopify_attributes }}
+>
   <div class="wrap">
     <div class="sec-head center reveal">
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
       <h2>{{ section.settings.heading }}</h2>
       {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
     </div>
-    <div class="product-grid reveal">
-      {%- liquid
-        assign col = collections[section.settings.collection]
-        assign limit = section.settings.products_to_show
-      -%}
-      {%- if col != blank -%}
-        {%- for product in col.products limit: limit -%}
-          {% render 'product-card', product: product %}
-        {%- endfor -%}
-      {%- else -%}
-        {%- for product in collections.all.products limit: limit -%}
-          {% render 'product-card', product: product %}
-        {%- endfor -%}
-      {%- endif -%}
+
+    {%- liquid
+      assign col = collections[section.settings.collection]
+      if col != blank
+        assign catalog = col.products
+      else
+        assign catalog = collections.all.products
+      endif
+    -%}
+
+    <div class="pcar reveal">
+      <button type="button" class="pcar__nav pcar__nav--prev" data-pcar-prev aria-label="Previous products">
+        <span aria-hidden="true">‹</span>
+      </button>
+
+      <div class="pcar__viewport">
+        <div class="pcar__track" data-pcar-track>
+          {%- comment -%} Active / available products first {%- endcomment -%}
+          {%- for product in catalog -%}
+            {%- if product.available -%}
+              <div class="pcar__slide" data-pcar-slide>{% render 'product-card-carousel', product: product %}</div>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- for product in catalog -%}
+            {%- unless product.available -%}
+              <div class="pcar__slide" data-pcar-slide>{% render 'product-card-carousel', product: product %}</div>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <button type="button" class="pcar__nav pcar__nav--next" data-pcar-next aria-label="Next products">
+        <span aria-hidden="true">›</span>
+      </button>
     </div>
+
+    <div class="pcar__dots" data-pcar-dots role="tablist" aria-label="Product pages"></div>
+
     {%- if section.settings.button_label != blank -%}
-      <div class="center" style="margin-top:40px">
+      <div class="center" style="margin-top:28px">
         <a class="btn btn-outline" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
       </div>
     {%- endif -%}
@@ -36,7 +65,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Find Your New Favourite Bar" },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Explore a curated selection of Royal Being herbal soaps, chosen from across our collections. Each bar offers its own combination of aroma, ingredients, character, and cleansing experience." },
     { "type": "collection", "id": "collection", "label": "Collection (optional — leave blank for all)" },
-    { "type": "range", "id": "products_to_show", "min": 4, "max": 16, "step": 1, "label": "Products to show", "default": 8 },
+    { "type": "range", "id": "interval", "min": 3000, "max": 8000, "step": 500, "unit": "ms", "label": "Auto-rotate interval", "default": 5000 },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "SHOP ALL SOAPS" },
     { "type": "url", "id": "button_link", "label": "Button link" }
   ],

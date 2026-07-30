@@ -247,6 +247,99 @@
     wrap.setAttribute('aria-label', 'Play promotional film');
   });
 
+  /* Featured product carousel */
+  $$('[data-product-carousel]').forEach((root) => {
+    const track = root.querySelector('[data-pcar-track]');
+    const viewport = root.querySelector('.pcar__viewport');
+    const slides = $$('[data-pcar-slide]', root);
+    const dotsWrap = root.querySelector('[data-pcar-dots]');
+    const prevBtn = root.querySelector('[data-pcar-prev]');
+    const nextBtn = root.querySelector('[data-pcar-next]');
+    if (!track || !viewport || slides.length === 0) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const interval = Number(root.dataset.interval) || 5000;
+    let page = 0;
+    let timer = null;
+    let paused = false;
+
+    function perView() {
+      const w = window.innerWidth;
+      if (w <= 560) return 1;
+      if (w <= 860) return 2;
+      if (w <= 1024) return 3;
+      return 4;
+    }
+
+    function pageCount() {
+      return Math.max(1, Math.ceil(slides.length / perView()));
+    }
+
+    function layout() {
+      const pv = perView();
+      const slideW = viewport.clientWidth / pv;
+      slides.forEach((s) => {
+        s.style.flex = '0 0 ' + slideW + 'px';
+        s.style.width = slideW + 'px';
+      });
+    }
+
+    function renderDots() {
+      if (!dotsWrap) return;
+      const n = pageCount();
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pcar__dot' + (i === page ? ' is-active' : '');
+        b.setAttribute('aria-label', 'Go to products page ' + (i + 1));
+        b.setAttribute('aria-selected', i === page ? 'true' : 'false');
+        b.addEventListener('click', () => { stop(); go(i); });
+        dotsWrap.appendChild(b);
+      }
+    }
+
+    function go(p) {
+      const max = pageCount() - 1;
+      page = ((p % (max + 1)) + (max + 1)) % (max + 1);
+      track.style.transform = 'translateX(-' + (page * viewport.clientWidth) + 'px)';
+      $$('.pcar__dot', root).forEach((d, i) => {
+        d.classList.toggle('is-active', i === page);
+        d.setAttribute('aria-selected', i === page ? 'true' : 'false');
+      });
+    }
+
+    function next() { go(page + 1); }
+    function prev() { go(page - 1); }
+    function stop() { paused = true; if (timer) { clearInterval(timer); timer = null; } }
+    function start() {
+      if (reduce || paused || pageCount() < 2) return;
+      if (timer) clearInterval(timer);
+      timer = setInterval(next, interval);
+    }
+
+    function refresh() {
+      layout();
+      if (page > pageCount() - 1) page = pageCount() - 1;
+      renderDots();
+      go(page);
+    }
+
+    prevBtn && prevBtn.addEventListener('click', () => { stop(); prev(); });
+    nextBtn && nextBtn.addEventListener('click', () => { stop(); next(); });
+    root.addEventListener('mouseenter', () => { if (timer) { clearInterval(timer); timer = null; } });
+    root.addEventListener('mouseleave', () => { if (!paused) start(); });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(refresh, 150);
+    });
+
+    refresh();
+    start();
+  });
+
   $$('.pdp__thumbs button').forEach((b) => b.addEventListener('click', () => {
     const main = $('#pdp-main-img');
     if (main && b.dataset.img) main.innerHTML = `<img src="${b.dataset.img}" alt="${b.dataset.alt || ''}">`;

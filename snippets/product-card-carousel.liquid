@@ -1,0 +1,40 @@
+{%- comment -%} Minimal carousel product card — name + price, whole card links to PDP {%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign on_sale = false
+  if variant.compare_at_price > variant.price
+    assign on_sale = true
+  endif
+-%}
+<a class="pcar-card" href="{{ product.url }}" data-product-id="{{ product.id }}">
+  <span class="pcar-card__media">
+    {%- if on_sale -%}
+      <span class="pcar-card__sale">Sale</span>
+    {%- endif -%}
+    {%- if product.featured_media -%}
+      <img
+        src="{{ product.featured_media | image_url: width: 800 }}"
+        alt="{{ product.featured_media.alt | default: product.title | escape }}"
+        loading="lazy"
+        width="{{ product.featured_media.width }}"
+        height="{{ product.featured_media.height }}"
+      >
+    {%- else -%}
+      {%- capture rb_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
+      {%- if rb_img != blank -%}
+        <img src="{{ rb_img | strip }}" alt="{{ product.title | escape }}" loading="lazy" width="800" height="800">
+      {%- else -%}
+        <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+      {%- endif -%}
+    {%- endif -%}
+  </span>
+  <span class="pcar-card__body">
+    <span class="pcar-card__name">{{ product.title }}</span>
+    <span class="pcar-card__price">
+      {{ variant.price | money }}
+      {%- if on_sale -%}
+        <s class="pcar-card__compare">{{ variant.compare_at_price | money }}</s>
+      {%- endif -%}
+    </span>
+  </span>
+</a>
