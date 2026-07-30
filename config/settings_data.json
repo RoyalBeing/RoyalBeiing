@@ -224,8 +224,6 @@
         "type": "product-spotlight",
         "settings": {
           "product": "watermelon-fusion",
-          "reverse": true,
-          "show_film_below": true,
           "eyebrow": "A SIGNATURE ESCAPE",
           "heading": "Watermelon Fusion",
           "subheading": "The Ritual of Being",
@@ -235,8 +233,6 @@
           "meta_weight": "6.7 oz",
           "meta_sku": "WM-ORG-BR-04-ST",
           "button_label": "SHOP WATERMELON FUSION",
-          "button2_label": "WATCH THE WATERMELON FILM",
-          "button2_link": "#watermelon-film",
           "video_url": "https://cdn.shopify.com/videos/c/o/v/4ea7ed019d114331a66343175f778527.mp4"
         }
       },
