@@ -219,7 +219,7 @@ p{margin:0 0 1rem}
 .pcar-card:hover{transform:translateY(-3px)}
 .pcar-card__media{
   position:relative;display:grid;place-items:center;aspect-ratio:1;
-  background:#fff;border:1px solid var(--rb-line);overflow:hidden;
+  background:var(--rb-mist);overflow:hidden;
 }
 .pcar-card__media img{
   width:100%;height:100%;object-fit:contain;padding:12%;
