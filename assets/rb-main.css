@@ -458,9 +458,49 @@ p{margin:0 0 1rem}
 .hero__dots{display:flex;gap:10px;justify-content:center;flex:1}
 .hero__dot{width:10px;height:10px;border-radius:50%;border:none;background:rgba(255,255,255,.4);padding:0}
 .hero__dot.is-active{background:var(--rb-gold-500);transform:scale(1.15)}
+
+/* Split cream-panel heroes (collection banners) */
+.hero--split{background:var(--rb-ivory-50)}
+.hero--split .hero__slide{align-items:stretch}
+.hero--split .hero__media img{object-fit:cover;width:100%;height:100%}
+.hero--split .hero__panel{
+  position:absolute;inset:0;z-index:2;display:flex;align-items:center;
+  pointer-events:none;padding-inline:var(--pad-x);
+}
+.hero--split .hero__inner{
+  pointer-events:auto;max-width:min(520px,42vw);padding:clamp(24px,4vw,48px) 0;
+  color:var(--rb-charcoal);padding-bottom:clamp(24px,4vw,48px);
+}
+.hero--split .hero__inner .eyebrow{color:var(--rb-gold-600);margin-bottom:12px}
+.hero--split .hero__inner h1{
+  color:var(--rb-green-900);font-size:clamp(2rem,3.8vw,3.35rem);margin-bottom:14px;line-height:1.12;
+}
+.hero--split .hero__inner p{color:#55584f;font-size:clamp(.95rem,1.2vw,1.08rem);max-width:40ch;margin:0}
+.hero--split .hero__cta{margin-top:22px}
+.hero__slide--panel-left .hero__panel{justify-content:flex-start}
+.hero__slide--panel-right .hero__panel{justify-content:flex-end}
+.hero__slide--panel-right .hero__inner{text-align:left}
+
+@media(max-width:900px){
+  .hero--split .hero__inner{max-width:min(420px,48vw)}
+  .hero--split .hero__inner h1{font-size:clamp(1.7rem,4.2vw,2.4rem)}
+}
 @media(max-width:640px){
   .hero--slider{min-height:min(78vh,620px)}
   .hero__nav{width:40px;height:40px}
+  .hero--split{min-height:min(85vh,680px)}
+  .hero--split .hero__panel{
+    align-items:flex-end;background:linear-gradient(180deg,rgba(250,247,240,0) 28%,rgba(250,247,240,.92) 58%,var(--rb-ivory-50) 100%);
+    padding-bottom:clamp(56px,12vw,80px);
+  }
+  .hero__slide--panel-left .hero__panel,
+  .hero__slide--panel-right .hero__panel{justify-content:flex-start}
+  .hero--split .hero__inner{max-width:100%;padding-inline:0}
+  .hero--split .hero__inner h1{font-size:clamp(1.75rem,7vw,2.2rem)}
+  .hero--split .hero__cta .btn{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero__slide{transition:none}
 }
 
 .trust--benefits{padding-block:clamp(28px,4vw,40px)}

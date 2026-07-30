@@ -33,40 +33,44 @@
       },
       "hero": {
         "type": "hero",
-        "settings": {
-          "aria_label": "Featured promotions",
-          "interval": 5500,
-          "transition": 600
-        },
         "blocks": {
           "slide1": {
             "type": "slide",
             "settings": {
-              "eyebrow": "LUXURY SKINCARE & WELLNESS",
-              "heading": "Royal Being \u2014 The Ritual of Being",
-              "text": "Elevate your daily cleansing into a sacred spa ritual.",
-              "button_label": "SHOP ALL SOAPS",
-              "button_link": "shopify://collections/all"
+              "fallback_asset": "rb-hero-royal.jpg",
+              "panel": "left",
+              "object_position": "78% center",
+              "eyebrow": "THE ROYAL COLLECTION",
+              "heading": "Turn Your Daily Cleanse Into a Royal Ritual",
+              "text": "Luxurious herbal soaps, handmade in small batches to nourish your skin and elevate every moment of self-care.",
+              "button_label": "SHOP THE ROYAL COLLECTION",
+              "button_link": "/collections/royal"
             }
           },
           "slide2": {
             "type": "slide",
             "settings": {
-              "eyebrow": "MADE WITH INTENTION",
-              "heading": "Handmade in Small Batches",
-              "text": "All-natural, hand-poured herbal soaps made to last.",
-              "button_label": "EXPLORE COLLECTIONS",
-              "button_link": "shopify://collections"
+              "fallback_asset": "rb-hero-duke.jpg",
+              "panel": "right",
+              "object_position": "18% center",
+              "eyebrow": "THE ROYAL DUKE COLLECTION",
+              "heading": "Refined Care for the Modern Gentleman",
+              "text": "Bold, long-lasting herbal bars with rich woods, warm spices, and distinguished character.",
+              "button_label": "SHOP THE ROYAL DUKE COLLECTION",
+              "button_link": "/collections/royal-duke"
             }
           },
           "slide3": {
             "type": "slide",
             "settings": {
-              "eyebrow": "FOR EVERY ROYAL BEING",
-              "heading": "A Ritual for Every Royal Being",
-              "text": "Luxury herbal soaps for women, men, and children.",
-              "button_label": "FIND YOUR COLLECTION",
-              "button_link": "shopify://collections"
+              "fallback_asset": "rb-hero-kid.jpg",
+              "panel": "left",
+              "object_position": "82% center",
+              "eyebrow": "THE ROYAL KID HERBAL COLLECTION",
+              "heading": "Gentle Rituals for Little Royal Beings",
+              "text": "Thoughtfully crafted herbal soaps created to make bath time gentle, joyful, and special.",
+              "button_label": "SHOP THE KIDS COLLECTION",
+              "button_link": "/collections/royal-kid"
             }
           }
         },
@@ -74,7 +78,12 @@
           "slide1",
           "slide2",
           "slide3"
-        ]
+        ],
+        "settings": {
+          "aria_label": "Featured collections",
+          "interval": 5500,
+          "transition": 600
+        }
       },
       "trust-bar": {
         "type": "trust-bar",

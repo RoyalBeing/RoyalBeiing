@@ -4,12 +4,12 @@
   assign slide_count = section.blocks.size
 -%}
 <section
-  class="hero hero--slider"
+  class="hero hero--slider hero--split"
   data-hero-slider
   data-interval="{{ interval }}"
   data-transition="{{ transition }}"
   aria-roledescription="carousel"
-  aria-label="{{ section.settings.aria_label | default: 'Featured promotions' | escape }}"
+  aria-label="{{ section.settings.aria_label | default: 'Featured collections' | escape }}"
   {{ section.shopify_attributes }}
 >
   <div class="hero__slides">
@@ -21,9 +21,12 @@
           if mobile == blank
             assign mobile = desktop
           endif
+          assign panel = block.settings.panel | default: 'left'
+          assign objpos = block.settings.object_position | default: 'center'
+          assign fallback = block.settings.fallback_asset
         -%}
         <div
-          class="hero__slide{% if forloop.first %} is-active{% endif %}"
+          class="hero__slide hero__slide--panel-{{ panel }}{% if forloop.first %} is-active{% endif %}"
           data-slide
           role="group"
           aria-roledescription="slide"
@@ -44,64 +47,76 @@
                   alt="{{ desktop.alt | default: block.settings.heading | escape }}"
                   width="{{ desktop.width }}"
                   height="{{ desktop.height }}"
+                  style="object-position: {{ objpos }}"
                   {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
                 >
               </picture>
+            {%- elsif fallback != blank -%}
+              <img
+                src="{{ fallback | asset_url }}"
+                alt="{{ block.settings.heading | escape }}"
+                width="2048"
+                height="938"
+                style="object-position: {{ objpos }}"
+                {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
+              >
             {%- else -%}
-              {%- liquid
-                assign fallback = 'rb-hero.jpg'
-                if forloop.index == 2
-                  assign fallback = 'rb-ritual.jpg'
-                elsif forloop.index == 3
-                  assign fallback = 'rb-lifestyle-man.jpg'
-                endif
-              -%}
-              <img src="{{ fallback | asset_url }}" alt="{{ block.settings.heading | escape }}" width="2400" height="1600" {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+              <img src="{{ 'rb-hero-royal.jpg' | asset_url }}" alt="{{ block.settings.heading | escape }}" width="2048" height="938" style="object-position: {{ objpos }}" loading="eager">
             {%- endif -%}
           </div>
-          <div class="hero__scrim"></div>
-          <div class="hero__inner wrap">
-            {%- if block.settings.eyebrow != blank -%}<p class="eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
-            {%- if block.settings.heading != blank -%}<h1>{{ block.settings.heading }}</h1>{%- endif -%}
-            {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
-            {%- if block.settings.button_label != blank -%}
-              <div class="hero__cta">
-                <a class="btn btn-gold" href="{{ block.settings.button_link | default: routes.all_products_collection_url }}">{{ block.settings.button_label }}</a>
-              </div>
-            {%- endif -%}
+          <div class="hero__panel">
+            <div class="hero__inner">
+              {%- if block.settings.eyebrow != blank -%}<p class="eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
+              {%- if block.settings.heading != blank -%}<h1>{{ block.settings.heading }}</h1>{%- endif -%}
+              {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+              {%- if block.settings.button_label != blank -%}
+                <div class="hero__cta">
+                  <a class="btn {% if panel == 'right' %}btn-gold{% else %}btn-outline{% endif %}" href="{{ block.settings.button_link | default: routes.collections_url }}">{{ block.settings.button_label }}</a>
+                </div>
+              {%- endif -%}
+            </div>
           </div>
         </div>
       {%- endfor -%}
     {%- else -%}
-      {%- comment -%}Fallback when Theme Editor has no slide blocks (old homepage config){%- endcomment -%}
-      <div class="hero__slide is-active" data-slide role="group" aria-roledescription="slide" aria-label="1 of 3">
-        <div class="hero__media"><img src="{{ 'rb-hero.jpg' | asset_url }}" alt="Royal Being" width="2400" height="1600" loading="eager" fetchpriority="high"></div>
-        <div class="hero__scrim"></div>
-        <div class="hero__inner wrap">
-          <p class="eyebrow">LUXURY SKINCARE & WELLNESS</p>
-          <h1>Royal Being — The Ritual of Being</h1>
-          <p>Elevate your daily cleansing into a sacred spa ritual.</p>
-          <div class="hero__cta"><a class="btn btn-gold" href="{{ routes.all_products_collection_url }}">SHOP ALL SOAPS</a></div>
+      {%- comment -%}Default three collection slides{%- endcomment -%}
+      <div class="hero__slide hero__slide--panel-left is-active" data-slide role="group" aria-roledescription="slide" aria-label="1 of 3">
+        <div class="hero__media">
+          <img src="{{ 'rb-hero-royal.jpg' | asset_url }}" alt="The Royal Collection" width="2048" height="938" style="object-position: 78% center" loading="eager" fetchpriority="high">
+        </div>
+        <div class="hero__panel">
+          <div class="hero__inner">
+            <p class="eyebrow">THE ROYAL COLLECTION</p>
+            <h1>Turn Your Daily Cleanse Into a Royal Ritual</h1>
+            <p>Luxurious herbal soaps, handmade in small batches to nourish your skin and elevate every moment of self-care.</p>
+            <div class="hero__cta"><a class="btn btn-outline" href="/collections/royal">SHOP THE ROYAL COLLECTION</a></div>
+          </div>
         </div>
       </div>
-      <div class="hero__slide" data-slide role="group" aria-roledescription="slide" aria-label="2 of 3" aria-hidden="true">
-        <div class="hero__media"><img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="Handmade soaps" width="2400" height="1600" loading="lazy"></div>
-        <div class="hero__scrim"></div>
-        <div class="hero__inner wrap">
-          <p class="eyebrow">MADE WITH INTENTION</p>
-          <h1>Handmade in Small Batches</h1>
-          <p>All-natural, hand-poured herbal soaps made to last.</p>
-          <div class="hero__cta"><a class="btn btn-gold" href="{{ routes.collections_url }}">EXPLORE COLLECTIONS</a></div>
+      <div class="hero__slide hero__slide--panel-right" data-slide role="group" aria-roledescription="slide" aria-label="2 of 3" aria-hidden="true">
+        <div class="hero__media">
+          <img src="{{ 'rb-hero-duke.jpg' | asset_url }}" alt="The Royal Duke Collection" width="2048" height="936" style="object-position: 18% center" loading="lazy">
+        </div>
+        <div class="hero__panel">
+          <div class="hero__inner">
+            <p class="eyebrow">THE ROYAL DUKE COLLECTION</p>
+            <h1>Refined Care for the Modern Gentleman</h1>
+            <p>Bold, long-lasting herbal bars with rich woods, warm spices, and distinguished character.</p>
+            <div class="hero__cta"><a class="btn btn-gold" href="/collections/royal-duke">SHOP THE ROYAL DUKE COLLECTION</a></div>
+          </div>
         </div>
       </div>
-      <div class="hero__slide" data-slide role="group" aria-roledescription="slide" aria-label="3 of 3" aria-hidden="true">
-        <div class="hero__media"><img src="{{ 'rb-lifestyle-man.jpg' | asset_url }}" alt="Ritual for every Royal Being" width="2400" height="1600" loading="lazy"></div>
-        <div class="hero__scrim"></div>
-        <div class="hero__inner wrap">
-          <p class="eyebrow">FOR EVERY ROYAL BEING</p>
-          <h1>A Ritual for Every Royal Being</h1>
-          <p>Luxury herbal soaps for women, men, and children.</p>
-          <div class="hero__cta"><a class="btn btn-gold" href="{{ routes.collections_url }}">FIND YOUR COLLECTION</a></div>
+      <div class="hero__slide hero__slide--panel-left" data-slide role="group" aria-roledescription="slide" aria-label="3 of 3" aria-hidden="true">
+        <div class="hero__media">
+          <img src="{{ 'rb-hero-kid.jpg' | asset_url }}" alt="The Royal Kid Herbal Collection" width="2048" height="936" style="object-position: 82% center" loading="lazy">
+        </div>
+        <div class="hero__panel">
+          <div class="hero__inner">
+            <p class="eyebrow">THE ROYAL KID HERBAL COLLECTION</p>
+            <h1>Gentle Rituals for Little Royal Beings</h1>
+            <p>Thoughtfully crafted herbal soaps created to make bath time gentle, joyful, and special.</p>
+            <div class="hero__cta"><a class="btn btn-outline" href="/collections/royal-kid">SHOP THE KIDS COLLECTION</a></div>
+          </div>
         </div>
       </div>
     {%- endif -%}
@@ -128,7 +143,7 @@
   "tag": "section",
   "max_blocks": 3,
   "settings": [
-    { "type": "text", "id": "aria_label", "label": "Carousel label", "default": "Featured promotions" },
+    { "type": "text", "id": "aria_label", "label": "Carousel label", "default": "Featured collections" },
     { "type": "range", "id": "interval", "min": 4000, "max": 8000, "step": 500, "unit": "ms", "label": "Autoplay interval", "default": 5500 },
     { "type": "range", "id": "transition", "min": 400, "max": 800, "step": 100, "unit": "ms", "label": "Transition duration", "default": 600 }
   ],
@@ -139,10 +154,16 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Desktop image" },
         { "type": "image_picker", "id": "image_mobile", "label": "Mobile image (optional)" },
-        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "LUXURY SKINCARE & WELLNESS" },
-        { "type": "text", "id": "heading", "label": "Heading", "default": "Royal Being — The Ritual of Being" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Elevate your daily cleansing into a sacred spa ritual." },
-        { "type": "text", "id": "button_label", "label": "Button label", "default": "SHOP ALL SOAPS" },
+        { "type": "text", "id": "fallback_asset", "label": "Theme asset filename fallback", "info": "e.g. rb-hero-royal.jpg" },
+        { "type": "select", "id": "panel", "label": "Text panel side", "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "right", "label": "Right" }
+        ], "default": "left" },
+        { "type": "text", "id": "object_position", "label": "Image object-position", "default": "center", "info": "e.g. 78% center" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE ROYAL COLLECTION" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Turn Your Daily Cleanse Into a Royal Ritual" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Luxurious herbal soaps, handmade in small batches to nourish your skin and elevate every moment of self-care." },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "SHOP THE ROYAL COLLECTION" },
         { "type": "url", "id": "button_link", "label": "Button link" }
       ]
     }
@@ -151,9 +172,42 @@
     {
       "name": "Hero slider",
       "blocks": [
-        { "type": "slide", "settings": { "eyebrow": "LUXURY SKINCARE & WELLNESS", "heading": "Royal Being — The Ritual of Being", "text": "Elevate your daily cleansing into a sacred spa ritual.", "button_label": "SHOP ALL SOAPS" } },
-        { "type": "slide", "settings": { "eyebrow": "MADE WITH INTENTION", "heading": "Handmade in Small Batches", "text": "All-natural, hand-poured herbal soaps made to last.", "button_label": "EXPLORE COLLECTIONS" } },
-        { "type": "slide", "settings": { "eyebrow": "FOR EVERY ROYAL BEING", "heading": "A Ritual for Every Royal Being", "text": "Luxury herbal soaps for women, men, and children.", "button_label": "FIND YOUR COLLECTION" } }
+        {
+          "type": "slide",
+          "settings": {
+            "fallback_asset": "rb-hero-royal.jpg",
+            "panel": "left",
+            "object_position": "78% center",
+            "eyebrow": "THE ROYAL COLLECTION",
+            "heading": "Turn Your Daily Cleanse Into a Royal Ritual",
+            "text": "Luxurious herbal soaps, handmade in small batches to nourish your skin and elevate every moment of self-care.",
+            "button_label": "SHOP THE ROYAL COLLECTION"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "fallback_asset": "rb-hero-duke.jpg",
+            "panel": "right",
+            "object_position": "18% center",
+            "eyebrow": "THE ROYAL DUKE COLLECTION",
+            "heading": "Refined Care for the Modern Gentleman",
+            "text": "Bold, long-lasting herbal bars with rich woods, warm spices, and distinguished character.",
+            "button_label": "SHOP THE ROYAL DUKE COLLECTION"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "fallback_asset": "rb-hero-kid.jpg",
+            "panel": "left",
+            "object_position": "82% center",
+            "eyebrow": "THE ROYAL KID HERBAL COLLECTION",
+            "heading": "Gentle Rituals for Little Royal Beings",
+            "text": "Thoughtfully crafted herbal soaps created to make bath time gentle, joyful, and special.",
+            "button_label": "SHOP THE KIDS COLLECTION"
+          }
+        }
       ]
     }
   ]
