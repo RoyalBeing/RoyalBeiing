@@ -1,6 +1,7 @@
 {%- liquid
   assign interval = section.settings.interval | default: 5500
   assign transition = section.settings.transition | default: 600
+  assign slide_count = section.blocks.size
 -%}
 <section
   class="hero hero--slider"
@@ -12,92 +13,111 @@
   {{ section.shopify_attributes }}
 >
   <div class="hero__slides">
-    {%- for block in section.blocks -%}
-      {%- liquid
-        assign desktop = block.settings.image
-        assign mobile = block.settings.image_mobile
-        if mobile == blank
-          assign mobile = desktop
-        endif
-      -%}
-      <div
-        class="hero__slide{% if forloop.first %} is-active{% endif %}"
-        data-slide
-        role="group"
-        aria-roledescription="slide"
-        aria-label="{{ forloop.index }} of {{ section.blocks.size }}"
-        {{ block.shopify_attributes }}
-        {% unless forloop.first %}aria-hidden="true"{% endunless %}
-      >
-        <div class="hero__media">
-          {%- if desktop != blank -%}
-            <picture>
-              {%- if block.settings.image_mobile != blank -%}
-                <source media="(max-width: 749px)" srcset="{{ mobile | image_url: width: 1200 }}">
-              {%- endif -%}
-              <img
-                src="{{ desktop | image_url: width: 2400 }}"
-                srcset="{{ desktop | image_url: width: 900 }} 900w, {{ desktop | image_url: width: 1400 }} 1400w, {{ desktop | image_url: width: 2000 }} 2000w, {{ desktop | image_url: width: 2400 }} 2400w"
-                sizes="100vw"
-                alt="{{ desktop.alt | default: block.settings.heading | escape }}"
-                width="{{ desktop.width }}"
-                height="{{ desktop.height }}"
-                {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
-              >
-            </picture>
-          {%- else -%}
-            {%- liquid
-              assign fallback = 'rb-hero.jpg'
-              if forloop.index == 2
-                assign fallback = 'rb-ritual.jpg'
-              elsif forloop.index == 3
-                assign fallback = 'rb-lifestyle-man.jpg'
-              endif
-            -%}
-            <img
-              src="{{ fallback | asset_url }}"
-              alt="{{ block.settings.heading | escape }}"
-              width="2400"
-              height="1600"
-              {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
-            >
-          {%- endif -%}
+    {%- if slide_count > 0 -%}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign desktop = block.settings.image
+          assign mobile = block.settings.image_mobile
+          if mobile == blank
+            assign mobile = desktop
+          endif
+        -%}
+        <div
+          class="hero__slide{% if forloop.first %} is-active{% endif %}"
+          data-slide
+          role="group"
+          aria-roledescription="slide"
+          aria-label="{{ forloop.index }} of {{ slide_count }}"
+          {{ block.shopify_attributes }}
+          {% unless forloop.first %}aria-hidden="true"{% endunless %}
+        >
+          <div class="hero__media">
+            {%- if desktop != blank -%}
+              <picture>
+                {%- if block.settings.image_mobile != blank -%}
+                  <source media="(max-width: 749px)" srcset="{{ mobile | image_url: width: 1200 }}">
+                {%- endif -%}
+                <img
+                  src="{{ desktop | image_url: width: 2400 }}"
+                  srcset="{{ desktop | image_url: width: 900 }} 900w, {{ desktop | image_url: width: 1400 }} 1400w, {{ desktop | image_url: width: 2000 }} 2000w, {{ desktop | image_url: width: 2400 }} 2400w"
+                  sizes="100vw"
+                  alt="{{ desktop.alt | default: block.settings.heading | escape }}"
+                  width="{{ desktop.width }}"
+                  height="{{ desktop.height }}"
+                  {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
+                >
+              </picture>
+            {%- else -%}
+              {%- liquid
+                assign fallback = 'rb-hero.jpg'
+                if forloop.index == 2
+                  assign fallback = 'rb-ritual.jpg'
+                elsif forloop.index == 3
+                  assign fallback = 'rb-lifestyle-man.jpg'
+                endif
+              -%}
+              <img src="{{ fallback | asset_url }}" alt="{{ block.settings.heading | escape }}" width="2400" height="1600" {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+            {%- endif -%}
+          </div>
+          <div class="hero__scrim"></div>
+          <div class="hero__inner wrap">
+            {%- if block.settings.eyebrow != blank -%}<p class="eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
+            {%- if block.settings.heading != blank -%}<h1>{{ block.settings.heading }}</h1>{%- endif -%}
+            {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+            {%- if block.settings.button_label != blank -%}
+              <div class="hero__cta">
+                <a class="btn btn-gold" href="{{ block.settings.button_link | default: routes.all_products_collection_url }}">{{ block.settings.button_label }}</a>
+              </div>
+            {%- endif -%}
+          </div>
         </div>
+      {%- endfor -%}
+    {%- else -%}
+      {%- comment -%}Fallback when Theme Editor has no slide blocks (old homepage config){%- endcomment -%}
+      <div class="hero__slide is-active" data-slide role="group" aria-roledescription="slide" aria-label="1 of 3">
+        <div class="hero__media"><img src="{{ 'rb-hero.jpg' | asset_url }}" alt="Royal Being" width="2400" height="1600" loading="eager" fetchpriority="high"></div>
         <div class="hero__scrim"></div>
         <div class="hero__inner wrap">
-          {%- if block.settings.eyebrow != blank -%}<p class="eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
-          {%- if block.settings.heading != blank -%}<h1>{{ block.settings.heading }}</h1>{%- endif -%}
-          {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
-          {%- if block.settings.button_label != blank -%}
-            <div class="hero__cta">
-              <a class="btn btn-gold" href="{{ block.settings.button_link | default: routes.all_products_collection_url }}">{{ block.settings.button_label }}</a>
-            </div>
-          {%- endif -%}
+          <p class="eyebrow">LUXURY SKINCARE & WELLNESS</p>
+          <h1>Royal Being — The Ritual of Being</h1>
+          <p>Elevate your daily cleansing into a sacred spa ritual.</p>
+          <div class="hero__cta"><a class="btn btn-gold" href="{{ routes.all_products_collection_url }}">SHOP ALL SOAPS</a></div>
         </div>
       </div>
-    {%- endfor -%}
+      <div class="hero__slide" data-slide role="group" aria-roledescription="slide" aria-label="2 of 3" aria-hidden="true">
+        <div class="hero__media"><img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="Handmade soaps" width="2400" height="1600" loading="lazy"></div>
+        <div class="hero__scrim"></div>
+        <div class="hero__inner wrap">
+          <p class="eyebrow">MADE WITH INTENTION</p>
+          <h1>Handmade in Small Batches</h1>
+          <p>All-natural, hand-poured herbal soaps made to last.</p>
+          <div class="hero__cta"><a class="btn btn-gold" href="{{ routes.collections_url }}">EXPLORE COLLECTIONS</a></div>
+        </div>
+      </div>
+      <div class="hero__slide" data-slide role="group" aria-roledescription="slide" aria-label="3 of 3" aria-hidden="true">
+        <div class="hero__media"><img src="{{ 'rb-lifestyle-man.jpg' | asset_url }}" alt="Ritual for every Royal Being" width="2400" height="1600" loading="lazy"></div>
+        <div class="hero__scrim"></div>
+        <div class="hero__inner wrap">
+          <p class="eyebrow">FOR EVERY ROYAL BEING</p>
+          <h1>A Ritual for Every Royal Being</h1>
+          <p>Luxury herbal soaps for women, men, and children.</p>
+          <div class="hero__cta"><a class="btn btn-gold" href="{{ routes.collections_url }}">FIND YOUR COLLECTION</a></div>
+        </div>
+      </div>
+    {%- endif -%}
   </div>
 
-  {%- if section.blocks.size > 1 -%}
+  {%- assign control_count = slide_count -%}
+  {%- if control_count == 0 -%}{%- assign control_count = 3 -%}{%- endif -%}
+  {%- if control_count > 1 -%}
     <div class="hero__controls wrap">
-      <button type="button" class="hero__nav hero__nav--prev" data-hero-prev aria-label="Previous slide">
-        <span aria-hidden="true">‹</span>
-      </button>
+      <button type="button" class="hero__nav hero__nav--prev" data-hero-prev aria-label="Previous slide"><span aria-hidden="true">‹</span></button>
       <div class="hero__dots" role="tablist" aria-label="Slide pagination">
-        {%- for block in section.blocks -%}
-          <button
-            type="button"
-            class="hero__dot{% if forloop.first %} is-active{% endif %}"
-            data-hero-dot="{{ forloop.index0 }}"
-            role="tab"
-            aria-label="Go to slide {{ forloop.index }}"
-            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-          ></button>
+        {%- for i in (1..control_count) -%}
+          <button type="button" class="hero__dot{% if forloop.first %} is-active{% endif %}" data-hero-dot="{{ forloop.index0 }}" role="tab" aria-label="Go to slide {{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"></button>
         {%- endfor -%}
       </div>
-      <button type="button" class="hero__nav hero__nav--next" data-hero-next aria-label="Next slide">
-        <span aria-hidden="true">›</span>
-      </button>
+      <button type="button" class="hero__nav hero__nav--next" data-hero-next aria-label="Next slide"><span aria-hidden="true">›</span></button>
     </div>
   {%- endif -%}
 </section>
@@ -131,33 +151,9 @@
     {
       "name": "Hero slider",
       "blocks": [
-        {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "LUXURY SKINCARE & WELLNESS",
-            "heading": "Royal Being — The Ritual of Being",
-            "text": "Elevate your daily cleansing into a sacred spa ritual.",
-            "button_label": "SHOP ALL SOAPS"
-          }
-        },
-        {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "MADE WITH INTENTION",
-            "heading": "Handmade in Small Batches",
-            "text": "All-natural, hand-poured herbal soaps made to last.",
-            "button_label": "EXPLORE COLLECTIONS"
-          }
-        },
-        {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "FOR EVERY ROYAL BEING",
-            "heading": "A Ritual for Every Royal Being",
-            "text": "Luxury herbal soaps for women, men, and children.",
-            "button_label": "FIND YOUR COLLECTION"
-          }
-        }
+        { "type": "slide", "settings": { "eyebrow": "LUXURY SKINCARE & WELLNESS", "heading": "Royal Being — The Ritual of Being", "text": "Elevate your daily cleansing into a sacred spa ritual.", "button_label": "SHOP ALL SOAPS" } },
+        { "type": "slide", "settings": { "eyebrow": "MADE WITH INTENTION", "heading": "Handmade in Small Batches", "text": "All-natural, hand-poured herbal soaps made to last.", "button_label": "EXPLORE COLLECTIONS" } },
+        { "type": "slide", "settings": { "eyebrow": "FOR EVERY ROYAL BEING", "heading": "A Ritual for Every Royal Being", "text": "Luxury herbal soaps for women, men, and children.", "button_label": "FIND YOUR COLLECTION" } }
       ]
     }
   ]
