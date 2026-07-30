@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# build output (regenerate with: node build/generate.js)
+dist/
+
+# large / unoptimised media — restore via scripts/import-client-assets.sh
+public/assets/client/videos/*.mp4
+private/client-originals/
+
+# os
+.DS_Store
+
+# regenerable Shopify export images (hosted on GitHub images repo / Matrixify)
+shopify-export/images/
+shopify-export/images.zip
+shopify-export/collection-images/
+shopify-export/collection-images.zip
+public/assets/client/collections/royal-duke/royal-duke-collection.pdf

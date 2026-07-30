@@ -1,0 +1,11 @@
+{
+  "name": "royal-being-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Royal Being — luxury herbal soap static storefront (33 products, 5 collections)",
+  "scripts": {
+    "build": "node build/generate.js",
+    "import-assets": "bash scripts/import-client-assets.sh",
+    "serve": "python3 -m http.server 4820 --directory dist"
+  }
+}

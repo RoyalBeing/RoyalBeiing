@@ -1,0 +1,40 @@
+<section class="section split{% if section.settings.reverse %} split--rev{% endif %}" {{ section.shopify_attributes }}>
+  <div class="split__media reveal">
+    {%- if section.settings.image != blank -%}
+      <img src="{{ section.settings.image | image_url: width: 1400 }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}" loading="lazy">
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+  <div class="reveal" style="padding-inline:var(--pad-x)">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2>{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
+    {%- if section.settings.body != blank -%}<div class="rte">{{ section.settings.body }}</div>{%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a class="btn {{ section.settings.button_style }}" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "checkbox", "id": "reverse", "label": "Reverse layout", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Ritual of Being" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "From nature to your bathroom counter" },
+    { "type": "textarea", "id": "text", "label": "Lead text" },
+    { "type": "richtext", "id": "body", "label": "Body" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "select", "id": "button_style", "label": "Button style", "options": [
+      { "value": "btn-primary", "label": "Primary" },
+      { "value": "btn-outline", "label": "Outline" },
+      { "value": "btn-gold", "label": "Gold" }
+    ], "default": "btn-outline" }
+  ],
+  "presets": [{ "name": "Image with text" }]
+}
+{% endschema %}

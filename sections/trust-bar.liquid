@@ -1,0 +1,41 @@
+<section class="trust" {{ section.shopify_attributes }}>
+  <div class="trust__row wrap">
+    {%- for block in section.blocks -%}
+      <div class="trust__item" {{ block.shopify_attributes }}>
+        {% render 'icon', name: block.settings.icon %}
+        {{ block.settings.label }}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust bar",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "leaf", "label": "Leaf" },
+          { "value": "drop", "label": "Drop" },
+          { "value": "heart", "label": "Heart" },
+          { "value": "flag", "label": "Flag" }
+        ], "default": "leaf" },
+        { "type": "text", "id": "label", "label": "Label", "default": "100% Handmade" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Trust bar",
+    "blocks": [
+      { "type": "item", "settings": { "icon": "leaf", "label": "100% Handmade" } },
+      { "type": "item", "settings": { "icon": "drop", "label": "Small Batches" } },
+      { "type": "item", "settings": { "icon": "heart", "label": "Cruelty-Free" } },
+      { "type": "item", "settings": { "icon": "flag", "label": "Made in USA" } }
+    ]
+  }]
+}
+{% endschema %}

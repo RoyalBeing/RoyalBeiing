@@ -1,0 +1,60 @@
+{%- comment -%} Product card — uses live Shopify product object {%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign sold_out = false
+  if variant.available == false
+    assign sold_out = true
+  endif
+  assign coming_soon = false
+  if product.tags contains 'Coming Soon' or variant.inventory_quantity == 0 and sold_out
+    if product.tags contains 'Coming Soon'
+      assign coming_soon = true
+    endif
+  endif
+-%}
+<article class="pcard" data-product-id="{{ product.id }}">
+  <a class="pcard__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_media -%}
+      <img
+        src="{{ product.featured_media | image_url: width: 800 }}"
+        alt="{{ product.featured_media.alt | default: product.title | escape }}"
+        loading="lazy"
+        width="{{ product.featured_media.width }}"
+        height="{{ product.featured_media.height }}"
+      >
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+    <div class="pcard__badges">
+      {%- if coming_soon -%}
+        <span class="badge badge--soon">Coming Soon</span>
+      {%- elsif sold_out -%}
+        <span class="badge badge--soldout">Sold Out</span>
+      {%- endif -%}
+      {%- if product.tags contains 'Subscription Eligible' and sold_out == false -%}
+        <span class="badge badge--sub">Subscribe</span>
+      {%- endif -%}
+    </div>
+  </a>
+  <div class="pcard__body">
+    {%- if product.collections.size > 0 -%}
+      <div class="pcard__coll">{{ product.collections.first.title }}</div>
+    {%- endif -%}
+    <h3 class="pcard__name"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    {%- if product.description != blank -%}
+      <p class="pcard__desc">{{ product.description | strip_html | truncate: 90 }}</p>
+    {%- endif -%}
+    <div class="pcard__foot">
+      <div class="pcard__price">{{ variant.price | money }}</div>
+      {%- if sold_out -%}
+        <a class="btn btn-light btn-sm" href="{{ product.url }}">Notify Me</a>
+      {%- else -%}
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          data-add-variant="{{ variant.id }}"
+        >Add</button>
+      {%- endif -%}
+    </div>
+  </div>
+</article>

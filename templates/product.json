@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "how": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to Use",
+            "body": "<p>Work into a rich lather with warm water, massage over skin, and rinse. Store on a draining dish between uses.</p>"
+          }
+        },
+        "care": {
+          "type": "accordion",
+          "settings": {
+            "title": "Care & Storage",
+            "body": "<p>Keep your bar dry between uses on a well-draining soap dish, away from direct streams of water.</p>"
+          }
+        },
+        "ship": {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping & Returns",
+            "body": "<p>Ships to the USA, Netherlands, and Belgium. Because each bar is handmade, slight natural variation is part of the craft.</p>"
+          }
+        }
+      },
+      "block_order": ["how", "care", "ship"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,27 @@
+<div class="cart-drawer" {{ section.shopify_attributes }}>
+  <div class="cart-drawer__scrim"></div>
+  <aside class="cart-drawer__panel" aria-label="Shopping cart">
+    <div class="cart-drawer__head">
+      <h3>{{ section.settings.heading }}</h3>
+      <button class="icon-btn" type="button" data-close-cart aria-label="Close cart">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-drawer__foot">
+      <div class="cart-row cart-row--total"><span>Subtotal</span><span id="cart-subtotal">{{ cart.total_price | money }}</span></div>
+      {%- if settings.cart_note_coupon -%}
+        <p class="note cart-drawer__note">Shipping & taxes calculated at checkout · {{ settings.coupon_code }} for 20% off</p>
+      {%- endif -%}
+      <a class="btn btn-primary btn-block" id="cart-checkout" href="{{ routes.cart_url }}">{{ section.settings.button_label }}</a>
+    </div>
+  </aside>
+</div>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your Ritual" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "View cart / Checkout" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,60 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Royal Being — The Ritual of Being",
+        "heading": "Elevate Your Daily Cleansing into a Sacred Spa Ritual",
+        "text": "Herbal soaps that last and last — handmade and hand-poured in small batches, from pure botanicals to your shower.",
+        "button_label": "Shop Soaps",
+        "button_link": "shopify://collections/all",
+        "button2_label": "Explore Collections",
+        "button2_link": "shopify://collections"
+      }
+    },
+    "trust": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "leaf", "label": "100% Handmade" } },
+        "t2": { "type": "item", "settings": { "icon": "drop", "label": "Small Batches" } },
+        "t3": { "type": "item", "settings": { "icon": "heart", "label": "Cruelty-Free" } },
+        "t4": { "type": "item", "settings": { "icon": "flag", "label": "Made in USA" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "collections": {
+      "type": "collection-grid",
+      "settings": {
+        "eyebrow": "Curated by Ritual",
+        "heading": "Shop by Collection",
+        "text": "Thirty-three herbal bars across five considered collections. Find your ritual."
+      }
+    },
+    "featured": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Small-Batch Favourites",
+        "heading": "Featured Soaps",
+        "products_to_show": 8,
+        "button_label": "View All Soaps",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "story": {
+      "type": "image-with-text",
+      "settings": {
+        "eyebrow": "The Ritual of Being",
+        "heading": "From nature to your bathroom counter",
+        "text": "We lovingly source pure, raw botanicals and transform them into wholesome herbal soaps that nourish your skin without harsh additives.",
+        "button_label": "Our Story",
+        "button_link": "shopify://pages/about",
+        "button_style": "btn-outline"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": ["hero", "trust", "collections", "featured", "story", "newsletter"]
+}

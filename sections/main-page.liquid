@@ -1,0 +1,27 @@
+<section class="page-banner" {{ section.shopify_attributes }}>
+  {%- if section.settings.image != blank -%}
+    <div class="page-banner__media"><img src="{{ section.settings.image | image_url: width: 2000 }}" alt=""></div>
+  {%- endif -%}
+  <div class="page-banner__scrim"></div>
+  <div class="page-banner__inner wrap">
+    <nav class="breadcrumbs"><a href="{{ routes.root_url }}">Home</a> / {{ page.title }}</nav>
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h1>{{ page.title }}</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap prose reveal">
+    {{ page.content }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Banner image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" }
+  ]
+}
+{% endschema %}

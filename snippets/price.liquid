@@ -1,0 +1,10 @@
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign compare = current.compare_at_price
+-%}
+<span class="price">
+  <span class="price__sale">{{ current.price | money }}</span>
+  {%- if compare > current.price -%}
+    <span class="price__compare">{{ compare | money }}</span>
+  {%- endif -%}
+</span>

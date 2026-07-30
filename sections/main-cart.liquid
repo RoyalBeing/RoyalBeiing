@@ -1,0 +1,60 @@
+<section class="page-banner" {{ section.shopify_attributes }}>
+  <div class="page-banner__scrim" style="position:absolute;inset:0;background:var(--rb-green-900)"></div>
+  <div class="page-banner__inner wrap">
+    <nav class="breadcrumbs"><a href="{{ routes.root_url }}">Home</a> / Cart</nav>
+    <h1>{{ section.settings.heading }}</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap" style="max-width:920px">
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-empty">
+        <p>{{ settings.cart_empty_text }}</p>
+        <a class="btn btn-outline" href="{{ routes.all_products_collection_url }}">Explore Soaps</a>
+      </div>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" id="cart">
+        {%- for item in cart.items -%}
+          <div class="cart-line">
+            {%- if item.image -%}
+              <a href="{{ item.url }}"><img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.product.title | escape }}"></a>
+            {%- else -%}
+              <div class="thumb"></div>
+            {%- endif -%}
+            <div>
+              <div class="cart-line__name"><a href="{{ item.url }}">{{ item.product.title }}</a></div>
+              <div class="cart-line__meta">
+                {%- unless item.product.has_only_default_variant -%}{{ item.variant.title }} · {% endunless -%}
+                {{ item.final_price | money }}
+              </div>
+              <div class="qty">
+                <label class="visually-hidden" for="updates_{{ item.key }}">Qty</label>
+                <input id="updates_{{ item.key }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width:56px;border:1px solid var(--rb-line);border-radius:8px;padding:6px;text-align:center">
+              </div>
+              <a class="cart-line__rm" href="{{ item.url_to_remove }}">Remove</a>
+            </div>
+            <div class="pcard__price">{{ item.final_line_price | money }}</div>
+          </div>
+        {%- endfor -%}
+
+        <div class="card-soft" style="margin-top:20px">
+          <div class="cart-row cart-row--total"><span>Subtotal</span><span>{{ cart.total_price | money }}</span></div>
+          <p class="note" style="margin:10px 0 16px">Shipping & taxes calculated at checkout. Use <b>{{ settings.coupon_code }}</b> for 20% off.</p>
+          <button class="btn btn-light btn-block" type="submit" name="update" style="margin-bottom:10px">Update cart</button>
+          <button class="btn btn-primary btn-block" type="submit" name="checkout">{{ section.settings.checkout_label }}</button>
+        </div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your Ritual" },
+    { "type": "text", "id": "checkout_label", "label": "Checkout button", "default": "Proceed to Checkout" }
+  ]
+}
+{% endschema %}

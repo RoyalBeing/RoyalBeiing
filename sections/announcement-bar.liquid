@@ -1,0 +1,20 @@
+{%- if section.settings.enable -%}
+<div class="announce" {{ section.shopify_attributes }}>
+  <div
+    class="announce__track"
+    data-msgs='[{{ section.settings.message_1 | json }},{{ section.settings.message_2 | json }},{{ section.settings.message_3 | json }}]'
+  >{{ section.settings.message_1 }}</div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "checkbox", "id": "enable", "label": "Show announcement bar", "default": true },
+    { "type": "text", "id": "message_1", "label": "Message 1", "default": "Handmade and hand-poured in small batches." },
+    { "type": "text", "id": "message_2", "label": "Message 2", "default": "Shipping to the USA, Netherlands & Belgium." },
+    { "type": "text", "id": "message_3", "label": "Message 3", "default": "Use ROYAL 20 for 20% off your first ritual." }
+  ]
+}
+{% endschema %}

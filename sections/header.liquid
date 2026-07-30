@@ -1,0 +1,124 @@
+<header class="site-header" {{ section.shopify_attributes }}>
+  <div class="header-inner">
+    <button class="icon-btn burger" type="button" data-open-nav aria-label="Open menu">{% render 'icon', name: 'menu' %}</button>
+
+    <a class="logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }} home">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 140 }}" alt="{{ shop.name }}" width="70" height="34" loading="eager">
+      {%- else -%}
+        <svg viewBox="0 0 64 64" width="34" height="34" aria-hidden="true"><path d="M14 44 L17 24 L27 34 L32 20 L37 34 L47 24 L50 44 Z" fill="none" stroke="var(--rb-gold-500)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="17" cy="22" r="2.2" fill="var(--rb-gold-500)"/><circle cx="32" cy="18" r="2.2" fill="var(--rb-gold-500)"/><circle cx="47" cy="22" r="2.2" fill="var(--rb-gold-500)"/><path d="M12 50 Q32 56 52 50" fill="none" stroke="var(--rb-sage-600)" stroke-width="1.6"/></svg>
+      {%- endif -%}
+      <span class="logo__text">{{ shop.name }}<small>{{ settings.brand_phrase | default: 'The Ritual of Being' }}</small></span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="nav__item"><a class="nav__link" href="{{ routes.root_url }}">Home</a></div>
+      <div class="nav__item">
+        <a class="nav__link" href="{{ routes.collections_url }}">Shop {% render 'icon', name: 'chev' %}</a>
+        <div class="mega" role="menu">
+          <div class="mega__col">
+            <h4>Shop by Collection</h4>
+            <div class="mega__list">
+              <a href="{{ routes.all_products_collection_url }}">Shop All Soaps<span class="count">{{ collections.all.products_count }}</span></a>
+              {%- for collection in collections -%}
+                {%- unless collection.handle == 'all' or collection.products_count == 0 -%}
+                  <a href="{{ collection.url }}">{{ collection.title }}<span class="count">{{ collection.products_count }}</span></a>
+                {%- endunless -%}
+              {%- endfor -%}
+            </div>
+          </div>
+          <div class="mega__col">
+            <h4>Featured</h4>
+            {%- assign feat = collections[section.settings.featured_collection] -%}
+            {%- if feat != blank and feat.featured_image -%}
+              <a class="mega__feature" href="{{ feat.url }}">
+                <img src="{{ feat.featured_image | image_url: width: 600 }}" alt="{{ feat.title | escape }}" loading="lazy">
+                <div class="fx"><span>{{ feat.title }}</span><b>Explore the collection</b></div>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+      {%- for link in section.settings.menu.links -%}
+        <div class="nav__item">
+          <a class="nav__link" href="{{ link.url }}">
+            {{ link.title }}
+            {%- if link.links.size > 0 -%}{% render 'icon', name: 'chev' %}{%- endif -%}
+          </a>
+          {%- if link.links.size > 0 -%}
+            <div class="mega mega--simple" role="menu">
+              <div class="mega__col"><div class="mega__list">
+                {%- for child in link.links -%}
+                  <a href="{{ child.url }}">{{ child.title }}</a>
+                {%- endfor -%}
+              </div></div>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </nav>
+
+    <div class="header-actions">
+      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Search">{% render 'icon', name: 'search' %}</a>
+      <a class="icon-btn" href="{{ routes.account_url }}" aria-label="Account">{% render 'icon', name: 'user' %}</a>
+      <button class="icon-btn" type="button" data-open-cart aria-label="Cart">
+        {% render 'icon', name: 'bag' %}
+        <span class="cart-count" data-cart-count style="display:none">{{ cart.item_count }}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <div class="mobile-nav__scrim"></div>
+  <div class="mobile-nav__panel">
+    <div class="mobile-nav__head">
+      <a class="logo" href="{{ routes.root_url }}">{{ shop.name }}</a>
+      <button class="icon-btn" type="button" data-close-nav aria-label="Close">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <a class="m-link" href="{{ routes.root_url }}">Home</a>
+    <div class="m-acc">
+      <button type="button">Shop {% render 'icon', name: 'chev' %}</button>
+      <div class="m-acc__body">
+        <a href="{{ routes.all_products_collection_url }}">Shop All · {{ collections.all.products_count }}</a>
+        {%- for collection in collections -%}
+          {%- unless collection.handle == 'all' or collection.products_count == 0 -%}
+            <a href="{{ collection.url }}">{{ collection.title }} · {{ collection.products_count }}</a>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- for link in section.settings.menu.links -%}
+      {%- if link.links.size > 0 -%}
+        <div class="m-acc">
+          <button type="button">{{ link.title }} {% render 'icon', name: 'chev' %}</button>
+          <div class="m-acc__body">
+            {%- for child in link.links -%}<a href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}
+          </div>
+        </div>
+      {%- else -%}
+        <a class="m-link" href="{{ link.url }}">{{ link.title }}</a>
+      {%- endif -%}
+    {%- endfor -%}
+    <a class="m-link" href="{{ routes.account_url }}">Account</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Mega menu featured collection"
+    }
+  ]
+}
+{% endschema %}

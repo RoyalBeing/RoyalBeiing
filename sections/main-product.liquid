@@ -1,0 +1,156 @@
+{%- assign current = product.selected_or_first_available_variant -%}
+<section class="section" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <nav class="breadcrumbs">
+      <a href="{{ routes.root_url }}">Home</a> /
+      {%- if product.collections.first -%}
+        <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a> /
+      {%- endif -%}
+      {{ product.title }}
+    </nav>
+
+    <div class="pdp">
+      <div class="pdp__gallery">
+        <div class="pdp__main-img" id="pdp-main-img">
+          {%- if product.selected_or_first_available_variant.featured_media -%}
+            {%- assign media = product.selected_or_first_available_variant.featured_media -%}
+          {%- else -%}
+            {%- assign media = product.featured_media -%}
+          {%- endif -%}
+          {%- if media -%}
+            <img src="{{ media | image_url: width: 1400 }}" alt="{{ media.alt | default: product.title | escape }}">
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+        {%- if product.media.size > 1 -%}
+          <div class="pdp__thumbs">
+            {%- for m in product.media -%}
+              <button type="button" class="{% if forloop.first %}active{% endif %}" data-img="{{ m | image_url: width: 1400 }}" data-alt="{{ m.alt | default: product.title | escape }}">
+                <img src="{{ m | image_url: width: 200 }}" alt="{{ product.title | escape }} view {{ forloop.index }}">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="pdp__info">
+        {%- if product.collections.first -%}
+          <div class="pdp__coll"><a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a></div>
+        {%- endif -%}
+        <h1>{{ product.title }}</h1>
+        {%- if product.tags contains 'Coming Soon' -%}
+          <span class="badge badge--soon" style="margin-bottom:10px;display:inline-block">Coming Soon</span>
+        {%- elsif current.available == false -%}
+          <span class="badge badge--soldout" style="margin-bottom:10px;display:inline-block">Sold Out</span>
+        {%- endif -%}
+        <div class="pdp__price">{% render 'price', product: product %}</div>
+        {%- if product.description != blank -%}
+          <div class="lead rte" style="font-size:1.05rem">{{ product.description | strip_html | truncate: 220 }}</div>
+        {%- endif -%}
+
+        {%- form 'product', product, id: 'product-form' -%}
+          <input type="hidden" name="id" value="{{ current.id }}">
+
+          {%- unless product.has_only_default_variant -%}
+            <div class="buy-opts" style="margin-bottom:16px">
+              {%- for option in product.options_with_values -%}
+                <div class="form-field">
+                  <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+                  <select id="Option-{{ section.id }}-{{ forloop.index0 }}" name="options[{{ option.name | escape }}]">
+                    {%- for value in option.values -%}
+                      <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endunless -%}
+
+          {%- if current.available -%}
+            <div class="pdp__actions">
+              <div class="qty">
+                <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
+                <span id="pdp-qty">1</span>
+                <button type="button" data-qty="1" aria-label="Increase quantity">+</button>
+              </div>
+              <button type="button" class="btn btn-primary" data-add-variant="{{ current.id }}">{{ section.settings.add_label }}</button>
+              {{ form | payment_button }}
+            </div>
+          {%- else -%}
+            <div class="status-note"><b>Currently unavailable.</b> Check back soon or browse other soaps in this collection.</div>
+            <a class="btn btn-outline" href="{{ routes.all_products_collection_url }}">Continue shopping</a>
+          {%- endif -%}
+        {%- endform -%}
+
+        <div class="pdp__meta">
+          {%- if current.sku != blank -%}<span>SKU · <b>{{ current.sku }}</b></span>{%- endif -%}
+          {%- if current.weight > 0 -%}<span>Weight · <b>{{ current.weight | weight_with_unit: current.weight_unit }}</b></span>{%- endif -%}
+          <span>{{ section.settings.ships_note }}</span>
+        </div>
+
+        <div class="accordion">
+          <div class="acc open">
+            <button type="button">Description<span class="plus">+</span></button>
+            <div class="acc__body rte">{{ product.description }}</div>
+          </div>
+          {%- for block in section.blocks -%}
+            <div class="acc" {{ block.shopify_attributes }}>
+              <button type="button">{{ block.settings.title }}<span class="plus">+</span></button>
+              <div class="acc__body rte">{{ block.settings.body }}</div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- if section.settings.show_related -%}
+  {%- assign related = product.collections.first -%}
+  {%- if related -%}
+    <section class="section" style="background:var(--rb-mist)">
+      <div class="wrap">
+        <div class="sec-head reveal"><p class="eyebrow">Other Items You May Like</p><h2>More from {{ related.title }}</h2></div>
+        <div class="product-grid reveal">
+          {%- assign shown = 0 -%}
+          {%- for p in related.products -%}
+            {%- if p.id != product.id and shown < 4 -%}
+              {% render 'product-card', product: p %}
+              {%- assign shown = shown | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+{%- endif -%}
+
+{%- if current.available -%}
+  <div class="buy-bar">
+    <div><div style="font-family:var(--font-display);font-size:1.1rem">{{ product.title }}</div></div>
+    <div class="bb-price">{{ current.price | money }}</div>
+    <button type="button" class="btn btn-primary btn-sm" data-add-variant="{{ current.id }}">{{ section.settings.add_label }}</button>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": [
+    { "type": "text", "id": "add_label", "label": "Add to cart label", "default": "Add to Cart" },
+    { "type": "text", "id": "ships_note", "label": "Shipping note", "default": "Handmade in small batches · Made in USA" },
+    { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "How to Use" },
+        { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Work into a rich lather with warm water, massage over skin, and rinse.</p>" }
+      ]
+    }
+  ]
+}
+{% endschema %}

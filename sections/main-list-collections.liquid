@@ -1,0 +1,36 @@
+<section class="page-banner" {{ section.shopify_attributes }}>
+  <div class="page-banner__scrim" style="position:absolute;inset:0;background:var(--rb-green-900)"></div>
+  <div class="page-banner__inner wrap">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1>{{ section.settings.heading }}</h1>
+  </div>
+</section>
+<section class="section list-collections">
+  <div class="wrap">
+    <div class="collection-grid reveal">
+      {%- for collection in collections -%}
+        {%- unless collection.handle == 'all' or collection.products_count == 0 -%}
+          <a class="col-card" href="{{ collection.url }}">
+            {%- if collection.featured_image -%}
+              <img src="{{ collection.featured_image | image_url: width: 1200 }}" alt="{{ collection.title | escape }}" loading="lazy">
+            {%- endif -%}
+            <div class="col-card__body">
+              <h3>{{ collection.title }}</h3>
+              <span class="col-card__count">{{ collection.products_count }} Soaps</span>
+            </div>
+          </a>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collections list",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Curated by Ritual" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "All Collections" }
+  ]
+}
+{% endschema %}

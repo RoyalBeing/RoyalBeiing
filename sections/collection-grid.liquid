@@ -1,0 +1,66 @@
+<section class="section" id="collections" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="collection-grid collection-grid--feature reveal">
+      {%- for block in section.blocks -%}
+        {%- assign col = collections[block.settings.collection] -%}
+        {%- if col != blank -%}
+          <a class="col-card" href="{{ col.url }}" {{ block.shopify_attributes }}>
+            {%- if col.featured_image -%}
+              <img src="{{ col.featured_image | image_url: width: 1200 }}" alt="{{ col.title | escape }}" loading="lazy">
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+            <div class="col-card__body">
+              {%- if block.settings.eyebrow != blank -%}<p class="eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
+              <h3>{{ col.title }}</h3>
+              {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- elsif col.description != blank -%}<p>{{ col.description | strip_html | truncate: 90 }}</p>{%- endif -%}
+              <span class="col-card__count">{{ col.products_count }} Soaps</span>
+            </div>
+          </a>
+        {%- endif -%}
+      {%- else -%}
+        {%- for col in collections -%}
+          {%- unless col.handle == 'all' or col.products_count == 0 -%}
+            <a class="col-card" href="{{ col.url }}">
+              {%- if col.featured_image -%}
+                <img src="{{ col.featured_image | image_url: width: 1200 }}" alt="{{ col.title | escape }}" loading="lazy">
+              {%- endif -%}
+              <div class="col-card__body">
+                <h3>{{ col.title }}</h3>
+                <span class="col-card__count">{{ col.products_count }} Soaps</span>
+              </div>
+            </a>
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Curated by Ritual" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by Collection" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Herbal bars across considered collections. Find your ritual." }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+        { "type": "text", "id": "text", "label": "Short text" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Collection grid" }]
+}
+{% endschema %}

@@ -1,0 +1,23 @@
+{% layout none %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ gift_card.balance | money }} gift card — {{ shop.name }}</title>
+  {{ 'rb-main.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+  <main class="section">
+    <div class="wrap center prose">
+      <h1>{{ shop.name }} Gift Card</h1>
+      <p class="lead" style="margin-inline:auto">Balance: <strong>{{ gift_card.balance | money }}</strong></p>
+      {%- if gift_card.enabled == false or gift_card.expired -%}
+        <p class="form-status form-status--error">This gift card is no longer available.</p>
+      {%- endif -%}
+      <p><code style="font-size:1.2rem;letter-spacing:.08em">{{ gift_card.code | format_code }}</code></p>
+      <a class="btn btn-primary" href="{{ shop.url }}">Continue shopping</a>
+    </div>
+  </main>
+</body>
+</html>

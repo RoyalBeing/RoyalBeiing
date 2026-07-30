@@ -1,0 +1,71 @@
+<footer class="site-footer" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="logo" href="{{ routes.root_url }}">
+          <span class="logo__text">{{ shop.name }}<small>{{ settings.brand_phrase }}</small></span>
+        </a>
+        <p>{{ section.settings.blurb }}</p>
+        <div class="footer-social">
+          {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">f</a>{%- endif -%}
+          {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">ig</a>{%- endif -%}
+          {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener" aria-label="TikTok">tk</a>{%- endif -%}
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>{{ section.settings.shop_heading }}</h4>
+        <ul>
+          <li><a href="{{ routes.all_products_collection_url }}">Shop All</a></li>
+          {%- for collection in collections -%}
+            {%- unless collection.handle == 'all' or collection.products_count == 0 -%}
+              <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+            {%- endunless -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>{{ section.settings.care_heading }}</h4>
+        <ul>
+          {%- for link in section.settings.care_menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>{{ section.settings.ritual_heading }}</h4>
+        <ul>
+          {%- for link in section.settings.ritual_menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© {{ 'now' | date: '%Y' }} {{ shop.name }}
+        {%- for link in section.settings.legal_menu.links -%}
+          · <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      </div>
+      <div class="pay-methods"><span>VISA</span><span>MASTERCARD</span><span>AMEX</span><span>APPLE PAY</span></div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "textarea", "id": "blurb", "label": "Brand blurb", "default": "Honest, plant-based, wholesome goodness for daily self-care. Handmade and hand-poured in small batches. Est. 2021." },
+    { "type": "text", "id": "shop_heading", "label": "Shop heading", "default": "Shop" },
+    { "type": "text", "id": "care_heading", "label": "Care heading", "default": "Customer Care" },
+    { "type": "link_list", "id": "care_menu", "label": "Customer care menu" },
+    { "type": "text", "id": "ritual_heading", "label": "Ritual heading", "default": "The Ritual" },
+    { "type": "link_list", "id": "ritual_menu", "label": "Ritual menu" },
+    { "type": "link_list", "id": "legal_menu", "label": "Legal menu" }
+  ]
+}
+{% endschema %}

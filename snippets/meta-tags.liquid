@@ -1,0 +1,15 @@
+{%- comment -%} Open Graph / Twitter {%- endcomment -%}
+<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:title" content="{{ page_title | escape }}">
+<meta property="og:type" content="website">
+{%- if page_description -%}
+  <meta property="og:description" content="{{ page_description | escape }}">
+{%- endif -%}
+{%- if product and product.featured_media -%}
+  <meta property="og:image" content="http:{{ product.featured_media | image_url: width: 1200 }}">
+  <meta property="og:image:secure_url" content="https:{{ product.featured_media | image_url: width: 1200 }}">
+{%- elsif settings.share_image != blank -%}
+  <meta property="og:image" content="http:{{ settings.share_image | image_url: width: 1200 }}">
+{%- endif -%}
+<meta name="twitter:card" content="summary_large_image">
