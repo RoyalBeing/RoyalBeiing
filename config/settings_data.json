@@ -638,8 +638,11 @@
       "daily-ritual-banner": {
         "type": "daily-ritual-banner",
         "settings": {
-          "alt": "Royal Being Skin Care \u2014 Discover Your Daily Ritual. Luxurious herbal soaps handmade in small batches. Shop collection.",
-          "link": "shopify://collections"
+          "eyebrow": "ROYAL BEING SKIN CARE",
+          "heading": "DISCOVER YOUR\nDAILY RITUAL",
+          "text": "Luxurious herbal soaps handmade in small batches to nourish the skin and bring elegance to everyday care.",
+          "button_label": "SHOP COLLECTION",
+          "button_link": "shopify://collections"
         }
       }
     }
