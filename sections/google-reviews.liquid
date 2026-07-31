@@ -14,24 +14,143 @@
   assign total = section.settings.total_reviews | default: ''
   assign google_leave_url = section.settings.google_review_url
   assign google_profile_url = section.settings.google_profile_url
-  assign place_id = section.settings.place_id
 -%}
 <section
-  class="section grev"
+  class="section grev grev--split"
   id="google-reviews"
-  style="background:var(--rb-ivory-50)"
   data-google-reviews
   data-section-id="{{ section.id }}"
   {{ section.shopify_attributes }}
 >
   <div class="wrap">
-    <div class="sec-head center reveal">
-      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
-      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text | newline_to_br }}</p>{%- endif -%}
+    <div class="grev-split reveal">
+      {%- comment -%} Left — community story {%- endcomment -%}
+      <div class="grev-split__copy" id="share-review">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2>{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <p class="grev-split__lead">{{ section.settings.text | newline_to_br }}</p>
+        {%- endif -%}
+
+        {%- if shown == 0 -%}
+          <div class="grev-split__status">
+            <p class="eyebrow">{{ section.settings.empty_eyebrow | default: 'COMING SOON' }}</p>
+            <h3>{{ section.settings.empty_heading | default: 'Customer stories are on the way' }}</h3>
+            <p>{{ section.settings.empty_text | default: 'Be among the first to share how Royal Being fits into your daily ritual.' }}</p>
+          </div>
+        {%- else -%}
+          {%- if overall != blank or total != blank -%}
+            <div class="grev-split__score">
+              {%- if overall != blank -%}<span class="grev-split__rating">{{ overall }}</span>{%- endif -%}
+              <span class="grev-split__stars" aria-hidden="true">★★★★★</span>
+              {%- if total != blank -%}<span class="grev-split__count">{{ total }} community reviews</span>{%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        <div class="grev-split__actions">
+          {%- if shown > 0 and section.settings.button_label != blank -%}
+            <button type="button" class="btn btn-primary" data-grev-open-all>
+              {{ section.settings.button_label }}
+            </button>
+          {%- endif -%}
+          <a class="btn {% if shown > 0 %}btn-outline{% else %}btn-primary{% endif %}" href="#review-upload-form" data-review-form-open>
+            {{ section.settings.button2_label | default: 'SHARE YOUR EXPERIENCE' }}
+          </a>
+        </div>
+      </div>
+
+      {%- comment -%} Right — share form {%- endcomment -%}
+      <aside class="grev-split__form card-soft" aria-label="Share your review">
+        {%- if section.settings.form_heading != blank -%}
+          <h3 class="grev-split__form-title">{{ section.settings.form_heading }}</h3>
+        {%- endif -%}
+        {%- if section.settings.form_text != blank -%}
+          <p class="grev-split__form-lead">{{ section.settings.form_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.form_consent != blank -%}
+          <p class="note grev-split__form-note">{{ section.settings.form_consent }}</p>
+        {%- endif -%}
+
+        <div class="review-invite__form-wrap" id="review-upload-form">
+          {%- form 'contact', id: 'RoyalBeingReviewForm', class: 'review-form' -%}
+            <input type="hidden" name="contact[subject]" value="{{ section.settings.form_subject | default: 'Royal Being — customer review' | escape }}">
+            <input type="hidden" name="contact[tags]" value="customer-review,media-review">
+
+            {%- if form.posted_successfully? -%}
+              <p class="form-status form-status--success" role="status">
+                {{ section.settings.success_message | default: 'Thank you — your review was sent. If you included a media link, our team will review it before display.' }}
+              </p>
+            {%- else -%}
+              {%- if form.errors -%}
+                <div class="form-status form-status--error" role="alert">
+                  {{ form.errors | default_errors }}
+                </div>
+              {%- endif -%}
+
+              <div class="review-form__grid">
+                <label class="form-field">
+                  <span>Name</span>
+                  <input type="text" name="contact[name]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" required autocomplete="name">
+                </label>
+                <label class="form-field">
+                  <span>Email</span>
+                  <input type="email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required autocomplete="email">
+                </label>
+              </div>
+
+              <label class="form-field">
+                <span>Star rating</span>
+                <select name="contact[rating]" required>
+                  <option value="">Select a rating</option>
+                  <option value="5">5 — Excellent</option>
+                  <option value="4">4 — Very good</option>
+                  <option value="3">3 — Good</option>
+                  <option value="2">2 — Fair</option>
+                  <option value="1">1 — Poor</option>
+                </select>
+              </label>
+
+              <label class="form-field">
+                <span>Your review</span>
+                <textarea name="contact[body]" rows="4" required placeholder="{{ section.settings.review_placeholder | default: 'Share how Royal Being fits into your ritual…' | escape }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+              </label>
+
+              <label class="form-field">
+                <span>Photo or video link (optional)</span>
+                <input
+                  type="url"
+                  name="contact[media_link]"
+                  placeholder="https:// — paste a Google Drive, Dropbox, or hosted file link"
+                  inputmode="url"
+                >
+                <span class="note" style="display:block;margin-top:8px;text-align:left">
+                  {%- if shop.email != blank -%}
+                    Prefer email? Send media to
+                    <a href="mailto:{{ shop.email }}?subject=Royal%20Being%20review%20media">{{ shop.email }}</a>.
+                  {%- else -%}
+                    Paste a shareable link. Media is moderated before display.
+                  {%- endif -%}
+                </span>
+              </label>
+
+              <label class="review-form__consent">
+                <input type="checkbox" name="contact[consent]" value="yes" required>
+                <span>{{ section.settings.consent_checkbox | default: 'I confirm I own the rights to this content and allow Royal Being to display my review and media publicly.' }}</span>
+              </label>
+
+              <button type="submit" class="btn btn-primary btn-block">{{ section.settings.submit_label | default: 'SUBMIT YOUR REVIEW' }}</button>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </aside>
     </div>
 
-    {%- comment -%} App blocks (Judge.me, Loox, Google reviews widgets, etc.) {%- endcomment -%}
+    {%- comment -%} Review carousel below when live reviews exist {%- endcomment -%}
     {%- for block in section.blocks -%}
       {%- if block.type == '@app' -%}
         <div class="grev__app reveal" {{ block.shopify_attributes }}>
@@ -68,24 +187,13 @@
 {%- endfor -%}
 ]
     {%- endcapture -%}
-
     <script type="application/json" data-grev-data>{{ grev_json | strip }}</script>
 
-    {%- if shown == 0 -%}
-      <div class="grev__empty card-soft reveal" role="status">
-        <p class="eyebrow">COMING SOON</p>
-        <h3>Customer stories are on the way</h3>
-        <p class="lead" style="margin-inline:auto;max-width:52ch">
-          Be among the first to share how Royal Being fits into your daily ritual.
-        </p>
-        <a class="btn btn-outline" href="{{ section.settings.button2_link | default: '#share-review' }}">Share your experience</a>
-      </div>
-    {%- else -%}
+    {%- if shown > 0 -%}
       <div class="grev__carousel reveal" data-grev-carousel>
         <button type="button" class="grev__nav grev__nav--prev" data-grev-prev aria-label="Previous reviews">
           <span aria-hidden="true">‹</span>
         </button>
-
         <div class="grev__viewport">
           <div class="grev__track" data-grev-track>
             {%- assign card_i = 0 -%}
@@ -98,37 +206,24 @@
                   {%- assign rating = block.settings.rating | default: 5 -%}
                   <div class="grev__slide" data-grev-slide {{ block.shopify_attributes }}>
                     <article class="grev-card" data-grev-open data-grev-id="{{ block.id }}">
-                      <button type="button" class="grev-card__hit" aria-label="Read full review from {{ block.settings.name | escape }}">
-                        <div class="grev-card__panel">
-                          <div class="grev-card__stars" aria-label="{{ rating }} out of 5 stars">
-                            {%- for i in (1..5) -%}
-                              <span class="grev-star{% if i > rating %} grev-star--empty{% endif %}" aria-hidden="true">★</span>
-                            {%- endfor -%}
-                          </div>
-                          <p class="grev-card__excerpt">{{ excerpt }}</p>
-                          <span class="grev-card__more">Read more</span>
-                        </div>
+                      <div class="grev-card__top">
                         <div class="grev-card__who">
-                          <span class="grev-avatar" aria-hidden="true">
-                            {%- if block.settings.avatar != blank -%}
-                              <img src="{{ block.settings.avatar | image_url: width: 96 }}" alt="" width="48" height="48" loading="lazy">
-                            {%- else -%}
-                              <span class="grev-avatar__initial" data-tone="{{ card_i | modulo: 5 }}">{{ initial }}</span>
-                            {%- endif -%}
-                          </span>
-                          <span class="grev-card__meta">
-                            <span class="grev-card__name">
-                              {{ block.settings.name }}
-                              {%- if block.settings.verified -%}
-                                <span class="grev-verified" title="Verified review" aria-label="Verified">{% render 'icon-verified' %}</span>
-                              {%- endif -%}
-                            </span>
-                            {%- if block.settings.date_label != blank -%}
-                              <span class="grev-card__date">{{ block.settings.date_label }}</span>
-                            {%- endif -%}
-                          </span>
+                          {%- if block.settings.avatar != blank -%}
+                            <img class="grev-card__avatar" src="{{ block.settings.avatar | image_url: width: 96 }}" alt="" width="48" height="48" loading="lazy">
+                          {%- else -%}
+                            <span class="grev-card__initial" aria-hidden="true">{{ initial }}</span>
+                          {%- endif -%}
+                          <div>
+                            <div class="grev-card__name">{{ block.settings.name }}</div>
+                            {%- if block.settings.date_label != blank -%}<div class="grev-card__date">{{ block.settings.date_label }}</div>{%- endif -%}
+                          </div>
                         </div>
-                      </button>
+                        <div class="grev-card__stars" aria-label="{{ rating }} out of 5 stars">
+                          {%- for i in (1..5) -%}{% if i <= rating %}★{% else %}☆{% endif %}{%- endfor -%}
+                        </div>
+                      </div>
+                      <p class="grev-card__excerpt">{{ excerpt }}</p>
+                      {%- if block.settings.verified -%}<span class="grev-card__verified">Verified</span>{%- endif -%}
                     </article>
                   </div>
                 {%- endif -%}
@@ -136,27 +231,14 @@
             {%- endfor -%}
           </div>
         </div>
-
         <button type="button" class="grev__nav grev__nav--next" data-grev-next aria-label="Next reviews">
           <span aria-hidden="true">›</span>
         </button>
       </div>
       <div class="grev__dots" data-grev-dots role="tablist" aria-label="Review pages"></div>
     {%- endif -%}
-
-    <div class="grev__actions center reveal">
-      {%- if section.settings.button_label != blank -%}
-        <button type="button" class="btn btn-primary" data-grev-open-all {% if shown == 0 %}disabled{% endif %}>
-          {{ section.settings.button_label }}
-        </button>
-      {%- endif -%}
-      {%- if section.settings.button2_label != blank -%}
-        <a class="btn btn-outline" href="{{ section.settings.button2_link | default: section.settings.share_button_link | default: '#share-review' }}">{{ section.settings.button2_label }}</a>
-      {%- endif -%}
-    </div>
   </div>
 
-  {%- comment -%} Modal {%- endcomment -%}
   <div class="grev-modal" data-grev-modal hidden>
     <div class="grev-modal__backdrop" data-grev-close tabindex="-1"></div>
     <div
@@ -170,7 +252,6 @@
       <button type="button" class="grev-modal__x" data-grev-close aria-label="Close reviews">
         <span aria-hidden="true">×</span>
       </button>
-
       <div class="grev-modal__head">
         <h3 id="grev-modal-title-{{ section.id }}" class="grev-modal__title">
           {{ section.settings.modal_title | default: 'Customer Reviews' }}
@@ -183,9 +264,7 @@
           {%- endif -%}
         </div>
       </div>
-
       <div class="grev-modal__body" data-grev-modal-body></div>
-
       <div class="grev-modal__foot">
         {%- if google_profile_url != blank -%}
           <a class="btn btn-outline btn-sm" data-grev-view-google href="{{ google_profile_url }}" target="_blank" rel="noopener noreferrer">{{ section.settings.view_google_label | default: 'View on Google' }}</a>
@@ -202,59 +281,58 @@
 
 {% schema %}
 {
-  "name": "Google reviews",
+  "name": "Community & reviews",
   "tag": "section",
   "settings": [
-    { "type": "header", "content": "Section copy" },
+    { "type": "header", "content": "Left — community copy" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE ROYAL COMMUNITY" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Real Rituals. Real Experiences." },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Discover how customers are making Royal Being part of their daily skincare and wellness rituals. Read genuine experiences shared by our growing community." },
+    { "type": "text", "id": "empty_eyebrow", "label": "Empty-state eyebrow", "default": "COMING SOON" },
+    { "type": "text", "id": "empty_heading", "label": "Empty-state heading", "default": "Customer stories are on the way" },
+    { "type": "textarea", "id": "empty_text", "label": "Empty-state text", "default": "Be among the first to share how Royal Being fits into your daily ritual." },
+    { "type": "text", "id": "button_label", "label": "Read reviews button", "default": "READ ALL REVIEWS" },
+    { "type": "text", "id": "button2_label", "label": "Share button", "default": "SHARE YOUR EXPERIENCE" },
 
-    { "type": "header", "content": "Google Business Profile" },
-    { "type": "text", "id": "place_id", "label": "Google Place ID", "info": "From Google Business Profile. Used by review apps — not exposed in storefront JavaScript as an API key." },
-    { "type": "url", "id": "google_review_url", "label": "Google review-request URL", "info": "Official link that opens Google’s write-a-review flow." },
-    { "type": "url", "id": "google_profile_url", "label": "Google reviews / profile URL", "info": "Public listing customers can open to read all Google reviews." },
-    { "type": "text", "id": "overall_rating", "label": "Overall rating", "info": "e.g. 5.0" },
-    { "type": "text", "id": "total_reviews", "label": "Total review count", "info": "e.g. 48" },
+    { "type": "header", "content": "Right — review form" },
+    { "type": "text", "id": "form_heading", "label": "Form heading", "default": "Share Your Royal Being Ritual" },
+    { "type": "textarea", "id": "form_text", "label": "Form text", "default": "Show us how Royal Being fits into your self-care routine. Upload a photo or video with your review and help inspire our growing community." },
+    { "type": "textarea", "id": "form_consent", "label": "Consent notice", "default": "By uploading media, you confirm you own the rights to the content and grant Royal Being permission to display it publicly on this website and social channels. Do not upload images of minors without parental consent." },
+    { "type": "text", "id": "form_subject", "label": "Form email subject", "default": "Royal Being — customer review" },
+    { "type": "text", "id": "review_placeholder", "label": "Review placeholder", "default": "Share how Royal Being fits into your ritual…" },
+    { "type": "text", "id": "consent_checkbox", "label": "Consent checkbox", "default": "I confirm I own the rights to this content and allow Royal Being to display my review and media publicly." },
+    { "type": "text", "id": "submit_label", "label": "Submit button", "default": "SUBMIT YOUR REVIEW" },
+    { "type": "textarea", "id": "success_message", "label": "Success message", "default": "Thank you — your review was sent. If you included a media link, our team will review it before display." },
+
+    { "type": "header", "content": "Reviews data" },
+    { "type": "url", "id": "google_review_url", "label": "Google review-request URL" },
+    { "type": "url", "id": "google_profile_url", "label": "Google reviews / profile URL" },
+    { "type": "text", "id": "overall_rating", "label": "Overall rating" },
+    { "type": "text", "id": "total_reviews", "label": "Total review count" },
     { "type": "range", "id": "max_reviews", "min": 4, "max": 24, "step": 1, "label": "Maximum reviews displayed", "default": 12 },
     { "type": "text", "id": "modal_title", "label": "Modal title", "default": "Customer Reviews" },
-
-    { "type": "header", "content": "Buttons" },
-    { "type": "text", "id": "button_label", "label": "Primary button", "default": "READ ALL REVIEWS" },
-    { "type": "text", "id": "button2_label", "label": "Secondary button", "default": "SHARE YOUR EXPERIENCE" },
-    { "type": "url", "id": "button2_link", "label": "Secondary button link", "info": "Connects to your review app / share form (written, photo, video)." },
     { "type": "text", "id": "view_google_label", "label": "View on Google label", "default": "View on Google" },
-    { "type": "text", "id": "leave_google_label", "label": "Leave a Google Review label", "default": "Leave a Google Review" },
-
-    { "type": "header", "content": "Photo & video reviews (website)" },
-    { "type": "paragraph", "content": "This block is for Shopify product / media reviews via your review app. It is separate from Google Business reviews and does not post to Google." },
-    { "type": "text", "id": "share_eyebrow", "label": "Share eyebrow", "default": "ON THIS WEBSITE" },
-    { "type": "text", "id": "share_heading", "label": "Share heading", "default": "Share Your Royal Being Ritual" },
-    { "type": "textarea", "id": "share_text", "label": "Share text", "default": "Tell us about your experience and inspire another Royal Being. Submit a written review and include a short photo or video of your ritual." },
-    { "type": "textarea", "id": "share_note", "label": "Consent / distinction note", "default": "Photo and video reviews are submitted through our website review app, moderated before display, and are not automatically sent to Google. By sharing media you confirm you own the rights and consent to public display." },
-    { "type": "text", "id": "share_button_label", "label": "Share button", "default": "SHARE YOUR EXPERIENCE" },
-    { "type": "url", "id": "share_button_link", "label": "Share / review app link", "info": "Point to Judge.me, Loox, Okendo, or your Reviews page — not a custom upload form." }
+    { "type": "text", "id": "leave_google_label", "label": "Leave a Google Review label", "default": "Leave a Google Review" }
   ],
   "blocks": [
     { "type": "@app" },
     {
       "type": "review",
-      "name": "Google review",
+      "name": "Customer review",
       "settings": [
-        { "type": "paragraph", "content": "Add Google Business reviews here. Sample placeholder reviews may be used until live Google data is connected." },
         { "type": "text", "id": "name", "label": "Customer name" },
         { "type": "image_picker", "id": "avatar", "label": "Avatar (optional)" },
         { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Star rating", "default": 5 },
-        { "type": "text", "id": "date_label", "label": "Date label", "info": "As shown on Google, e.g. 3 months ago" },
-        { "type": "textarea", "id": "excerpt", "label": "Card excerpt", "info": "Short teaser for the carousel. Defaults to a truncated full review." },
+        { "type": "text", "id": "date_label", "label": "Date label" },
+        { "type": "textarea", "id": "excerpt", "label": "Card excerpt" },
         { "type": "textarea", "id": "body", "label": "Full review text" },
         { "type": "checkbox", "id": "verified", "label": "Show verified badge", "default": true },
-        { "type": "url", "id": "google_url", "label": "Link to this review on Google" },
+        { "type": "url", "id": "google_url", "label": "Link to this review" },
         { "type": "textarea", "id": "owner_reply", "label": "Owner reply (optional)" },
         { "type": "text", "id": "owner_reply_label", "label": "Owner reply badge", "default": "OWNER REPLY" }
       ]
     }
   ],
-  "presets": [{ "name": "Google reviews" }]
+  "presets": [{ "name": "Community & reviews" }]
 }
 {% endschema %}
