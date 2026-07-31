@@ -607,6 +607,31 @@
           "button2_link": "shopify://collections",
           "closing": "Royal Being \u2014 The Ritual of Being"
         }
+      },
+      "google-reviews": {
+        "type": "google-reviews",
+        "settings": {
+          "eyebrow": "THE ROYAL COMMUNITY",
+          "heading": "Real Rituals. Real Experiences.",
+          "text": "Discover how customers are making Royal Being part of their daily skincare and wellness rituals. Read genuine experiences shared by our growing community.",
+          "place_id": "",
+          "google_review_url": "",
+          "google_profile_url": "",
+          "overall_rating": "",
+          "total_reviews": "",
+          "max_reviews": 12,
+          "button_label": "READ ALL REVIEWS",
+          "button2_label": "LEAVE A GOOGLE REVIEW",
+          "view_google_label": "View on Google",
+          "share_eyebrow": "ON THIS WEBSITE",
+          "share_heading": "Share Your Royal Being Ritual",
+          "share_text": "Tell us about your experience and inspire another Royal Being. Submit a written review and include a short photo or video of your ritual.",
+          "share_note": "Photo and video reviews are submitted through our website review app, moderated before display, and are not automatically sent to Google. By sharing media you confirm you own the rights and consent to public display.",
+          "share_button_label": "SHARE YOUR EXPERIENCE",
+          "share_button_link": "shopify://pages/reviews"
+        },
+        "blocks": {},
+        "block_order": []
       }
     }
   }

@@ -345,6 +345,195 @@
     start();
   });
 
+  /* Google reviews carousel + modal */
+  $$('[data-google-reviews]').forEach((root) => {
+    const dataEl = root.querySelector('[data-grev-data]');
+    let reviews = [];
+    try { reviews = JSON.parse((dataEl && dataEl.textContent) || '[]'); } catch (e) { reviews = []; }
+    if (!Array.isArray(reviews)) reviews = [];
+
+    const modal = root.querySelector('[data-grev-modal]');
+    const dialog = root.querySelector('[data-grev-dialog]');
+    const body = root.querySelector('[data-grev-modal-body]');
+    const viewLink = root.querySelector('[data-grev-view-google]');
+    const openAllBtn = root.querySelector('[data-grev-open-all]');
+    let lastFocus = null;
+    let focusables = [];
+
+    function stars(n) {
+      const r = Math.max(0, Math.min(5, Number(n) || 0));
+      let html = '';
+      for (let i = 1; i <= 5; i++) html += '<span class="grev-star' + (i > r ? ' grev-star--empty' : '') + '" aria-hidden="true">★</span>';
+      return html;
+    }
+
+    function avatarHtml(r, tone) {
+      if (r.avatar) {
+        return '<span class="grev-avatar" aria-hidden="true"><img src="' + r.avatar + '" alt="" width="48" height="48"><span class="grev-avatar__g">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></span></span>';
+      }
+      const t = tone != null ? tone : 0;
+      return '<span class="grev-avatar" aria-hidden="true"><span class="grev-avatar__initial" data-tone="' + (t % 5) + '">' +
+        (r.initial || '?') + '</span><span class="grev-avatar__g"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></span></span>';
+    }
+
+    function escapeHtml(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function itemHtml(r, idx) {
+      const verified = r.verified
+        ? '<span class="grev-verified" title="Verified Google review" aria-label="Verified"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="currentColor"/><path fill="#fff" d="M6.7 10.85 4.4 8.55l.9-.9 1.4 1.4 3.6-3.6.9.9z"/></svg></span>'
+        : '';
+      let reply = '';
+      if (r.reply) {
+        reply = '<div class="grev-modal__reply"><div class="grev-modal__reply-head"><span>Royal Being</span>' +
+          '<span class="grev-modal__reply-badge">' + escapeHtml(r.reply_label || 'OWNER REPLY') + '</span></div>' +
+          '<p>' + escapeHtml(r.reply) + '</p></div>';
+      }
+      return '<article class="grev-modal__item">' +
+        '<div class="grev-modal__who">' + avatarHtml(r, idx) +
+        '<span class="grev-card__meta"><span class="grev-card__name">' + escapeHtml(r.name) + ' ' + verified + '</span>' +
+        (r.date ? '<span class="grev-card__date">' + escapeHtml(r.date) + '</span>' : '') +
+        '</span></div>' +
+        '<div class="grev-modal__stars-row" aria-label="' + (r.rating || 5) + ' out of 5 stars">' + stars(r.rating) + '</div>' +
+        '<p class="grev-modal__text">' + escapeHtml(r.body) + '</p>' + reply +
+        '</article>';
+    }
+
+    function getFocusables() {
+      if (!dialog) return [];
+      return $$('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])', dialog)
+        .filter((el) => !el.hasAttribute('disabled') && el.offsetParent !== null);
+    }
+
+    function openModal(list, focusReviewUrl) {
+      if (!modal || !body || !list.length) return;
+      lastFocus = document.activeElement;
+      body.innerHTML = list.map((r, i) => itemHtml(r, i)).join('');
+      if (viewLink) {
+        const url = focusReviewUrl || viewLink.getAttribute('href');
+        if (url) {
+          viewLink.href = url;
+          viewLink.hidden = false;
+        } else {
+          viewLink.hidden = true;
+        }
+      }
+      modal.hidden = false;
+      document.body.classList.add('grev-lock');
+      focusables = getFocusables();
+      (dialog || modal).focus();
+    }
+
+    function closeModal() {
+      if (!modal || modal.hidden) return;
+      modal.hidden = true;
+      document.body.classList.remove('grev-lock');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    function findReview(id) {
+      return reviews.find((r) => String(r.id) === String(id));
+    }
+
+    $$('[data-grev-open]', root).forEach((el) => {
+      el.addEventListener('click', () => {
+        const rid = el.getAttribute('data-grev-id');
+        const r = findReview(rid);
+        if (r) openModal([r], r.google_url || null);
+      });
+    });
+
+    openAllBtn && openAllBtn.addEventListener('click', () => openModal(reviews, null));
+
+    $$('[data-grev-close]', root).forEach((el) => el.addEventListener('click', closeModal));
+
+    document.addEventListener('keydown', (e) => {
+      if (modal && !modal.hidden && e.key === 'Escape') closeModal();
+      if (!modal || modal.hidden || e.key !== 'Tab' || !dialog) return;
+      focusables = getFocusables();
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+
+    /* Carousel */
+    const carousel = root.querySelector('[data-grev-carousel]');
+    if (!carousel) return;
+    const track = carousel.querySelector('[data-grev-track]');
+    const viewport = carousel.querySelector('.grev__viewport');
+    const slides = $$('[data-grev-slide]', carousel);
+    const dotsWrap = root.querySelector('[data-grev-dots]');
+    const prevBtn = carousel.querySelector('[data-grev-prev]');
+    const nextBtn = carousel.querySelector('[data-grev-next]');
+    if (!track || !viewport || !slides.length) return;
+
+    let page = 0;
+    let startX = 0;
+
+    function perView() {
+      const w = window.innerWidth;
+      if (w <= 560) return 1;
+      if (w <= 860) return 2;
+      if (w <= 1100) return 3;
+      return 4;
+    }
+    function pageCount() { return Math.max(1, Math.ceil(slides.length / perView())); }
+    function layout() {
+      const pv = perView();
+      const slideW = viewport.clientWidth / pv;
+      slides.forEach((s) => {
+        s.style.flex = '0 0 ' + slideW + 'px';
+        s.style.width = slideW + 'px';
+      });
+    }
+    function renderDots() {
+      if (!dotsWrap) return;
+      const n = pageCount();
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'grev__dot' + (i === page ? ' is-active' : '');
+        b.setAttribute('aria-label', 'Go to reviews page ' + (i + 1));
+        b.addEventListener('click', () => go(i));
+        dotsWrap.appendChild(b);
+      }
+    }
+    function go(p) {
+      const max = pageCount() - 1;
+      page = ((p % (max + 1)) + (max + 1)) % (max + 1);
+      track.style.transform = 'translateX(-' + (page * viewport.clientWidth) + 'px)';
+      $$('.grev__dot', root).forEach((d, i) => d.classList.toggle('is-active', i === page));
+    }
+    function refresh() {
+      layout();
+      if (page > pageCount() - 1) page = pageCount() - 1;
+      renderDots();
+      go(page);
+    }
+
+    prevBtn && prevBtn.addEventListener('click', () => go(page - 1));
+    nextBtn && nextBtn.addEventListener('click', () => go(page + 1));
+    carousel.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].clientX; }, { passive: true });
+    carousel.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) < 40) return;
+      if (dx < 0) go(page + 1); else go(page - 1);
+    }, { passive: true });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(refresh, 150);
+    });
+    refresh();
+  });
+
   $$('.pdp__thumbs button').forEach((b) => b.addEventListener('click', () => {
     const main = $('#pdp-main-img');
     if (main && b.dataset.img) main.innerHTML = `<img src="${b.dataset.img}" alt="${b.dataset.alt || ''}">`;
