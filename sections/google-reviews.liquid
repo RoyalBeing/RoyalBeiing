@@ -121,13 +121,12 @@
                             {%- else -%}
                               <span class="grev-avatar__initial" data-tone="{{ card_i | modulo: 5 }}">{{ initial }}</span>
                             {%- endif -%}
-                            <span class="grev-avatar__g" title="Google">{% render 'icon-google-g' %}</span>
                           </span>
                           <span class="grev-card__meta">
                             <span class="grev-card__name">
                               {{ block.settings.name }}
                               {%- if block.settings.verified -%}
-                                <span class="grev-verified" title="Verified Google review" aria-label="Verified">{% render 'icon-verified' %}</span>
+                                <span class="grev-verified" title="Verified review" aria-label="Verified">{% render 'icon-verified' %}</span>
                               {%- endif -%}
                             </span>
                             {%- if block.settings.date_label != blank -%}
@@ -191,8 +190,7 @@
 
       <div class="grev-modal__head">
         <h3 id="grev-modal-title-{{ section.id }}" class="grev-modal__title">
-          <span class="grev-modal__google" aria-hidden="true">{% render 'icon-google-wordmark' %}</span>
-          <span class="visually-hidden">Google</span> Reviews
+          {{ section.settings.modal_title | default: 'Customer Reviews' }}
         </h3>
         <div class="grev-modal__score" data-grev-score>
           {%- if overall != blank -%}
@@ -233,9 +231,10 @@
     { "type": "text", "id": "place_id", "label": "Google Place ID", "info": "From Google Business Profile. Used by review apps — not exposed in storefront JavaScript as an API key." },
     { "type": "url", "id": "google_review_url", "label": "Google review-request URL", "info": "Official link that opens Google’s write-a-review flow." },
     { "type": "url", "id": "google_profile_url", "label": "Google reviews / profile URL", "info": "Public listing customers can open to read all Google reviews." },
-    { "type": "text", "id": "overall_rating", "label": "Overall Google rating", "info": "e.g. 5.0 — leave blank until confirmed from Google." },
-    { "type": "text", "id": "total_reviews", "label": "Total Google review count", "info": "e.g. 43 — leave blank until confirmed from Google." },
+    { "type": "text", "id": "overall_rating", "label": "Overall rating", "info": "e.g. 5.0" },
+    { "type": "text", "id": "total_reviews", "label": "Total review count", "info": "e.g. 48" },
     { "type": "range", "id": "max_reviews", "min": 4, "max": 24, "step": 1, "label": "Maximum reviews displayed", "default": 12 },
+    { "type": "text", "id": "modal_title", "label": "Modal title", "default": "Customer Reviews" },
 
     { "type": "header", "content": "Buttons" },
     { "type": "text", "id": "button_label", "label": "Primary button", "default": "READ ALL REVIEWS" },
