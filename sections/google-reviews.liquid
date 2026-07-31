@@ -19,7 +19,7 @@
 <section
   class="section grev"
   id="google-reviews"
-  style="background:var(--rb-mist)"
+  style="background:var(--rb-ivory-50)"
   data-google-reviews
   data-section-id="{{ section.id }}"
   {{ section.shopify_attributes }}
@@ -73,18 +73,12 @@
 
     {%- if shown == 0 -%}
       <div class="grev__empty card-soft reveal" role="status">
-        <p class="eyebrow">SETUP REQUIRED</p>
-        <h3>Google reviews are ready to connect</h3>
+        <p class="eyebrow">COMING SOON</p>
+        <h3>Customer stories are on the way</h3>
         <p class="lead" style="margin-inline:auto;max-width:52ch">
-          Connect a Google reviews app block in the Theme Editor, or add verified Google reviews as section blocks.
-          No placeholder customer reviews are shown.
+          Be among the first to share how Royal Being fits into your daily ritual.
         </p>
-        <ul class="grev__missing">
-          <li>{% if place_id != blank %}<span class="grev__ok">Place ID saved</span>{% else %}<strong>Missing:</strong> Google Business Profile / Place ID{% endif %}</li>
-          <li>{% if google_leave_url != blank %}<span class="grev__ok">Review-request URL saved</span>{% else %}<strong>Missing:</strong> Google review-request URL{% endif %}</li>
-          <li>{% if google_profile_url != blank %}<span class="grev__ok">Profile / reviews URL saved</span>{% else %}<strong>Missing:</strong> Public Google reviews / profile URL{% endif %}</li>
-          <li><strong>Missing:</strong> Installed Google Reviews app widget or real review blocks</li>
-        </ul>
+        <a class="btn btn-outline" href="{{ section.settings.button2_link | default: '#share-review' }}">Share your experience</a>
       </div>
     {%- else -%}
       <div class="grev__carousel reveal" data-grev-carousel>

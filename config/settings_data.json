@@ -136,7 +136,7 @@
           "heading": "Five Collections.\nOne Royal Experience.",
           "text": "Every Royal Being soap belongs to a thoughtfully curated collection. Explore refined florals, signature herbal blends, everyday essentials, distinguished men\u2019s bars, and gentle creations for children\u2014without the clutter of an overwhelming catalog.",
           "button_label": "VIEW ALL COLLECTIONS",
-          "button_link": "/collections"
+          "button_link": "shopify://collections"
         },
         "blocks": {
           "royal": {
@@ -204,8 +204,8 @@
           "eyebrow": "THE ROYAL BEING EXPERIENCE",
           "heading": "See the Ritual in Motion",
           "text": "Step inside the world of Royal Being and discover how thoughtfully crafted herbal soaps can transform an ordinary routine into an elevated skincare and wellness experience.\n\nFrom the first touch of water to the final rich lather, every Royal Being bar is created to make your daily cleanse feel more intentional.",
-          "button_label": "DISCOVER OUR STORY",
-          "button_link": "shopify://pages/about",
+          "button_label": "EXPLORE THE COLLECTIONS",
+          "button_link": "",
           "video_url": "https://cdn.shopify.com/videos/c/o/v/117cb97df2d84d3797ee650ab396e790.mp4"
         }
       },
@@ -232,7 +232,7 @@
           "meta_natural": "100% Natural & Handmade",
           "meta_weight": "6.7 oz",
           "button_label": "SHOP WATERMELON FUSION",
-          "video_url": ""
+          "video_url": "https://cdn.shopify.com/videos/c/o/v/4ea7ed019d114331a66343175f778527.mp4"
         }
       },
       "ritual-grid": {
@@ -407,7 +407,7 @@
           "heading": "Never Run Out of Your Favourite Soap",
           "text": "Turn your favourite Royal Being bars into a dependable monthly ritual. Choose a subscription package and keep your skincare routine beautifully stocked.",
           "button_link": "shopify://collections/all",
-          "footnote": "Prices shown are placeholders and can be updated in the Theme Editor. Manage deliveries anytime through your customer account."
+          "footnote": "Cancel or pause anytime. Manage deliveries through your customer account."
         },
         "blocks": {
           "p1": {
@@ -558,8 +558,8 @@
         "settings": {
           "eyebrow": "NEED ASSISTANCE?",
           "heading": "Your Questions, Answered",
-          "button_label": "VIEW ALL FAQS",
-          "button_link": "shopify://pages/faq"
+          "button_label": "STILL HAVE A QUESTION?",
+          "button_link": "#share-review"
         },
         "blocks": {
           "q1": {
@@ -622,7 +622,7 @@
           "button_label": "SHOP ALL SOAPS",
           "button_link": "shopify://collections/all",
           "button2_label": "EXPLORE THE COLLECTIONS",
-          "button2_link": "shopify://collections",
+          "button2_link": "#collections",
           "closing": "Royal Being \u2014 The Ritual of Being"
         }
       },

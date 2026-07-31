@@ -93,7 +93,12 @@
     if (e.target.closest('[data-open-nav]')) { $('.mobile-nav') && $('.mobile-nav').classList.add('open'); document.body.style.overflow = 'hidden'; }
     if (e.target.closest('[data-close-nav]') || e.target.closest('.mobile-nav__scrim')) { $('.mobile-nav') && $('.mobile-nav').classList.remove('open'); document.body.style.overflow = ''; }
     const macc = e.target.closest('.m-acc>button'); if (macc) macc.parentElement.classList.toggle('open');
-    const acc = e.target.closest('.acc>button'); if (acc) acc.parentElement.classList.toggle('open');
+    const acc = e.target.closest('.acc>button');
+    if (acc) {
+      const item = acc.parentElement;
+      item.classList.toggle('open');
+      acc.setAttribute('aria-expanded', item.classList.contains('open') ? 'true' : 'false');
+    }
     if (e.target.closest('[data-filter-toggle]')) $('.filters') && $('.filters').classList.toggle('open');
 
     const add = e.target.closest('[data-add-variant]');
@@ -199,12 +204,9 @@
     start();
   });
 
-  /* Accordion a11y */
+  /* Accordion a11y init */
   $$('.acc>button').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const open = btn.parentElement.classList.contains('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
+    btn.setAttribute('aria-expanded', btn.parentElement.classList.contains('open') ? 'true' : 'false');
   });
 
   const qEl = $('#pdp-qty');

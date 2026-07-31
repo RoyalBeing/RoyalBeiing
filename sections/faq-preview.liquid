@@ -1,4 +1,4 @@
-<section class="section" id="faq-preview" {{ section.shopify_attributes }}>
+<section class="section" id="faq-preview" style="background:var(--rb-mist)" {{ section.shopify_attributes }}>
   <div class="wrap" style="max-width:900px">
     <div class="sec-head center reveal">
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
@@ -15,11 +15,24 @@
         </div>
       {%- endfor -%}
     </div>
-    {%- if section.settings.button_label != blank -%}
-      <div class="center" style="margin-top:32px">
-        <a class="btn btn-outline" href="{{ section.settings.button_link | default: '/pages/faq' }}">{{ section.settings.button_label }}</a>
-      </div>
-    {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          {%- liquid
+            assign faq_href = ''
+            if pages['faq'] != blank
+              assign faq_href = pages['faq'].url
+            elsif section.settings.button_link != blank
+              unless section.settings.button_link contains 'pages/faq'
+                assign faq_href = section.settings.button_link
+              endunless
+            endif
+            if faq_href == blank
+              assign faq_href = '#share-review'
+            endif
+          -%}
+          <div class="center" style="margin-top:32px">
+            <a class="btn btn-outline" href="{{ faq_href }}">{{ section.settings.button_label }}</a>
+          </div>
+        {%- endif -%}
   </div>
 </section>
 
@@ -29,8 +42,8 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "NEED ASSISTANCE?" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Your Questions, Answered" },
-    { "type": "text", "id": "button_label", "label": "Button", "default": "VIEW ALL FAQS" },
-    { "type": "url", "id": "button_link", "label": "Button link" }
+    { "type": "text", "id": "button_label", "label": "Button", "default": "STILL HAVE A QUESTION?" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "If blank or a missing FAQ page, links to the review section." }
   ],
   "blocks": [
     {

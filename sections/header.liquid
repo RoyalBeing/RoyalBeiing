@@ -39,23 +39,29 @@
           </div>
         </div>
       </div>
-      {%- for link in section.settings.menu.links -%}
-        <div class="nav__item">
-          <a class="nav__link" href="{{ link.url }}">
-            {{ link.title }}
-            {%- if link.links.size > 0 -%}{% render 'icon', name: 'chev' %}{%- endif -%}
-          </a>
-          {%- if link.links.size > 0 -%}
-            <div class="mega mega--simple" role="menu">
-              <div class="mega__col"><div class="mega__list">
-                {%- for child in link.links -%}
-                  <a href="{{ child.url }}">{{ child.title }}</a>
-                {%- endfor -%}
-              </div></div>
-            </div>
-          {%- endif -%}
-        </div>
-      {%- endfor -%}
+      {%- if section.settings.menu.links.size > 0 -%}
+        {%- for link in section.settings.menu.links -%}
+          <div class="nav__item">
+            <a class="nav__link" href="{{ link.url }}">
+              {{ link.title }}
+              {%- if link.links.size > 0 -%}{% render 'icon', name: 'chev' %}{%- endif -%}
+            </a>
+            {%- if link.links.size > 0 -%}
+              <div class="mega mega--simple" role="menu">
+                <div class="mega__col"><div class="mega__list">
+                  {%- for child in link.links -%}
+                    <a href="{{ child.url }}">{{ child.title }}</a>
+                  {%- endfor -%}
+                </div></div>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="nav__item"><a class="nav__link" href="{{ routes.root_url }}#collections">Collections</a></div>
+        <div class="nav__item"><a class="nav__link" href="{{ routes.root_url }}#google-reviews">Reviews</a></div>
+        <div class="nav__item"><a class="nav__link" href="{{ routes.root_url }}#faq-preview">FAQ</a></div>
+      {%- endif -%}
     </nav>
 
     <div class="header-actions">
@@ -88,18 +94,24 @@
         {%- endfor -%}
       </div>
     </div>
-    {%- for link in section.settings.menu.links -%}
-      {%- if link.links.size > 0 -%}
-        <div class="m-acc">
-          <button type="button">{{ link.title }} {% render 'icon', name: 'chev' %}</button>
-          <div class="m-acc__body">
-            {%- for child in link.links -%}<a href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}
+    {%- if section.settings.menu.links.size > 0 -%}
+      {%- for link in section.settings.menu.links -%}
+        {%- if link.links.size > 0 -%}
+          <div class="m-acc">
+            <button type="button">{{ link.title }} {% render 'icon', name: 'chev' %}</button>
+            <div class="m-acc__body">
+              {%- for child in link.links -%}<a href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}
+            </div>
           </div>
-        </div>
-      {%- else -%}
-        <a class="m-link" href="{{ link.url }}">{{ link.title }}</a>
-      {%- endif -%}
-    {%- endfor -%}
+        {%- else -%}
+          <a class="m-link" href="{{ link.url }}">{{ link.title }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      <a class="m-link" href="{{ routes.root_url }}#collections">Collections</a>
+      <a class="m-link" href="{{ routes.root_url }}#google-reviews">Reviews</a>
+      <a class="m-link" href="{{ routes.root_url }}#faq-preview">FAQ</a>
+    {%- endif -%}
     <a class="m-link" href="{{ routes.account_url }}">Account</a>
   </div>
 </div>

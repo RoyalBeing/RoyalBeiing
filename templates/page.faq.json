@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "eyebrow": "HELP & FAQ"
+      }
+    },
+    "faq": {
+      "type": "faq-preview",
+      "settings": {
+        "eyebrow": "COMMON QUESTIONS",
+        "heading": "Your Questions, Answered",
+        "text": "Everything you need to know about Royal Being soaps, shipping, and daily rituals.",
+        "button_label": "",
+        "button_link": ""
+      }
+    }
+  },
+  "order": ["main", "faq"]
+}

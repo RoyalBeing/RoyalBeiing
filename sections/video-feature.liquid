@@ -12,7 +12,20 @@
           <div class="rb-film__text lead">{{ section.settings.text | newline_to_br }}</div>
         {%- endif -%}
         {%- if section.settings.button_label != blank -%}
-          <a class="btn btn-outline" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+          {%- liquid
+            assign story_href = ''
+            if pages['about'] != blank
+              assign story_href = pages['about'].url
+            elsif section.settings.button_link != blank
+              unless section.settings.button_link contains 'pages/about'
+                assign story_href = section.settings.button_link
+              endunless
+            endif
+            if story_href == blank
+              assign story_href = routes.root_url | append: '#collections'
+            endif
+          -%}
+          <a class="btn btn-outline" href="{{ story_href }}">{{ section.settings.button_label }}</a>
         {%- endif -%}
       </div>
 
@@ -44,7 +57,7 @@
           </div>
         {%- else -%}
           <div class="rb-film__player rb-film__player--empty">
-            <p class="note">Add the Royal Being film URL in Theme settings.</p>
+            <p class="note">Royal Being film coming soon.</p>
           </div>
         {%- endif -%}
       </div>
@@ -62,8 +75,8 @@
     { "type": "video", "id": "video", "label": "Shopify-hosted video" },
     { "type": "text", "id": "video_url", "label": "MP4 URL", "default": "https://cdn.shopify.com/videos/c/o/v/117cb97df2d84d3797ee650ab396e790.mp4" },
     { "type": "image_picker", "id": "poster", "label": "Poster image" },
-    { "type": "text", "id": "button_label", "label": "Button", "default": "DISCOVER OUR STORY" },
-    { "type": "url", "id": "button_link", "label": "Button link" }
+    { "type": "text", "id": "button_label", "label": "Button", "default": "EXPLORE THE COLLECTIONS" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Uses the About page when it exists; otherwise falls back to Collections." }
   ],
   "presets": [{ "name": "Video feature" }]
 }
