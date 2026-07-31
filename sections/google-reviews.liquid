@@ -160,17 +160,6 @@
         <a class="btn btn-outline" href="{{ section.settings.button2_link | default: section.settings.share_button_link | default: '#share-review' }}">{{ section.settings.button2_label }}</a>
       {%- endif -%}
     </div>
-
-    {%- comment -%} Product / photo / video reviews — distinct from Google {%- endcomment -%}
-    <div class="grev__share card-soft reveal" id="share-experience">
-      {%- if section.settings.share_eyebrow != blank -%}<p class="eyebrow">{{ section.settings.share_eyebrow }}</p>{%- endif -%}
-      {%- if section.settings.share_heading != blank -%}<h3>{{ section.settings.share_heading }}</h3>{%- endif -%}
-      {%- if section.settings.share_text != blank -%}<p class="lead" style="margin-inline:auto">{{ section.settings.share_text | newline_to_br }}</p>{%- endif -%}
-      {%- if section.settings.share_note != blank -%}<p class="note" style="margin:14px auto 0;max-width:52ch">{{ section.settings.share_note }}</p>{%- endif -%}
-      {%- if section.settings.share_button_label != blank -%}
-        <a class="btn btn-gold" style="margin-top:20px" href="{{ section.settings.share_button_link | default: '#share-review' }}">{{ section.settings.share_button_label }}</a>
-      {%- endif -%}
-    </div>
   </div>
 
   {%- comment -%} Modal {%- endcomment -%}
