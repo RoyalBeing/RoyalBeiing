@@ -1,28 +1,68 @@
-<section class="section" {{ section.shopify_attributes }}>
+<section class="section rb-subs" style="background:var(--rb-mist)" {{ section.shopify_attributes }}>
   <div class="wrap">
-    <div class="card-soft reveal" style="max-width:920px;margin:0 auto;text-align:center">
+    <div class="sec-head center reveal">
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-      <h2>{{ section.settings.heading }}</h2>
-      {%- if section.settings.text != blank -%}<p class="lead" style="margin-inline:auto">{{ section.settings.text | newline_to_br }}</p>{%- endif -%}
-
-      {%- if section.blocks.size > 0 -%}
-        <ul class="sub-benefits">
-          {%- for block in section.blocks -%}
-            <li {{ block.shopify_attributes }}>
-              {% render 'icon', name: 'check' %}
-              <span>{{ block.settings.text }}</span>
-            </li>
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
-
-      {%- if section.settings.button_label != blank -%}
-        <a class="btn btn-primary" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" style="margin-top:10px">{{ section.settings.button_label }}</a>
-      {%- endif -%}
-      {%- if section.settings.note != blank -%}
-        <p class="note" style="margin-top:18px">{{ section.settings.note }}</p>
-      {%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text | newline_to_br }}</p>{%- endif -%}
     </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="rb-subs__grid reveal">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'plan' -%}
+            <article class="rb-subs__plan{% if block.settings.featured %} rb-subs__plan--featured{% endif %}" {{ block.shopify_attributes }}>
+              {%- if block.settings.badge != blank -%}
+                <span class="rb-subs__badge">{{ block.settings.badge }}</span>
+              {%- endif -%}
+              {%- if block.settings.name != blank -%}
+                <h3 class="rb-subs__name">{{ block.settings.name }}</h3>
+              {%- endif -%}
+              {%- if block.settings.tagline != blank -%}
+                <p class="rb-subs__tagline">{{ block.settings.tagline }}</p>
+              {%- endif -%}
+              <div class="rb-subs__price">
+                {%- if block.settings.price != blank -%}
+                  <span class="rb-subs__amount">{{ block.settings.price }}</span>
+                {%- endif -%}
+                {%- if block.settings.cadence != blank -%}
+                  <span class="rb-subs__cadence">{{ block.settings.cadence }}</span>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.compare_price != blank -%}
+                <p class="rb-subs__compare">{{ block.settings.compare_price }}</p>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="rb-subs__desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+              {%- if block.settings.features != blank -%}
+                <ul class="rb-subs__features">
+                  {%- assign lines = block.settings.features | newline_to_br | split: '<br />' -%}
+                  {%- for line in lines -%}
+                    {%- assign item = line | strip -%}
+                    {%- if item != blank -%}
+                      <li>
+                        {% render 'icon', name: 'check' %}
+                        <span>{{ item }}</span>
+                      </li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+              {%- if block.settings.button_label != blank -%}
+                <a
+                  class="btn {% if block.settings.featured %}btn-primary{% else %}btn-outline{% endif %} btn-block"
+                  href="{{ block.settings.button_link | default: section.settings.button_link | default: routes.all_products_collection_url }}"
+                >{{ block.settings.button_label }}</a>
+              {%- endif -%}
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.footnote != blank -%}
+      <p class="note center reveal" style="margin-top:28px;max-width:52ch;margin-inline:auto">{{ section.settings.footnote }}</p>
+    {%- endif -%}
   </div>
 </section>
 
@@ -32,28 +72,73 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "YOUR RITUAL, DELIVERED" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Never Run Out of Your Favourite Soap" },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Turn your favourite Royal Being bars into a dependable monthly ritual. Choose eligible soaps for recurring delivery and enjoy a more convenient way to keep your skincare routine beautifully stocked.\n\nManage your subscription through your customer account and adjust upcoming deliveries whenever needed." },
-    { "type": "text", "id": "button_label", "label": "Button", "default": "EXPLORE SUBSCRIPTIONS" },
-    { "type": "url", "id": "button_link", "label": "Subscription / shop link" },
-    { "type": "text", "id": "note", "label": "Note", "default": "Connect this button to your installed subscription app or eligible collection in the Theme Editor." }
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Turn your favourite Royal Being bars into a dependable monthly ritual. Choose a subscription package and keep your skincare routine beautifully stocked." },
+    { "type": "url", "id": "button_link", "label": "Default plan button link" },
+    { "type": "textarea", "id": "footnote", "label": "Footnote", "default": "Prices shown are placeholders and can be updated in the Theme Editor. Manage deliveries anytime through your customer account." }
   ],
   "blocks": [
     {
-      "type": "benefit",
-      "name": "Benefit",
+      "type": "plan",
+      "name": "Subscription plan",
       "settings": [
-        { "type": "text", "id": "text", "label": "Benefit", "default": "Convenient monthly delivery" }
+        { "type": "text", "id": "badge", "label": "Badge (optional)" },
+        { "type": "text", "id": "name", "label": "Plan name", "default": "The Single Ritual" },
+        { "type": "text", "id": "tagline", "label": "Tagline", "default": "1 bar each month" },
+        { "type": "text", "id": "price", "label": "Price", "default": "$18" },
+        { "type": "text", "id": "cadence", "label": "Cadence", "default": "/ month" },
+        { "type": "text", "id": "compare_price", "label": "Compare / save note", "default": "Cancel or pause anytime" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "A dependable monthly delivery of your favourite Royal Being bar." },
+        { "type": "textarea", "id": "features", "label": "Features (one per line)", "default": "1 handmade soap bar\nFree shipping on recurring orders\nEasy skip or swap" },
+        { "type": "checkbox", "id": "featured", "label": "Featured plan", "default": false },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "CHOOSE THIS RITUAL" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
       ]
     }
   ],
   "presets": [{
     "name": "Subscriptions",
     "blocks": [
-      { "type": "benefit", "settings": { "text": "Convenient monthly delivery" } },
-      { "type": "benefit", "settings": { "text": "Select eligible soaps" } },
-      { "type": "benefit", "settings": { "text": "Manage subscriptions online" } },
-      { "type": "benefit", "settings": { "text": "Update future deliveries" } },
-      { "type": "benefit", "settings": { "text": "Maintain a consistent personal ritual" } }
+      {
+        "type": "plan",
+        "settings": {
+          "name": "The Single Ritual",
+          "tagline": "1 bar each month",
+          "price": "$18",
+          "cadence": "/ month",
+          "compare_price": "Cancel or pause anytime",
+          "description": "A dependable monthly delivery of your favourite Royal Being bar.",
+          "features": "1 handmade soap bar\nFree shipping on recurring orders\nEasy skip or swap",
+          "button_label": "CHOOSE THIS RITUAL"
+        }
+      },
+      {
+        "type": "plan",
+        "settings": {
+          "badge": "MOST LOVED",
+          "name": "The Daily Pair",
+          "tagline": "2 bars each month",
+          "price": "$32",
+          "cadence": "/ month",
+          "compare_price": "Save vs buying separately",
+          "description": "Keep sink and shower stocked with two curated bars every month.",
+          "features": "2 handmade soap bars\nMix collections as you like\nFree shipping on recurring orders\nManage deliveries online",
+          "featured": true,
+          "button_label": "CHOOSE THIS RITUAL"
+        }
+      },
+      {
+        "type": "plan",
+        "settings": {
+          "name": "The Royal Household",
+          "tagline": "3 bars each month",
+          "price": "$45",
+          "cadence": "/ month",
+          "compare_price": "Best value for families",
+          "description": "A fuller monthly ritual for shared bathrooms and gift-ready extras.",
+          "features": "3 handmade soap bars\nIdeal for home + guest baths\nPriority restock access\nUpdate future deliveries anytime",
+          "button_label": "CHOOSE THIS RITUAL"
+        }
+      }
     ]
   }]
 }
