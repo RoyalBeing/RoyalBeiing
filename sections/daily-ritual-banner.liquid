@@ -1,9 +1,32 @@
-<section class="section rb-ritual-banner" {{ section.shopify_attributes }}>
-  <div class="wrap">
-    <div class="rb-ritual-banner__card reveal">
-      {%- if section.settings.eyebrow != blank -%}
-        <p class="rb-ritual-banner__eyebrow">{{ section.settings.eyebrow }}</p>
-      {%- endif -%}
+<section class="rb-ritual-banner" {{ section.shopify_attributes }}>
+  {%- liquid
+    assign bg = section.settings.image
+    assign href = section.settings.button_link | default: routes.collections_url
+  -%}
+  <div class="rb-ritual-banner__stage">
+    {%- if bg != blank -%}
+      <img
+        class="rb-ritual-banner__bg"
+        src="{{ bg | image_url: width: 2400 }}"
+        alt=""
+        width="{{ bg.width }}"
+        height="{{ bg.height }}"
+        loading="lazy"
+        decoding="async"
+      >
+    {%- else -%}
+      <img
+        class="rb-ritual-banner__bg"
+        src="{{ 'rb-daily-ritual-banner-blank.png' | asset_url }}"
+        alt=""
+        width="2048"
+        height="879"
+        loading="lazy"
+        decoding="async"
+      >
+    {%- endif -%}
+
+    <div class="rb-ritual-banner__panel reveal">
       {%- if section.settings.heading != blank -%}
         <h2 class="rb-ritual-banner__heading">{{ section.settings.heading | newline_to_br }}</h2>
       {%- endif -%}
@@ -11,7 +34,7 @@
         <p class="rb-ritual-banner__text">{{ section.settings.text }}</p>
       {%- endif -%}
       {%- if section.settings.button_label != blank -%}
-        <a class="btn btn-outline rb-ritual-banner__btn" href="{{ section.settings.button_link | default: routes.collections_url }}">{{ section.settings.button_label }}</a>
+        <a class="rb-ritual-banner__btn" href="{{ href }}">{{ section.settings.button_label }}</a>
       {%- endif -%}
     </div>
   </div>
@@ -22,7 +45,7 @@
   "name": "Daily ritual banner",
   "tag": "section",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "ROYAL BEING SKIN CARE" },
+    { "type": "image_picker", "id": "image", "label": "Background image (blank card)", "info": "Defaults to the high-res split soap banner with empty cream card." },
     { "type": "textarea", "id": "heading", "label": "Heading", "default": "DISCOVER YOUR\nDAILY RITUAL" },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Luxurious herbal soaps handmade in small batches to nourish the skin and bring elegance to everyday care." },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "SHOP COLLECTION" },
