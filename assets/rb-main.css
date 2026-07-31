@@ -1210,7 +1210,7 @@ body.grev-lock{overflow:hidden}
   }
   .rb-subs__lead{
     max-width:48ch;
-    margin-inline:auto  ;
+    margin-inline:auto;
   }
   .rb-subs__checklist{
     align-items:center;
@@ -1254,4 +1254,187 @@ body.grev-lock{overflow:hidden}
 .acc>button[aria-expanded="true"] .plus{transform:rotate(45deg);display:inline-block}
 @media(prefers-reduced-motion:reduce){
   .hero__slide{transition:none}
+}
+
+/* ============================================================
+   Homepage — tablet & mobile consistency only
+   (max-width queries; desktop styles above stay unchanged)
+   ============================================================ */
+@media (max-width:1080px){
+  .header-inner{gap:12px;height:72px}
+  .logo__text{font-size:1.28rem}
+  .logo__text small{letter-spacing:.28em;font-size:.46rem}
+}
+
+@media (max-width:860px){
+  :root{
+    --pad-x:clamp(16px,4.5vw,28px);
+    --sec-y:clamp(40px,7vw,72px);
+  }
+  .announce{
+    padding:10px 16px;
+    font-size:.68rem;
+    letter-spacing:.08em;
+  }
+  .header-inner{height:68px}
+  .logo svg{width:30px;height:30px}
+  .sec-head{margin-bottom:clamp(24px,5vw,36px)}
+  .lead{font-size:1.02rem}
+  .btn{
+    padding:13px 22px;
+    font-size:.78rem;
+    letter-spacing:.08em;
+  }
+
+  /* Hero: keep controls clear of copy */
+  .hero__controls{
+    bottom:10px;
+    padding-inline:10px;
+  }
+  .hero--split .hero__panel{
+    padding-inline:var(--pad-x);
+  }
+
+  /* Film / spotlight CTAs */
+  .rb-film__copy .btn{width:min(100%,320px)}
+  .rb-film__player{min-height:0}
+
+  /* Reviews actions */
+  .grev__actions{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:10px;
+    max-width:360px;
+    margin-inline:auto;
+  }
+  .grev__actions .btn{width:100%}
+
+  /* Newsletter */
+  .news-form{
+    flex-direction:column;
+    align-items:stretch;
+    max-width:420px;
+  }
+  .news-form input{
+    min-width:0;
+    width:100%;
+  }
+  .news-form .btn{width:100%}
+
+  /* Social follow buttons */
+  .rb-social .social-cta{
+    flex-direction:column;
+    align-items:stretch;
+    max-width:360px;
+    margin-inline:auto;
+    margin-bottom:clamp(22px,4vw,32px);
+  }
+  .rb-social .social-cta .btn{width:100%}
+
+  /* FAQ / CTA */
+  #faq-preview .btn,
+  .cta-final .hero__cta{
+    width:100%;
+    max-width:360px;
+    margin-inline:auto;
+  }
+  .cta-final .hero__cta{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .cta-final .hero__cta .btn{width:100%}
+  .cta-final h2{font-size:clamp(1.85rem,6.5vw,2.4rem)}
+
+  /* Review invite */
+  .review-invite__card .btn{width:100%;max-width:360px}
+  .review-form{max-width:100%}
+
+  /* Subscriptions card breathing room */
+  .rb-subs__card{
+    max-width:100%;
+    padding:40px 20px 24px;
+  }
+  .rb-subs__amount{font-size:clamp(1.9rem,8vw,2.4rem)}
+  .rb-subs__name{font-size:clamp(1.35rem,5.5vw,1.65rem)}
+
+  /* Footer */
+  .footer-bottom{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
+  .pay-methods{flex-wrap:wrap}
+}
+
+@media (max-width:640px){
+  h1{font-size:clamp(2rem,9vw,2.6rem)}
+  h2{font-size:clamp(1.75rem,7.5vw,2.25rem)}
+  .header-inner{height:64px;gap:8px}
+  .icon-btn{width:40px;height:40px}
+  .logo__text small{display:none}
+
+  /* Hero mobile: readable copy, full-width CTA */
+  .hero--split{min-height:min(82vh,640px)}
+  .hero--split .hero__inner p{
+    font-size:.95rem;
+    max-width:36ch;
+  }
+  .hero--split .hero__panel{
+    padding-bottom:clamp(64px,14vw,88px);
+  }
+  .hero__dots{gap:8px}
+
+  /* Trust: avoid cramped 2-col labels wrapping oddly */
+  .trust--benefits{padding-block:22px}
+  .trust__item--rich{gap:10px}
+  .trust__label{font-size:.68rem}
+  .trust__text{font-size:.74rem}
+
+  /* Collection intro */
+  .cshow-intro{text-align:center}
+  .cshow-intro__text{margin-inline:auto}
+  .cshow-intro .btn{align-self:center}
+
+  /* Product carousel: room for finger scrolling */
+  .pcar{grid-template-columns:32px 1fr 32px;gap:4px}
+  .pcar__nav{width:32px;height:32px;font-size:1.2rem}
+  .pcar-card__body{padding:12px 4px 2px}
+  .pcar-card__name{font-size:.64rem;letter-spacing:.1em}
+
+  /* Reviews carousel */
+  .grev__carousel{grid-template-columns:32px 1fr 32px;gap:4px}
+  .grev__nav{width:32px;height:32px;font-size:1.2rem}
+  .grev__slide{padding:0 4px}
+
+  /* Social mosaic: readable IG tile */
+  .rb-ig__cta{gap:10px;padding:14px}
+  .rb-ig__cta-text{font-size:.58rem;letter-spacing:.08em;line-height:1.45}
+  .rb-ig__cta-icon svg{width:22px;height:22px}
+
+  /* FAQ accordion touch targets */
+  .acc>button{
+    min-height:52px;
+    padding-block:14px;
+  }
+
+  /* Newsletter legal / discount */
+  .newsletter__legal{padding-inline:4px}
+  .newsletter h2{font-size:clamp(1.7rem,7vw,2.1rem)}
+
+  /* Prevent long uppercase buttons overflowing */
+  .btn{
+    white-space:normal;
+    text-align:center;
+    line-height:1.35;
+    padding-block:12px;
+  }
+}
+
+@media (max-width:400px){
+  .trust__grid{grid-template-columns:1fr}
+  .rb-subs__checklist{max-width:100%}
+  .rb-subs__features{gap:10px}
+  .announce{font-size:.62rem;letter-spacing:.06em;padding:9px 12px}
 }
