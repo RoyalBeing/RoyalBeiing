@@ -1,4 +1,4 @@
-<section class="section" {{ section.shopify_attributes }}>
+<section class="section rb-social" {{ section.shopify_attributes }}>
   <div class="wrap center">
     <div class="sec-head center reveal" style="margin-bottom:28px">
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
@@ -19,6 +19,9 @@
         if tt == blank
           assign tt = section.settings.tiktok_url
         endif
+        if ig == blank
+          assign ig = 'https://www.instagram.com/royalbeing2026/'
+        endif
       -%}
       {%- if section.settings.instagram_label != blank and ig != blank -%}
         <a class="btn btn-outline" href="{{ ig }}" target="_blank" rel="noopener">{{ section.settings.instagram_label }}</a>
@@ -29,6 +32,43 @@
       {%- if section.settings.tiktok_label != blank and tt != blank -%}
         <a class="btn btn-outline" href="{{ tt }}" target="_blank" rel="noopener">{{ section.settings.tiktok_label }}</a>
       {%- endif -%}
+    </div>
+
+    <div class="rb-ig reveal" aria-label="Royal Being soap gallery">
+      <a class="rb-ig__cell rb-ig__a1" href="{{ ig }}" target="_blank" rel="noopener">
+        <img src="{{ 'rb-social-charcoal.png' | asset_url }}" alt="Charcoal Moment — Royal Being" loading="lazy" width="800" height="800">
+      </a>
+      <a class="rb-ig__cell rb-ig__tall" href="{{ ig }}" target="_blank" rel="noopener">
+        <img src="{{ 'rb-social-detoxify.png' | asset_url }}" alt="Detoxify — Royal Being" loading="lazy" width="800" height="1200">
+      </a>
+      <a class="rb-ig__cell rb-ig__cta" href="{{ ig }}" target="_blank" rel="noopener" aria-label="Follow @royalbeing2026 on Instagram">
+        <span class="rb-ig__cta-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4.2"/>
+            <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="rb-ig__cta-text">@ROYALBEING2026<br>ON INSTAGRAM</span>
+      </a>
+      <a class="rb-ig__cell rb-ig__a2" href="{{ ig }}" target="_blank" rel="noopener">
+        <img src="{{ 'rb-social-citrus.png' | asset_url }}" alt="Citrus Heaven — Royal Being" loading="lazy" width="800" height="800">
+      </a>
+      <a class="rb-ig__cell rb-ig__b1" href="{{ ig }}" target="_blank" rel="noopener">
+        <img src="{{ 'rb-social-aloe.png' | asset_url }}" alt="Aloe Vera Wave — Royal Being" loading="lazy" width="800" height="800">
+      </a>
+      <a class="rb-ig__cell rb-ig__b2" href="{{ ig }}" target="_blank" rel="noopener">
+        <img src="{{ 'rb-social-lavender.png' | asset_url }}" alt="Blissful Lavender — Royal Being" loading="lazy" width="800" height="800">
+      </a>
+      <a class="rb-ig__cell rb-ig__b3" href="{{ ig }}" target="_blank" rel="noopener">
+        <img src="{{ 'rb-social-turmeric.png' | asset_url }}" alt="Turmeric Swirl — Royal Being" loading="lazy" width="800" height="800">
+      </a>
+      <a class="rb-ig__cell rb-ig__c1" href="{{ ig }}" target="_blank" rel="noopener">
+        <img src="{{ 'rb-social-kids.png' | asset_url }}" alt="Kid's Herbal Soap — Royal Being" loading="lazy" width="800" height="800">
+      </a>
+      <a class="rb-ig__cell rb-ig__c2" href="{{ ig }}" target="_blank" rel="noopener">
+        <img src="{{ 'rb-social-slow-life.png' | asset_url }}" alt="Slow Life — Royal Being" loading="lazy" width="1200" height="800">
+      </a>
     </div>
   </div>
 </section>
