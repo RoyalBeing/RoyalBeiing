@@ -1077,6 +1077,8 @@ body.grev-lock{overflow:hidden}
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:clamp(16px,2vw,22px);align-items:stretch;
 }
+.rb-subs__grid--1{grid-template-columns:minmax(0,420px);justify-content:center}
+.rb-subs__grid--2{grid-template-columns:repeat(2,minmax(0,420px));justify-content:center}
 .rb-subs__plan{
   position:relative;background:#fff;border:1px solid var(--rb-line);
   border-radius:var(--radius-lg);padding:clamp(24px,3vw,34px) 24px 28px;
@@ -1088,6 +1090,7 @@ body.grev-lock{overflow:hidden}
   border-color:var(--rb-green-900);
   box-shadow:var(--shadow-md);
   background:linear-gradient(180deg,#fff 0%,var(--rb-ivory-50) 100%);
+  padding-top:clamp(34px,4vw,42px);
 }
 .rb-subs__badge{
   position:absolute;top:14px;left:50%;transform:translateX(-50%);
@@ -1095,7 +1098,6 @@ body.grev-lock{overflow:hidden}
   background:var(--rb-gold-500);color:var(--rb-charcoal);
   padding:5px 10px;border-radius:20px;white-space:nowrap;
 }
-.rb-subs__plan--featured{padding-top:clamp(34px,4vw,42px)}
 .rb-subs__name{
   font-family:var(--font-display);font-size:clamp(1.45rem,2vw,1.75rem);
   color:var(--rb-green-900);margin:0 0 6px;
@@ -1122,10 +1124,61 @@ body.grev-lock{overflow:hidden}
 }
 .rb-subs__features svg{width:16px;height:16px;color:var(--rb-green-900);flex-shrink:0;margin-top:2px}
 .rb-subs__plan .btn{margin-top:auto}
-@media(max-width:960px){
-  .rb-subs__grid{grid-template-columns:1fr;max-width:420px;margin-inline:auto}
-  .rb-subs__plan--featured{order:-1}
+.rb-subs__empty{padding:36px 28px;max-width:560px;margin:0 auto}
+.rb-subs__products{margin-top:clamp(36px,5vw,56px)}
+.rb-subs__products-head{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  margin-bottom:18px;flex-wrap:wrap;
 }
+.rb-subs__products-head h3{
+  font-family:var(--font-display);font-size:clamp(1.35rem,2vw,1.7rem);
+  color:var(--rb-green-900);margin:0;
+}
+.rb-subs__products-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.rb-subs__product{
+  display:flex;flex-direction:column;background:#fff;border:1px solid var(--rb-line);
+  border-radius:var(--radius-md);overflow:hidden;text-decoration:none;color:inherit;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.rb-subs__product:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.rb-subs__product-media{aspect-ratio:1;overflow:hidden;background:var(--rb-mist)}
+.rb-subs__product-media img{width:100%;height:100%;object-fit:cover;display:block}
+.rb-subs__product-body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:4px;text-align:left}
+.rb-subs__product-name{font-family:var(--font-display);font-size:1.05rem;color:var(--rb-green-900);line-height:1.25}
+.rb-subs__product-plan{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--rb-sage-600)}
+.rb-subs__product-price{font-size:.92rem;font-weight:600;color:var(--rb-charcoal);margin-top:4px}
+@media(max-width:960px){
+  .rb-subs__grid,
+  .rb-subs__grid--2{grid-template-columns:1fr;max-width:420px;margin-inline:auto}
+  .rb-subs__products-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  .rb-subs__products-grid{grid-template-columns:1fr 1fr;gap:10px}
+}
+
+/* PDP selling plans */
+.rb-selling-plans{margin:0 0 18px;display:flex;flex-direction:column;gap:10px}
+.rb-selling-plans__label{
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--rb-sage-600);margin:0 0 2px;
+}
+.rb-selling-plans__option{
+  display:flex;align-items:flex-start;gap:12px;padding:14px 16px;
+  border:1.5px solid var(--rb-line);border-radius:var(--radius-md);
+  background:#fff;cursor:pointer;transition:border-color .2s ease,background .2s ease;
+}
+.rb-selling-plans__option:has(input:checked){
+  border-color:var(--rb-green-900);background:var(--rb-ivory-50);
+}
+.rb-selling-plans__option input{margin-top:3px;accent-color:var(--rb-green-900)}
+.rb-selling-plans__option span{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.rb-selling-plans__option strong{font-size:.95rem;color:var(--rb-green-900);font-weight:600}
+.rb-selling-plans__option small{font-size:.78rem;color:var(--rb-gold-600);font-weight:600;letter-spacing:.04em}
+.rb-selling-plans__option em{font-style:normal;font-size:.92rem;color:#55584f;font-weight:600}
 
 
 .review-formats{list-style:none;margin:28px auto 0;padding:0;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:720px}

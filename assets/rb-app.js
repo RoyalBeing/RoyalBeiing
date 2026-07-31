@@ -33,7 +33,7 @@
           ${i.image ? `<img src="${i.image}" alt="${i.product_title}">` : '<div class="thumb"></div>'}
           <div>
             <div class="cart-line__name"><a href="${i.url}">${i.product_title}</a></div>
-            <div class="cart-line__meta">${i.variant_title && i.variant_title !== 'Default Title' ? i.variant_title + ' · ' : ''}${money(i.final_price)}</div>
+            <div class="cart-line__meta">${i.variant_title && i.variant_title !== 'Default Title' ? i.variant_title + ' · ' : ''}${i.selling_plan_allocation && i.selling_plan_allocation.selling_plan ? i.selling_plan_allocation.selling_plan.name + ' · ' : ''}${money(i.final_price)}</div>
             <div class="qty">
               <button type="button" aria-label="Decrease" data-qty-change="${i.key}" data-delta="-1">−</button>
               <span>${i.quantity}</span>
@@ -67,11 +67,13 @@
     renderCart(await res.json());
   }
 
-  async function addToCart(id, quantity) {
+  async function addToCart(id, quantity, sellingPlan) {
+    const item = { id: Number(id), quantity: Number(quantity) || 1 };
+    if (sellingPlan) item.selling_plan = Number(sellingPlan);
     const res = await fetch('/cart/add.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ items: [{ id: Number(id), quantity: Number(quantity) || 1 }] }),
+      body: JSON.stringify({ items: [item] }),
       credentials: 'same-origin',
     });
     if (!res.ok) {
@@ -105,7 +107,9 @@
     if (add) {
       e.preventDefault();
       const qtyEl = $('#pdp-qty');
-      addToCart(add.dataset.addVariant, qtyEl ? parseInt(qtyEl.textContent, 10) : 1);
+      const planInput = $('[data-selling-plan-input]');
+      const sellingPlan = planInput && planInput.value ? planInput.value : null;
+      addToCart(add.dataset.addVariant, qtyEl ? parseInt(qtyEl.textContent, 10) : 1, sellingPlan);
     }
     const change = e.target.closest('[data-qty-change]');
     if (change) {
@@ -544,6 +548,21 @@
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       const first = target.querySelector('input:not([type="hidden"]), select, textarea');
       if (first) setTimeout(() => first.focus({ preventScroll: true }), 350);
+    });
+  });
+
+  /* PDP selling plans */
+  $$('[data-selling-plans]').forEach((root) => {
+    const input = root.querySelector('[data-selling-plan-input]');
+    if (!input) return;
+    root.querySelectorAll('input[name="purchase_option"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        if (radio.hasAttribute('data-selling-plan-clear') || radio.value === 'one-time') {
+          input.value = '';
+        } else {
+          input.value = radio.dataset.sellingPlanId || radio.value || '';
+        }
+      });
     });
   });
 

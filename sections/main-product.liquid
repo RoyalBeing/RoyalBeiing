@@ -72,6 +72,49 @@
             </div>
           {%- endunless -%}
 
+          {%- if product.selling_plan_groups.size > 0 -%}
+            <div class="rb-selling-plans" data-selling-plans>
+              <p class="rb-selling-plans__label">Purchase options</p>
+              <label class="rb-selling-plans__option">
+                <input type="radio" name="purchase_option" value="one-time" checked data-selling-plan-clear>
+                <span>
+                  <strong>One-time purchase</strong>
+                  <em>{{ current.price | money }}</em>
+                </span>
+              </label>
+              {%- for group in product.selling_plan_groups -%}
+                {%- for plan in group.selling_plans -%}
+                  {%- liquid
+                    assign alloc = blank
+                    for allocation in current.selling_plan_allocations
+                      if allocation.selling_plan.id == plan.id
+                        assign alloc = allocation
+                      endif
+                    endfor
+                    assign plan_price = current.price
+                    if alloc != blank
+                      assign plan_price = alloc.price
+                    endif
+                    assign adj = plan.price_adjustments.first
+                    assign plan_note = ''
+                    if adj != blank and adj.value_type == 'percentage'
+                      assign plan_note = adj.value | append: '% off'
+                    endif
+                  -%}
+                  <label class="rb-selling-plans__option">
+                    <input type="radio" name="purchase_option" value="{{ plan.id }}" data-selling-plan-id="{{ plan.id }}">
+                    <span>
+                      <strong>{{ plan.name }}</strong>
+                      {%- if plan_note != blank -%}<small>{{ plan_note }}</small>{%- endif -%}
+                      <em>{{ plan_price | money }}</em>
+                    </span>
+                  </label>
+                {%- endfor -%}
+              {%- endfor -%}
+              <input type="hidden" name="selling_plan" value="" data-selling-plan-input>
+            </div>
+          {%- endif -%}
+
           {%- if current.available -%}
             <div class="pdp__actions">
               <div class="qty">

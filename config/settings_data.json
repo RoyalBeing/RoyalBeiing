@@ -405,65 +405,17 @@
         "settings": {
           "eyebrow": "YOUR RITUAL, DELIVERED",
           "heading": "Never Run Out of Your Favourite Soap",
-          "text": "Turn your favourite Royal Being bars into a dependable monthly ritual. Choose a subscription package and keep your skincare routine beautifully stocked.",
+          "text": "Turn your favourite Royal Being bars into a dependable monthly ritual. Choose eligible soaps for recurring delivery and enjoy a more convenient way to keep your skincare routine beautifully stocked.\n\nManage your subscription through your customer account and adjust upcoming deliveries whenever needed.",
+          "collection": "",
+          "max_plans": 6,
+          "max_products": 8,
+          "button_label": "SUBSCRIBE TO THIS RITUAL",
+          "shop_label": "SHOP ELIGIBLE SOAPS",
           "button_link": "shopify://collections/all",
           "footnote": "Cancel or pause anytime. Manage deliveries through your customer account."
         },
-        "blocks": {
-          "p1": {
-            "type": "plan",
-            "settings": {
-              "badge": "",
-              "name": "The Single Ritual",
-              "tagline": "1 bar each month",
-              "price": "$18",
-              "cadence": "/ month",
-              "compare_price": "Cancel or pause anytime",
-              "description": "A dependable monthly delivery of your favourite Royal Being bar.",
-              "features": "1 handmade soap bar\nFree shipping on recurring orders\nEasy skip or swap",
-              "featured": false,
-              "button_label": "CHOOSE THIS RITUAL",
-              "button_link": "shopify://collections/all"
-            }
-          },
-          "p2": {
-            "type": "plan",
-            "settings": {
-              "badge": "MOST LOVED",
-              "name": "The Daily Pair",
-              "tagline": "2 bars each month",
-              "price": "$32",
-              "cadence": "/ month",
-              "compare_price": "Save vs buying separately",
-              "description": "Keep sink and shower stocked with two curated bars every month.",
-              "features": "2 handmade soap bars\nMix collections as you like\nFree shipping on recurring orders\nManage deliveries online",
-              "featured": true,
-              "button_label": "CHOOSE THIS RITUAL",
-              "button_link": "shopify://collections/all"
-            }
-          },
-          "p3": {
-            "type": "plan",
-            "settings": {
-              "badge": "",
-              "name": "The Royal Household",
-              "tagline": "3 bars each month",
-              "price": "$45",
-              "cadence": "/ month",
-              "compare_price": "Best value for families",
-              "description": "A fuller monthly ritual for shared bathrooms and gift-ready extras.",
-              "features": "3 handmade soap bars\nIdeal for home + guest baths\nPriority restock access\nUpdate future deliveries anytime",
-              "featured": false,
-              "button_label": "CHOOSE THIS RITUAL",
-              "button_link": "shopify://collections/all"
-            }
-          }
-        },
-        "block_order": [
-          "p1",
-          "p2",
-          "p3"
-        ]
+        "blocks": {},
+        "block_order": []
       },
       "customer-reviews": {
         "type": "customer-reviews",
