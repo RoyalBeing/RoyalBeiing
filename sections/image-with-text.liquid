@@ -1,4 +1,4 @@
-<section class="section split{% if section.settings.reverse %} split--rev{% endif %}" {{ section.shopify_attributes }}>
+<section class="section split{% if section.settings.reverse %} split--rev{% endif %}" style="background:var(--rb-mist)" {{ section.shopify_attributes }}>
   <div class="split__media reveal">
     {%- if section.settings.image != blank -%}
       <img src="{{ section.settings.image | image_url: width: 1400 }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}" loading="lazy">
