@@ -458,7 +458,7 @@
           "text": "Discover how customers are incorporating Royal Being into their daily skincare and wellness routines.\n\nFrom written stories to photos and video testimonials, every review helps another Royal Being find the collection that feels right for them.",
           "app_block_note": "Enable your review app widget in the Theme Editor for live ratings, photos, and verified reviews. No decorative fake reviews are shown here.",
           "button_label": "READ CUSTOMER REVIEWS",
-          "button_link": "shopify://pages/reviews",
+          "button_link": "#share-review",
           "button2_label": "SHARE YOUR EXPERIENCE",
           "button2_link": "#share-review"
         },
@@ -509,7 +509,7 @@
           "text": "Show us how Royal Being fits into your self-care routine. Upload a photo or video with your review and help inspire our growing community.",
           "consent": "By uploading media, you confirm you own the rights to the content and grant Royal Being permission to display it publicly on this website and social channels. Do not upload images of minors without parental consent.",
           "button_label": "UPLOAD YOUR REVIEW",
-          "button_link": "shopify://pages/reviews"
+          "button_link": ""
         }
       },
       "newsletter": {

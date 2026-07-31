@@ -533,6 +533,18 @@
     refresh();
   });
 
+  /* Review invite: scroll to form */
+  $$('[data-review-form-open]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      const target = document.getElementById('review-upload-form');
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const first = target.querySelector('input:not([type="hidden"]), select, textarea');
+      if (first) setTimeout(() => first.focus({ preventScroll: true }), 350);
+    });
+  });
+
   $$('.pdp__thumbs button').forEach((b) => b.addEventListener('click', () => {
     const main = $('#pdp-main-img');
     if (main && b.dataset.img) main.innerHTML = `<img src="${b.dataset.img}" alt="${b.dataset.alt || ''}">`;

@@ -309,7 +309,23 @@ p{margin:0 0 1rem}
 .review-card p{font-family:var(--font-display);font-style:italic;font-size:1.15rem;color:var(--rb-charcoal);line-height:1.4}
 .review-card .who{font-size:.8rem;color:#6c6f66;margin-top:14px;display:flex;align-items:center;gap:8px}
 .demo-tag{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;background:var(--rb-mist);color:#8a8d82;padding:3px 8px;border-radius:12px;font-weight:600}
-.review-formats{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 18px;justify-content:center;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#6c6f66}
+.review-invite__card{max-width:760px;margin:0 auto;text-align:center}
+.review-invite__form-wrap{
+  margin-top:28px;text-align:left;
+  border-top:1px solid var(--rb-line);padding-top:26px;
+}
+.review-form{display:flex;flex-direction:column;gap:16px;max-width:560px;margin:0 auto}
+.review-form__grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.review-form .form-field{display:flex;flex-direction:column;gap:8px;font-size:.82rem;font-weight:600;letter-spacing:.04em;color:#55584f}
+.review-form .form-field span{text-transform:uppercase;font-size:.68rem;letter-spacing:.1em}
+.review-form__consent{
+  display:flex;gap:12px;align-items:flex-start;font-size:.88rem;color:#55584f;line-height:1.45;font-weight:500;
+}
+.review-form__consent input{margin-top:4px;flex-shrink:0;width:18px;height:18px}
+@media(max-width:560px){
+  .review-form__grid{grid-template-columns:1fr}
+}
+
 
 /* Google community reviews */
 .grev .sec-head{margin-bottom:clamp(24px,4vw,40px)}

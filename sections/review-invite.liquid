@@ -1,14 +1,95 @@
-<section class="section" id="share-review" {{ section.shopify_attributes }}>
+<section class="section review-invite" id="share-review" {{ section.shopify_attributes }}>
   <div class="wrap">
-    <div class="card-soft reveal" style="max-width:760px;margin:0 auto;text-align:center">
+    <div class="card-soft review-invite__card reveal">
       <h2>{{ section.settings.heading }}</h2>
-      {%- if section.settings.text != blank -%}<p class="lead" style="margin-inline:auto">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <p class="lead" style="margin-inline:auto">{{ section.settings.text }}</p>
+      {%- endif -%}
       {%- if section.settings.consent != blank -%}
-        <p class="note" style="margin:18px auto;max-width:52ch">{{ section.settings.consent }}</p>
+        <p class="note" style="margin:18px auto 0;max-width:52ch">{{ section.settings.consent }}</p>
       {%- endif -%}
+
       {%- if section.settings.button_label != blank -%}
-        <a class="btn btn-gold" href="{{ section.settings.button_link | default: '/pages/reviews' }}">{{ section.settings.button_label }}</a>
+        {%- if section.settings.button_link != blank and section.settings.button_link != '#review-form' and section.settings.button_link != '#share-review' -%}
+          <a class="btn btn-gold" style="margin-top:22px" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+        {%- else -%}
+          <a class="btn btn-gold" style="margin-top:22px" href="#review-upload-form" data-review-form-open>
+            {{ section.settings.button_label }}
+          </a>
+        {%- endif -%}
       {%- endif -%}
+
+      <div class="review-invite__form-wrap" id="review-upload-form">
+        {%- form 'contact', id: 'RoyalBeingReviewForm', class: 'review-form' -%}
+          <input type="hidden" name="contact[subject]" value="{{ section.settings.form_subject | default: 'Royal Being — customer review' | escape }}">
+          <input type="hidden" name="contact[tags]" value="customer-review,media-review">
+
+          {%- if form.posted_successfully? -%}
+            <p class="form-status form-status--success" role="status">
+              {{ section.settings.success_message | default: 'Thank you — your review was sent. If you included a media link, our team will review it before display.' }}
+            </p>
+          {%- else -%}
+            {%- if form.errors -%}
+              <div class="form-status form-status--error" role="alert">
+                {{ form.errors | default_errors }}
+              </div>
+            {%- endif -%}
+
+            <div class="review-form__grid">
+              <label class="form-field">
+                <span>Name</span>
+                <input type="text" name="contact[name]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" required autocomplete="name">
+              </label>
+              <label class="form-field">
+                <span>Email</span>
+                <input type="email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required autocomplete="email">
+              </label>
+            </div>
+
+            <label class="form-field">
+              <span>Star rating</span>
+              <select name="contact[rating]" required>
+                <option value="">Select a rating</option>
+                <option value="5">5 — Excellent</option>
+                <option value="4">4 — Very good</option>
+                <option value="3">3 — Good</option>
+                <option value="2">2 — Fair</option>
+                <option value="1">1 — Poor</option>
+              </select>
+            </label>
+
+            <label class="form-field">
+              <span>Your review</span>
+              <textarea name="contact[body]" rows="5" required placeholder="{{ section.settings.review_placeholder | default: 'Share how Royal Being fits into your ritual…' | escape }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+            </label>
+
+            <label class="form-field">
+              <span>Photo or video link (optional)</span>
+              <input
+                type="url"
+                name="contact[media_link]"
+                placeholder="https:// — paste a Google Drive, Dropbox, or hosted file link"
+                inputmode="url"
+              >
+              <span class="note" style="display:block;margin-top:8px;text-align:left">
+                {%- if shop.email != blank -%}
+                  Prefer email? Send your photo or short video to
+                  <a href="mailto:{{ shop.email }}?subject=Royal%20Being%20review%20media">{{ shop.email }}</a>.
+                {%- else -%}
+                  Paste a shareable link to your photo or short video. Media is moderated before display.
+                {%- endif -%}
+              </span>
+            </label>
+
+            <label class="review-form__consent">
+              <input type="checkbox" name="contact[consent]" value="yes" required>
+              <span>{{ section.settings.consent_checkbox | default: 'I confirm I own the rights to this content and allow Royal Being to display my review and media publicly.' }}</span>
+            </label>
+
+            <button type="submit" class="btn btn-primary btn-block">{{ section.settings.submit_label | default: 'SUBMIT YOUR REVIEW' }}</button>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
     </div>
   </div>
 </section>
@@ -21,7 +102,12 @@
     { "type": "textarea", "id": "text", "label": "Text", "default": "Show us how Royal Being fits into your self-care routine. Upload a photo or video with your review and help inspire our growing community." },
     { "type": "textarea", "id": "consent", "label": "Consent notice", "default": "By uploading media, you confirm you own the rights to the content and grant Royal Being permission to display it publicly on this website and social channels. Do not upload images of minors without parental consent." },
     { "type": "text", "id": "button_label", "label": "Button", "default": "UPLOAD YOUR REVIEW" },
-    { "type": "url", "id": "button_link", "label": "Upload / review app link" }
+    { "type": "url", "id": "button_link", "label": "External review app link (optional)", "info": "Leave blank to use the built-in review form on this page." },
+    { "type": "text", "id": "form_subject", "label": "Form email subject", "default": "Royal Being — customer review" },
+    { "type": "text", "id": "review_placeholder", "label": "Review placeholder", "default": "Share how Royal Being fits into your ritual…" },
+    { "type": "text", "id": "consent_checkbox", "label": "Consent checkbox label", "default": "I confirm I own the rights to this content and allow Royal Being to display my review and media publicly." },
+    { "type": "text", "id": "submit_label", "label": "Submit button", "default": "SUBMIT YOUR REVIEW" },
+    { "type": "textarea", "id": "success_message", "label": "Success message", "default": "Thank you — your review was sent. If you included a media link, our team will review it before display." }
   ],
   "presets": [{ "name": "Review media invite" }]
 }
