@@ -442,10 +442,27 @@ body.grev-lock{overflow:hidden}
 }
 
 
-/* Daily ritual banner (approved creative) */
-.rb-ritual-banner{display:block;width:100%;background:var(--rb-ivory-50);line-height:0}
-.rb-ritual-banner__link{display:block}
-.rb-ritual-banner__img{width:100%;height:auto;display:block;object-fit:cover}
+/* Daily ritual banner — live HTML card */
+.rb-ritual-banner{background:var(--rb-ivory-50)}
+.rb-ritual-banner__card{
+  max-width:720px;margin:0 auto;text-align:center;
+  padding:clamp(36px,6vw,72px) clamp(24px,4vw,48px);
+}
+.rb-ritual-banner__eyebrow{
+  font-family:var(--font-body);font-size:.72rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--rb-gold-600);
+  margin:0 0 18px;
+}
+.rb-ritual-banner__heading{
+  font-family:var(--font-display);font-weight:600;font-size:clamp(2rem,4.2vw,3.35rem);
+  line-height:1.08;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--rb-green-900);margin:0 0 18px;
+}
+.rb-ritual-banner__text{
+  font-family:var(--font-body);font-size:clamp(.95rem,1.15vw,1.05rem);
+  line-height:1.65;color:var(--rb-green-900);max-width:42ch;margin:0 auto 28px;
+}
+.rb-ritual-banner__btn{margin-top:4px}
 
 /* ---------- Newsletter ---------- */
 .newsletter{background:var(--rb-green-900);color:var(--rb-ivory-50);text-align:center}
