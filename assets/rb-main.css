@@ -442,6 +442,11 @@ body.grev-lock{overflow:hidden}
 }
 
 
+/* Daily ritual banner (approved creative) */
+.rb-ritual-banner{display:block;width:100%;background:var(--rb-ivory-50);line-height:0}
+.rb-ritual-banner__link{display:block}
+.rb-ritual-banner__img{width:100%;height:auto;display:block;object-fit:cover}
+
 /* ---------- Newsletter ---------- */
 .newsletter{background:var(--rb-green-900);color:var(--rb-ivory-50);text-align:center}
 .newsletter h2{color:#fff}

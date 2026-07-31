@@ -158,16 +158,12 @@
         </button>
       {%- endif -%}
       {%- if section.settings.button2_label != blank -%}
-        {%- if google_leave_url != blank -%}
-          <a class="btn btn-outline" href="{{ google_leave_url }}" target="_blank" rel="noopener noreferrer">{{ section.settings.button2_label }}</a>
-        {%- else -%}
-          <button type="button" class="btn btn-outline" disabled title="Add the Google review-request URL in Theme settings">{{ section.settings.button2_label }}</button>
-        {%- endif -%}
+        <a class="btn btn-outline" href="{{ section.settings.button2_link | default: section.settings.share_button_link | default: '#share-review' }}">{{ section.settings.button2_label }}</a>
       {%- endif -%}
     </div>
 
     {%- comment -%} Product / photo / video reviews — distinct from Google {%- endcomment -%}
-    <div class="grev__share card-soft reveal">
+    <div class="grev__share card-soft reveal" id="share-experience">
       {%- if section.settings.share_eyebrow != blank -%}<p class="eyebrow">{{ section.settings.share_eyebrow }}</p>{%- endif -%}
       {%- if section.settings.share_heading != blank -%}<h3>{{ section.settings.share_heading }}</h3>{%- endif -%}
       {%- if section.settings.share_text != blank -%}<p class="lead" style="margin-inline:auto">{{ section.settings.share_text | newline_to_br }}</p>{%- endif -%}
@@ -216,7 +212,7 @@
           <a class="btn btn-outline btn-sm" data-grev-view-google hidden target="_blank" rel="noopener noreferrer">{{ section.settings.view_google_label | default: 'View on Google' }}</a>
         {%- endif -%}
         {%- if google_leave_url != blank -%}
-          <a class="btn btn-primary btn-sm" href="{{ google_leave_url }}" target="_blank" rel="noopener noreferrer">{{ section.settings.button2_label | default: 'Leave a Google Review' }}</a>
+          <a class="btn btn-primary btn-sm" href="{{ google_leave_url }}" target="_blank" rel="noopener noreferrer">{{ section.settings.leave_google_label | default: 'Leave a Google Review' }}</a>
         {%- endif -%}
       </div>
     </div>
@@ -243,8 +239,10 @@
 
     { "type": "header", "content": "Buttons" },
     { "type": "text", "id": "button_label", "label": "Primary button", "default": "READ ALL REVIEWS" },
-    { "type": "text", "id": "button2_label", "label": "Leave a Google Review", "default": "LEAVE A GOOGLE REVIEW" },
+    { "type": "text", "id": "button2_label", "label": "Secondary button", "default": "SHARE YOUR EXPERIENCE" },
+    { "type": "url", "id": "button2_link", "label": "Secondary button link", "info": "Connects to your review app / share form (written, photo, video)." },
     { "type": "text", "id": "view_google_label", "label": "View on Google label", "default": "View on Google" },
+    { "type": "text", "id": "leave_google_label", "label": "Leave a Google Review label", "default": "Leave a Google Review" },
 
     { "type": "header", "content": "Photo & video reviews (website)" },
     { "type": "paragraph", "content": "This block is for Shopify product / media reviews via your review app. It is separate from Google Business reviews and does not post to Google." },

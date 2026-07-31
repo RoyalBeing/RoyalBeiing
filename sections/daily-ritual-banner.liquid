@@ -1,0 +1,46 @@
+{%- comment -%}
+  Discover Your Daily Ritual banner — displays the approved creative as-is.
+  Do not redesign; keep editable link/alt only.
+{%- endcomment -%}
+<section class="rb-ritual-banner" {{ section.shopify_attributes }}>
+  {%- liquid
+    assign banner = section.settings.image
+    assign href = section.settings.link | default: routes.collections_url
+    assign alt = section.settings.alt | default: 'Royal Being Skin Care — Discover Your Daily Ritual'
+  -%}
+  <a class="rb-ritual-banner__link" href="{{ href }}">
+    {%- if banner != blank -%}
+      <img
+        class="rb-ritual-banner__img"
+        src="{{ banner | image_url: width: 2400 }}"
+        alt="{{ alt | escape }}"
+        width="{{ banner.width }}"
+        height="{{ banner.height }}"
+        loading="lazy"
+      >
+    {%- else -%}
+      <img
+        class="rb-ritual-banner__img"
+        src="{{ 'rb-discover-ritual-banner.png' | asset_url }}"
+        alt="{{ alt | escape }}"
+        width="1600"
+        height="600"
+        loading="lazy"
+      >
+    {%- endif -%}
+  </a>
+</section>
+
+{% schema %}
+{
+  "name": "Daily ritual banner",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Shows the Discover Your Daily Ritual banner creative. Replace the image only if you have an updated approved file — do not redesign in theme." },
+    { "type": "image_picker", "id": "image", "label": "Banner image" },
+    { "type": "text", "id": "alt", "label": "Image alt text", "default": "Royal Being Skin Care — Discover Your Daily Ritual. Luxurious herbal soaps handmade in small batches. Shop collection." },
+    { "type": "url", "id": "link", "label": "Banner link", "info": "Defaults to Collections" }
+  ],
+  "presets": [{ "name": "Daily ritual banner" }]
+}
+{% endschema %}

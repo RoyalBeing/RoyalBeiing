@@ -617,135 +617,30 @@
           "place_id": "",
           "google_review_url": "",
           "google_profile_url": "",
-          "overall_rating": "5.0",
-          "total_reviews": "48",
+          "overall_rating": "",
+          "total_reviews": "",
           "max_reviews": 12,
           "button_label": "READ ALL REVIEWS",
-          "button2_label": "LEAVE A GOOGLE REVIEW",
+          "button2_label": "SHARE YOUR EXPERIENCE",
           "view_google_label": "View on Google",
           "share_eyebrow": "ON THIS WEBSITE",
           "share_heading": "Share Your Royal Being Ritual",
           "share_text": "Tell us about your experience and inspire another Royal Being. Submit a written review and include a short photo or video of your ritual.",
           "share_note": "Photo and video reviews are submitted through our website review app, moderated before display, and are not automatically sent to Google. By sharing media you confirm you own the rights and consent to public display.",
-          "share_button_label": "SHARE YOUR EXPERIENCE",
-          "share_button_link": "shopify://pages/reviews"
+          "share_button_label": "",
+          "share_button_link": "#share-review",
+          "button2_link": "#share-review",
+          "leave_google_label": "Leave a Google Review"
         },
-        "blocks": {
-          "r1": {
-            "type": "review",
-            "settings": {
-              "name": "Amelia R.",
-              "rating": 5,
-              "date_label": "2 weeks ago",
-              "excerpt": "Watermelon Fusion has become my evening ritual. The scent is fresh without being overpowering, and my skin feels soft afterward.",
-              "body": "Watermelon Fusion has become my evening ritual. The scent is fresh without being overpowering, and my skin feels soft afterward. I love that it is handmade \u2014 you can tell the difference from store brands. Already ordering again for my bathroom and guest bath.",
-              "verified": true,
-              "owner_reply": "Thank you, Amelia. We are so glad Watermelon Fusion has found a place in your evening ritual. Welcome to the Royal Being community.",
-              "owner_reply_label": "OWNER REPLY"
-            }
-          },
-          "r2": {
-            "type": "review",
-            "settings": {
-              "name": "Jordan M.",
-              "rating": 5,
-              "date_label": "1 month ago",
-              "excerpt": "Switched to the Royal Duke collection and will not go back. Rich lather, lasting fragrance, and the bar lasts longer than I expected.",
-              "body": "Switched to the Royal Duke collection and will not go back. Rich lather, lasting fragrance, and the bar lasts longer than I expected. Feels elevated without being fussy \u2014 exactly what I wanted for a simple daily cleanse.",
-              "verified": true,
-              "owner_reply": "",
-              "owner_reply_label": "OWNER REPLY"
-            }
-          },
-          "r3": {
-            "type": "review",
-            "settings": {
-              "name": "Priya S.",
-              "rating": 5,
-              "date_label": "3 weeks ago",
-              "excerpt": "Bought the Royal Kid bars for my daughter and she asks for bath time now. Gentle on her skin and the colors make it fun.",
-              "body": "Bought the Royal Kid bars for my daughter and she asks for bath time now. Gentle on her skin and the colors make it fun. As a parent I appreciate the thoughtful ingredients and how nicely they rinse. Packaging arrived beautifully too.",
-              "verified": true,
-              "owner_reply": "Priya, thank you for trusting Royal Kid with your little one. Moments like bath-time joy are why we make these bars.",
-              "owner_reply_label": "OWNER REPLY"
-            }
-          },
-          "r4": {
-            "type": "review",
-            "settings": {
-              "name": "Elena V.",
-              "rating": 5,
-              "date_label": "1 month ago",
-              "excerpt": "The floral notes in the Royal Collection feel luxurious. Creamy lather, beautiful aroma, and my skin never feels stripped.",
-              "body": "The floral notes in the Royal Collection feel luxurious. Creamy lather, beautiful aroma, and my skin never feels stripped. I rotate two bars depending on my mood and both perform wonderfully. This is self-care I look forward to.",
-              "verified": true,
-              "owner_reply": "",
-              "owner_reply_label": "OWNER REPLY"
-            }
-          },
-          "r5": {
-            "type": "review",
-            "settings": {
-              "name": "Marcus T.",
-              "rating": 5,
-              "date_label": "2 months ago",
-              "excerpt": "Gifted a set to my partner and we both ended up hooked. Quality is obvious from the first wash \u2014 dense bar, clean finish.",
-              "body": "Gifted a set to my partner and we both ended up hooked. Quality is obvious from the first wash \u2014 dense bar, clean finish, and the scent lingers lightly on the skin. Customer service was also lovely when I asked about subscriptions.",
-              "verified": true,
-              "owner_reply": "Marcus, thank you for sharing Royal Being as a gift \u2014 and for joining the ritual yourself. We are here whenever you are ready to set up a subscription.",
-              "owner_reply_label": "OWNER REPLY"
-            }
-          },
-          "r6": {
-            "type": "review",
-            "settings": {
-              "name": "Sofia K.",
-              "rating": 5,
-              "date_label": "3 months ago",
-              "excerpt": "Finally a handmade soap that feels premium and actually lasts. The Signature blends smell incredible and cleanse without dryness.",
-              "body": "Finally a handmade soap that feels premium and actually lasts. The Signature blends smell incredible and cleanse without dryness. I keep one by the sink and one in the shower. Royal Being has replaced every other bar in our home.",
-              "verified": true,
-              "owner_reply": "",
-              "owner_reply_label": "OWNER REPLY"
-            }
-          },
-          "r7": {
-            "type": "review",
-            "settings": {
-              "name": "Daniel H.",
-              "rating": 4,
-              "date_label": "1 month ago",
-              "excerpt": "Great texture and scent throw. Shipping took a little longer than expected, but the product quality more than made up for it.",
-              "body": "Great texture and scent throw. Shipping took a little longer than expected, but the product quality more than made up for it. The charcoal bar leaves my skin feeling thoroughly clean. Will order earlier next time so I do not run out.",
-              "verified": true,
-              "owner_reply": "Daniel, thank you for the honest note. We are glad the bar earned a place in your routine \u2014 reach out anytime if you need help timing a restock or subscription.",
-              "owner_reply_label": "OWNER REPLY"
-            }
-          },
-          "r8": {
-            "type": "review",
-            "settings": {
-              "name": "Natalie P.",
-              "rating": 5,
-              "date_label": "2 weeks ago",
-              "excerpt": "Beautiful soaps and even more beautiful experience. From packaging to lather, everything feels intentional and calming.",
-              "body": "Beautiful soaps and even more beautiful experience. From packaging to lather, everything feels intentional and calming. I started with one bar and now have favorites from three collections. Highly recommend for anyone wanting a slower, more mindful cleanse.",
-              "verified": true,
-              "owner_reply": "Natalie, your words mean so much to our small-batch team. Thank you for exploring the collections with us.",
-              "owner_reply_label": "OWNER REPLY"
-            }
-          }
-        },
-        "block_order": [
-          "r1",
-          "r2",
-          "r3",
-          "r4",
-          "r5",
-          "r6",
-          "r7",
-          "r8"
-        ]
+        "blocks": {},
+        "block_order": []
+      },
+      "daily-ritual-banner": {
+        "type": "daily-ritual-banner",
+        "settings": {
+          "alt": "Royal Being Skin Care \u2014 Discover Your Daily Ritual. Luxurious herbal soaps handmade in small batches. Shop collection.",
+          "link": "shopify://collections"
+        }
       }
     }
   }
