@@ -605,7 +605,7 @@ body.grev-lock{overflow:hidden}
   text-decoration:none;
   transition:background .25s ease,color .25s ease;
 }
-.rb-ig__cta:hover{background:var(--rb-sage-700, #4a6b5a);color:#fff}
+.rb-ig__cta:hover{background:var(--rb-green-800);color:#fff}
 .rb-ig__cta-icon{display:grid;place-items:center;opacity:.92}
 .rb-ig__cta-text{
   font-family:var(--font-body);
