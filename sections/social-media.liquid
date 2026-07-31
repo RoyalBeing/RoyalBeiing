@@ -6,14 +6,28 @@
       {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
     </div>
     <div class="social-cta reveal" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
-      {%- if section.settings.instagram_label != blank -%}
-        <a class="btn btn-outline" href="{{ settings.social_instagram | default: section.settings.instagram_url }}" target="_blank" rel="noopener">{{ section.settings.instagram_label }}</a>
+      {%- liquid
+        assign ig = settings.social_instagram
+        if ig == blank
+          assign ig = section.settings.instagram_url
+        endif
+        assign fb = settings.social_facebook
+        if fb == blank
+          assign fb = section.settings.facebook_url
+        endif
+        assign tt = settings.social_tiktok
+        if tt == blank
+          assign tt = section.settings.tiktok_url
+        endif
+      -%}
+      {%- if section.settings.instagram_label != blank and ig != blank -%}
+        <a class="btn btn-outline" href="{{ ig }}" target="_blank" rel="noopener">{{ section.settings.instagram_label }}</a>
       {%- endif -%}
-      {%- if section.settings.facebook_label != blank -%}
-        <a class="btn btn-outline" href="{{ settings.social_facebook | default: section.settings.facebook_url }}" target="_blank" rel="noopener">{{ section.settings.facebook_label }}</a>
+      {%- if section.settings.facebook_label != blank and fb != blank -%}
+        <a class="btn btn-outline" href="{{ fb }}" target="_blank" rel="noopener">{{ section.settings.facebook_label }}</a>
       {%- endif -%}
-      {%- if section.settings.tiktok_label != blank -%}
-        <a class="btn btn-outline" href="{{ settings.social_tiktok | default: section.settings.tiktok_url }}" target="_blank" rel="noopener">{{ section.settings.tiktok_label }}</a>
+      {%- if section.settings.tiktok_label != blank and tt != blank -%}
+        <a class="btn btn-outline" href="{{ tt }}" target="_blank" rel="noopener">{{ section.settings.tiktok_label }}</a>
       {%- endif -%}
     </div>
   </div>
@@ -22,16 +36,17 @@
 {% schema %}
 {
   "name": "Social media",
+  "tag": "section",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FOLLOW THE RITUAL" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "@royalbeing2026" },
     { "type": "textarea", "id": "text", "label": "Text", "default": "Follow Royal Being for new soap reveals, behind-the-scenes moments, collection launches, lathering videos, skincare rituals, and small-batch updates." },
     { "type": "text", "id": "instagram_label", "label": "Instagram button", "default": "FOLLOW ON INSTAGRAM" },
-    { "type": "url", "id": "instagram_url", "label": "Instagram URL fallback", "default": "https://www.instagram.com/royalbeing2026/" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL fallback" },
     { "type": "text", "id": "facebook_label", "label": "Facebook button", "default": "FOLLOW ON FACEBOOK" },
-    { "type": "url", "id": "facebook_url", "label": "Facebook URL fallback", "default": "https://www.facebook.com/profile.php?id=61591471053395" },
+    { "type": "url", "id": "facebook_url", "label": "Facebook URL fallback" },
     { "type": "text", "id": "tiktok_label", "label": "TikTok button", "default": "FOLLOW ON TIKTOK" },
-    { "type": "url", "id": "tiktok_url", "label": "TikTok URL fallback", "default": "https://www.tiktok.com/@royaliik0ju" }
+    { "type": "url", "id": "tiktok_url", "label": "TikTok URL fallback" }
   ],
   "presets": [{ "name": "Social media" }]
 }
