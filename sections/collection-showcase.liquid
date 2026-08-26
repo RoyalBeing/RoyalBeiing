@@ -1,6 +1,6 @@
 <section class="section cshow-section" id="collections" {{ section.shopify_attributes }}>
   <div class="wrap">
-    <div class="cshow-grid reveal">
+    <div class="cshow-head reveal">
       <div class="cshow-intro">
         {%- if section.settings.eyebrow != blank -%}
           <p class="eyebrow">{{ section.settings.eyebrow }}</p>
@@ -8,6 +8,8 @@
         {%- if section.settings.heading != blank -%}
           <h2 class="cshow-intro__heading">{{ section.settings.heading | newline_to_br }}</h2>
         {%- endif -%}
+      </div>
+      <div class="cshow-intro__aside">
         {%- if section.settings.text != blank -%}
           <p class="cshow-intro__text">{{ section.settings.text }}</p>
         {%- endif -%}
@@ -15,7 +17,9 @@
           <a class="btn btn-outline" href="{{ section.settings.button_link | default: routes.collections_url }}">{{ section.settings.button_label }}</a>
         {%- endif -%}
       </div>
+    </div>
 
+    <div class="cshow-grid reveal">
       {%- for block in section.blocks -%}
         {%- liquid
           assign col = collections[block.settings.collection]
@@ -49,9 +53,9 @@
                 height="{{ block.settings.image.height }}"
               >
             {%- elsif col != blank and col.featured_image -%}
-              <img src="{{ col.featured_image | image_url: width: 1400 }}" alt="{{ col.title | escape }}" loading="lazy">
+              <img src="{{ col.featured_image | image_url: width: 1400 }}" alt="{{ col.title | escape }}" loading="lazy" width="{{ col.featured_image.width }}" height="{{ col.featured_image.height }}">
             {%- elsif block.settings.fallback_asset != blank -%}
-              <img src="{{ block.settings.fallback_asset | asset_url }}" alt="{{ label | escape }}" loading="lazy" width="1200" height="900">
+              <img src="{{ block.settings.fallback_asset | asset_url }}" alt="{{ label | escape }}" loading="lazy">
             {%- else -%}
               {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', handle: block.settings.collection %}{%- endcapture -%}
               {%- if rb_col_src != blank -%}
@@ -66,23 +70,23 @@
       {%- else -%}
         {%- comment -%}Defaults when Theme Editor has no blocks{%- endcomment -%}
         <a class="cshow-card cshow-card--featured" href="/collections/royal">
-          <span class="cshow-card__media"><img src="{{ 'rb-col-royal.jpg' | asset_url }}" alt="The Royal Collection" loading="lazy" width="1200" height="900"></span>
+          <span class="cshow-card__media"><img src="{{ 'rb-col-royal.jpg' | asset_url }}" alt="The Royal Collection" loading="lazy" width="1600" height="1200"></span>
           <span class="cshow-card__label">THE ROYAL COLLECTION</span>
         </a>
         <a class="cshow-card cshow-card--tall" href="/collections/signature">
-          <span class="cshow-card__media"><img src="{{ 'rb-col-signature.jpg' | asset_url }}" alt="The Signature Collection" loading="lazy" width="900" height="1200"></span>
+          <span class="cshow-card__media"><img src="{{ 'rb-col-signature.jpg' | asset_url }}" alt="The Signature Collection" loading="lazy" width="1600" height="1600"></span>
           <span class="cshow-card__label">THE SIGNATURE COLLECTION</span>
         </a>
-        <a class="cshow-card" href="/collections/common">
-          <span class="cshow-card__media"><img src="{{ 'rb-col-common.jpg' | asset_url }}" alt="The Common Collection" loading="lazy" width="1200" height="800"></span>
+        <a class="cshow-card cshow-card--standard" href="/collections/common">
+          <span class="cshow-card__media"><img src="{{ 'rb-col-common.jpg' | asset_url }}" alt="The Common Collection" loading="lazy" width="1600" height="1600"></span>
           <span class="cshow-card__label">THE COMMON COLLECTION</span>
         </a>
-        <a class="cshow-card" href="/collections/royal-duke">
-          <span class="cshow-card__media"><img src="{{ 'rb-col-royal-duke.jpg' | asset_url }}" alt="The Royal Duke Collection" loading="lazy" width="1200" height="800"></span>
+        <a class="cshow-card cshow-card--standard" href="/collections/royal-duke">
+          <span class="cshow-card__media"><img src="{{ 'rb-col-royal-duke.jpg' | asset_url }}" alt="The Royal Duke Collection" loading="lazy" width="1600" height="1318"></span>
           <span class="cshow-card__label">THE ROYAL DUKE COLLECTION</span>
         </a>
-        <a class="cshow-card" href="/collections/royal-kid">
-          <span class="cshow-card__media"><img src="{{ 'rb-col-royal-kid.jpg' | asset_url }}" alt="The Royal Kid Herbal Collection" loading="lazy" width="1200" height="800"></span>
+        <a class="cshow-card cshow-card--standard" href="/collections/royal-kid">
+          <span class="cshow-card__media"><img src="{{ 'rb-col-royal-kid.jpg' | asset_url }}" alt="The Royal Kid Herbal Collection" loading="lazy" width="1800" height="1800"></span>
           <span class="cshow-card__label">THE ROYAL KID HERBAL COLLECTION</span>
         </a>
       {%- endfor -%}
