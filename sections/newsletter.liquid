@@ -1,5 +1,26 @@
 <section class="section newsletter" {{ section.shopify_attributes }}>
-  <div class="wrap center">
+  {%- liquid
+    assign bg_src = 'rb-newsletter-family.jpg' | asset_url
+    if section.settings.background_image != blank
+      assign bg_src = section.settings.background_image | image_url: width: 2000
+    endif
+    assign bg_pos = section.settings.background_position
+    if bg_pos == blank
+      assign bg_pos = 'center 42%'
+    endif
+  -%}
+  <div class="newsletter__media" aria-hidden="true">
+    <img
+      src="{{ bg_src }}"
+      alt=""
+      width="1920"
+      height="640"
+      loading="lazy"
+      decoding="async"
+      style="object-position: {{ bg_pos }};"
+    >
+  </div>
+  <div class="wrap center newsletter__content">
     <p class="eyebrow" style="color:var(--rb-gold-500)">{{ section.settings.eyebrow }}</p>
     <h2>{{ section.settings.heading }}</h2>
     <p>{{ section.settings.text }}</p>
@@ -34,7 +55,9 @@
     { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "Enter your email address" },
     { "type": "text", "id": "button_label", "label": "Button", "default": "JOIN THE ROYAL CIRCLE" },
     { "type": "text", "id": "success", "label": "Success message", "default": "Welcome to the Royal Circle — please check your inbox." },
-    { "type": "textarea", "id": "legal", "label": "Legal text", "default": "By subscribing, you agree to receive Royal Being news and promotional emails. You may unsubscribe at any time." }
+    { "type": "textarea", "id": "legal", "label": "Legal text", "default": "By subscribing, you agree to receive Royal Being news and promotional emails. You may unsubscribe at any time." },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "text", "id": "background_position", "label": "Background object-position", "default": "center 42%" }
   ],
   "presets": [{ "name": "Newsletter" }]
 }
