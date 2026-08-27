@@ -1,19 +1,76 @@
-{%- comment -%} Minimal carousel product card — name + price, whole card links to PDP {%- endcomment -%}
+{%- comment -%} Featured carousel card — tactile soap, collection label, ATC + ritual {%- endcomment -%}
 {%- liquid
   assign variant = product.selected_or_first_available_variant
   assign on_sale = false
   if variant.compare_at_price > variant.price
     assign on_sale = true
   endif
+  assign sold_out = false
+  if variant == blank or variant.available == false
+    assign sold_out = true
+  endif
+
+  assign coll_title = ''
+  for collection in product.collections
+    if collection.handle != 'all' and collection.handle != 'frontpage'
+      assign coll_title = collection.title
+      break
+    endif
+  endfor
+
+  assign h = product.handle
+  assign mood = 'botanical'
+  if h == 'charcoal-moment' or h == 'woody' or h == 'teakwood' or h == 'bamboozled' or h == 'the-aristocrat' or h == 'the-ethan' or h == 'beef-tallow' or h == 'zen-moment'
+    assign mood = 'charcoal'
+  elsif h == 'detoxify' or h == 'aloe-vera-wave' or h == 'herbal-galaxy-renewal' or h == 'turmeric-swirl'
+    assign mood = 'detox'
+  elsif h == 'citrus-heaven' or h == 'watermelon-fusion' or h == 'aquatic-escape' or h == 'islander'
+    assign mood = 'citrus'
+  elsif h == 'the-chloe' or h == 'the-bodhi' or h == 'the-matthew' or h == 'the-iris' or h == 'calm'
+    assign mood = 'kids'
+  elsif h == 'glow-rify' or h == 'the-rose-garden' or h == 'fresh-floral-fiesta' or h == 'the-enchanted-garden' or h == 'gilded-age' or h == 'the-reiny' or h == 'the-duchess' or h == 'african-rhapsody' or h == 'blissful-lavender' or h == 'melanin-popping'
+    assign mood = 'floral'
+  endif
+
+  if coll_title == blank
+    if mood == 'charcoal'
+      assign coll_title = 'Royal Duke Collection'
+    elsif mood == 'kids'
+      assign coll_title = 'Royal Kid Herbal Collection'
+    elsif mood == 'floral'
+      assign coll_title = 'Signature Collection'
+    elsif mood == 'citrus'
+      assign coll_title = 'The Royal Collection'
+    elsif mood == 'detox'
+      assign coll_title = 'The Common Collection'
+    endif
+  endif
+
+  unless coll_title == blank
+    assign coll_down = coll_title | downcase
+    unless coll_down contains 'collection'
+      assign coll_title = coll_title | append: ' Collection'
+    endunless
+  endunless
+
+  assign tilt = product.id | modulo: 5
 -%}
-<a class="pcar-card" href="{{ product.url }}" data-product-id="{{ product.id }}">
-  <span class="pcar-card__media">
+<article
+  class="pcar-card"
+  data-product-id="{{ product.id }}"
+  data-mood="{{ mood }}"
+  data-tilt="{{ tilt }}"
+>
+  <a class="pcar-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+    <span class="pcar-card__stage" aria-hidden="true"></span>
+    <span class="pcar-card__atm" aria-hidden="true"></span>
     {%- if on_sale -%}
       <span class="pcar-card__sale">Sale</span>
     {%- endif -%}
     {%- if product.featured_media -%}
       <img
-        src="{{ product.featured_media | image_url: width: 800 }}"
+        class="pcar-card__soap"
+        src="{{ product.featured_media | image_url: width: 900 }}"
         alt="{{ product.featured_media.alt | default: product.title | escape }}"
         loading="lazy"
         width="{{ product.featured_media.width }}"
@@ -22,19 +79,26 @@
     {%- else -%}
       {%- capture rb_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
       {%- if rb_img != blank -%}
-        <img src="{{ rb_img | strip }}" alt="{{ product.title | escape }}" loading="lazy" width="800" height="800">
+        <img class="pcar-card__soap" src="{{ rb_img | strip }}" alt="{{ product.title | escape }}" loading="lazy" width="800" height="800">
       {%- else -%}
-        <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+        <img class="pcar-card__soap" src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
       {%- endif -%}
     {%- endif -%}
-  </span>
-  <span class="pcar-card__body">
-    <span class="pcar-card__name">{{ product.title }}</span>
+  </a>
+  <div class="pcar-card__body">
+    <span class="pcar-card__coll">{% if coll_title != blank %}{{ coll_title }}{% else %}&nbsp;{% endif %}</span>
+    <a class="pcar-card__name" href="{{ product.url }}">{{ product.title }}</a>
     <span class="pcar-card__price">
       {{ variant.price | money }}
       {%- if on_sale -%}
         <s class="pcar-card__compare">{{ variant.compare_at_price | money }}</s>
       {%- endif -%}
     </span>
-  </span>
-</a>
+    <div class="pcar-card__actions">
+      {%- if sold_out == false and variant != blank -%}
+        <button type="button" class="pcar-card__atc" data-add-variant="{{ variant.id }}">Add to cart</button>
+      {%- endif -%}
+      <a class="pcar-card__ritual" href="{{ product.url }}">View ritual<span aria-hidden="true"> →</span></a>
+    </div>
+  </div>
+</article>

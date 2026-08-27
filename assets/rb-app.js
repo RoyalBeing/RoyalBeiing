@@ -106,8 +106,9 @@
     const add = e.target.closest('[data-add-variant]');
     if (add) {
       e.preventDefault();
-      const qtyEl = $('#pdp-qty');
-      const planInput = $('[data-selling-plan-input]');
+      const fromCarousel = add.closest('.pcar-card');
+      const qtyEl = fromCarousel ? null : $('#pdp-qty');
+      const planInput = fromCarousel ? null : $('[data-selling-plan-input]');
       const sellingPlan = planInput && planInput.value ? planInput.value : null;
       addToCart(add.dataset.addVariant, qtyEl ? parseInt(qtyEl.textContent, 10) : 1, sellingPlan);
     }
@@ -340,6 +341,23 @@
     nextBtn && nextBtn.addEventListener('click', () => { stop(); next(); });
     root.addEventListener('mouseenter', () => { if (timer) { clearInterval(timer); timer = null; } });
     root.addEventListener('mouseleave', () => { if (!paused) start(); });
+
+    const coarse = window.matchMedia('(hover: none)').matches;
+    if (coarse && !reduce && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (!en.isIntersecting) return;
+          en.target.classList.add('is-in');
+          io.unobserve(en.target);
+        });
+      }, { threshold: 0.35 });
+      slides.forEach((slide) => {
+        const card = slide.querySelector('.pcar-card');
+        if (!card) return;
+        card.classList.add('will-enter');
+        io.observe(card);
+      });
+    }
 
     let resizeTimer;
     window.addEventListener('resize', () => {
