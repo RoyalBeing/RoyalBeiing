@@ -35,18 +35,6 @@
     -%}
 
     <div class="robeing">
-      <header class="robeing-head">
-        {%- if section.settings.eyebrow != blank -%}
-          <p class="eyebrow robeing-kicker">{{ section.settings.eyebrow }}</p>
-        {%- endif -%}
-        {%- if section.settings.heading != blank -%}
-          <h2 class="robeing-heading">{{ section.settings.heading | newline_to_br }}</h2>
-        {%- endif -%}
-        {%- if section.settings.intro != blank -%}
-          <p class="robeing-intro">{{ section.settings.intro }}</p>
-        {%- endif -%}
-      </header>
-
       <div class="robeing-body">
         <div class="robeing-visual">
           <div class="robeing-media reveal">
@@ -85,7 +73,20 @@
           </div>
         </div>
 
-        <div class="robeing-rows">
+        <div class="robeing-copy">
+          <header class="robeing-head">
+            {%- if section.settings.eyebrow != blank -%}
+              <p class="eyebrow robeing-kicker">{{ section.settings.eyebrow }}</p>
+            {%- endif -%}
+            {%- if section.settings.heading != blank -%}
+              <h2 class="robeing-heading">{{ section.settings.heading | newline_to_br }}</h2>
+            {%- endif -%}
+            {%- if section.settings.intro != blank -%}
+              <p class="robeing-intro">{{ section.settings.intro }}</p>
+            {%- endif -%}
+          </header>
+
+          <div class="robeing-rows">
           <article class="robeing-row reveal" style="--robeing-delay: 60ms">
             {%- if section.settings.f1_eyebrow != blank -%}<p class="eyebrow robeing-row__eyebrow">{{ section.settings.f1_eyebrow }}</p>{%- endif -%}
             {%- if section.settings.f1_heading != blank -%}<h3 class="robeing-row__heading">{{ section.settings.f1_heading }}</h3>{%- endif -%}
@@ -121,6 +122,7 @@
               <a class="robeing-link" href="{{ all_url }}">{{ section.settings.f4_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
             {%- endif -%}
           </article>
+          </div>
         </div>
       </div>
     </div>

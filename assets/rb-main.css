@@ -2013,37 +2013,32 @@ body.grev-lock{overflow:hidden}
 .robeing-section{background:var(--rb-ivory-50)}
 .robeing-kicker{
   display:flex;align-items:center;gap:14px;
-  grid-area:kicker;margin-bottom:14px;
+  margin-bottom:0;
 }
 .robeing-kicker::after{
   content:"";flex:1;max-width:120px;height:1px;
   background:var(--rb-gold-500);opacity:.7;
 }
+.robeing-copy{min-width:0}
 .robeing-head{
-  display:grid;
-  grid-template-columns:minmax(0,1.2fr) minmax(220px,.8fr);
-  grid-template-areas:
-    "kicker kicker"
-    "title intro";
-  gap:10px clamp(24px,4vw,64px);
-  align-items:start;
-  margin-bottom:clamp(22px,3vw,36px);
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:clamp(18px,2.4vw,28px);
 }
 .robeing-heading{
-  grid-area:title;
   color:var(--rb-green-900);
-  font-size:clamp(1.85rem,3vw,2.75rem);
+  font-size:clamp(1.7rem,2.6vw,2.45rem);
   line-height:1.12;
-  max-width:22ch;
+  max-width:16ch;
   margin:0;
 }
 .robeing-intro{
-  grid-area:intro;
   margin:0;
   color:#55584f;
   font-size:clamp(.92rem,1.15vw,1.05rem);
   line-height:1.7;
-  max-width:46ch;
 }
 .robeing-body{
   display:grid;
@@ -2076,12 +2071,12 @@ body.grev-lock{overflow:hidden}
 }
 .robeing-row{
   display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-columns:1fr;
   grid-template-areas:
-    "eyebrow cta"
-    "heading cta"
-    "text cta";
-  column-gap:20px;
+    "eyebrow"
+    "heading"
+    "text"
+    "cta";
   row-gap:4px;
   padding:16px 0;
   border-bottom:1px solid var(--rb-line);
@@ -2100,7 +2095,7 @@ body.grev-lock{overflow:hidden}
 }
 .robeing-row__text{
   grid-area:text;
-  margin:2px 0 0;
+  margin:2px 0 8px;
   font-size:.86rem;
   line-height:1.6;
   color:#55584f;
@@ -2109,20 +2104,20 @@ body.grev-lock{overflow:hidden}
 .robeing-link{
   grid-area:cta;
   justify-self:end;
-  align-self:start;
   display:inline-flex;align-items:center;gap:6px;
   font-family:var(--font-body);
   font-size:.62rem;font-weight:600;
-  letter-spacing:.16em;text-transform:uppercase;
+  letter-spacing:.14em;text-transform:uppercase;
   color:var(--rb-gold-600);
-  white-space:normal;
+  white-space:nowrap;
   text-align:right;
-  max-width:22ch;
-  line-height:1.45;
+  line-height:1.2;
+  padding:6px 0;
   transition:color .3s var(--ease);
 }
 .robeing-link__arrow{
   display:inline-block;
+  flex:0 0 auto;
   transition:transform .3s var(--ease);
 }
 .robeing-link:hover{color:var(--rb-gold-500)}
@@ -2137,8 +2132,9 @@ body.grev-lock{overflow:hidden}
   width:100%;
   min-width:0;
   padding-inline:16px;
-  font-size:.72rem;
-  letter-spacing:.08em;
+  font-size:.68rem;
+  letter-spacing:.06em;
+  white-space:nowrap;
 }
 .robeing-btn-secondary{
   background:var(--rb-ivory-50);
@@ -2152,14 +2148,11 @@ body.grev-lock{overflow:hidden}
 }
 
 @media(max-width:900px){
+  .robeing-copy{display:contents}
   .robeing-head{
-    grid-template-columns:1fr;
-    grid-template-areas:
-      "kicker"
-      "title"
-      "intro";
-    gap:12px;
-    margin-bottom:22px;
+    order:1;
+    gap:10px;
+    margin-bottom:8px;
   }
   .robeing-heading{
     font-size:clamp(1.65rem,6.6vw,2.1rem);
@@ -2174,16 +2167,16 @@ body.grev-lock{overflow:hidden}
   }
   .robeing-visual{display:contents}
   .robeing-media{
-    order:1;
+    order:2;
     aspect-ratio:3/4;
     max-width:none;
     max-height:none;
     width:100%;
     margin-inline:auto;
   }
-  .robeing-rows{order:2}
+  .robeing-rows{order:3}
   .robeing-actions{
-    order:3;
+    order:4;
     max-width:none;
     width:100%;
     margin-inline:auto;
@@ -2200,7 +2193,12 @@ body.grev-lock{overflow:hidden}
   .robeing-row:first-child,
   .robeing-row:last-child{padding:16px 16px 12px}
   .robeing-row__text{margin:2px 0 8px;max-width:none}
-  .robeing-link{justify-self:auto;align-self:flex-end;white-space:normal;text-align:right}
+  .robeing-link{
+    justify-self:auto;
+    align-self:flex-end;
+    font-size:.56rem;
+    letter-spacing:.1em;
+  }
 }
 
 /* Royal Kid’s Herbal Collection showcase */
