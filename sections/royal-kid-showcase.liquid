@@ -1,0 +1,137 @@
+<section class="section section--compact rkids-section" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    {%- liquid
+      assign kid_url = '/collections/royal-kid'
+      if collections['royal-kid'] != blank
+        assign kid_url = collections['royal-kid'].url
+      endif
+      if section.settings.button_link != blank
+        assign kid_url = section.settings.button_link
+      endif
+    -%}
+
+    <div class="rkids">
+      <header class="rkids-head">
+        <div class="rkids-head__title">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="eyebrow rkids-kicker">{{ section.settings.eyebrow }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="rkids-heading">{{ section.settings.heading | newline_to_br }}</h2>
+          {%- endif -%}
+        </div>
+        <div class="rkids-head__copy">
+          {%- if section.settings.text != blank -%}
+            <p class="rkids-intro">{{ section.settings.text }}</p>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank -%}
+            <a class="btn btn-primary" href="{{ kid_url }}">{{ section.settings.button_label }}</a>
+          {%- endif -%}
+        </div>
+      </header>
+
+      <div class="rkids-grid">
+        {%- for i in (1..3) -%}
+          {%- liquid
+            assign heading_key = 'card_' | append: i | append: '_heading'
+            assign text_key = 'card_' | append: i | append: '_text'
+            assign asset_key = 'card_' | append: i | append: '_asset'
+            assign pos_key = 'card_' | append: i | append: '_position'
+            assign alt_key = 'card_' | append: i | append: '_alt'
+            assign img_key = 'card_' | append: i | append: '_image'
+
+            assign heading = section.settings[heading_key]
+            assign text = section.settings[text_key]
+            assign asset_name = section.settings[asset_key]
+            assign objpos = section.settings[pos_key]
+            if objpos == blank
+              assign objpos = '50% 40%'
+            endif
+            assign alt = section.settings[alt_key]
+            if alt == blank
+              assign alt = heading
+            endif
+            assign picker = section.settings[img_key]
+            if asset_name == blank
+              assign asset_name = 'rb-rkids-' | append: i | append: '.jpg'
+            endif
+          -%}
+          <article class="rkids-card reveal" style="--rkids-delay: {{ i | times: 70 }}ms">
+            <div class="rkids-card__media">
+              {%- if picker != blank -%}
+                <img
+                  src="{{ picker | image_url: width: 900 }}"
+                  srcset="{{ picker | image_url: width: 480 }} 480w, {{ picker | image_url: width: 720 }} 720w, {{ picker | image_url: width: 900 }} 900w"
+                  sizes="(max-width: 760px) calc(100vw - 48px), 28vw"
+                  alt="{{ alt | escape }}"
+                  loading="lazy"
+                  decoding="async"
+                  width="{{ picker.width | default: 800 }}"
+                  height="{{ picker.height | default: 1000 }}"
+                  style="object-position: {{ objpos }};"
+                >
+              {%- else -%}
+                <img
+                  src="{{ asset_name | asset_url }}"
+                  alt="{{ alt | escape }}"
+                  loading="lazy"
+                  decoding="async"
+                  width="800"
+                  height="1000"
+                  style="object-position: {{ objpos }};"
+                >
+              {%- endif -%}
+            </div>
+            <div class="rkids-card__body">
+              {%- if heading != blank -%}
+                <h3 class="rkids-card__heading">{{ heading }}</h3>
+              {%- endif -%}
+              {%- if text != blank -%}
+                <p class="rkids-card__text">{{ text }}</p>
+              {%- endif -%}
+              <span class="rkids-card__leaf" aria-hidden="true">
+                {% render 'icon', name: 'leaf' %}
+                {% render 'icon', name: 'leaf' %}
+              </span>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Royal Kid showcase",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Royal Kid’s Herbal Collection" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Gentle Herbal Care for\nDelicate, Growing Skin" },
+    { "type": "textarea", "id": "text", "label": "Supporting copy", "default": "Made with gentle, skin-loving ingredients, Royal Being’s kid-friendly collection brings a soft, comforting cleanse to little ones. A calm ritual designed for delicate, growing skin." },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "EXPLORE COLLECTION" },
+    { "type": "url", "id": "button_link", "label": "Collection link" },
+    { "type": "header", "content": "Card 1" },
+    { "type": "image_picker", "id": "card_1_image", "label": "Image" },
+    { "type": "text", "id": "card_1_asset", "label": "Theme asset", "default": "rb-rkids-1.jpg" },
+    { "type": "text", "id": "card_1_position", "label": "Object position", "default": "50% 38%" },
+    { "type": "text", "id": "card_1_heading", "label": "Heading", "default": "Gentle on Skin" },
+    { "type": "textarea", "id": "card_1_text", "label": "Text", "default": "Soft cleansing for everyday care." },
+    { "type": "text", "id": "card_1_alt", "label": "Alt text", "default": "Child ambassador in a white robe holding a Royal Being soap bar" },
+    { "type": "header", "content": "Card 2" },
+    { "type": "image_picker", "id": "card_2_image", "label": "Image" },
+    { "type": "text", "id": "card_2_asset", "label": "Theme asset", "default": "rb-rkids-2.jpg" },
+    { "type": "text", "id": "card_2_position", "label": "Object position", "default": "50% 40%" },
+    { "type": "text", "id": "card_2_heading", "label": "Heading", "default": "Safe for You" },
+    { "type": "textarea", "id": "card_2_text", "label": "Text", "default": "Skin-loving ingredients little ones can enjoy." },
+    { "type": "text", "id": "card_2_alt", "label": "Alt text", "default": "Smiling child holding a Royal Being herbal soap toward the camera" },
+    { "type": "header", "content": "Card 3" },
+    { "type": "image_picker", "id": "card_3_image", "label": "Image" },
+    { "type": "text", "id": "card_3_asset", "label": "Theme asset", "default": "rb-rkids-3.jpg" },
+    { "type": "text", "id": "card_3_position", "label": "Object position", "default": "48% 40%" },
+    { "type": "text", "id": "card_3_heading", "label": "Heading", "default": "Little Ones Love It" },
+    { "type": "textarea", "id": "card_3_text", "label": "Text", "default": "A joyful ritual for delicate, growing skin." },
+    { "type": "text", "id": "card_3_alt", "label": "Alt text", "default": "Child in a bathrobe smiling with eyes closed while holding Royal Being soap" }
+  ],
+  "presets": [{ "name": "Royal Kid showcase" }]
+}
+{% endschema %}

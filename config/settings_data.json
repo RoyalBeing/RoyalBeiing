@@ -481,6 +481,31 @@
         "blocks": {},
         "block_order": []
       },
+      "royal-kid-showcase": {
+        "type": "royal-kid-showcase",
+        "settings": {
+          "eyebrow": "Royal Kid\u2019s Herbal Collection",
+          "heading": "Gentle Herbal Care for\nDelicate, Growing Skin",
+          "text": "Made with gentle, skin-loving ingredients, Royal Being\u2019s kid-friendly collection brings a soft, comforting cleanse to little ones. A calm ritual designed for delicate, growing skin.",
+          "button_label": "EXPLORE COLLECTION",
+          "button_link": "/collections/royal-kid",
+          "card_1_asset": "rb-rkids-1.jpg",
+          "card_1_position": "50% 38%",
+          "card_1_heading": "Gentle on Skin",
+          "card_1_text": "Soft cleansing for everyday care.",
+          "card_1_alt": "Child ambassador in a white robe holding a Royal Being soap bar",
+          "card_2_asset": "rb-rkids-2.jpg",
+          "card_2_position": "50% 40%",
+          "card_2_heading": "Safe for You",
+          "card_2_text": "Skin-loving ingredients little ones can enjoy.",
+          "card_2_alt": "Smiling child holding a Royal Being herbal soap toward the camera",
+          "card_3_asset": "rb-rkids-3.jpg",
+          "card_3_position": "48% 40%",
+          "card_3_heading": "Little Ones Love It",
+          "card_3_text": "A joyful ritual for delicate, growing skin.",
+          "card_3_alt": "Child in a bathrobe smiling with eyes closed while holding Royal Being soap"
+        }
+      },
       "customer-reviews": {
         "type": "customer-reviews",
         "settings": {
