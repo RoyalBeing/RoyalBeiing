@@ -2064,6 +2064,11 @@ body.grev-lock{overflow:hidden}
   gap:clamp(32px,4.2vw,56px);
   align-items:start;
 }
+@media (min-width:901px){
+  .robeing--flip .robeing-copy{order:1}
+  .robeing--flip .robeing-visual{order:2}
+}
+.robeing-section--queen{border-top:1px solid var(--rb-line)}
 .robeing-visual{
   display:flex;
   flex-direction:column;

@@ -295,6 +295,38 @@
           "secondary_label": "VIEW THE CHARCOAL MOMENT"
         }
       },
+      "ritual-of-being-queen": {
+        "type": "ritual-of-being-queen",
+        "settings": {
+          "eyebrow": "THE RITUAL OF BEING",
+          "heading": "Naturally Nourished.\nBeautifully Radiant.",
+          "intro": "A restorative cleansing ritual created for moments of calm, renewal, and intentional self-care. Discover Royal Being through rich lathers, skin-loving herbal ingredients, and beautifully crafted bars designed to leave skin feeling refreshed, nourished, and cared for.",
+          "image_alt": "Royal Being female ambassador holding a sage herbal soap in a steam-filled spa bath",
+          "image_position": "50% 42%",
+          "f1_eyebrow": "FEATURED RITUAL",
+          "f1_heading": "Detoxify",
+          "f1_text": "A refreshing herbal cleansing bar designed to gently cleanse and revive the skin. Its thoughtfully selected botanical ingredients transform an everyday shower into a soothing ritual that leaves you feeling fresh, balanced, and renewed.",
+          "f1_cta": "VIEW DETOXIFY",
+          "detox_link": "/products/detoxify",
+          "f2_eyebrow": "ROYAL QUEEN COLLECTION",
+          "f2_heading": "Elevated Care for Her Daily Ritual",
+          "f2_text": "A refined collection created for women who want everyday cleansing to feel more intentional. Discover luxurious herbal bars with beautiful aromas, rich lathers, and skin-loving ingredients crafted for moments of everyday self-care.",
+          "f2_cta": "EXPLORE THE ROYAL QUEEN COLLECTION",
+          "queen_link": "/collections/royal-queen",
+          "f3_eyebrow": "CRAFTED TO CARE",
+          "f3_heading": "Gentle Ritual. Lasting Experience.",
+          "f3_text": "Thoughtfully crafted premium bars designed to deliver a rich, satisfying lather while lasting through more cleansing moments\u2014bringing beauty, care, and intention to your everyday routine.",
+          "f3_cta": "DISCOVER OUR COLLECTIONS",
+          "collections_link": "/collections",
+          "f4_eyebrow": "NATURALLY CONSIDERED",
+          "f4_heading": "Botanical Care for Beautiful Skin",
+          "f4_text": "Carefully selected herbal and botanical ingredients come together to create a cleansing experience that feels gentle, luxurious, and beautifully restorative without overwhelming your daily skincare ritual.",
+          "f4_cta": "EXPLORE ALL COLLECTIONS",
+          "all_link": "/collections",
+          "primary_label": "EXPLORE THE ROYAL QUEEN COLLECTION",
+          "secondary_label": "VIEW DETOXIFY"
+        }
+      },
       "ritual-grid": {
         "type": "ritual-grid",
         "settings": {

@@ -1,0 +1,174 @@
+<section class="section section--compact robeing-section robeing-section--queen" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    {%- liquid
+      assign detox_product = all_products['detoxify']
+      assign detox_url = '/products/detoxify'
+      if detox_product != blank
+        assign detox_url = detox_product.url
+      endif
+      if section.settings.detox_link != blank
+        assign detox_url = section.settings.detox_link
+      endif
+
+      assign queen_url = '/collections/royal-queen'
+      if collections['royal-queen'] != blank
+        assign queen_url = collections['royal-queen'].url
+      elsif collections['royal'] != blank
+        assign queen_url = collections['royal'].url
+      endif
+      if section.settings.queen_link != blank
+        assign queen_url = section.settings.queen_link
+      endif
+
+      assign collections_url = routes.collections_url
+      if section.settings.collections_link != blank
+        assign collections_url = section.settings.collections_link
+      endif
+
+      assign all_url = routes.collections_url
+      if section.settings.all_link != blank
+        assign all_url = section.settings.all_link
+      endif
+
+      assign img_alt = section.settings.image_alt
+      if img_alt == blank
+        assign img_alt = 'Royal Being female ambassador holding a sage herbal soap in a steam-filled spa bath'
+      endif
+    -%}
+
+    <div class="robeing robeing--flip">
+      <div class="robeing-body">
+        <div class="robeing-visual">
+          <div class="robeing-media reveal">
+            {%- if section.settings.image != blank -%}
+              <img
+                src="{{ section.settings.image | image_url: width: 900 }}"
+                srcset="{{ section.settings.image | image_url: width: 480 }} 480w, {{ section.settings.image | image_url: width: 720 }} 720w, {{ section.settings.image | image_url: width: 900 }} 900w, {{ section.settings.image | image_url: width: 1200 }} 1200w"
+                sizes="(max-width: 900px) calc(100vw - 48px), min(50vw, 840px)"
+                alt="{{ img_alt | escape }}"
+                loading="lazy"
+                decoding="async"
+                width="{{ section.settings.image.width | default: 900 }}"
+                height="{{ section.settings.image.height | default: 1200 }}"
+                style="object-position: {{ section.settings.image_position | default: '50% 42%' }};"
+              >
+            {%- else -%}
+              <img
+                src="{{ 'rb-ritual-being-queen.jpg' | asset_url }}"
+                alt="{{ img_alt | escape }}"
+                loading="lazy"
+                decoding="async"
+                width="900"
+                height="1200"
+                style="object-position: {{ section.settings.image_position | default: '50% 42%' }};"
+              >
+            {%- endif -%}
+          </div>
+
+          <div class="robeing-actions reveal">
+            {%- if section.settings.primary_label != blank -%}
+              <a class="btn btn-primary" href="{{ queen_url }}">{{ section.settings.primary_label }}</a>
+            {%- endif -%}
+            {%- if section.settings.secondary_label != blank -%}
+              <a class="btn btn-outline robeing-btn-secondary" href="{{ detox_url }}">{{ section.settings.secondary_label }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="robeing-copy">
+          <header class="robeing-head">
+            {%- if section.settings.eyebrow != blank -%}
+              <p class="eyebrow robeing-kicker">{{ section.settings.eyebrow }}</p>
+            {%- endif -%}
+            {%- if section.settings.heading != blank -%}
+              <h2 class="robeing-heading">{{ section.settings.heading | newline_to_br }}</h2>
+            {%- endif -%}
+            {%- if section.settings.intro != blank -%}
+              <p class="robeing-intro">{{ section.settings.intro }}</p>
+            {%- endif -%}
+          </header>
+
+          <div class="robeing-rows">
+            <article class="robeing-row reveal" style="--robeing-delay: 60ms">
+              {%- if section.settings.f1_eyebrow != blank -%}<p class="eyebrow robeing-row__eyebrow">{{ section.settings.f1_eyebrow }}</p>{%- endif -%}
+              {%- if section.settings.f1_heading != blank -%}<h3 class="robeing-row__heading">{{ section.settings.f1_heading }}</h3>{%- endif -%}
+              {%- if section.settings.f1_text != blank -%}<p class="robeing-row__text">{{ section.settings.f1_text }}</p>{%- endif -%}
+              {%- if section.settings.f1_cta != blank -%}
+                <a class="robeing-link" href="{{ detox_url }}">{{ section.settings.f1_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
+              {%- endif -%}
+            </article>
+
+            <article class="robeing-row reveal" style="--robeing-delay: 120ms">
+              {%- if section.settings.f2_eyebrow != blank -%}<p class="eyebrow robeing-row__eyebrow">{{ section.settings.f2_eyebrow }}</p>{%- endif -%}
+              {%- if section.settings.f2_heading != blank -%}<h3 class="robeing-row__heading">{{ section.settings.f2_heading }}</h3>{%- endif -%}
+              {%- if section.settings.f2_text != blank -%}<p class="robeing-row__text">{{ section.settings.f2_text }}</p>{%- endif -%}
+              {%- if section.settings.f2_cta != blank -%}
+                <a class="robeing-link" href="{{ queen_url }}">{{ section.settings.f2_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
+              {%- endif -%}
+            </article>
+
+            <article class="robeing-row reveal" style="--robeing-delay: 180ms">
+              {%- if section.settings.f3_eyebrow != blank -%}<p class="eyebrow robeing-row__eyebrow">{{ section.settings.f3_eyebrow }}</p>{%- endif -%}
+              {%- if section.settings.f3_heading != blank -%}<h3 class="robeing-row__heading">{{ section.settings.f3_heading }}</h3>{%- endif -%}
+              {%- if section.settings.f3_text != blank -%}<p class="robeing-row__text">{{ section.settings.f3_text }}</p>{%- endif -%}
+              {%- if section.settings.f3_cta != blank -%}
+                <a class="robeing-link" href="{{ collections_url }}">{{ section.settings.f3_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
+              {%- endif -%}
+            </article>
+
+            <article class="robeing-row reveal" style="--robeing-delay: 240ms">
+              {%- if section.settings.f4_eyebrow != blank -%}<p class="eyebrow robeing-row__eyebrow">{{ section.settings.f4_eyebrow }}</p>{%- endif -%}
+              {%- if section.settings.f4_heading != blank -%}<h3 class="robeing-row__heading">{{ section.settings.f4_heading }}</h3>{%- endif -%}
+              {%- if section.settings.f4_text != blank -%}<p class="robeing-row__text">{{ section.settings.f4_text }}</p>{%- endif -%}
+              {%- if section.settings.f4_cta != blank -%}
+                <a class="robeing-link" href="{{ all_url }}">{{ section.settings.f4_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
+              {%- endif -%}
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ritual of Being — Queen",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE RITUAL OF BEING" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Naturally Nourished.\nBeautifully Radiant." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "A restorative cleansing ritual created for moments of calm, renewal, and intentional self-care. Discover Royal Being through rich lathers, skin-loving herbal ingredients, and beautifully crafted bars designed to leave skin feeling refreshed, nourished, and cared for." },
+    { "type": "image_picker", "id": "image", "label": "Ambassador image" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Royal Being female ambassador holding a sage herbal soap in a steam-filled spa bath" },
+    { "type": "text", "id": "image_position", "label": "Image object-position", "default": "50% 42%" },
+    { "type": "header", "content": "Feature 1" },
+    { "type": "text", "id": "f1_eyebrow", "label": "Eyebrow", "default": "FEATURED RITUAL" },
+    { "type": "text", "id": "f1_heading", "label": "Heading", "default": "Detoxify" },
+    { "type": "textarea", "id": "f1_text", "label": "Body", "default": "A refreshing herbal cleansing bar designed to gently cleanse and revive the skin. Its thoughtfully selected botanical ingredients transform an everyday shower into a soothing ritual that leaves you feeling fresh, balanced, and renewed." },
+    { "type": "text", "id": "f1_cta", "label": "CTA", "default": "VIEW DETOXIFY" },
+    { "type": "url", "id": "detox_link", "label": "Detoxify link" },
+    { "type": "header", "content": "Feature 2" },
+    { "type": "text", "id": "f2_eyebrow", "label": "Eyebrow", "default": "ROYAL QUEEN COLLECTION" },
+    { "type": "text", "id": "f2_heading", "label": "Heading", "default": "Elevated Care for Her Daily Ritual" },
+    { "type": "textarea", "id": "f2_text", "label": "Body", "default": "A refined collection created for women who want everyday cleansing to feel more intentional. Discover luxurious herbal bars with beautiful aromas, rich lathers, and skin-loving ingredients crafted for moments of everyday self-care." },
+    { "type": "text", "id": "f2_cta", "label": "CTA", "default": "EXPLORE THE ROYAL QUEEN COLLECTION" },
+    { "type": "url", "id": "queen_link", "label": "Royal Queen link" },
+    { "type": "header", "content": "Feature 3" },
+    { "type": "text", "id": "f3_eyebrow", "label": "Eyebrow", "default": "CRAFTED TO CARE" },
+    { "type": "text", "id": "f3_heading", "label": "Heading", "default": "Gentle Ritual. Lasting Experience." },
+    { "type": "textarea", "id": "f3_text", "label": "Body", "default": "Thoughtfully crafted premium bars designed to deliver a rich, satisfying lather while lasting through more cleansing moments—bringing beauty, care, and intention to your everyday routine." },
+    { "type": "text", "id": "f3_cta", "label": "CTA", "default": "DISCOVER OUR COLLECTIONS" },
+    { "type": "url", "id": "collections_link", "label": "Collections link" },
+    { "type": "header", "content": "Feature 4" },
+    { "type": "text", "id": "f4_eyebrow", "label": "Eyebrow", "default": "NATURALLY CONSIDERED" },
+    { "type": "text", "id": "f4_heading", "label": "Heading", "default": "Botanical Care for Beautiful Skin" },
+    { "type": "textarea", "id": "f4_text", "label": "Body", "default": "Carefully selected herbal and botanical ingredients come together to create a cleansing experience that feels gentle, luxurious, and beautifully restorative without overwhelming your daily skincare ritual." },
+    { "type": "text", "id": "f4_cta", "label": "CTA", "default": "EXPLORE ALL COLLECTIONS" },
+    { "type": "url", "id": "all_link", "label": "All collections link" },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "EXPLORE THE ROYAL QUEEN COLLECTION" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "VIEW DETOXIFY" }
+  ],
+  "presets": [{ "name": "Ritual of Being — Queen" }]
+}
+{% endschema %}
