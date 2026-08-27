@@ -464,19 +464,19 @@
         "type": "subscriptions",
         "settings": {
           "eyebrow": "YOUR RITUAL, DELIVERED",
-          "heading": "Never Run Out of Your Favourite Soap",
-          "text": "Turn your favourite Royal Being bars into a dependable monthly ritual. Choose eligible soaps for recurring delivery and enjoy a more convenient way to keep your skincare routine beautifully stocked.\n\nManage your subscription through your customer account and adjust upcoming deliveries whenever needed.",
+          "heading": "Never Run Out of Your Favorite Soap",
+          "text": "Turn your favorite Royal Being bars into a dependable monthly ritual. Choose eligible soaps for recurring delivery and enjoy a more convenient way to keep your skincare routine beautifully stocked.\n\nManage your subscription through your customer account and adjust upcoming deliveries whenever needed.",
           "benefit_1": "Recurring delivery on eligible soaps",
           "benefit_2": "Manage or skip upcoming orders in your account",
           "benefit_3": "Cancel or pause anytime",
           "collection": "",
           "button_label": "EXPLORE SUBSCRIPTIONS",
           "button_link": "shopify://collections/all",
-          "fallback_name": "Deliver every month, 20% off",
+          "fallback_name": "Deliver every month",
           "fallback_cadence": "Deliver every month",
           "fallback_save": "20%",
           "fallback_save_label": "20% off with subscription",
-          "fallback_desc": "Keep your favourite Royal Being bars delivered on a schedule you choose. Cancel or pause anytime."
+          "fallback_desc": "Keep your favorite Royal Being bars delivered on a schedule you choose. Cancel or pause anytime."
         },
         "blocks": {},
         "block_order": []
