@@ -48,30 +48,41 @@
       </header>
 
       <div class="robeing-body">
-        <div class="robeing-media reveal">
-          {%- if section.settings.image != blank -%}
-            <img
-              src="{{ section.settings.image | image_url: width: 1200 }}"
-              srcset="{{ section.settings.image | image_url: width: 600 }} 600w, {{ section.settings.image | image_url: width: 900 }} 900w, {{ section.settings.image | image_url: width: 1200 }} 1200w, {{ section.settings.image | image_url: width: 1600 }} 1600w"
-              sizes="(max-width: 900px) calc(100vw - 48px), min(42vw, 640px)"
-              alt="{{ img_alt | escape }}"
-              loading="lazy"
-              decoding="async"
-              width="{{ section.settings.image.width | default: 1200 }}"
-              height="{{ section.settings.image.height | default: 1600 }}"
-              style="object-position: {{ section.settings.image_position | default: '50% 46%' }};"
-            >
-          {%- else -%}
-            <img
-              src="{{ 'rb-ritual-being.jpg' | asset_url }}"
-              alt="{{ img_alt | escape }}"
-              loading="lazy"
-              decoding="async"
-              width="1200"
-              height="1600"
-              style="object-position: {{ section.settings.image_position | default: '50% 46%' }};"
-            >
-          {%- endif -%}
+        <div class="robeing-visual">
+          <div class="robeing-media reveal">
+            {%- if section.settings.image != blank -%}
+              <img
+                src="{{ section.settings.image | image_url: width: 900 }}"
+                srcset="{{ section.settings.image | image_url: width: 480 }} 480w, {{ section.settings.image | image_url: width: 720 }} 720w, {{ section.settings.image | image_url: width: 900 }} 900w, {{ section.settings.image | image_url: width: 1200 }} 1200w"
+                sizes="(max-width: 900px) min(360px, calc(100vw - 48px)), min(22vw, 360px)"
+                alt="{{ img_alt | escape }}"
+                loading="lazy"
+                decoding="async"
+                width="{{ section.settings.image.width | default: 900 }}"
+                height="{{ section.settings.image.height | default: 1200 }}"
+                style="object-position: {{ section.settings.image_position | default: '50% 46%' }};"
+              >
+            {%- else -%}
+              <img
+                src="{{ 'rb-ritual-being.jpg' | asset_url }}"
+                alt="{{ img_alt | escape }}"
+                loading="lazy"
+                decoding="async"
+                width="900"
+                height="1200"
+                style="object-position: {{ section.settings.image_position | default: '50% 46%' }};"
+              >
+            {%- endif -%}
+          </div>
+
+          <div class="robeing-actions reveal">
+            {%- if section.settings.primary_label != blank -%}
+              <a class="btn btn-primary" href="{{ duke_url }}">{{ section.settings.primary_label }}</a>
+            {%- endif -%}
+            {%- if section.settings.secondary_label != blank -%}
+              <a class="btn btn-outline robeing-btn-secondary" href="{{ charcoal_url }}">{{ section.settings.secondary_label }}</a>
+            {%- endif -%}
+          </div>
         </div>
 
         <div class="robeing-rows">
@@ -110,15 +121,6 @@
               <a class="robeing-link" href="{{ all_url }}">{{ section.settings.f4_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
             {%- endif -%}
           </article>
-        </div>
-
-        <div class="robeing-actions reveal">
-          {%- if section.settings.primary_label != blank -%}
-            <a class="btn btn-primary" href="{{ duke_url }}">{{ section.settings.primary_label }}</a>
-          {%- endif -%}
-          {%- if section.settings.secondary_label != blank -%}
-            <a class="btn btn-outline robeing-btn-secondary" href="{{ charcoal_url }}">{{ section.settings.secondary_label }}</a>
-          {%- endif -%}
         </div>
       </div>
     </div>

@@ -2014,12 +2014,12 @@ body.grev-lock{overflow:hidden}
     "title intro";
   gap:10px clamp(24px,4vw,64px);
   align-items:start;
-  margin-bottom:clamp(28px,4vw,48px);
+  margin-bottom:clamp(22px,3vw,36px);
 }
 .robeing-heading{
   grid-area:title;
   color:var(--rb-green-900);
-  font-size:clamp(2rem,3.4vw,3.15rem);
+  font-size:clamp(1.85rem,3vw,2.75rem);
   line-height:1.12;
   max-width:22ch;
   margin:0;
@@ -2034,29 +2034,32 @@ body.grev-lock{overflow:hidden}
 }
 .robeing-body{
   display:grid;
-  grid-template-columns:minmax(280px,1.08fr) minmax(280px,1fr);
-  grid-template-areas:
-    "media rows"
-    "actions rows";
-  gap:18px clamp(28px,4vw,56px);
+  grid-template-columns:minmax(200px,.55fr) minmax(280px,1.2fr);
+  gap:clamp(32px,4.2vw,56px);
   align-items:start;
 }
+.robeing-visual{
+  display:flex;
+  flex-direction:column;
+  gap:36px;
+  max-width:360px;
+  width:100%;
+}
 .robeing-media{
-  grid-area:media;
   border-radius:var(--radius-lg);
   overflow:hidden;
   background:#1a1a1a;
   aspect-ratio:3/4;
+  width:100%;
 }
-.robeing-media.reveal{transform:translateY(18px)}
 .robeing-media img{
   width:100%;height:100%;
   object-fit:cover;
   display:block;
 }
 .robeing-rows{
-  grid-area:rows;
   min-width:0;
+  padding-top:2px;
 }
 .robeing-row{
   display:grid;
@@ -2066,27 +2069,27 @@ body.grev-lock{overflow:hidden}
     "heading cta"
     "text cta";
   column-gap:20px;
-  row-gap:6px;
-  padding:22px 0;
+  row-gap:4px;
+  padding:16px 0;
   border-bottom:1px solid var(--rb-line);
   align-items:start;
 }
 .robeing-row:first-child{padding-top:0}
 .robeing-row:last-child{border-bottom:none;padding-bottom:0}
 .robeing-row.reveal{transition-delay:var(--robeing-delay,0ms)}
-.robeing-row__eyebrow{grid-area:eyebrow;margin:0 0 4px}
+.robeing-row__eyebrow{grid-area:eyebrow;margin:0 0 2px}
 .robeing-row__heading{
   grid-area:heading;
   color:var(--rb-green-900);
-  font-size:clamp(1.35rem,1.9vw,1.75rem);
-  line-height:1.18;
+  font-size:clamp(1.22rem,1.7vw,1.55rem);
+  line-height:1.2;
   margin:0;
 }
 .robeing-row__text{
   grid-area:text;
-  margin:4px 0 0;
-  font-size:.88rem;
-  line-height:1.65;
+  margin:2px 0 0;
+  font-size:.86rem;
+  line-height:1.6;
   color:#55584f;
   max-width:48ch;
 }
@@ -2112,13 +2115,13 @@ body.grev-lock{overflow:hidden}
 .robeing-link:hover{color:var(--rb-gold-500)}
 .robeing-link:hover .robeing-link__arrow{transform:translateX(4px)}
 .robeing-actions{
-  grid-area:actions;
-  display:flex;flex-wrap:wrap;gap:12px;
-  align-items:stretch;
-  padding-top:4px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  width:100%;
 }
 .robeing-actions .btn{
-  flex:1 1 0;
+  width:100%;
   min-width:0;
   padding-inline:16px;
   font-size:.72rem;
@@ -2146,37 +2149,44 @@ body.grev-lock{overflow:hidden}
     margin-bottom:22px;
   }
   .robeing-heading{
-    font-size:clamp(1.7rem,7vw,2.2rem);
+    font-size:clamp(1.65rem,6.6vw,2.1rem);
     max-width:none;
   }
   .robeing-intro{max-width:none}
   .robeing-kicker::after{max-width:72px}
   .robeing-body{
-    grid-template-columns:1fr;
-    grid-template-areas:
-      "media"
-      "rows"
-      "actions";
-    gap:18px;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
   }
+  .robeing-visual{display:contents}
   .robeing-media{
-    aspect-ratio:16/10;
+    order:1;
+    aspect-ratio:4/5;
+    max-width:360px;
+    max-height:400px;
+    width:100%;
+    margin-inline:auto;
   }
-  .robeing-rows{display:flex;flex-direction:column;gap:12px}
+  .robeing-rows{order:2}
+  .robeing-actions{
+    order:3;
+    max-width:420px;
+    margin-inline:auto;
+  }
+  .robeing-rows{display:flex;flex-direction:column;gap:12px;padding-top:0}
   .robeing-row{
     display:flex;flex-direction:column;
     gap:6px;
-    padding:18px 16px 14px;
+    padding:16px 16px 12px;
     border:1px solid var(--rb-line);
     border-radius:var(--radius-lg);
     background:var(--rb-ivory-50);
   }
   .robeing-row:first-child,
-  .robeing-row:last-child{padding:18px 16px 14px}
+  .robeing-row:last-child{padding:16px 16px 12px}
   .robeing-row__text{margin:2px 0 8px;max-width:none}
   .robeing-link{justify-self:auto;align-self:flex-end;white-space:normal;text-align:right}
-  .robeing-actions{flex-direction:column}
-  .robeing-actions .btn{width:100%;min-width:0}
 }
 
 /* Royal Kid’s Herbal Collection showcase */
