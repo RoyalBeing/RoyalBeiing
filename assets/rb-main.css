@@ -1198,6 +1198,7 @@ body.grev-lock{overflow:hidden}
 
 /* Collection board — 3x2 editorial grid */
 .cshow-section{padding-block:clamp(36px,5vw,72px);background:var(--rb-ivory-50)}
+.cshow-section .wrap{padding-inline:max(20px,calc(var(--pad-x) - 16px))}
 .cshow-board{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -1214,23 +1215,25 @@ body.grev-lock{overflow:hidden}
 }
 .cshow-intro{
   display:flex;flex-direction:column;
-  padding:clamp(24px,2.6vw,40px);
+  padding:clamp(24px,2.6vw,40px) clamp(22px,2.8vw,38px);
   position:relative;
-  overflow:hidden;
+  overflow:visible;
 }
 .cshow-intro__heading{
   color:var(--rb-green-900);
   font-size:clamp(1.85rem,2.6vw,2.7rem);
-  line-height:1.12;
+  line-height:1.18;
   letter-spacing:.01em;
   margin:0 0 18px;
+  max-width:none;
+  overflow-wrap:break-word;
 }
 .cshow-intro__text{
   color:#4d534c;
   font-size:clamp(.82rem,.95vw,.92rem);
   line-height:1.7;
   margin:0 0 24px;
-  max-width:38ch;
+  max-width:none;
 }
 .cshow-intro .btn{
   align-self:flex-start;margin-top:auto;position:relative;z-index:1;
@@ -1281,8 +1284,8 @@ body.grev-lock{overflow:hidden}
 
 @media(max-width:1024px){
   .cshow-board{grid-template-columns:1fr 1fr}
-  .cshow-intro{grid-column:1 / -1;min-height:0;padding:28px 24px 32px}
-  .cshow-intro__heading{max-width:18ch;font-size:clamp(1.9rem,4.2vw,2.5rem)}
+  .cshow-intro{grid-column:1 / -1;min-height:auto;padding:28px 24px 32px}
+  .cshow-intro__heading{max-width:none;font-size:clamp(1.9rem,4.2vw,2.5rem)}
   .cshow-intro .btn{margin-top:12px}
 }
 @media(max-width:640px){
