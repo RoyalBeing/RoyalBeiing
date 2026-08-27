@@ -1301,8 +1301,8 @@ body.grev-lock{overflow:hidden}
   .cshow-card__label{font-size:.86rem}
 }
 
-/* Ritual bento — generation story after collections */
-.rbento-section{padding-block:clamp(12px,2.4vw,36px);background:var(--rb-ivory-50)}
+/* Ritual bento — generation story */
+.rbento-section{padding-block:clamp(36px,5vw,72px);background:var(--rb-ivory-50)}
 .rbento{
   display:grid;
   grid-template-columns:minmax(0,1.72fr) minmax(260px,1fr);
