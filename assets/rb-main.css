@@ -340,23 +340,6 @@ p{margin:0 0 1rem}
   color:var(--rb-gold-600);
 }
 .pcar-card__ritual:hover{color:var(--rb-green-900)}
-@media(hover:hover) and (pointer:fine){
-  .pcar-card__atc,
-  .pcar-card__ritual{
-    opacity:0;transform:translateY(6px);
-    transition:opacity .4s var(--ease),transform .4s var(--ease),background .3s,color .3s;
-  }
-  .pcar-card:hover .pcar-card__atc,
-  .pcar-card:focus-within .pcar-card__atc,
-  .pcar-card:hover .pcar-card__ritual,
-  .pcar-card:focus-within .pcar-card__ritual{
-    opacity:1;transform:none;
-  }
-}
-@media(max-width:860px){
-  .pcar-card__atc,
-  .pcar-card__ritual{opacity:1;transform:none}
-}
 @media(hover:none){
   .pcar-card.will-enter{opacity:0;transform:translateY(10px) scale(.98)}
   .pcar-card.will-enter.is-in{opacity:1;transform:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
