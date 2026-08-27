@@ -13,16 +13,9 @@
         {%- endif -%}
         {%- if section.settings.button_label != blank -%}
           {%- liquid
-            assign story_href = ''
-            if pages['about'] != blank
-              assign story_href = pages['about'].url
-            elsif section.settings.button_link != blank
-              unless section.settings.button_link contains 'pages/about'
-                assign story_href = section.settings.button_link
-              endunless
-            endif
-            if story_href == blank
-              assign story_href = routes.root_url | append: '#collections'
+            assign story_href = routes.collections_url
+            if section.settings.button_link != blank
+              assign story_href = section.settings.button_link
             endif
           -%}
           <a class="btn btn-outline" href="{{ story_href }}">{{ section.settings.button_label }}</a>
@@ -79,7 +72,7 @@
     { "type": "text", "id": "video_url", "label": "MP4 URL", "default": "https://cdn.shopify.com/videos/c/o/v/117cb97df2d84d3797ee650ab396e790.mp4" },
     { "type": "image_picker", "id": "poster", "label": "Poster image" },
     { "type": "text", "id": "button_label", "label": "Button", "default": "EXPLORE THE COLLECTIONS" },
-    { "type": "url", "id": "button_link", "label": "Button link", "info": "Uses the About page when it exists; otherwise falls back to Collections." }
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Defaults to the collections list when blank." }
   ],
   "presets": [{ "name": "Video feature" }]
 }
