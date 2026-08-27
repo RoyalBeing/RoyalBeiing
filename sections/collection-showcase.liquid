@@ -1,6 +1,6 @@
 <section class="section cshow-section" id="collections" {{ section.shopify_attributes }}>
   <div class="wrap">
-    <div class="cshow-head reveal">
+    <div class="cshow-board reveal">
       <div class="cshow-intro">
         {%- if section.settings.eyebrow != blank -%}
           <p class="eyebrow">{{ section.settings.eyebrow }}</p>
@@ -8,18 +8,24 @@
         {%- if section.settings.heading != blank -%}
           <h2 class="cshow-intro__heading">{{ section.settings.heading | newline_to_br }}</h2>
         {%- endif -%}
-      </div>
-      <div class="cshow-intro__aside">
         {%- if section.settings.text != blank -%}
           <p class="cshow-intro__text">{{ section.settings.text }}</p>
         {%- endif -%}
         {%- if section.settings.button_label != blank -%}
           <a class="btn btn-outline" href="{{ section.settings.button_link | default: routes.collections_url }}">{{ section.settings.button_label }}</a>
         {%- endif -%}
+        <span class="cshow-intro__mark" aria-hidden="true">
+          <svg viewBox="0 0 96 96" fill="none">
+            <circle cx="48" cy="48" r="31" stroke="currentColor" stroke-width="1.15"/>
+            <circle cx="48" cy="48" r="24" stroke="currentColor" stroke-width=".7" opacity=".65"/>
+            <path d="M48 20.5c.5 3.4 2.6 6 5.2 6.8-2.4.8-4.3 2.8-5.2 6-.9-3.2-2.8-5.2-5.2-6 2.6-.8 4.7-3.4 5.2-6.8z" fill="currentColor"/>
+            <path d="M34 46c4.6-3 9.4-4 14-4s9.4 1 14 4" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M37.5 60c3.2 7.2 7.4 11 10.5 13.2 3.1-2.2 7.3-6 10.5-13.2" stroke="currentColor" stroke-width="1.15"/>
+            <path d="M42.2 49.2h2.1l1.6 4.6 1.6-4.6h2.1l-2.8 7.4h-1.8l-2.8-7.4zm8.4 0h5.4v1.7h-3.3v1.4h3v1.6h-3v2.7h-2.1V49.2z" fill="currentColor"/>
+          </svg>
+        </span>
       </div>
-    </div>
 
-    <div class="cshow-grid reveal">
       {%- for block in section.blocks -%}
         {%- liquid
           assign col = collections[block.settings.collection]
@@ -36,13 +42,13 @@
           if label == blank and col != blank
             assign label = col.title
           endif
-          assign span = block.settings.span | default: 'standard'
+          assign tagline = block.settings.tagline
+          assign objpos = block.settings.image_position
+          if objpos == blank
+            assign objpos = 'center'
+          endif
         -%}
-        <a
-          class="cshow-card cshow-card--{{ span }}{% if forloop.first %} cshow-card--featured{% endif %}"
-          href="{{ href }}"
-          {{ block.shopify_attributes }}
-        >
+        <a class="cshow-card" href="{{ href }}" {{ block.shopify_attributes }}>
           <span class="cshow-card__media">
             {%- if block.settings.image != blank -%}
               <img
@@ -51,43 +57,53 @@
                 loading="lazy"
                 width="{{ block.settings.image.width }}"
                 height="{{ block.settings.image.height }}"
+                style="object-position: {{ objpos }}"
               >
             {%- elsif col != blank and col.featured_image -%}
-              <img src="{{ col.featured_image | image_url: width: 1400 }}" alt="{{ col.title | escape }}" loading="lazy" width="{{ col.featured_image.width }}" height="{{ col.featured_image.height }}">
+              <img src="{{ col.featured_image | image_url: width: 1400 }}" alt="{{ col.title | escape }}" loading="lazy" width="{{ col.featured_image.width }}" height="{{ col.featured_image.height }}" style="object-position: {{ objpos }}">
             {%- elsif block.settings.fallback_asset != blank -%}
-              <img src="{{ block.settings.fallback_asset | asset_url }}" alt="{{ label | escape }}" loading="lazy">
+              <img src="{{ block.settings.fallback_asset | asset_url }}" alt="{{ label | escape }}" loading="lazy" width="1000" height="1000" style="object-position: {{ objpos }}">
             {%- else -%}
               {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', handle: block.settings.collection %}{%- endcapture -%}
               {%- if rb_col_src != blank -%}
-                <img src="{{ rb_col_src | strip }}" alt="{{ label | escape }}" loading="lazy">
+                <img src="{{ rb_col_src | strip }}" alt="{{ label | escape }}" loading="lazy" style="object-position: {{ objpos }}">
               {%- else -%}
-                <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ label | escape }}" loading="lazy">
+                <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ label | escape }}" loading="lazy" style="object-position: {{ objpos }}">
               {%- endif -%}
             {%- endif -%}
           </span>
-          <span class="cshow-card__label">{{ label }}</span>
+          <span class="cshow-card__body">
+            <span class="cshow-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c.3 1.8 1.4 3.2 2.8 3.7-1.3.4-2.3 1.5-2.8 3.2-.5-1.7-1.5-2.8-2.8-3.2 1.4-.5 2.5-1.9 2.8-3.7z"/><path d="M12 10.2c2.6 0 4.6 1.3 5.4 3.2-.9.4-1.7 1.2-2.2 2.3H8.8c-.5-1.1-1.3-1.9-2.2-2.3.8-1.9 2.8-3.2 5.4-3.2z"/><path d="M8.6 16.4h6.8c-.4 1.6-1.6 3.4-3.4 4.8-1.8-1.4-3-3.2-3.4-4.8z"/></svg>
+            </span>
+            <span class="cshow-card__copy">
+              <span class="cshow-card__label">{{ label }}</span>
+              {%- if tagline != blank -%}
+                <span class="cshow-card__tag">{{ tagline }}</span>
+              {%- endif -%}
+            </span>
+          </span>
         </a>
       {%- else -%}
-        {%- comment -%}Defaults when Theme Editor has no blocks{%- endcomment -%}
-        <a class="cshow-card cshow-card--featured" href="/collections/royal">
-          <span class="cshow-card__media"><img src="{{ 'rb-col-royal.jpg' | asset_url }}" alt="The Royal Collection" loading="lazy" width="1600" height="1200"></span>
-          <span class="cshow-card__label">THE ROYAL COLLECTION</span>
+        <a class="cshow-card" href="/collections/royal">
+          <span class="cshow-card__media"><img src="{{ 'rb-cshow-royal.jpg' | asset_url }}" alt="The Royal Collection" loading="lazy" width="1120" height="1400"></span>
+          <span class="cshow-card__body"><span class="cshow-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c.3 1.8 1.4 3.2 2.8 3.7-1.3.4-2.3 1.5-2.8 3.2-.5-1.7-1.5-2.8-2.8-3.2 1.4-.5 2.5-1.9 2.8-3.7z"/><path d="M12 10.2c2.6 0 4.6 1.3 5.4 3.2-.9.4-1.7 1.2-2.2 2.3H8.8c-.5-1.1-1.3-1.9-2.2-2.3.8-1.9 2.8-3.2 5.4-3.2z"/><path d="M8.6 16.4h6.8c-.4 1.6-1.6 3.4-3.4 4.8-1.8-1.4-3-3.2-3.4-4.8z"/></svg></span><span class="cshow-card__copy"><span class="cshow-card__label">THE ROYAL COLLECTION</span><span class="cshow-card__tag">Naturally gentle. Made for everyone.</span></span></span>
         </a>
-        <a class="cshow-card cshow-card--tall" href="/collections/signature">
-          <span class="cshow-card__media"><img src="{{ 'rb-col-signature.jpg' | asset_url }}" alt="The Signature Collection" loading="lazy" width="1600" height="1600"></span>
-          <span class="cshow-card__label">THE SIGNATURE COLLECTION</span>
+        <a class="cshow-card" href="/collections/signature">
+          <span class="cshow-card__media"><img src="{{ 'rb-cshow-signature.jpg' | asset_url }}" alt="The Signature Collection" loading="lazy" width="1120" height="1400"></span>
+          <span class="cshow-card__body"><span class="cshow-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c.3 1.8 1.4 3.2 2.8 3.7-1.3.4-2.3 1.5-2.8 3.2-.5-1.7-1.5-2.8-2.8-3.2 1.4-.5 2.5-1.9 2.8-3.7z"/><path d="M12 10.2c2.6 0 4.6 1.3 5.4 3.2-.9.4-1.7 1.2-2.2 2.3H8.8c-.5-1.1-1.3-1.9-2.2-2.3.8-1.9 2.8-3.2 5.4-3.2z"/><path d="M8.6 16.4h6.8c-.4 1.6-1.6 3.4-3.4 4.8-1.8-1.4-3-3.2-3.4-4.8z"/></svg></span><span class="cshow-card__copy"><span class="cshow-card__label">THE SIGNATURE COLLECTION</span><span class="cshow-card__tag">Skin-loving ingredients. Rituals that glow.</span></span></span>
         </a>
-        <a class="cshow-card cshow-card--standard" href="/collections/common">
-          <span class="cshow-card__media"><img src="{{ 'rb-col-common.jpg' | asset_url }}" alt="The Common Collection" loading="lazy" width="1600" height="1600"></span>
-          <span class="cshow-card__label">THE COMMON COLLECTION</span>
+        <a class="cshow-card" href="/collections/common">
+          <span class="cshow-card__media"><img src="{{ 'rb-cshow-common.jpg' | asset_url }}" alt="The Common Collection" loading="lazy" width="1120" height="1400"></span>
+          <span class="cshow-card__body"><span class="cshow-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c.3 1.8 1.4 3.2 2.8 3.7-1.3.4-2.3 1.5-2.8 3.2-.5-1.7-1.5-2.8-2.8-3.2 1.4-.5 2.5-1.9 2.8-3.7z"/><path d="M12 10.2c2.6 0 4.6 1.3 5.4 3.2-.9.4-1.7 1.2-2.2 2.3H8.8c-.5-1.1-1.3-1.9-2.2-2.3.8-1.9 2.8-3.2 5.4-3.2z"/><path d="M8.6 16.4h6.8c-.4 1.6-1.6 3.4-3.4 4.8-1.8-1.4-3-3.2-3.4-4.8z"/></svg></span><span class="cshow-card__copy"><span class="cshow-card__label">THE COMMON COLLECTION</span><span class="cshow-card__tag">Pure care. Safe for every generation.</span></span></span>
         </a>
-        <a class="cshow-card cshow-card--standard" href="/collections/royal-duke">
-          <span class="cshow-card__media"><img src="{{ 'rb-col-royal-duke.jpg' | asset_url }}" alt="The Royal Duke Collection" loading="lazy" width="1600" height="1318"></span>
-          <span class="cshow-card__label">THE ROYAL DUKE COLLECTION</span>
+        <a class="cshow-card" href="/collections/royal-duke">
+          <span class="cshow-card__media"><img src="{{ 'rb-cshow-duke.jpg' | asset_url }}" alt="The Royal Duke Collection" loading="lazy" width="1120" height="1400"></span>
+          <span class="cshow-card__body"><span class="cshow-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c.3 1.8 1.4 3.2 2.8 3.7-1.3.4-2.3 1.5-2.8 3.2-.5-1.7-1.5-2.8-2.8-3.2 1.4-.5 2.5-1.9 2.8-3.7z"/><path d="M12 10.2c2.6 0 4.6 1.3 5.4 3.2-.9.4-1.7 1.2-2.2 2.3H8.8c-.5-1.1-1.3-1.9-2.2-2.3.8-1.9 2.8-3.2 5.4-3.2z"/><path d="M8.6 16.4h6.8c-.4 1.6-1.6 3.4-3.4 4.8-1.8-1.4-3-3.2-3.4-4.8z"/></svg></span><span class="cshow-card__copy"><span class="cshow-card__label">THE ROYAL DUKE COLLECTION</span><span class="cshow-card__tag">Distinguished care. Crafted for men.</span></span></span>
         </a>
-        <a class="cshow-card cshow-card--standard" href="/collections/royal-kid">
-          <span class="cshow-card__media"><img src="{{ 'rb-col-royal-kid.jpg' | asset_url }}" alt="The Royal Kid Herbal Collection" loading="lazy" width="1800" height="1800"></span>
-          <span class="cshow-card__label">THE ROYAL KID HERBAL COLLECTION</span>
+        <a class="cshow-card" href="/collections/royal-kid">
+          <span class="cshow-card__media"><img src="{{ 'rb-cshow-kid.jpg' | asset_url }}" alt="The Royal Kid Herbal Collection" loading="lazy" width="1120" height="1400"></span>
+          <span class="cshow-card__body"><span class="cshow-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.4c.3 1.8 1.4 3.2 2.8 3.7-1.3.4-2.3 1.5-2.8 3.2-.5-1.7-1.5-2.8-2.8-3.2 1.4-.5 2.5-1.9 2.8-3.7z"/><path d="M12 10.2c2.6 0 4.6 1.3 5.4 3.2-.9.4-1.7 1.2-2.2 2.3H8.8c-.5-1.1-1.3-1.9-2.2-2.3.8-1.9 2.8-3.2 5.4-3.2z"/><path d="M8.6 16.4h6.8c-.4 1.6-1.6 3.4-3.4 4.8-1.8-1.4-3-3.2-3.4-4.8z"/></svg></span><span class="cshow-card__copy"><span class="cshow-card__label">THE ROYAL KID HERBAL COLLECTION</span><span class="cshow-card__tag">Gentle, herbal care for little ones.</span></span></span>
         </a>
       {%- endfor -%}
     </div>
@@ -112,26 +128,23 @@
       "settings": [
         { "type": "collection", "id": "collection", "label": "Shopify collection" },
         { "type": "image_picker", "id": "image", "label": "Card image (optional override)" },
-        { "type": "text", "id": "fallback_asset", "label": "Theme asset fallback", "info": "e.g. rb-col-royal.jpg" },
+        { "type": "text", "id": "fallback_asset", "label": "Theme asset fallback", "info": "e.g. rb-cshow-royal.jpg" },
+        { "type": "text", "id": "image_position", "label": "Image object-position", "default": "center" },
         { "type": "url", "id": "fallback_link", "label": "Fallback link if collection unset" },
         { "type": "text", "id": "label", "label": "Label (uppercase)", "default": "THE ROYAL COLLECTION" },
-        { "type": "text", "id": "title", "label": "Title (legacy)" },
-        { "type": "select", "id": "span", "label": "Card emphasis", "options": [
-          { "value": "featured", "label": "Featured (top large)" },
-          { "value": "tall", "label": "Tall (vertical)" },
-          { "value": "standard", "label": "Standard" }
-        ], "default": "standard" }
+        { "type": "text", "id": "tagline", "label": "Tagline" },
+        { "type": "text", "id": "title", "label": "Title (legacy)" }
       ]
     }
   ],
   "presets": [{
     "name": "Collection showcase",
     "blocks": [
-      { "type": "collection", "settings": { "collection": "royal", "label": "THE ROYAL COLLECTION", "fallback_asset": "rb-col-royal.jpg", "span": "featured", "fallback_link": "/collections/royal" } },
-      { "type": "collection", "settings": { "collection": "signature", "label": "THE SIGNATURE COLLECTION", "fallback_asset": "rb-col-signature.jpg", "span": "tall", "fallback_link": "/collections/signature" } },
-      { "type": "collection", "settings": { "collection": "common", "label": "THE COMMON COLLECTION", "fallback_asset": "rb-col-common.jpg", "span": "standard", "fallback_link": "/collections/common" } },
-      { "type": "collection", "settings": { "collection": "royal-duke", "label": "THE ROYAL DUKE COLLECTION", "fallback_asset": "rb-col-royal-duke.jpg", "span": "standard", "fallback_link": "/collections/royal-duke" } },
-      { "type": "collection", "settings": { "collection": "royal-kid", "label": "THE ROYAL KID HERBAL COLLECTION", "fallback_asset": "rb-col-royal-kid.jpg", "span": "standard", "fallback_link": "/collections/royal-kid" } }
+      { "type": "collection", "settings": { "collection": "royal", "label": "THE ROYAL COLLECTION", "tagline": "Naturally gentle. Made for everyone.", "fallback_asset": "rb-cshow-royal.jpg", "image_position": "center", "fallback_link": "/collections/royal" } },
+      { "type": "collection", "settings": { "collection": "signature", "label": "THE SIGNATURE COLLECTION", "tagline": "Skin-loving ingredients. Rituals that glow.", "fallback_asset": "rb-cshow-signature.jpg", "image_position": "center", "fallback_link": "/collections/signature" } },
+      { "type": "collection", "settings": { "collection": "common", "label": "THE COMMON COLLECTION", "tagline": "Pure care. Safe for every generation.", "fallback_asset": "rb-cshow-common.jpg", "image_position": "center", "fallback_link": "/collections/common" } },
+      { "type": "collection", "settings": { "collection": "royal-duke", "label": "THE ROYAL DUKE COLLECTION", "tagline": "Distinguished care. Crafted for men.", "fallback_asset": "rb-cshow-duke.jpg", "image_position": "center", "fallback_link": "/collections/royal-duke" } },
+      { "type": "collection", "settings": { "collection": "royal-kid", "label": "THE ROYAL KID HERBAL COLLECTION", "tagline": "Gentle, herbal care for little ones.", "fallback_asset": "rb-cshow-kid.jpg", "image_position": "center", "fallback_link": "/collections/royal-kid" } }
     ]
   }]
 }

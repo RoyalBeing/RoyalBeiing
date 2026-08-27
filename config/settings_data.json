@@ -144,9 +144,10 @@
             "settings": {
               "collection": "royal",
               "label": "THE ROYAL COLLECTION",
-              "fallback_asset": "rb-col-royal.jpg",
-              "span": "featured",
-              "fallback_link": "/collections/royal"
+              "fallback_asset": "rb-cshow-royal.jpg",
+              "fallback_link": "/collections/royal",
+              "tagline": "Naturally gentle. Made for everyone.",
+              "image_position": "center"
             }
           },
           "signature": {
@@ -154,9 +155,10 @@
             "settings": {
               "collection": "signature",
               "label": "THE SIGNATURE COLLECTION",
-              "fallback_asset": "rb-col-signature.jpg",
-              "span": "tall",
-              "fallback_link": "/collections/signature"
+              "fallback_asset": "rb-cshow-signature.jpg",
+              "fallback_link": "/collections/signature",
+              "tagline": "Skin-loving ingredients. Rituals that glow.",
+              "image_position": "center"
             }
           },
           "common": {
@@ -164,9 +166,10 @@
             "settings": {
               "collection": "common",
               "label": "THE COMMON COLLECTION",
-              "fallback_asset": "rb-col-common.jpg",
-              "span": "standard",
-              "fallback_link": "/collections/common"
+              "fallback_asset": "rb-cshow-common.jpg",
+              "fallback_link": "/collections/common",
+              "tagline": "Pure care. Safe for every generation.",
+              "image_position": "center"
             }
           },
           "duke": {
@@ -174,9 +177,10 @@
             "settings": {
               "collection": "royal-duke",
               "label": "THE ROYAL DUKE COLLECTION",
-              "fallback_asset": "rb-col-royal-duke.jpg",
-              "span": "standard",
-              "fallback_link": "/collections/royal-duke"
+              "fallback_asset": "rb-cshow-duke.jpg",
+              "fallback_link": "/collections/royal-duke",
+              "tagline": "Distinguished care. Crafted for men.",
+              "image_position": "center"
             }
           },
           "kid": {
@@ -184,9 +188,10 @@
             "settings": {
               "collection": "royal-kid",
               "label": "THE ROYAL KID HERBAL COLLECTION",
-              "fallback_asset": "rb-col-royal-kid.jpg",
-              "span": "standard",
-              "fallback_link": "/collections/royal-kid"
+              "fallback_asset": "rb-cshow-kid.jpg",
+              "fallback_link": "/collections/royal-kid",
+              "tagline": "Gentle, herbal care for little ones.",
+              "image_position": "center"
             }
           }
         },
