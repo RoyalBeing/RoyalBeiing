@@ -1,3 +1,8 @@
+{%- liquid
+  assign primary_href = section.settings.primary_link | default: '#collections'
+  assign secondary_href = section.settings.secondary_link | default: '/collections/royal-kid'
+  assign mini_href = section.settings.mini_link | default: '/collections/royal-kid'
+-%}
 {%- render 'immersive-story',
   theme: 'family',
   media_position: 'right',
@@ -11,15 +16,15 @@
   mini_position: section.settings.mini_position,
   mini_eyebrow: section.settings.mini_eyebrow,
   mini_label: section.settings.mini_label,
-  mini_link: section.settings.mini_link | default: '/collections/royal-kid',
+  mini_link: mini_href,
   eyebrow: section.settings.eyebrow,
   heading: section.settings.heading,
   text: section.settings.text,
   primary_label: section.settings.primary_label,
-  primary_link: section.settings.primary_link | default: '#collections',
+  primary_link: primary_href,
   primary_style: section.settings.primary_style,
   secondary_label: section.settings.secondary_label,
-  secondary_link: section.settings.secondary_link | default: '/collections/royal-kid',
+  secondary_link: secondary_href,
   shopify_attributes: section.shopify_attributes
 -%}
 
