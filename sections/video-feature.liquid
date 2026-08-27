@@ -36,17 +36,19 @@
           assign video_url = section.settings.video_url
         -%}
         {%- if video != blank -%}
-          <div class="rb-film__player" data-hover-video>
+          <div class="rb-film__player is-muted" data-hover-video>
             {{ video | video_tag: image_size: '1200x', controls: false, muted: true, autoplay: false, loop: true, class: 'rb-video', playsinline: true }}
             <span class="rb-film__hint" aria-hidden="true">Hover to play</span>
+            {% render 'video-sound-control' %}
           </div>
         {%- elsif video_url != blank -%}
-          <div class="rb-film__player" data-hover-video>
+          <div class="rb-film__player is-muted" data-hover-video>
             <video
               class="rb-video"
               muted
               loop
               playsinline
+              webkit-playsinline
               preload="metadata"
               {% if poster != blank %}poster="{{ poster | image_url: width: 1400 }}"{% else %}poster="{{ 'rb-hero.jpg' | asset_url }}"{% endif %}
               aria-label="{{ section.settings.heading | escape }}"
@@ -54,6 +56,7 @@
               <source src="{{ video_url }}" type="video/mp4">
             </video>
             <span class="rb-film__hint" aria-hidden="true">Hover to play</span>
+            {% render 'video-sound-control' %}
           </div>
         {%- else -%}
           <div class="rb-film__player rb-film__player--empty">
