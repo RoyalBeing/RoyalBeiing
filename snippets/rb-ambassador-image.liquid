@@ -1,0 +1,27 @@
+{%- comment -%}
+  Reusable ambassador / lifestyle stills from the client photo set.
+  Pass handle: duke-ritual | charcoal-hold | charcoal-hands | detox-bath | detox-stand | family | family-alt | child
+{%- endcomment -%}
+{%- liquid
+  assign h = handle | default: 'family'
+  assign asset = ''
+  case h
+    when 'duke-ritual', 'ritual-of-being'
+      assign asset = 'rb-amb-duke-ritual.jpg'
+    when 'charcoal-hold'
+      assign asset = 'rb-amb-charcoal-hold.jpg'
+    when 'charcoal-hands'
+      assign asset = 'rb-amb-charcoal-hands.jpg'
+    when 'detox-bath'
+      assign asset = 'rb-amb-detox-bath.jpg'
+    when 'detox-stand'
+      assign asset = 'rb-amb-detox-stand.jpg'
+    when 'family'
+      assign asset = 'rb-amb-family.jpg'
+    when 'family-alt'
+      assign asset = 'rb-amb-family-alt.jpg'
+    when 'child', 'royal-kid'
+      assign asset = 'rb-amb-child.jpg'
+  endcase
+-%}
+{%- if asset != blank -%}{{ asset | asset_url }}{%- endif -%}

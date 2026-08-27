@@ -736,6 +736,63 @@
           "button_label": "SHOP COLLECTION",
           "button_link": "shopify://collections"
         }
+      },
+      "immersive-duke": {
+        "type": "immersive-duke",
+        "settings": {
+          "eyebrow": "THE RITUAL OF BEING",
+          "heading": "Refined Care for the Modern Gentleman",
+          "text": "Deep cleanse with activated charcoal. Crafted with natural ingredients. Made for your daily ritual.",
+          "primary_label": "SHOP THE ROYAL DUKE COLLECTION",
+          "primary_link": "shopify://collections/royal-duke",
+          "primary_style": "btn-gold",
+          "secondary_label": "EXPLORE OUR COLLECTIONS",
+          "secondary_link": "shopify://collections",
+          "fallback_asset": "rb-amb-duke-ritual.jpg",
+          "image_alt": "Royal Being male ambassador holding Charcoal Moment soap",
+    "image_position": "52% 34%",
+    "secondary_asset": "rb-amb-charcoal-hands.jpg",
+    "secondary_alt": "Hands holding Charcoal Moment activated charcoal soap",
+    "secondary_position": "18% 72%"
+        }
+      },
+      "immersive-detox": {
+        "type": "immersive-detox",
+        "settings": {
+          "eyebrow": "THE DETOXIFY RITUAL",
+          "heading": "Elevate Your Skincare",
+          "text": "Skin-loving ingredients to purify and balance. Enriching scents to calm the mind. Luxurious lathers that leave your skin renewed and radiant.",
+          "primary_label": "SHOP DETOXIFY",
+          "primary_link": "/products/detoxify",
+          "primary_style": "btn-gold",
+          "secondary_label": "EXPLORE OUR COLLECTIONS",
+          "secondary_link": "shopify://collections",
+          "fallback_asset": "rb-amb-detox-bath.jpg",
+          "image_alt": "Royal Being female ambassador holding Detoxify herbal soap",
+    "image_position": "68% 28%"
+        }
+      },
+      "immersive-family": {
+        "type": "immersive-family",
+        "settings": {
+          "eyebrow": "FIVE COLLECTIONS. ONE ROYAL EXPERIENCE.",
+          "heading": "Naturally Gentle, Long Lasting Premium Bars, Made for Everyone",
+          "text": "Thoughtfully crafted with skin-loving ingredients for adults, families, and little ones. Pure, gentle, and made to be part of your everyday ritual.",
+          "primary_label": "EXPLORE THE COLLECTIONS",
+          "primary_link": "#collections",
+          "primary_style": "btn-gold",
+          "secondary_label": "DISCOVER THE ROYAL KID'S COLLECTION",
+          "secondary_link": "/collections/royal-kid",
+          "fallback_asset": "rb-amb-family.jpg",
+          "image_alt": "Royal Being family using premium soap collection",
+          "image_position": "72% 42%",
+          "mini_asset": "rb-amb-child.jpg",
+          "mini_alt": "Child ambassador holding Royal Kid's Herbal soap",
+          "mini_position": "48% 42%",
+          "mini_eyebrow": "GENTLE & SAFE FOR LITTLE ONES",
+          "mini_label": "Explore the Royal Kid's Herbal Collection",
+          "mini_link": "/collections/royal-kid"
+        }
       }
     }
   }

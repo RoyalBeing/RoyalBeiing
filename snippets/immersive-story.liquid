@@ -1,0 +1,116 @@
+{%- comment -%}
+  Layered editorial story: lifestyle photo, cream copy card, optional soap/inset.
+  Required: theme (duke|detox|family)
+{%- endcomment -%}
+{%- liquid
+  assign theme_name = theme | default: 'duke'
+  assign media_pos = media_position | default: 'left'
+  assign obj = image_position | default: 'center center'
+  assign main_src = ''
+  if image != blank
+    assign main_src = image | image_url: width: 1800
+  elsif fallback_asset != blank
+    assign main_src = fallback_asset | asset_url
+  endif
+  assign second_src = ''
+  if secondary_image != blank
+    assign second_src = secondary_image | image_url: width: 900
+  elsif secondary_asset != blank
+    assign second_src = secondary_asset | asset_url
+  endif
+  assign product_src = ''
+  if product_image != blank
+    assign product_src = product_image | image_url: width: 900
+  elsif product_asset != blank
+    assign product_src = product_asset | asset_url
+  endif
+  assign mini_src = ''
+  if mini_image != blank
+    assign mini_src = mini_image | image_url: width: 800
+  elsif mini_asset != blank
+    assign mini_src = mini_asset | asset_url
+  endif
+  assign eager = fetchpriority | default: 'lazy'
+-%}
+
+<section
+  class="imm-story imm-story--{{ theme_name }} imm-story--media-{{ media_pos }}"
+  data-imm-story
+  {{ shopify_attributes }}
+>
+  <div class="imm-story__stage">
+    <div class="imm-story__media" data-imm-layer="bg">
+      {%- if main_src != blank -%}
+        <img
+          src="{{ main_src }}"
+          alt="{{ image_alt | escape }}"
+          width="1000"
+          height="1000"
+          style="object-position: {{ obj }}"
+          {% if eager == 'high' %}
+            fetchpriority="high"
+            loading="eager"
+          {% else %}
+            loading="lazy"
+          {% endif %}
+        >
+      {%- endif -%}
+    </div>
+
+    <div class="imm-story__card reveal">
+      {%- if eyebrow != blank -%}
+        <p class="eyebrow">{{ eyebrow }}</p>
+      {%- endif -%}
+      {%- if heading != blank -%}
+        <h2 class="imm-story__heading">{{ heading }}</h2>
+      {%- endif -%}
+      {%- if text != blank -%}
+        <p class="imm-story__text">{{ text }}</p>
+      {%- endif -%}
+      {%- if primary_label != blank -%}
+        <a class="btn {{ primary_style | default: 'btn-gold' }}" href="{{ primary_link }}">{{ primary_label }}</a>
+      {%- endif -%}
+      {%- if secondary_label != blank -%}
+        <a class="imm-story__textlink" href="{{ secondary_link }}">{{ secondary_label }}</a>
+      {%- endif -%}
+    </div>
+
+    {%- if product_src != blank -%}
+      <div class="imm-story__product" data-imm-layer="fg" aria-hidden="true">
+        <img src="{{ product_src }}" alt="" width="900" height="900" loading="lazy">
+      </div>
+    {%- endif -%}
+
+    {%- if second_src != blank -%}
+      <div class="imm-story__inset reveal">
+        <img
+          src="{{ second_src }}"
+          alt="{{ secondary_alt | escape }}"
+          width="900"
+          height="900"
+          loading="lazy"
+          style="object-position: {{ secondary_position | default: 'center' }}"
+        >
+      </div>
+    {%- endif -%}
+
+    {%- if mini_src != blank -%}
+      <a class="imm-story__mini reveal" href="{{ mini_link }}">
+        <span class="imm-story__mini-media">
+          <img
+            src="{{ mini_src }}"
+            alt="{{ mini_alt | escape }}"
+            width="800"
+            height="800"
+            loading="lazy"
+            style="object-position: {{ mini_position | default: 'center 40%' }}"
+          >
+        </span>
+        <span class="imm-story__mini-copy">
+          {%- if mini_eyebrow != blank -%}<span class="imm-story__mini-kicker">{{ mini_eyebrow }}</span>{%- endif -%}
+          {%- if mini_label != blank -%}<span class="imm-story__mini-link">{{ mini_label }}</span>{%- endif -%}
+        </span>
+      </a>
+    {%- endif -%}
+  </div>
+</section>
