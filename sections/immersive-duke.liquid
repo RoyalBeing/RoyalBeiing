@@ -1,7 +1,3 @@
-{%- liquid
-  assign primary_href = section.settings.primary_link | default: '/collections/royal-duke'
-  assign secondary_href = section.settings.secondary_link | default: routes.collections_url
--%}
 {%- render 'immersive-story',
   theme: 'duke',
   media_position: 'left',
@@ -19,10 +15,10 @@
   heading: section.settings.heading,
   text: section.settings.text,
   primary_label: section.settings.primary_label,
-  primary_link: primary_href,
+  primary_link: section.settings.primary_link | default: '/collections/royal-duke',
   primary_style: section.settings.primary_style,
   secondary_label: section.settings.secondary_label,
-  secondary_link: secondary_href,
+  secondary_link: section.settings.secondary_link | default: routes.collections_url,
   fetchpriority: 'high',
   shopify_attributes: section.shopify_attributes
 -%}
