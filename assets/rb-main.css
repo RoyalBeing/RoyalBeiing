@@ -447,7 +447,7 @@ p{margin:0 0 1rem}
 
 
 /* Google community reviews */
-.grev{background:var(--rb-mist)}
+.grev{background:var(--rb-ivory-50)}
 .grev .sec-head{margin-bottom:clamp(24px,4vw,40px)}
 .grev__app{margin:28px 0}
 .grev__empty{text-align:center;max-width:720px;margin:0 auto 28px}
@@ -850,7 +850,7 @@ body.grev-lock{overflow:hidden}
 .gallery-strip a:hover img{transform:scale(1.04)}
 
 /* ---------- Social Instagram mosaic (full-bleed, square tiles) ---------- */
-.rb-social{padding-bottom:0}
+.rb-social{padding-bottom:0;background:var(--rb-ivory-50)}
 .rb-social .social-cta{
   display:flex;gap:12px;flex-wrap:wrap;justify-content:center;
   margin-bottom:clamp(28px,4vw,40px);
@@ -1505,6 +1505,7 @@ body.grev-lock{overflow:hidden}
 .filmstrip__empty{text-align:center;padding:32px}
 
 /* Brand film — split editorial */
+.rb-film{background:var(--rb-white)}
 .rb-film__grid{
   display:grid;
   grid-template-columns:minmax(260px,.8fr) minmax(360px,1.4fr);
@@ -1585,7 +1586,7 @@ body.grev-lock{overflow:hidden}
 
 /* Subscription — split layout (copy + card) */
 .rb-subs{
-  background:var(--rb-ivory-50);
+  background:var(--rb-white);
 }
 .rb-subs__split{
   display:grid;
@@ -2072,7 +2073,7 @@ body.grev-lock{overflow:hidden}
   .robeing--flip .robeing-copy{order:1}
   .robeing--flip .robeing-visual{order:2}
 }
-.robeing-section--queen{border-top:1px solid var(--rb-line)}
+.robeing-section--queen{border-top:1px solid var(--rb-line);background:var(--rb-mist)}
 .robeing-visual{
   display:flex;
   flex-direction:column;
