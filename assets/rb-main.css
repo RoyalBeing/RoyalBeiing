@@ -1220,6 +1220,7 @@ body.grev-lock{overflow:hidden}
   border-left:1px solid var(--rb-line);
   background:var(--rb-ivory-50);
 }
+.cshow-intro,
 .cshow-card{
   border-right:1px solid var(--rb-line);
   border-bottom:1px solid var(--rb-line);
@@ -1231,26 +1232,19 @@ body.grev-lock{overflow:hidden}
   padding:clamp(24px,2.6vw,40px) clamp(22px,2.8vw,38px);
   position:relative;
   overflow:visible;
-  min-width:0;
-  border-right:1px solid var(--rb-green-800);
-  border-bottom:1px solid var(--rb-green-800);
-  background:var(--rb-green-900);
-  color:#fff;
 }
-.cshow-intro .eyebrow{color:var(--rb-gold-500)}
 .cshow-intro__heading{
-  color:#fff;
-  font-size:clamp(2rem,2.9vw,2.95rem);
-  font-weight:700;
-  line-height:1.14;
+  color:var(--rb-green-900);
+  font-size:clamp(1.85rem,2.6vw,2.7rem);
+  line-height:1.18;
   letter-spacing:.01em;
   margin:0 0 18px;
   max-width:none;
   overflow-wrap:break-word;
 }
 .cshow-intro__text{
-  color:rgba(255,255,255,.9);
-  font-size:clamp(.86rem,1vw,.98rem);
+  color:#4d534c;
+  font-size:clamp(.82rem,.95vw,.92rem);
   line-height:1.7;
   margin:0 0 24px;
   max-width:none;
@@ -1258,15 +1252,11 @@ body.grev-lock{overflow:hidden}
 .cshow-intro .btn{
   align-self:flex-start;margin-top:auto;position:relative;z-index:1;
   padding:12px 26px;min-height:44px;font-size:.74rem;letter-spacing:.12em;
-  color:#fff;border-color:#fff;background:transparent;
-}
-.cshow-intro .btn:hover{
-  background:#fff;color:var(--rb-green-900);transform:translateY(-2px);
 }
 .cshow-intro__mark{
   position:absolute;right:18px;bottom:16px;
   width:clamp(72px,9vw,108px);height:auto;
-  color:var(--rb-gold-500);opacity:.35;pointer-events:none;
+  color:var(--rb-gold-500);opacity:.22;pointer-events:none;
 }
 .cshow-intro__mark svg{display:block;width:100%;height:auto}
 .cshow-card{
