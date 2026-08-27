@@ -263,6 +263,38 @@
           "video_url": "https://cdn.shopify.com/videos/c/o/v/4ea7ed019d114331a66343175f778527.mp4"
         }
       },
+      "ritual-of-being": {
+        "type": "ritual-of-being",
+        "settings": {
+          "eyebrow": "THE RITUAL OF BEING",
+          "heading": "More Than Cleansing.\nA Ritual That Belongs to You.",
+          "intro": "A refined ritual created for moments of calm, confidence, and intentional care. Discover the deeper side of Royal Being through rich lathers, natural ingredients, and the distinctive cleansing experience of The Charcoal Moment.",
+          "image_alt": "Royal Being male ambassador holding The Charcoal Moment soap in a dark luxury spa setting",
+          "image_position": "50% 46%",
+          "f1_eyebrow": "FEATURED RITUAL",
+          "f1_heading": "The Charcoal Moment",
+          "f1_text": "Powered by activated charcoal, this distinctive bar helps lift away impurities while transforming an everyday cleanse into a richer, more intentional ritual.",
+          "f1_cta": "VIEW THE CHARCOAL MOMENT",
+          "charcoal_link": "/products/charcoal-moment",
+          "f2_eyebrow": "ROYAL DUKE COLLECTION",
+          "f2_heading": "Made for the Modern Gentleman",
+          "f2_text": "A distinguished collection created around clean, confident care with sophisticated scents and premium, long-lasting bars designed for his everyday routine.",
+          "f2_cta": "EXPLORE THE ROYAL DUKE COLLECTION",
+          "duke_link": "/collections/royal-duke",
+          "f3_eyebrow": "CRAFTED TO LAST",
+          "f3_heading": "More Ritual. Less Waste.",
+          "f3_text": "Thoughtfully crafted bars designed to last through more cleansing moments without compromising the rich lather and elevated experience Royal Being is known for.",
+          "f3_cta": "DISCOVER OUR COLLECTIONS",
+          "collections_link": "/collections",
+          "f4_eyebrow": "NATURALLY CONSIDERED",
+          "f4_heading": "Skin-Loving Ingredients",
+          "f4_text": "Carefully selected ingredients come together to create a cleansing experience that feels luxurious, purposeful, and worthy of becoming part of your daily ritual.",
+          "f4_cta": "EXPLORE ALL COLLECTIONS",
+          "all_link": "/collections",
+          "primary_label": "EXPLORE THE ROYAL DUKE COLLECTION",
+          "secondary_label": "VIEW THE CHARCOAL MOMENT"
+        }
+      },
       "ritual-grid": {
         "type": "ritual-grid",
         "settings": {

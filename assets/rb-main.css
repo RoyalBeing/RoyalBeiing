@@ -1949,3 +1949,186 @@ body.grev-lock{overflow:hidden}
   .rb-subs__features{gap:10px}
   .announce{font-size:.62rem;letter-spacing:.06em;padding:9px 12px}
 }
+
+/* Ritual of Being — editorial charcoal moment */
+.robeing-section{background:var(--rb-ivory-50)}
+.robeing-kicker{
+  display:flex;align-items:center;gap:14px;
+  grid-area:kicker;margin-bottom:14px;
+}
+.robeing-kicker::after{
+  content:"";flex:1;max-width:120px;height:1px;
+  background:var(--rb-gold-500);opacity:.7;
+}
+.robeing-head{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(220px,.8fr);
+  grid-template-areas:
+    "kicker kicker"
+    "title intro";
+  gap:10px clamp(24px,4vw,64px);
+  align-items:start;
+  margin-bottom:clamp(28px,4vw,48px);
+}
+.robeing-heading{
+  grid-area:title;
+  color:var(--rb-green-900);
+  font-size:clamp(2rem,3.4vw,3.15rem);
+  line-height:1.12;
+  max-width:22ch;
+  margin:0;
+}
+.robeing-intro{
+  grid-area:intro;
+  margin:0;
+  color:#55584f;
+  font-size:clamp(.92rem,1.15vw,1.05rem);
+  line-height:1.7;
+  max-width:46ch;
+}
+.robeing-body{
+  display:grid;
+  grid-template-columns:minmax(280px,1.08fr) minmax(280px,1fr);
+  grid-template-areas:
+    "media rows"
+    "actions rows";
+  gap:18px clamp(28px,4vw,56px);
+  align-items:start;
+}
+.robeing-media{
+  grid-area:media;
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  background:#1a1a1a;
+  aspect-ratio:3/4;
+}
+.robeing-media.reveal{transform:translateY(18px)}
+.robeing-media img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+.robeing-rows{
+  grid-area:rows;
+  min-width:0;
+}
+.robeing-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:
+    "eyebrow cta"
+    "heading cta"
+    "text cta";
+  column-gap:20px;
+  row-gap:6px;
+  padding:22px 0;
+  border-bottom:1px solid var(--rb-line);
+  align-items:start;
+}
+.robeing-row:first-child{padding-top:0}
+.robeing-row:last-child{border-bottom:none;padding-bottom:0}
+.robeing-row.reveal{transition-delay:var(--robeing-delay,0ms)}
+.robeing-row__eyebrow{grid-area:eyebrow;margin:0 0 4px}
+.robeing-row__heading{
+  grid-area:heading;
+  color:var(--rb-green-900);
+  font-size:clamp(1.35rem,1.9vw,1.75rem);
+  line-height:1.18;
+  margin:0;
+}
+.robeing-row__text{
+  grid-area:text;
+  margin:4px 0 0;
+  font-size:.88rem;
+  line-height:1.65;
+  color:#55584f;
+  max-width:48ch;
+}
+.robeing-link{
+  grid-area:cta;
+  justify-self:end;
+  align-self:start;
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-body);
+  font-size:.62rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rb-gold-600);
+  white-space:normal;
+  text-align:right;
+  max-width:22ch;
+  line-height:1.45;
+  transition:color .3s var(--ease);
+}
+.robeing-link__arrow{
+  display:inline-block;
+  transition:transform .3s var(--ease);
+}
+.robeing-link:hover{color:var(--rb-gold-500)}
+.robeing-link:hover .robeing-link__arrow{transform:translateX(4px)}
+.robeing-actions{
+  grid-area:actions;
+  display:flex;flex-wrap:wrap;gap:12px;
+  align-items:stretch;
+  padding-top:4px;
+}
+.robeing-actions .btn{
+  flex:1 1 0;
+  min-width:0;
+  padding-inline:16px;
+  font-size:.72rem;
+  letter-spacing:.08em;
+}
+.robeing-btn-secondary{
+  background:var(--rb-ivory-50);
+  color:var(--rb-gold-600);
+  border-color:var(--rb-gold-500);
+}
+.robeing-btn-secondary:hover{
+  background:var(--rb-gold-500);
+  color:var(--rb-charcoal);
+  transform:translateY(-2px);
+}
+
+@media(max-width:900px){
+  .robeing-head{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "kicker"
+      "title"
+      "intro";
+    gap:12px;
+    margin-bottom:22px;
+  }
+  .robeing-heading{
+    font-size:clamp(1.7rem,7vw,2.2rem);
+    max-width:none;
+  }
+  .robeing-intro{max-width:none}
+  .robeing-kicker::after{max-width:72px}
+  .robeing-body{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "media"
+      "rows"
+      "actions";
+    gap:18px;
+  }
+  .robeing-media{
+    aspect-ratio:16/10;
+  }
+  .robeing-rows{display:flex;flex-direction:column;gap:12px}
+  .robeing-row{
+    display:flex;flex-direction:column;
+    gap:6px;
+    padding:18px 16px 14px;
+    border:1px solid var(--rb-line);
+    border-radius:var(--radius-lg);
+    background:var(--rb-ivory-50);
+  }
+  .robeing-row:first-child,
+  .robeing-row:last-child{padding:18px 16px 14px}
+  .robeing-row__text{margin:2px 0 8px;max-width:none}
+  .robeing-link{justify-self:auto;align-self:flex-end;white-space:normal;text-align:right}
+  .robeing-actions{flex-direction:column}
+  .robeing-actions .btn{width:100%;min-width:0}
+}

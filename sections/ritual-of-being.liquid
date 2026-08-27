@@ -1,0 +1,168 @@
+<section class="section section--compact robeing-section" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    {%- liquid
+      assign charcoal_product = all_products['charcoal-moment']
+      assign charcoal_url = '/products/charcoal-moment'
+      if charcoal_product != blank
+        assign charcoal_url = charcoal_product.url
+      endif
+      if section.settings.charcoal_link != blank
+        assign charcoal_url = section.settings.charcoal_link
+      endif
+
+      assign duke_url = '/collections/royal-duke'
+      if collections['royal-duke'] != blank
+        assign duke_url = collections['royal-duke'].url
+      endif
+      if section.settings.duke_link != blank
+        assign duke_url = section.settings.duke_link
+      endif
+
+      assign collections_url = routes.collections_url
+      if section.settings.collections_link != blank
+        assign collections_url = section.settings.collections_link
+      endif
+
+      assign all_url = routes.collections_url
+      if section.settings.all_link != blank
+        assign all_url = section.settings.all_link
+      endif
+
+      assign img_alt = section.settings.image_alt
+      if img_alt == blank
+        assign img_alt = 'Royal Being male ambassador holding The Charcoal Moment soap in a dark luxury spa setting'
+      endif
+    -%}
+
+    <div class="robeing">
+      <header class="robeing-head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="eyebrow robeing-kicker">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="robeing-heading">{{ section.settings.heading | newline_to_br }}</h2>
+        {%- endif -%}
+        {%- if section.settings.intro != blank -%}
+          <p class="robeing-intro">{{ section.settings.intro }}</p>
+        {%- endif -%}
+      </header>
+
+      <div class="robeing-body">
+        <div class="robeing-media reveal">
+          {%- if section.settings.image != blank -%}
+            <img
+              src="{{ section.settings.image | image_url: width: 1200 }}"
+              srcset="{{ section.settings.image | image_url: width: 600 }} 600w, {{ section.settings.image | image_url: width: 900 }} 900w, {{ section.settings.image | image_url: width: 1200 }} 1200w, {{ section.settings.image | image_url: width: 1600 }} 1600w"
+              sizes="(max-width: 900px) calc(100vw - 48px), min(42vw, 640px)"
+              alt="{{ img_alt | escape }}"
+              loading="lazy"
+              decoding="async"
+              width="{{ section.settings.image.width | default: 1200 }}"
+              height="{{ section.settings.image.height | default: 1600 }}"
+              style="object-position: {{ section.settings.image_position | default: '50% 46%' }};"
+            >
+          {%- else -%}
+            <img
+              src="{{ 'rb-ritual-being.jpg' | asset_url }}"
+              alt="{{ img_alt | escape }}"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="1600"
+              style="object-position: {{ section.settings.image_position | default: '50% 46%' }};"
+            >
+          {%- endif -%}
+        </div>
+
+        <div class="robeing-rows">
+          <article class="robeing-row reveal" style="--robeing-delay: 60ms">
+            {%- if section.settings.f1_eyebrow != blank -%}<p class="eyebrow robeing-row__eyebrow">{{ section.settings.f1_eyebrow }}</p>{%- endif -%}
+            {%- if section.settings.f1_heading != blank -%}<h3 class="robeing-row__heading">{{ section.settings.f1_heading }}</h3>{%- endif -%}
+            {%- if section.settings.f1_text != blank -%}<p class="robeing-row__text">{{ section.settings.f1_text }}</p>{%- endif -%}
+            {%- if section.settings.f1_cta != blank -%}
+              <a class="robeing-link" href="{{ charcoal_url }}">{{ section.settings.f1_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
+            {%- endif -%}
+          </article>
+
+          <article class="robeing-row reveal" style="--robeing-delay: 120ms">
+            {%- if section.settings.f2_eyebrow != blank -%}<p class="eyebrow robeing-row__eyebrow">{{ section.settings.f2_eyebrow }}</p>{%- endif -%}
+            {%- if section.settings.f2_heading != blank -%}<h3 class="robeing-row__heading">{{ section.settings.f2_heading }}</h3>{%- endif -%}
+            {%- if section.settings.f2_text != blank -%}<p class="robeing-row__text">{{ section.settings.f2_text }}</p>{%- endif -%}
+            {%- if section.settings.f2_cta != blank -%}
+              <a class="robeing-link" href="{{ duke_url }}">{{ section.settings.f2_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
+            {%- endif -%}
+          </article>
+
+          <article class="robeing-row reveal" style="--robeing-delay: 180ms">
+            {%- if section.settings.f3_eyebrow != blank -%}<p class="eyebrow robeing-row__eyebrow">{{ section.settings.f3_eyebrow }}</p>{%- endif -%}
+            {%- if section.settings.f3_heading != blank -%}<h3 class="robeing-row__heading">{{ section.settings.f3_heading }}</h3>{%- endif -%}
+            {%- if section.settings.f3_text != blank -%}<p class="robeing-row__text">{{ section.settings.f3_text }}</p>{%- endif -%}
+            {%- if section.settings.f3_cta != blank -%}
+              <a class="robeing-link" href="{{ collections_url }}">{{ section.settings.f3_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
+            {%- endif -%}
+          </article>
+
+          <article class="robeing-row reveal" style="--robeing-delay: 240ms">
+            {%- if section.settings.f4_eyebrow != blank -%}<p class="eyebrow robeing-row__eyebrow">{{ section.settings.f4_eyebrow }}</p>{%- endif -%}
+            {%- if section.settings.f4_heading != blank -%}<h3 class="robeing-row__heading">{{ section.settings.f4_heading }}</h3>{%- endif -%}
+            {%- if section.settings.f4_text != blank -%}<p class="robeing-row__text">{{ section.settings.f4_text }}</p>{%- endif -%}
+            {%- if section.settings.f4_cta != blank -%}
+              <a class="robeing-link" href="{{ all_url }}">{{ section.settings.f4_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
+            {%- endif -%}
+          </article>
+        </div>
+
+        <div class="robeing-actions reveal">
+          {%- if section.settings.primary_label != blank -%}
+            <a class="btn btn-primary" href="{{ duke_url }}">{{ section.settings.primary_label }}</a>
+          {%- endif -%}
+          {%- if section.settings.secondary_label != blank -%}
+            <a class="btn btn-outline robeing-btn-secondary" href="{{ charcoal_url }}">{{ section.settings.secondary_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ritual of Being",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE RITUAL OF BEING" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "More Than Cleansing.\nA Ritual That Belongs to You." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "A refined ritual created for moments of calm, confidence, and intentional care. Discover the deeper side of Royal Being through rich lathers, natural ingredients, and the distinctive cleansing experience of The Charcoal Moment." },
+    { "type": "image_picker", "id": "image", "label": "Ambassador image" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Royal Being male ambassador holding The Charcoal Moment soap in a dark luxury spa setting" },
+    { "type": "text", "id": "image_position", "label": "Image object-position", "default": "50% 46%" },
+    { "type": "header", "content": "Feature 1" },
+    { "type": "text", "id": "f1_eyebrow", "label": "Eyebrow", "default": "FEATURED RITUAL" },
+    { "type": "text", "id": "f1_heading", "label": "Heading", "default": "The Charcoal Moment" },
+    { "type": "textarea", "id": "f1_text", "label": "Body", "default": "Powered by activated charcoal, this distinctive bar helps lift away impurities while transforming an everyday cleanse into a richer, more intentional ritual." },
+    { "type": "text", "id": "f1_cta", "label": "CTA", "default": "VIEW THE CHARCOAL MOMENT" },
+    { "type": "url", "id": "charcoal_link", "label": "Charcoal Moment link" },
+    { "type": "header", "content": "Feature 2" },
+    { "type": "text", "id": "f2_eyebrow", "label": "Eyebrow", "default": "ROYAL DUKE COLLECTION" },
+    { "type": "text", "id": "f2_heading", "label": "Heading", "default": "Made for the Modern Gentleman" },
+    { "type": "textarea", "id": "f2_text", "label": "Body", "default": "A distinguished collection created around clean, confident care with sophisticated scents and premium, long-lasting bars designed for his everyday routine." },
+    { "type": "text", "id": "f2_cta", "label": "CTA", "default": "EXPLORE THE ROYAL DUKE COLLECTION" },
+    { "type": "url", "id": "duke_link", "label": "Royal Duke link" },
+    { "type": "header", "content": "Feature 3" },
+    { "type": "text", "id": "f3_eyebrow", "label": "Eyebrow", "default": "CRAFTED TO LAST" },
+    { "type": "text", "id": "f3_heading", "label": "Heading", "default": "More Ritual. Less Waste." },
+    { "type": "textarea", "id": "f3_text", "label": "Body", "default": "Thoughtfully crafted bars designed to last through more cleansing moments without compromising the rich lather and elevated experience Royal Being is known for." },
+    { "type": "text", "id": "f3_cta", "label": "CTA", "default": "DISCOVER OUR COLLECTIONS" },
+    { "type": "url", "id": "collections_link", "label": "Collections link" },
+    { "type": "header", "content": "Feature 4" },
+    { "type": "text", "id": "f4_eyebrow", "label": "Eyebrow", "default": "NATURALLY CONSIDERED" },
+    { "type": "text", "id": "f4_heading", "label": "Heading", "default": "Skin-Loving Ingredients" },
+    { "type": "textarea", "id": "f4_text", "label": "Body", "default": "Carefully selected ingredients come together to create a cleansing experience that feels luxurious, purposeful, and worthy of becoming part of your daily ritual." },
+    { "type": "text", "id": "f4_cta", "label": "CTA", "default": "EXPLORE ALL COLLECTIONS" },
+    { "type": "url", "id": "all_link", "label": "All collections link" },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "EXPLORE THE ROYAL DUKE COLLECTION" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "VIEW THE CHARCOAL MOMENT" }
+  ],
+  "presets": [{ "name": "Ritual of Being" }]
+}
+{% endschema %}
