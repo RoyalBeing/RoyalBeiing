@@ -54,13 +54,13 @@
               <img
                 src="{{ section.settings.image | image_url: width: 900 }}"
                 srcset="{{ section.settings.image | image_url: width: 480 }} 480w, {{ section.settings.image | image_url: width: 720 }} 720w, {{ section.settings.image | image_url: width: 900 }} 900w, {{ section.settings.image | image_url: width: 1200 }} 1200w"
-                sizes="(max-width: 900px) min(360px, calc(100vw - 48px)), min(22vw, 360px)"
+                sizes="(max-width: 900px) calc(100vw - 48px), min(50vw, 840px)"
                 alt="{{ img_alt | escape }}"
                 loading="lazy"
                 decoding="async"
                 width="{{ section.settings.image.width | default: 900 }}"
                 height="{{ section.settings.image.height | default: 1200 }}"
-                style="object-position: {{ section.settings.image_position | default: '50% 46%' }};"
+                style="object-position: {{ section.settings.image_position | default: '52% 72%' }};"
               >
             {%- else -%}
               <img
@@ -70,7 +70,7 @@
                 decoding="async"
                 width="900"
                 height="1200"
-                style="object-position: {{ section.settings.image_position | default: '50% 46%' }};"
+                style="object-position: {{ section.settings.image_position | default: '52% 72%' }};"
               >
             {%- endif -%}
           </div>
@@ -136,7 +136,7 @@
     { "type": "textarea", "id": "intro", "label": "Intro", "default": "A refined ritual created for moments of calm, confidence, and intentional care. Discover the deeper side of Royal Being through rich lathers, natural ingredients, and the distinctive cleansing experience of The Charcoal Moment." },
     { "type": "image_picker", "id": "image", "label": "Ambassador image" },
     { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Royal Being male ambassador holding The Charcoal Moment soap in a dark luxury spa setting" },
-    { "type": "text", "id": "image_position", "label": "Image object-position", "default": "50% 46%" },
+    { "type": "text", "id": "image_position", "label": "Image object-position", "default": "52% 72%" },
     { "type": "header", "content": "Feature 1" },
     { "type": "text", "id": "f1_eyebrow", "label": "Eyebrow", "default": "FEATURED RITUAL" },
     { "type": "text", "id": "f1_heading", "label": "Heading", "default": "The Charcoal Moment" },

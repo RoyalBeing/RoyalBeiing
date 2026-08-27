@@ -2034,7 +2034,7 @@ body.grev-lock{overflow:hidden}
 }
 .robeing-body{
   display:grid;
-  grid-template-columns:minmax(200px,.55fr) minmax(280px,1.2fr);
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   gap:clamp(32px,4.2vw,56px);
   align-items:start;
 }
@@ -2042,8 +2042,8 @@ body.grev-lock{overflow:hidden}
   display:flex;
   flex-direction:column;
   gap:36px;
-  max-width:360px;
   width:100%;
+  max-width:none;
 }
 .robeing-media{
   border-radius:var(--radius-lg);
@@ -2162,16 +2162,17 @@ body.grev-lock{overflow:hidden}
   .robeing-visual{display:contents}
   .robeing-media{
     order:1;
-    aspect-ratio:4/5;
-    max-width:360px;
-    max-height:400px;
+    aspect-ratio:3/4;
+    max-width:none;
+    max-height:none;
     width:100%;
     margin-inline:auto;
   }
   .robeing-rows{order:2}
   .robeing-actions{
     order:3;
-    max-width:420px;
+    max-width:none;
+    width:100%;
     margin-inline:auto;
   }
   .robeing-rows{display:flex;flex-direction:column;gap:12px;padding-top:0}
