@@ -1,0 +1,148 @@
+<section class="section section--compact rbento-section" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="rbento reveal">
+      {%- liquid
+        assign family_src = ''
+        if section.settings.family_image != blank
+          assign family_src = section.settings.family_image | image_url: width: 1800
+        elsif section.settings.family_asset != blank
+          assign family_src = section.settings.family_asset | asset_url
+        else
+          assign family_src = 'rb-bento-family.jpg' | asset_url
+        endif
+
+        assign dark_src = ''
+        if section.settings.dark_image != blank
+          assign dark_src = section.settings.dark_image | image_url: width: 1400
+        elsif section.settings.dark_asset != blank
+          assign dark_src = section.settings.dark_asset | asset_url
+        else
+          assign dark_src = 'rb-bento-charcoal.jpg' | asset_url
+        endif
+
+        assign primary_href = routes.collections_url
+        if section.settings.button_link != blank
+          assign primary_href = section.settings.button_link
+        endif
+        assign secondary_href = routes.all_products_collection_url
+        if section.settings.button2_link != blank
+          assign secondary_href = section.settings.button2_link
+        endif
+        assign dark_href = routes.collections_url
+        if section.settings.dark_link != blank
+          assign dark_href = section.settings.dark_link
+        endif
+      -%}
+
+      <article class="rbento-main">
+        <div class="rbento-main__media">
+          <img
+            src="{{ family_src }}"
+            alt="{{ section.settings.family_alt | default: 'Royal Being family ritual' | escape }}"
+            loading="lazy"
+            width="1440"
+            height="960"
+          >
+        </div>
+        <div class="rbento-main__body">
+          {%- if section.settings.badge != blank -%}
+            <span class="rbento-tab">{{ section.settings.badge }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="rbento-main__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          <div class="rbento-main__cols">
+            {%- if section.settings.text_left != blank -%}
+              <p>{{ section.settings.text_left }}</p>
+            {%- endif -%}
+            {%- if section.settings.text_right != blank -%}
+              <p>{{ section.settings.text_right }}</p>
+            {%- endif -%}
+          </div>
+          <div class="rbento-main__cta">
+            {%- if section.settings.button_label != blank -%}
+              <a class="btn btn-gold" href="{{ primary_href }}">{{ section.settings.button_label }}</a>
+            {%- endif -%}
+            {%- if section.settings.button2_label != blank -%}
+              <a class="btn btn-outline" href="{{ secondary_href }}">{{ section.settings.button2_label }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      </article>
+
+      <article class="rbento-note">
+        {%- if section.settings.note_badge != blank -%}
+          <span class="rbento-pill">{{ section.settings.note_badge }}</span>
+        {%- endif -%}
+        {%- if section.settings.note_text != blank -%}
+          <p class="rbento-note__sub">{{ section.settings.note_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.note_heading != blank -%}
+          <h3 class="rbento-note__heading">{{ section.settings.note_heading }}</h3>
+        {%- endif -%}
+        <span class="rbento-note__branch" aria-hidden="true">
+          <svg viewBox="0 0 180 140" fill="none">
+            <path d="M18 118c28-8 46-28 58-52 8-16 18-40 28-54" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M76 66c8-14 22-24 38-28" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            <path d="M88 48c10-6 22-8 34-6" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+            <path d="M70 78c-8-16-6-30 4-42" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+            <path d="M102 42c6-10 4-20-2-28M118 40c8-12 20-16 32-14M64 92c-12-4-22 2-28 12" stroke="currentColor" stroke-width=".9" stroke-linecap="round"/>
+            <path d="M96 34c2.2-8 10-12 16-8-4 1.4-7 5.4-8 10.4-4.4-1.8-8.2-1.2-8-2.4zM128 34c3-7 11-10 16-5-3.4.8-6.4 4.4-7.2 9.2-4.6-1.4-8.4-.6-8.8-4.2zM58 86c-2.6-7.4-10-10-15.2-6 3.2.6 6.2 4 7 8.8 4.6-1.2 8.4-.2 8.2-2.8z" fill="currentColor" opacity=".85"/>
+          </svg>
+        </span>
+      </article>
+
+      <a class="rbento-dark" href="{{ dark_href }}">
+        <img
+          src="{{ dark_src }}"
+          alt="{{ section.settings.dark_alt | default: 'Royal Being charcoal ritual' | escape }}"
+          loading="lazy"
+          width="1040"
+          height="1360"
+        >
+        <div class="rbento-dark__copy">
+          {%- if section.settings.dark_badge != blank -%}
+            <span class="rbento-pill rbento-pill--ghost">{{ section.settings.dark_badge }}</span>
+          {%- endif -%}
+          {%- if section.settings.dark_text != blank -%}
+            <p>{{ section.settings.dark_text }}</p>
+          {%- endif -%}
+        </div>
+        <span class="rbento-go" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ritual bento",
+  "settings": [
+    { "type": "image_picker", "id": "family_image", "label": "Family image" },
+    { "type": "text", "id": "family_asset", "label": "Family theme asset", "default": "rb-bento-family.jpg" },
+    { "type": "text", "id": "family_alt", "label": "Family image alt", "default": "A family sharing a Royal Being cleansing ritual" },
+    { "type": "text", "id": "badge", "label": "Overlapping badge", "default": "MADE FOR EVERY ROYAL" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A Ritual for Every Generation" },
+    { "type": "textarea", "id": "text_left", "label": "Left column", "default": "From gentle care for little ones to refined rituals for men, women, and families, Royal Being creates long-lasting premium bars designed for every skin, every moment, and every member of the family." },
+    { "type": "textarea", "id": "text_right", "label": "Right column", "default": "Thoughtfully crafted with skin-loving ingredients, each collection turns everyday cleansing into a ritual worth looking forward to." },
+    { "type": "text", "id": "button_label", "label": "Primary button", "default": "EXPLORE ALL COLLECTIONS" },
+    { "type": "url", "id": "button_link", "label": "Primary link" },
+    { "type": "text", "id": "button2_label", "label": "Secondary button", "default": "FIND YOUR ROYAL RITUAL" },
+    { "type": "url", "id": "button2_link", "label": "Secondary link" },
+    { "type": "text", "id": "note_badge", "label": "Note badge", "default": "AUTHENTIC" },
+    { "type": "textarea", "id": "note_text", "label": "Note text", "default": "Handcrafted herbal bars, where every lather tells a story of care." },
+    { "type": "text", "id": "note_heading", "label": "Note heading", "default": "Into a gallery of elegance" },
+    { "type": "image_picker", "id": "dark_image", "label": "Dark card image" },
+    { "type": "text", "id": "dark_asset", "label": "Dark theme asset", "default": "rb-bento-charcoal.jpg" },
+    { "type": "text", "id": "dark_alt", "label": "Dark image alt", "default": "Activated charcoal bar for a deep-cleansing ritual" },
+    { "type": "text", "id": "dark_badge", "label": "Dark badge", "default": "PURE & NATURAL" },
+    { "type": "text", "id": "dark_text", "label": "Dark text", "default": "Indulge in the art of everyday living" },
+    { "type": "url", "id": "dark_link", "label": "Dark card link" }
+  ],
+  "presets": [{ "name": "Ritual bento" }]
+}
+{% endschema %}

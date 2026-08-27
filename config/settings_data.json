@@ -203,6 +203,29 @@
           "kid"
         ]
       },
+      "ritual-bento": {
+        "type": "ritual-bento",
+        "settings": {
+          "family_asset": "rb-bento-family.jpg",
+          "family_alt": "A family sharing a Royal Being cleansing ritual",
+          "badge": "MADE FOR EVERY ROYAL",
+          "heading": "A Ritual for Every Generation",
+          "text_left": "From gentle care for little ones to refined rituals for men, women, and families, Royal Being creates long-lasting premium bars designed for every skin, every moment, and every member of the family.",
+          "text_right": "Thoughtfully crafted with skin-loving ingredients, each collection turns everyday cleansing into a ritual worth looking forward to.",
+          "button_label": "EXPLORE ALL COLLECTIONS",
+          "button_link": "shopify://collections",
+          "button2_label": "FIND YOUR ROYAL RITUAL",
+          "button2_link": "shopify://collections/all",
+          "note_badge": "AUTHENTIC",
+          "note_text": "Handcrafted herbal bars, where every lather tells a story of care.",
+          "note_heading": "Into a gallery of elegance",
+          "dark_asset": "rb-bento-charcoal.jpg",
+          "dark_alt": "Activated charcoal bar for a deep-cleansing ritual",
+          "dark_badge": "PURE & NATURAL",
+          "dark_text": "Indulge in the art of everyday living",
+          "dark_link": "/collections/royal-duke"
+        }
+      },
       "video-feature": {
         "type": "video-feature",
         "settings": {

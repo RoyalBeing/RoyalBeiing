@@ -1163,6 +1163,167 @@ body.grev-lock{overflow:hidden}
   .cshow-card__label{font-size:.86rem}
 }
 
+/* Ritual bento — generation story after collections */
+.rbento-section{padding-block:clamp(12px,2.4vw,36px);background:var(--rb-ivory-50)}
+.rbento{
+  display:grid;
+  grid-template-columns:minmax(0,1.72fr) minmax(260px,1fr);
+  grid-template-rows:minmax(270px,1fr) minmax(270px,1fr);
+  gap:18px;
+  align-items:stretch;
+  min-height:min(78vh,820px);
+}
+.rbento-main,
+.rbento-note,
+.rbento-dark{
+  border-radius:28px;
+  overflow:hidden;
+  min-width:0;min-height:0;
+}
+.rbento-main{
+  grid-row:1 / span 2;
+  display:flex;flex-direction:column;
+  background:#fff;
+}
+.rbento-main__media{
+  flex:1.35 1 0;
+  min-height:300px;
+  background:var(--rb-mist);
+}
+.rbento-main__media img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:62% 46%;
+  display:block;
+}
+.rbento-main__body{
+  position:relative;
+  flex:0 0 auto;
+  padding:36px 32px 28px;
+  background:#fff;
+}
+.rbento-tab{
+  position:absolute;left:28px;top:0;
+  transform:translateY(-100%);
+  background:#fff;color:var(--rb-charcoal);
+  font-size:.64rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;
+  padding:10px 16px 12px;
+  border-radius:16px 16px 0 0;
+}
+.rbento-main__heading{
+  color:var(--rb-green-900);
+  font-size:clamp(1.7rem,2.4vw,2.45rem);
+  line-height:1.12;
+  margin:0 0 16px;
+}
+.rbento-main__cols{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px 28px;
+  margin:0 0 22px;
+}
+.rbento-main__cols p{
+  margin:0;
+  font-size:.86rem;
+  line-height:1.65;
+  color:#55584f;
+}
+.rbento-main__cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.rbento-pill{
+  display:inline-flex;align-items:center;
+  align-self:flex-start;
+  border:1px solid var(--rb-line);
+  border-radius:40px;
+  padding:7px 14px;
+  font-size:.64rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--rb-charcoal);
+  background:transparent;
+}
+.rbento-pill--ghost{border-color:rgba(255,255,255,.72);color:#fff}
+.rbento-note{
+  position:relative;
+  display:flex;flex-direction:column;
+  padding:26px 26px 28px;
+  background:#fff;
+}
+.rbento-note__sub{
+  margin:16px 0 14px;
+  font-size:.84rem;line-height:1.55;color:#55584f;
+  max-width:28ch;
+}
+.rbento-note__heading{
+  margin:0;
+  color:var(--rb-green-900);
+  font-size:clamp(1.45rem,2vw,1.9rem);
+  line-height:1.15;
+  max-width:12ch;
+}
+.rbento-note__branch{
+  position:absolute;right:8px;bottom:4px;
+  width:clamp(110px,18vw,168px);height:auto;
+  color:var(--rb-gold-500);opacity:.28;pointer-events:none;
+}
+.rbento-note__branch svg{display:block;width:100%;height:auto}
+.rbento-dark{
+  position:relative;
+  display:block;color:#fff;
+  isolation:isolate;
+}
+.rbento-dark img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:center 35%;
+  display:block;
+}
+.rbento-dark::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(20,16,12,.38),transparent 48%);
+  pointer-events:none;
+}
+.rbento-dark__copy{
+  position:relative;z-index:1;
+  padding:22px 22px 18px;
+}
+.rbento-dark__copy p{
+  margin:12px 0 0;
+  font-size:.84rem;line-height:1.5;
+  max-width:22ch;
+  color:rgba(255,255,255,.92);
+}
+.rbento-go{
+  position:absolute;z-index:1;
+  right:16px;bottom:16px;
+  width:42px;height:42px;border-radius:50%;
+  background:#fff;color:var(--rb-green-900);
+  display:grid;place-items:center;
+}
+.rbento-go svg{width:18px;height:18px}
+
+@media(max-width:980px){
+  .rbento{
+    grid-template-columns:1fr;
+    grid-template-rows:auto;
+    min-height:0;
+  }
+  .rbento-main{grid-row:auto}
+  .rbento-main__media{flex:none;aspect-ratio:16/10;min-height:0}
+  .rbento-note{min-height:240px}
+  .rbento-dark{min-height:280px}
+}
+@media(max-width:640px){
+  .rbento{gap:14px}
+  .rbento-main,
+  .rbento-note,
+  .rbento-dark{border-radius:22px}
+  .rbento-main__body{padding:28px 20px 22px}
+  .rbento-tab{left:18px;font-size:.58rem;padding:8px 12px 10px}
+  .rbento-main__heading{font-size:clamp(1.55rem,7vw,2rem)}
+  .rbento-main__cols{grid-template-columns:1fr;gap:12px;margin-bottom:18px}
+  .rbento-main__cta .btn{width:100%;justify-content:center}
+  .rbento-note{padding:22px 20px 64px}
+  .rbento-note__heading{max-width:none;font-size:1.55rem}
+}
+
 .ritual-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .ritual-card{background:#fff;border:1px solid var(--rb-line);border-radius:var(--radius);padding:28px 24px;display:flex;flex-direction:column;gap:12px;min-height:100%}
 .ritual-card h3{font-family:var(--font-body);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
