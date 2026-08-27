@@ -140,7 +140,12 @@
         <div class="accordion">
           <div class="acc open">
             <button type="button">Description<span class="plus">+</span></button>
-            <div class="acc__body rte">{{ product.description }}</div>
+            <div class="acc__body rte">
+              {{ product.description }}
+              {%- if section.settings.caution != blank -%}
+                <p class="pdp__caution">{{ section.settings.caution }}</p>
+              {%- endif -%}
+            </div>
           </div>
           {%- for block in section.blocks -%}
             <div class="acc" {{ block.shopify_attributes }}>
@@ -188,6 +193,7 @@
   "settings": [
     { "type": "text", "id": "add_label", "label": "Add to cart label", "default": "Add to Cart" },
     { "type": "text", "id": "ships_note", "label": "Shipping note", "default": "Handmade in small batches · Made in USA" },
+    { "type": "textarea", "id": "caution", "label": "Caution (under Description)", "default": "Caution: For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with clear water. Discontinue use if irritation occurs. Keep out of reach of infants without supervision." },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true }
   ],
   "blocks": [

@@ -26,7 +26,9 @@
         }
       },
       "block_order": ["how", "care", "ship"],
-      "settings": {}
+      "settings": {
+        "caution": "Caution: For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with clear water. Discontinue use if irritation occurs. Keep out of reach of infants without supervision."
+      }
     }
   },
   "order": ["main"]

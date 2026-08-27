@@ -984,6 +984,14 @@ body.grev-lock{overflow:hidden}
 .acc__body{display:none;padding:0 4px 20px;font-size:.9rem;color:#55584f}
 .acc.open .acc__body{display:block}
 .acc .plus{font-size:1.4rem;color:var(--rb-sage-600)}
+.pdp__caution{
+  margin:18px 0 0;
+  padding-top:16px;
+  border-top:1px solid var(--rb-line);
+  font-size:.88rem;
+  line-height:1.65;
+  color:#55584f;
+}
 
 /* schematic gallery */
 .schematic-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
