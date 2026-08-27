@@ -1,5 +1,26 @@
 <section class="section cta-final" {{ section.shopify_attributes }}>
-  <div class="wrap center reveal">
+  {%- liquid
+    assign bg_src = 'rb-cta-family.jpg' | asset_url
+    if section.settings.background_image != blank
+      assign bg_src = section.settings.background_image | image_url: width: 2000
+    endif
+    assign bg_pos = section.settings.background_position
+    if bg_pos == blank
+      assign bg_pos = 'center 40%'
+    endif
+  -%}
+  <div class="cta-final__media" aria-hidden="true">
+    <img
+      src="{{ bg_src }}"
+      alt=""
+      width="1920"
+      height="960"
+      loading="lazy"
+      decoding="async"
+      style="object-position: {{ bg_pos }};"
+    >
+  </div>
+  <div class="wrap center reveal cta-final__content">
     <h2>{{ section.settings.heading }}</h2>
     {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
     <div class="hero__cta" style="justify-content:center;margin-top:26px">
@@ -26,7 +47,9 @@
     { "type": "url", "id": "button_link", "label": "Primary link" },
     { "type": "text", "id": "button2_label", "label": "Secondary button", "default": "EXPLORE THE COLLECTIONS" },
     { "type": "url", "id": "button2_link", "label": "Secondary link" },
-    { "type": "text", "id": "closing", "label": "Closing line", "default": "Royal Being — The Ritual of Being" }
+    { "type": "text", "id": "closing", "label": "Closing line", "default": "Royal Being — The Ritual of Being" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "text", "id": "background_position", "label": "Background object-position", "default": "center 40%" }
   ],
   "presets": [{ "name": "Final call to action" }]
 }

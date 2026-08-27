@@ -665,7 +665,8 @@
           "button_link": "shopify://collections/all",
           "button2_label": "EXPLORE THE COLLECTIONS",
           "button2_link": "#collections",
-          "closing": "Royal Being \u2014 The Ritual of Being"
+          "closing": "Royal Being \u2014 The Ritual of Being",
+          "background_position": "center 40%"
         }
       },
       "google-reviews": {
