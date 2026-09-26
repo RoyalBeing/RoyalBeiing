@@ -1,40 +1,51 @@
-{%- comment -%} Product card — uses live Shopify product object {%- endcomment -%}
 {%- liquid
   assign variant = product.selected_or_first_available_variant
-  assign sold_out = false
-  if variant.available == false
-    assign sold_out = true
+  assign h = product.handle
+  if h == 'herbal-galaxy-renewal-soap'
+    assign h = 'herbal-galaxy-renewal'
+  elsif h == 'anti-aging-herbal-soap'
+    assign h = 'anti-aging-herbal'
+  elsif h == 'this-iris'
+    assign h = 'the-iris'
   endif
-  assign coming_soon = false
-  if product.tags contains 'Coming Soon' or variant.inventory_quantity == 0 and sold_out
-    if product.tags contains 'Coming Soon'
-      assign coming_soon = true
+  assign is_robe = false
+  if product.type == 'Robe' or product.tags contains 'Robe' or h == 'terry-robe' or h == 'the-royal-being-terry-robe' or h == 'royal-being-terry-robe'
+    assign is_robe = true
+  endif
+  assign soap_mto = false
+  if is_robe == false
+    if product.type == 'Herbal Soap' or product.tags contains 'Herbal Soap' or product.type == 'Soap'
+      assign soap_mto = true
     endif
   endif
+  assign sold_out = false
+  if variant.available == false
+    if is_robe or soap_mto == false
+      assign sold_out = true
+    endif
+  endif
+  assign coming_soon = false
+  if product.tags contains 'Coming Soon' and soap_mto == false
+    assign coming_soon = true
+  endif
+  assign hero = 'rb-p-' | append: h | append: '.jpg'
 -%}
-<article class="pcard" data-product-id="{{ product.id }}">
+<article class="pcard pcard--pop" data-product-id="{{ product.id }}">
   <a class="pcard__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
-    {%- if product.featured_media -%}
-      <img
-        src="{{ product.featured_media | image_url: width: 800 }}"
-        alt="{{ product.featured_media.alt | default: product.title | escape }}"
-        loading="lazy"
-        width="{{ product.featured_media.width }}"
-        height="{{ product.featured_media.height }}"
-      >
-    {%- else -%}
-      {%- capture rb_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
-      {%- if rb_img != blank -%}
-        <img src="{{ rb_img | strip }}" alt="{{ product.title | escape }}" loading="lazy" width="800" height="800">
-      {%- else -%}
-        <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
-      {%- endif -%}
-    {%- endif -%}
+    <img
+      src="{{ hero | asset_url }}"
+      alt="{{ product.title | escape }}"
+      loading="lazy"
+      width="800"
+      height="800"
+    >
     <div class="pcard__badges">
       {%- if coming_soon -%}
         <span class="badge badge--soon">Coming Soon</span>
       {%- elsif sold_out -%}
         <span class="badge badge--soldout">Sold Out</span>
+      {%- elsif soap_mto and variant.available == false -%}
+        <span class="badge badge--mto">Made to order</span>
       {%- endif -%}
       {%- if product.tags contains 'Subscription Eligible' and sold_out == false -%}
         <span class="badge badge--sub">Subscribe</span>
@@ -43,16 +54,18 @@
   </a>
   <div class="pcard__body">
     {%- if product.collections.size > 0 -%}
-      <div class="pcard__coll">{{ product.collections.first.title }}</div>
+      {%- for collection in product.collections -%}
+        {%- if collection.handle != 'all' and collection.handle != 'frontpage' -%}
+          <div class="pcard__coll">{{ collection.title }}</div>
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
     {%- endif -%}
     <h3 class="pcard__name"><a href="{{ product.url }}">{{ product.title }}</a></h3>
-    {%- if product.description != blank -%}
-      <p class="pcard__desc">{{ product.description | strip_html | truncate: 90 }}</p>
-    {%- endif -%}
     <div class="pcard__foot">
       <div class="pcard__price">{{ variant.price | money }}</div>
       {%- if sold_out -%}
-        <a class="btn btn-light btn-sm" href="{{ product.url }}">Notify Me</a>
+        <a class="btn btn-light btn-sm" href="{{ product.url }}">View</a>
       {%- else -%}
         <button
           type="button"

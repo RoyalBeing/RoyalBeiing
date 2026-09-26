@@ -1,27 +1,95 @@
-<section class="page-banner" {{ section.shopify_attributes }}>
-  {%- if collection.featured_image -%}
-    <div class="page-banner__media"><img src="{{ collection.featured_image | image_url: width: 2000 }}" alt="{{ collection.title | escape }}"></div>
+{%- liquid
+  assign h = collection.handle
+  assign col_key = h
+  if h == 'the-royal-collection'
+    assign col_key = 'royal'
+  elsif h == 'the-signature-collection'
+    assign col_key = 'signature'
+  elsif h == 'the-common-collection'
+    assign col_key = 'common'
+  elsif h == 'the-royal-duke-collection'
+    assign col_key = 'royal-duke'
+  elsif h == 'the-royal-kid-herbal-collection' or h == 'the-royal-kid-collection'
+    assign col_key = 'royal-kid'
+  endif
+-%}
+{%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
+{%- assign rb_catalog = rb_catalog_json | parse_json -%}
+{%- assign rec = rb_catalog.collections[col_key] -%}
+<section class="page-banner col-hero" {{ section.shopify_attributes }}>
+  {%- if rec != blank and rec.hero != blank -%}
+    <div class="page-banner__media"><img src="{{ rec.hero | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="2000" height="1100"></div>
+  {%- elsif collection.featured_image -%}
+    <div class="page-banner__media"><img src="{{ collection.featured_image | image_url: width: 2000 }}" alt="{{ collection.title | escape }}" width="{{ collection.featured_image.width }}" height="{{ collection.featured_image.height }}"></div>
+  {%- else -%}
+    {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', collection: collection %}{%- endcapture -%}
+    {%- if rb_col_src != blank -%}
+      <div class="page-banner__media"><img src="{{ rb_col_src | strip }}" alt="{{ collection.title | escape }}" width="2000" height="1100"></div>
+    {%- endif -%}
   {%- endif -%}
   <div class="page-banner__scrim"></div>
   <div class="page-banner__inner wrap">
-    <nav class="breadcrumbs"><a href="{{ routes.root_url }}">Home</a> / <a href="{{ routes.collections_url }}">Shop</a> / {{ collection.title }}</nav>
+    <nav class="breadcrumbs"><a href="{{ routes.root_url }}">Home</a> / <a href="{{ routes.collections_url }}">Shop</a> / {{ rec.title | default: collection.title }}</nav>
     <p class="eyebrow">{{ section.settings.eyebrow | default: 'Collection' }}</p>
-    <h1>{{ collection.title }}</h1>
-    {%- if collection.description != blank -%}
-      <p class="lead" style="margin-inline:auto">{{ collection.description | strip_html | truncate: 160 }}</p>
-    {%- endif -%}
+    <h1>{{ rec.title | default: collection.title }}</h1>
   </div>
 </section>
 
-<section class="section">
+<section class="section col-story">
   <div class="wrap">
-    {%- if collection.description != blank -%}
+    {%- if rec != blank -%}
+      <div class="col-story__grid reveal">
+        <div class="col-story__copy">
+          <p class="lead">{{ rec.intro }}</p>
+          {%- if rec.gift_set != blank or rec.sample_kit != blank -%}
+            <p class="col-story__kits">
+              {%- if rec.gift_set != blank -%}<span>Gift Set {{ rec.gift_set }}</span>{%- endif -%}
+              {%- if rec.sample_kit != blank -%}<span>Sample Kit {{ rec.sample_kit }}</span>{%- endif -%}
+            </p>
+          {%- endif -%}
+        </div>
+        {%- if rec.schema != blank -%}
+          <figure class="col-story__schema">
+            <img src="{{ rec.schema | asset_url }}" alt="{{ rec.title | escape }} lineup" width="1200" height="900" loading="lazy">
+          </figure>
+        {%- endif -%}
+      </div>
+      {%- if rec.lifestyle.size > 0 -%}
+        <div class="col-life reveal">
+          {%- for img in rec.lifestyle limit: 4 -%}
+            <img src="{{ img | asset_url }}" alt="{{ rec.title | escape }} lifestyle" width="800" height="1000" loading="lazy">
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      {%- if rec.video != blank -%}
+        <div class="col-film reveal" data-hover-video>
+          {% render 'video-sound-control' %}
+          <video
+            playsinline
+            webkit-playsinline
+            muted
+            loop
+            preload="metadata"
+            poster="{% if rec.hero != blank %}{{ rec.hero | asset_url }}{% endif %}"
+            controls
+          >
+            <source src="{{ rec.video }}" type="video/mp4">
+          </video>
+        </div>
+      {%- endif -%}
+      {%- if rec.matrix != blank -%}
+        <figure class="col-matrix reveal">
+          <img src="{{ rec.matrix | asset_url }}" alt="{{ rec.title | escape }} skin type matrix" width="1600" height="1200" loading="lazy">
+        </figure>
+      {%- endif -%}
+    {%- elsif collection.description != blank -%}
       <div class="prose reveal" style="margin-bottom:40px">{{ collection.description }}</div>
     {%- endif -%}
+
     <div class="shop-toolbar">
       <span class="count">{{ collection.products_count }} soap{% if collection.products_count != 1 %}s{% endif %}</span>
     </div>
-    <div class="product-grid reveal">
+    <div class="product-grid product-grid--pop reveal">
       {%- paginate collection.products by section.settings.products_per_page -%}
         {%- for product in collection.products -%}
           {% render 'product-card', product: product %}

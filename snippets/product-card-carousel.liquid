@@ -6,8 +6,14 @@
     assign on_sale = true
   endif
   assign sold_out = false
+  assign soap_mto = false
+  if product.type == 'Herbal Soap' or product.tags contains 'Herbal Soap' or product.type == 'Soap'
+    assign soap_mto = true
+  endif
   if variant == blank or variant.available == false
-    assign sold_out = true
+    unless soap_mto
+      assign sold_out = true
+    endunless
   endif
 
   assign coll_title = ''
@@ -67,7 +73,17 @@
     {%- if on_sale -%}
       <span class="pcar-card__sale">Sale</span>
     {%- endif -%}
-    {%- if product.featured_media -%}
+    {%- capture rb_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
+    {%- if rb_img != blank -%}
+      <img
+        class="pcar-card__soap"
+        src="{{ rb_img | strip }}"
+        alt="{{ product.title | escape }}"
+        loading="lazy"
+        width="900"
+        height="900"
+      >
+    {%- elsif product.featured_media -%}
       <img
         class="pcar-card__soap"
         src="{{ product.featured_media | image_url: width: 900 }}"
@@ -77,12 +93,7 @@
         height="{{ product.featured_media.height }}"
       >
     {%- else -%}
-      {%- capture rb_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
-      {%- if rb_img != blank -%}
-        <img class="pcar-card__soap" src="{{ rb_img | strip }}" alt="{{ product.title | escape }}" loading="lazy" width="800" height="800">
-      {%- else -%}
-        <img class="pcar-card__soap" src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
-      {%- endif -%}
+      <img class="pcar-card__soap" src="{{ 'rb-life-stack.jpg' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy" width="800" height="800">
     {%- endif -%}
   </a>
   <div class="pcar-card__body">

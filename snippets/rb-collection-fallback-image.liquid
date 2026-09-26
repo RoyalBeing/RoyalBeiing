@@ -1,21 +1,18 @@
-{%- comment -%}
-  Fallback collection cover from theme assets when collection.featured_image is blank.
-  Expects: collection or handle
-{%- endcomment -%}
+{%- comment -%} Newest collection lifestyle image from theme assets. {%- endcomment -%}
 {%- liquid
   assign h = handle | default: collection.handle
   assign asset = ''
   case h
     when 'royal', 'the-royal-collection'
-      assign asset = 'rb-col-royal.jpg'
+      assign asset = 'rb-cshow-royal.jpg'
     when 'signature', 'the-signature-collection'
-      assign asset = 'rb-col-signature.jpg'
+      assign asset = 'rb-cshow-signature.jpg'
     when 'common', 'the-common-collection'
-      assign asset = 'rb-col-common.jpg'
+      assign asset = 'rb-cshow-common.jpg'
     when 'royal-duke', 'the-royal-duke-collection'
-      assign asset = 'rb-col-royal-duke.jpg'
+      assign asset = 'rb-cshow-duke.jpg'
     when 'royal-kid', 'the-royal-kid-herbal-collection', 'the-royal-kid-collection'
-      assign asset = 'rb-col-royal-kid.png'
+      assign asset = 'rb-cshow-kid.jpg'
   endcase
 -%}
 {%- if asset != blank -%}{{ asset | asset_url }}{%- endif -%}

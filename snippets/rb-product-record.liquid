@@ -1,0 +1,25 @@
+{%- comment -%}
+  Loads official PDF catalog for the current product.
+  Sets: rb_record, rb_is_soap, rb_is_robe, rb_catalog
+{%- endcomment -%}
+{%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
+{%- assign rb_catalog = rb_catalog_json | parse_json -%}
+{%- assign rb_handle = product.handle -%}
+{%- if rb_handle == 'herbal-galaxy-renewal-soap' -%}
+  {%- assign rb_handle = 'herbal-galaxy-renewal' -%}
+{%- elsif rb_handle == 'anti-aging-herbal-soap' -%}
+  {%- assign rb_handle = 'anti-aging-herbal' -%}
+{%- elsif rb_handle == 'this-iris' -%}
+  {%- assign rb_handle = 'the-iris' -%}
+{%- endif -%}
+{%- assign rb_record = rb_catalog.products[rb_handle] -%}
+{%- assign rb_is_robe = false -%}
+{%- assign rb_is_soap = false -%}
+{%- if rb_catalog.robe.handles contains product.handle or product.type == 'Robe' or product.tags contains 'Robe' -%}
+  {%- assign rb_is_robe = true -%}
+{%- endif -%}
+{%- if rb_record != blank or product.type == 'Herbal Soap' or product.tags contains 'Herbal Soap' -%}
+  {%- unless rb_is_robe -%}
+    {%- assign rb_is_soap = true -%}
+  {%- endunless -%}
+{%- endif -%}
