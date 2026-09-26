@@ -657,12 +657,50 @@
     });
   });
 
-  $$('.pdp__thumbs button').forEach((b) => b.addEventListener('click', () => {
-    const main = $('#pdp-main-img');
-    if (main && b.dataset.img) main.innerHTML = `<img src="${b.dataset.img}" alt="${b.dataset.alt || ''}">`;
-    $$('.pdp__thumbs button').forEach((x) => x.classList.remove('active'));
-    b.classList.add('active');
-  }));
+  $$('[data-pdp-gallery]').forEach((root) => {
+    const stage = root.querySelector('#pdp-main-img');
+    const thumbs = $$('[data-pdp-thumbs] button', root);
+    if (!stage || !thumbs.length) return;
+    let i = 0;
+    function paint(index) {
+      i = (index + thumbs.length) % thumbs.length;
+      thumbs.forEach((t, n) => t.classList.toggle('active', n === i));
+      const t = thumbs[i];
+      const alt = t.dataset.alt || '';
+      if (t.dataset.kind === 'video') {
+        const poster = t.dataset.poster ? ` poster="${t.dataset.poster}"` : '';
+        stage.innerHTML = `<video src="${t.dataset.src}" controls playsinline${poster} preload="metadata"></video>`;
+      } else {
+        stage.innerHTML = `<img src="${t.dataset.src}" alt="${alt}">`;
+      }
+    }
+    thumbs.forEach((t, n) => t.addEventListener('click', () => paint(n)));
+    root.querySelector('[data-pdp-prev]')?.addEventListener('click', () => paint(i - 1));
+    root.querySelector('[data-pdp-next]')?.addEventListener('click', () => paint(i + 1));
+    let startX = 0;
+    stage.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) < 40) return;
+      paint(dx < 0 ? i + 1 : i - 1);
+    }, { passive: true });
+  });
+
+  $$('[data-review-photo], [data-review-video]').forEach((input) => {
+    input.addEventListener('change', () => {
+      const form = input.closest('form');
+      if (!form) return;
+      const note = form.querySelector('[data-review-file-status]');
+      const files = [form.querySelector('[data-review-photo]'), form.querySelector('[data-review-video]')]
+        .map((el) => (el && el.files && el.files[0] ? el.files[0].name : ''))
+        .filter(Boolean);
+      if (note) {
+        note.textContent = files.length
+          ? 'Selected: ' + files.join(', ') + '. Shopify cannot attach files to this form — paste a shareable photo or video link below so we can display it.'
+          : '';
+      }
+    });
+  });
 
   const io = new IntersectionObserver((es) => es.forEach((e) => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }

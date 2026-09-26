@@ -108,6 +108,18 @@
                 <textarea name="contact[body]" rows="3" required placeholder="{{ section.settings.review_placeholder | default: 'Share how Royal Being fits into your ritual…' | escape }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
               </label>
 
+              <p class="review-form__file-note">Add a photo or video with your review. Shopify’s contact form cannot receive file uploads, so paste a shareable link. If a review app widget is installed below, use it for direct photo and video uploads.</p>
+              <div class="review-form__files">
+                <label class="form-field">
+                  <span>Photo</span>
+                  <input type="file" accept="image/*" data-review-photo aria-describedby="review-file-status">
+                </label>
+                <label class="form-field">
+                  <span>Video</span>
+                  <input type="file" accept="video/*" data-review-video>
+                </label>
+              </div>
+              <p class="note" id="review-file-status" data-review-file-status></p>
               <div class="review-form__grid">
                 <label class="form-field">
                   <span>Star rating</span>
@@ -125,7 +137,7 @@
                   <input
                     type="url"
                     name="contact[media_link]"
-                    placeholder="https:// shareable link"
+                    placeholder="https:// shareable photo or video link"
                     inputmode="url"
                   >
                 </label>

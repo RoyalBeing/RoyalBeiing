@@ -1,8 +1,21 @@
+{%- liquid
+  assign about_url = '/pages/about'
+  if pages['about'] != blank
+    assign about_url = pages['about'].url
+  endif
+  assign terms_url = about_url | append: '#terms'
+  if pages['terms'] != blank
+    assign terms_url = pages['terms'].url
+  elsif pages['terms-conditions'] != blank
+    assign terms_url = pages['terms-conditions'].url
+  endif
+-%}
 <footer class="site-footer" {{ section.shopify_attributes }}>
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
         <a class="logo" href="{{ routes.root_url }}">
+          {% render 'rb-logo', width: 64, height: 64, loading: 'lazy' %}
           <span class="logo__text">{{ shop.name }}<small>{{ settings.brand_phrase }}</small></span>
         </a>
         <p>{{ section.settings.blurb }}</p>
@@ -33,6 +46,7 @@
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {%- endfor -%}
           {%- else -%}
+            <li><a href="{{ about_url }}">About Us</a></li>
             <li><a href="{{ routes.root_url }}#faq-preview">FAQs</a></li>
             <li><a href="{{ routes.root_url }}#share-review">Share a Review</a></li>
             {%- if shop.email != blank -%}
@@ -53,6 +67,7 @@
             <li><a href="{{ routes.root_url }}#collections">Collections</a></li>
             <li><a href="{{ routes.all_products_collection_url }}">Shop All</a></li>
             <li><a href="{{ routes.root_url }}#google-reviews">Reviews</a></li>
+            <li><a href="{{ about_url }}">Our Philosophy</a></li>
           {%- endif -%}
         </ul>
       </div>
@@ -65,6 +80,9 @@
             · <a href="{{ link.url }}">{{ link.title }}</a>
           {%- endfor -%}
         {%- else -%}
+          · <a href="{{ about_url }}">About Us</a>
+          · <a href="{{ terms_url }}">Terms &amp; Conditions</a>
+          · <a href="{{ about_url }}#intellectual-property">Intellectual Property</a>
           · <a href="{{ routes.root_url }}#faq-preview">Help</a>
         {%- endif -%}
       </div>

@@ -1,13 +1,13 @@
 <section class="section section--compact robeing-section robeing-section--queen" {{ section.shopify_attributes }}>
   <div class="wrap">
     {%- liquid
-      assign detox_product = all_products['detoxify']
-      assign detox_url = '/products/detoxify'
-      if detox_product != blank
-        assign detox_url = detox_product.url
+      assign glow_product = all_products['glow-rify']
+      assign glow_url = '/products/glow-rify'
+      if glow_product != blank
+        assign glow_url = glow_product.url
       endif
       if section.settings.detox_link != blank
-        assign detox_url = section.settings.detox_link
+        assign glow_url = section.settings.detox_link
       endif
 
       assign queen_url = '/collections/royal'
@@ -70,7 +70,7 @@
               <a class="btn btn-primary" href="{{ queen_url }}">{{ section.settings.primary_label }}</a>
             {%- endif -%}
             {%- if section.settings.secondary_label != blank -%}
-              <a class="btn btn-outline robeing-btn-secondary" href="{{ detox_url }}">{{ section.settings.secondary_label }}</a>
+              <a class="btn btn-outline robeing-btn-secondary" href="{{ glow_url }}">{{ section.settings.secondary_label }}</a>
             {%- endif -%}
           </div>
         </div>
@@ -94,7 +94,7 @@
               {%- if section.settings.f1_heading != blank -%}<h3 class="robeing-row__heading">{{ section.settings.f1_heading }}</h3>{%- endif -%}
               {%- if section.settings.f1_text != blank -%}<p class="robeing-row__text">{{ section.settings.f1_text }}</p>{%- endif -%}
               {%- if section.settings.f1_cta != blank -%}
-                <a class="robeing-link" href="{{ detox_url }}">{{ section.settings.f1_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
+                <a class="robeing-link" href="{{ glow_url }}">{{ section.settings.f1_cta }} <span class="robeing-link__arrow" aria-hidden="true">→</span></a>
               {%- endif -%}
             </article>
 
@@ -143,16 +143,16 @@
     { "type": "text", "id": "image_position", "label": "Image object-position", "default": "50% 42%" },
     { "type": "header", "content": "Feature 1" },
     { "type": "text", "id": "f1_eyebrow", "label": "Eyebrow", "default": "FEATURED RITUAL" },
-    { "type": "text", "id": "f1_heading", "label": "Heading", "default": "Detoxify" },
-    { "type": "textarea", "id": "f1_text", "label": "Body", "default": "A refreshing herbal cleansing bar designed to gently cleanse and revive the skin. Its thoughtfully selected botanical ingredients transform an everyday shower into a soothing ritual that leaves you feeling fresh, balanced, and renewed." },
-    { "type": "text", "id": "f1_cta", "label": "CTA", "default": "VIEW DETOXIFY" },
-    { "type": "url", "id": "detox_link", "label": "Detoxify link" },
+    { "type": "text", "id": "f1_heading", "label": "Heading", "default": "Glow-rify" },
+    { "type": "textarea", "id": "f1_text", "label": "Body", "default": "Awaken a dull complexion with Glow-rify, a regal blend engineered to unveil your natural radiance." },
+    { "type": "text", "id": "f1_cta", "label": "CTA", "default": "VIEW GLOW-RIFY" },
+    { "type": "url", "id": "detox_link", "label": "Featured Royal product link" },
     { "type": "header", "content": "Feature 2" },
-    { "type": "text", "id": "f2_eyebrow", "label": "Eyebrow", "default": "ROYAL QUEEN COLLECTION" },
+    { "type": "text", "id": "f2_eyebrow", "label": "Eyebrow", "default": "THE ROYAL COLLECTION" },
     { "type": "text", "id": "f2_heading", "label": "Heading", "default": "Elevated Care for Her Daily Ritual" },
     { "type": "textarea", "id": "f2_text", "label": "Body", "default": "A refined collection created for women who want everyday cleansing to feel more intentional. Discover luxurious herbal bars with beautiful aromas, rich lathers, and skin-loving ingredients crafted for moments of everyday self-care." },
-    { "type": "text", "id": "f2_cta", "label": "CTA", "default": "EXPLORE THE ROYAL QUEEN COLLECTION" },
-    { "type": "url", "id": "queen_link", "label": "Royal Queen link" },
+    { "type": "text", "id": "f2_cta", "label": "CTA", "default": "EXPLORE THE ROYAL COLLECTION" },
+    { "type": "url", "id": "queen_link", "label": "The Royal Collection link" },
     { "type": "header", "content": "Feature 3" },
     { "type": "text", "id": "f3_eyebrow", "label": "Eyebrow", "default": "CRAFTED TO CARE" },
     { "type": "text", "id": "f3_heading", "label": "Heading", "default": "Gentle Ritual. Lasting Experience." },
@@ -166,8 +166,8 @@
     { "type": "text", "id": "f4_cta", "label": "CTA", "default": "EXPLORE ALL COLLECTIONS" },
     { "type": "url", "id": "all_link", "label": "All collections link" },
     { "type": "header", "content": "Buttons" },
-    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "EXPLORE THE ROYAL QUEEN COLLECTION" },
-    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "VIEW DETOXIFY" }
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "EXPLORE THE ROYAL COLLECTION" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "VIEW GLOW-RIFY" }
   ],
   "presets": [{ "name": "Ritual of Being — Queen" }]
 }

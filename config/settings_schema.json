@@ -21,7 +21,7 @@
     "settings": [
       { "type": "text", "id": "social_facebook", "label": "Facebook URL", "default": "https://www.facebook.com/profile.php?id=61591471053395" },
       { "type": "text", "id": "social_instagram", "label": "Instagram URL", "default": "https://www.instagram.com/royalbeing2026/" },
-      { "type": "text", "id": "social_tiktok", "label": "TikTok URL", "default": "https://www.tiktok.com/@royaliik0ju" }
+      { "type": "text", "id": "social_tiktok", "label": "TikTok URL", "default": "https://www.tiktok.com/@royalbeing2026" }
     ]
   },
   {

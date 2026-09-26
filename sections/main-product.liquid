@@ -1,57 +1,130 @@
+{%- include 'rb-product-record' -%}
 {%- assign current = product.selected_or_first_available_variant -%}
+{%- liquid
+  assign soap_mto = false
+  if rb_is_soap
+    assign soap_mto = true
+  endif
+  assign can_buy = false
+  if current.available or soap_mto
+    assign can_buy = true
+  endif
+  if rb_is_robe and current.available == false
+    assign can_buy = false
+  endif
+-%}
 <section class="section" {{ section.shopify_attributes }}>
   <div class="wrap">
     <nav class="breadcrumbs">
       <a href="{{ routes.root_url }}">Home</a> /
-      {%- if product.collections.first -%}
+      {%- if rb_record != blank -%}
+        <a href="/collections/{{ rb_record.collection | replace: 'duke', 'royal-duke' | replace: 'kid', 'royal-kid' }}">{{ rb_record.collection_title }}</a> /
+      {%- elsif product.collections.first -%}
         <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a> /
       {%- endif -%}
       {{ product.title }}
     </nav>
 
     <div class="pdp">
-      <div class="pdp__gallery">
-        <div class="pdp__main-img" id="pdp-main-img">
-          {%- if product.selected_or_first_available_variant.featured_media -%}
-            {%- assign media = product.selected_or_first_available_variant.featured_media -%}
-          {%- else -%}
-            {%- assign media = product.featured_media -%}
-          {%- endif -%}
-          {%- if media -%}
-            <img src="{{ media | image_url: width: 1400 }}" alt="{{ media.alt | default: product.title | escape }}">
-          {%- else -%}
-            {%- capture rb_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
-            {%- if rb_img != blank -%}
-              <img src="{{ rb_img | strip }}" alt="{{ product.title | escape }}" width="1400" height="1400">
+      <div class="pdp__gallery" data-pdp-gallery>
+        {%- assign slides = '' -%}
+        <div class="pdp__stage">
+          <button type="button" class="pdp__nav pdp__nav--prev" data-pdp-prev aria-label="Previous image">‹</button>
+          <div class="pdp__main-img pdp__main-img--pop" id="pdp-main-img">
+            {%- if rb_record != blank and rb_record.hero != blank -%}
+              <img
+                data-pdp-stage
+                src="{{ rb_record.hero | asset_url }}"
+                alt="{{ product.title | escape }}"
+                width="1400"
+                height="1400"
+              >
+            {%- elsif product.featured_media -%}
+              {%- if product.featured_media.media_type == 'video' or product.featured_media.media_type == 'external_video' -%}
+                {{ product.featured_media | video_tag: image_size: '1400x', controls: true, muted: false, autoplay: false, loop: false, playsinline: true }}
+              {%- else -%}
+                <img data-pdp-stage src="{{ product.featured_media | image_url: width: 1400 }}" alt="{{ product.featured_media.alt | default: product.title | escape }}" width="1400" height="1400">
+              {%- endif -%}
             {%- else -%}
-              <img src="{{ 'rb-ritual.jpg' | asset_url }}" alt="{{ product.title | escape }}">
+              {%- capture rb_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
+              <img data-pdp-stage src="{{ rb_img | strip }}" alt="{{ product.title | escape }}" width="1400" height="1400">
             {%- endif -%}
-          {%- endif -%}
+          </div>
+          <button type="button" class="pdp__nav pdp__nav--next" data-pdp-next aria-label="Next image">›</button>
         </div>
-        {%- if product.media.size > 1 -%}
-          <div class="pdp__thumbs">
-            {%- for m in product.media -%}
-              <button type="button" class="{% if forloop.first %}active{% endif %}" data-img="{{ m | image_url: width: 1400 }}" data-alt="{{ m.alt | default: product.title | escape }}">
-                <img src="{{ m | image_url: width: 200 }}" alt="{{ product.title | escape }} view {{ forloop.index }}">
+
+        <div class="pdp__thumbs" data-pdp-thumbs>
+          {%- assign thumb_i = 0 -%}
+          {%- if rb_record != blank -%}
+            {%- for asset_name in rb_record.gallery -%}
+              {%- assign thumb_i = thumb_i | plus: 1 -%}
+              <button
+                type="button"
+                class="{% if thumb_i == 1 %}active{% endif %}"
+                data-kind="image"
+                data-src="{{ asset_name | asset_url }}"
+                data-alt="{{ product.title | escape }}"
+              >
+                <img src="{{ asset_name | asset_url }}" alt="{{ product.title | escape }} view {{ thumb_i }}" width="200" height="200" loading="lazy">
               </button>
             {%- endfor -%}
-          </div>
-        {%- endif -%}
+            {%- if rb_record.video != blank -%}
+              <button
+                type="button"
+                class="pdp__thumbs--video"
+                data-kind="video"
+                data-src="{{ rb_record.video }}"
+                data-alt="{{ product.title | escape }} film"
+                data-poster="{% if rb_record.hero != blank %}{{ rb_record.hero | asset_url }}{% endif %}"
+              >
+                <span class="pdp__play">▶</span>
+                <img src="{{ rb_record.hero | asset_url }}" alt="{{ product.title | escape }} video" width="200" height="200" loading="lazy">
+              </button>
+            {%- endif -%}
+            {%- if rb_record.matrix != blank -%}
+              <button
+                type="button"
+                data-kind="image"
+                data-src="{{ rb_record.matrix | asset_url }}"
+                data-alt="{{ rb_record.collection_title | escape }} skin type matrix"
+              >
+                <img src="{{ rb_record.matrix | asset_url }}" alt="{{ rb_record.collection_title | escape }} matrix" width="200" height="200" loading="lazy">
+              </button>
+            {%- endif -%}
+          {%- elsif product.media.size > 1 -%}
+            {%- for m in product.media -%}
+              <button
+                type="button"
+                class="{% if forloop.first %}active{% endif %}"
+                data-kind="{% if m.media_type == 'video' or m.media_type == 'external_video' %}video{% else %}image{% endif %}"
+                data-src="{% if m.media_type == 'video' %}{{ m.sources.last.url }}{% else %}{{ m | image_url: width: 1400 }}{% endif %}"
+                data-alt="{{ m.alt | default: product.title | escape }}"
+              >
+                <img src="{{ m | image_url: width: 200 }}" alt="{{ product.title | escape }} view {{ forloop.index }}" width="200" height="200" loading="lazy">
+              </button>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
       </div>
 
       <div class="pdp__info">
-        {%- if product.collections.first -%}
+        {%- if rb_record != blank -%}
+          <div class="pdp__coll"><a href="/collections/{% if rb_record.collection == 'duke' %}royal-duke{% elsif rb_record.collection == 'kid' %}royal-kid{% else %}{{ rb_record.collection }}{% endif %}">{{ rb_record.collection_title }}</a></div>
+        {%- elsif product.collections.first -%}
           <div class="pdp__coll"><a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a></div>
         {%- endif -%}
         <h1>{{ product.title }}</h1>
-        {%- if product.tags contains 'Coming Soon' -%}
-          <span class="badge badge--soon" style="margin-bottom:10px;display:inline-block">Coming Soon</span>
-        {%- elsif current.available == false -%}
+        {%- if rb_is_robe and current.available == false -%}
           <span class="badge badge--soldout" style="margin-bottom:10px;display:inline-block">Sold Out</span>
+        {%- elsif product.tags contains 'Coming Soon' and soap_mto == false -%}
+          <span class="badge badge--soon" style="margin-bottom:10px;display:inline-block">Coming Soon</span>
         {%- endif -%}
         <div class="pdp__price">{% render 'price', product: product %}</div>
-        {%- if product.description != blank -%}
-          <div class="lead rte" style="font-size:1.05rem">{{ product.description | strip_html | truncate: 220 }}</div>
+
+        {%- if rb_record != blank and rb_record.first_glance != blank -%}
+          <p class="lead pdp__glance">{{ rb_record.first_glance }}</p>
+        {%- elsif rb_is_robe -%}
+          <p class="lead pdp__glance">{{ rb_catalog.robe.intro }}</p>
         {%- endif -%}
 
         {%- form 'product', product, id: 'product-form' -%}
@@ -115,7 +188,10 @@
             </div>
           {%- endif -%}
 
-          {%- if current.available -%}
+          {%- if can_buy -%}
+            {%- if soap_mto and current.available == false -%}
+              <p class="pdp__mto">Made to order — soaps are crafted within approximately 48 hours. Add to Cart remains available.</p>
+            {%- endif -%}
             <div class="pdp__actions">
               <div class="qty">
                 <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
@@ -126,33 +202,90 @@
               {{ form | payment_button }}
             </div>
           {%- else -%}
-            <div class="status-note"><b>Currently unavailable.</b> Check back soon or browse other soaps in this collection.</div>
+            <div class="status-note"><b>Currently unavailable.</b> Check back soon or browse other items in this collection.</div>
             <a class="btn btn-outline" href="{{ routes.all_products_collection_url }}">Continue shopping</a>
           {%- endif -%}
         {%- endform -%}
 
         <div class="pdp__meta">
-          {%- if current.sku != blank -%}<span>SKU · <b>{{ current.sku }}</b></span>{%- endif -%}
           {%- if current.weight > 0 -%}<span>Weight · <b>{{ current.weight | weight_with_unit: current.weight_unit }}</b></span>{%- endif -%}
+          {%- if soap_mto -%}<span>Made to order · <b>~48 hours</b></span>{%- endif -%}
           <span>{{ section.settings.ships_note }}</span>
         </div>
 
         <div class="accordion">
           <div class="acc open">
-            <button type="button">Description<span class="plus">+</span></button>
+            <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
             <div class="acc__body rte">
-              {{ product.description }}
-              {%- if section.settings.caution != blank -%}
-                <p class="pdp__caution">{{ section.settings.caution }}</p>
+              {%- if rb_is_robe -%}
+                <p>{{ rb_catalog.robe.description }}</p>
+                <h3>The Standout Features</h3>
+                <ul>
+                  {%- for feat in rb_catalog.robe.features -%}
+                    <li>{{ feat }}</li>
+                  {%- endfor -%}
+                </ul>
+              {%- elsif rb_record != blank -%}
+                <h3>The Science and Targeted Therapeutic Benefits</h3>
+                <p>{{ rb_record.science }}</p>
+                {%- if rb_record.benefits.size > 0 -%}
+                  <h3>Key Skin Benefits</h3>
+                  <ul>
+                    {%- for b in rb_record.benefits -%}
+                      <li>{{ b }}</li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+                {%- if rb_record.ideal_for != blank -%}
+                  <p><strong>Ideal For:</strong> {{ rb_record.ideal_for }}</p>
+                {%- endif -%}
+                {%- if rb_record.profile != blank -%}
+                  <p><strong>The Profile:</strong> {{ rb_record.profile }}</p>
+                {%- endif -%}
+              {%- else -%}
+                {{ product.description }}
               {%- endif -%}
             </div>
           </div>
-          {%- for block in section.blocks -%}
-            <div class="acc" {{ block.shopify_attributes }}>
-              <button type="button">{{ block.settings.title }}<span class="plus">+</span></button>
-              <div class="acc__body rte">{{ block.settings.body }}</div>
+
+          {%- unless rb_is_robe -%}
+            {%- if rb_record != blank and rb_record.ingredients != blank -%}
+              <div class="acc">
+                <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+                <div class="acc__body rte"><p>{{ rb_record.ingredients }}</p></div>
+              </div>
+            {%- endif -%}
+            {%- if rb_record != blank and rb_record.ritual != blank -%}
+              <div class="acc">
+                <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+                <div class="acc__body rte"><p>{{ rb_record.ritual }}</p></div>
+              </div>
+            {%- endif -%}
+          {%- endunless -%}
+
+          <div class="acc">
+            <button type="button" aria-expanded="false">Care &amp; Storage / Safety Disclaimer<span class="plus">+</span></button>
+            <div class="acc__body rte">
+              {%- unless rb_is_robe -%}
+                <p>{{ rb_catalog.care.soap }}</p>
+              {%- endunless -%}
+              {%- if rb_record != blank and rb_record.safety != blank -%}
+                <p><strong>Safety Disclaimer:</strong> {{ rb_record.safety }}</p>
+              {%- else -%}
+                <p><strong>Safety Disclaimer:</strong> {{ section.settings.caution }}</p>
+              {%- endif -%}
+              {%- if rb_record != blank and rb_record.aromatherapy != blank -%}
+                <p><strong>Aromatherapy &amp; Herbal Note:</strong> {{ rb_record.aromatherapy }}</p>
+              {%- endif -%}
             </div>
-          {%- endfor -%}
+          </div>
+
+          <div class="acc">
+            <button type="button" aria-expanded="false">Shipping<span class="plus">+</span></button>
+            <div class="acc__body rte">
+              <p>{{ rb_catalog.shipping.body }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -179,7 +312,7 @@
   {%- endif -%}
 {%- endif -%}
 
-{%- if current.available -%}
+{%- if can_buy -%}
   <div class="buy-bar">
     <div><div style="font-family:var(--font-display);font-size:1.1rem">{{ product.title }}</div></div>
     <div class="bb-price">{{ current.price | money }}</div>
@@ -193,18 +326,8 @@
   "settings": [
     { "type": "text", "id": "add_label", "label": "Add to cart label", "default": "Add to Cart" },
     { "type": "text", "id": "ships_note", "label": "Shipping note", "default": "Handmade in small batches · Made in USA" },
-    { "type": "textarea", "id": "caution", "label": "Caution (under Description)", "default": "Caution: For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with clear water. Discontinue use if irritation occurs. Keep out of reach of infants without supervision." },
+    { "type": "textarea", "id": "caution", "label": "Fallback safety disclaimer", "default": "For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children." },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true }
-  ],
-  "blocks": [
-    {
-      "type": "accordion",
-      "name": "Accordion",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Title", "default": "How to Use" },
-        { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Work into a rich lather with warm water, massage over skin, and rinse.</p>" }
-      ]
-    }
   ]
 }
 {% endschema %}

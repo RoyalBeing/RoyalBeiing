@@ -1,13 +1,19 @@
+{%- liquid
+  assign about_url = '/pages/about'
+  if pages['about'] != blank
+    assign about_url = pages['about'].url
+  elsif pages['about-us'] != blank
+    assign about_url = pages['about-us'].url
+  elsif pages['philosophy'] != blank
+    assign about_url = pages['philosophy'].url
+  endif
+-%}
 <header class="site-header" {{ section.shopify_attributes }}>
   <div class="header-inner">
     <button class="icon-btn burger" type="button" data-open-nav aria-label="Open menu">{% render 'icon', name: 'menu' %}</button>
 
     <a class="logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }} home">
-      {%- if settings.logo != blank -%}
-        <img src="{{ settings.logo | image_url: width: 140 }}" alt="{{ shop.name }}" width="70" height="34" loading="eager">
-      {%- else -%}
-        <svg viewBox="0 0 64 64" width="34" height="34" aria-hidden="true"><path d="M14 44 L17 24 L27 34 L32 20 L37 34 L47 24 L50 44 Z" fill="none" stroke="var(--rb-gold-500)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="17" cy="22" r="2.2" fill="var(--rb-gold-500)"/><circle cx="32" cy="18" r="2.2" fill="var(--rb-gold-500)"/><circle cx="47" cy="22" r="2.2" fill="var(--rb-gold-500)"/><path d="M12 50 Q32 56 52 50" fill="none" stroke="var(--rb-sage-600)" stroke-width="1.6"/></svg>
-      {%- endif -%}
+      {% render 'rb-logo', width: 52, height: 52, loading: 'eager' %}
       <span class="logo__text">{{ shop.name }}<small>{{ settings.brand_phrase | default: 'The Ritual of Being' }}</small></span>
     </a>
 
@@ -30,17 +36,28 @@
           <div class="mega__col">
             <h4>Featured</h4>
             {%- assign feat = collections[section.settings.featured_collection] -%}
-            {%- if feat != blank and feat.featured_image -%}
+            {%- if feat == blank -%}{%- assign feat = collections['royal'] -%}{%- endif -%}
+            {%- if feat != blank -%}
               <a class="mega__feature" href="{{ feat.url }}">
-                <img src="{{ feat.featured_image | image_url: width: 600 }}" alt="{{ feat.title | escape }}" loading="lazy">
+                {%- if feat.featured_image -%}
+                  <img src="{{ feat.featured_image | image_url: width: 600 }}" alt="{{ feat.title | escape }}" loading="lazy" width="600" height="400">
+                {%- else -%}
+                  {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', handle: feat.handle %}{%- endcapture -%}
+                  {%- if rb_col_src != blank -%}
+                    <img src="{{ rb_col_src | strip }}" alt="{{ feat.title | escape }}" loading="lazy" width="600" height="400">
+                  {%- endif -%}
+                {%- endif -%}
                 <div class="fx"><span>{{ feat.title }}</span><b>Explore the collection</b></div>
               </a>
             {%- endif -%}
           </div>
         </div>
       </div>
+      <div class="nav__item"><a class="nav__link" href="{{ about_url }}">About Us</a></div>
       {%- if section.settings.menu.links.size > 0 -%}
         {%- for link in section.settings.menu.links -%}
+          {%- assign lt = link.title | downcase | strip -%}
+          {%- unless lt == 'home' or lt == 'about' or lt == 'about us' or lt == 'shop' -%}
           <div class="nav__item">
             <a class="nav__link" href="{{ link.url }}">
               {{ link.title }}
@@ -50,12 +67,16 @@
               <div class="mega mega--simple" role="menu">
                 <div class="mega__col"><div class="mega__list">
                   {%- for child in link.links -%}
-                    <a href="{{ child.url }}">{{ child.title }}</a>
+                    {%- assign ct = child.title | downcase | strip -%}
+                    {%- unless ct == 'home' -%}
+                      <a href="{{ child.url }}">{{ child.title }}</a>
+                    {%- endunless -%}
                   {%- endfor -%}
                 </div></div>
               </div>
             {%- endif -%}
           </div>
+          {%- endunless -%}
         {%- endfor -%}
       {%- else -%}
         <div class="nav__item"><a class="nav__link" href="{{ routes.root_url }}#collections">Collections</a></div>
@@ -79,7 +100,10 @@
   <div class="mobile-nav__scrim"></div>
   <div class="mobile-nav__panel">
     <div class="mobile-nav__head">
-      <a class="logo" href="{{ routes.root_url }}">{{ shop.name }}</a>
+      <a class="logo" href="{{ routes.root_url }}">
+        {% render 'rb-logo', width: 44, height: 44, loading: 'lazy' %}
+        <span class="logo__text">{{ shop.name }}</span>
+      </a>
       <button class="icon-btn" type="button" data-close-nav aria-label="Close">{% render 'icon', name: 'close' %}</button>
     </div>
     <a class="m-link" href="{{ routes.root_url }}">Home</a>
@@ -94,18 +118,27 @@
         {%- endfor -%}
       </div>
     </div>
+    <a class="m-link" href="{{ about_url }}">About Us</a>
     {%- if section.settings.menu.links.size > 0 -%}
       {%- for link in section.settings.menu.links -%}
+        {%- assign lt = link.title | downcase | strip -%}
+        {%- unless lt == 'home' or lt == 'about' or lt == 'about us' or lt == 'shop' -%}
         {%- if link.links.size > 0 -%}
           <div class="m-acc">
             <button type="button">{{ link.title }} {% render 'icon', name: 'chev' %}</button>
             <div class="m-acc__body">
-              {%- for child in link.links -%}<a href="{{ child.url }}">{{ child.title }}</a>{%- endfor -%}
+              {%- for child in link.links -%}
+                {%- assign ct = child.title | downcase | strip -%}
+                {%- unless ct == 'home' -%}
+                  <a href="{{ child.url }}">{{ child.title }}</a>
+                {%- endunless -%}
+              {%- endfor -%}
             </div>
           </div>
         {%- else -%}
           <a class="m-link" href="{{ link.url }}">{{ link.title }}</a>
         {%- endif -%}
+        {%- endunless -%}
       {%- endfor -%}
     {%- else -%}
       <a class="m-link" href="{{ routes.root_url }}#collections">Collections</a>

@@ -2,32 +2,11 @@
   "sections": {
     "main": {
       "type": "main-product",
-      "blocks": {
-        "how": {
-          "type": "accordion",
-          "settings": {
-            "title": "How to Use",
-            "body": "<p>Work into a rich lather with warm water, massage over skin, and rinse. Store on a draining dish between uses.</p>"
-          }
-        },
-        "care": {
-          "type": "accordion",
-          "settings": {
-            "title": "Care & Storage",
-            "body": "<p>Keep your bar dry between uses on a well-draining soap dish, away from direct streams of water.</p>"
-          }
-        },
-        "ship": {
-          "type": "accordion",
-          "settings": {
-            "title": "Shipping & Returns",
-            "body": "<p>Ships to the USA, Netherlands, and Belgium. Because each bar is handmade, slight natural variation is part of the craft.</p>"
-          }
-        }
-      },
-      "block_order": ["how", "care", "ship"],
       "settings": {
-        "caution": "Caution: For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with clear water. Discontinue use if irritation occurs. Keep out of reach of infants without supervision."
+        "add_label": "Add to Cart",
+        "ships_note": "Handmade in small batches · Made in USA",
+        "caution": "For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.",
+        "show_related": true
       }
     }
   },

@@ -4,7 +4,7 @@
     "coupon_code": "ROYAL 20",
     "social_facebook": "https://www.facebook.com/profile.php?id=61591471053395",
     "social_instagram": "https://www.instagram.com/royalbeing2026/",
-    "social_tiktok": "https://www.tiktok.com/@royaliik0ju",
+    "social_tiktok": "https://www.tiktok.com/@royalbeing2026",
     "cart_note_coupon": true,
     "cart_empty_text": "Your ritual awaits.",
     "sections": {
@@ -304,15 +304,15 @@
           "image_alt": "Royal Being female ambassador holding a sage herbal soap in a steam-filled spa bath",
           "image_position": "50% 42%",
           "f1_eyebrow": "FEATURED RITUAL",
-          "f1_heading": "Detoxify",
-          "f1_text": "A refreshing herbal cleansing bar designed to gently cleanse and revive the skin. Its thoughtfully selected botanical ingredients transform an everyday shower into a soothing ritual that leaves you feeling fresh, balanced, and renewed.",
-          "f1_cta": "VIEW DETOXIFY",
-          "detox_link": "/products/detoxify",
-          "f2_eyebrow": "ROYAL QUEEN COLLECTION",
+          "f1_heading": "Glow-rify",
+          "f1_text": "Awaken a dull complexion with Glow-rify, a regal blend engineered to unveil your natural radiance. Skin-brightening Carrot Seed Oil delivers a heavy dose of beta-carotene to stimulate cellular turnover, while pure Lavender calms redness.",
+          "f1_cta": "VIEW GLOW-RIFY",
+          "detox_link": "/products/glow-rify",
+          "f2_eyebrow": "THE ROYAL COLLECTION",
           "f2_heading": "Elevated Care for Her Daily Ritual",
-          "f2_text": "A refined collection created for women who want everyday cleansing to feel more intentional. Discover luxurious herbal bars with beautiful aromas, rich lathers, and skin-loving ingredients crafted for moments of everyday self-care.",
-          "f2_cta": "EXPLORE THE ROYAL QUEEN COLLECTION",
-          "queen_link": "",
+          "f2_text": "The Royal Collection is a premium line of elegant, floral, and unmistakably regal handcrafted herbal soaps rooted in nature and designed to provide a luxurious, palace-worthy bathing experience.",
+          "f2_cta": "EXPLORE THE ROYAL COLLECTION",
+          "queen_link": "/collections/royal",
           "f3_eyebrow": "CRAFTED TO CARE",
           "f3_heading": "Gentle Ritual. Lasting Experience.",
           "f3_text": "Thoughtfully crafted premium bars designed to deliver a rich, satisfying lather while lasting through more cleansing moments\u2014bringing beauty, care, and intention to your everyday routine.",
@@ -323,8 +323,8 @@
           "f4_text": "Carefully selected herbal and botanical ingredients come together to create a cleansing experience that feels gentle, luxurious, and beautifully restorative without overwhelming your daily skincare ritual.",
           "f4_cta": "EXPLORE ALL COLLECTIONS",
           "all_link": "/collections",
-          "primary_label": "EXPLORE THE ROYAL QUEEN COLLECTION",
-          "secondary_label": "VIEW DETOXIFY"
+          "primary_label": "EXPLORE THE ROYAL COLLECTION",
+          "secondary_label": "VIEW GLOW-RIFY"
         }
       },
       "ritual-grid": {
@@ -624,7 +624,7 @@
           "tiktok_label": "FOLLOW ON TIKTOK",
           "instagram_url": "https://www.instagram.com/royalbeing2026/",
           "facebook_url": "https://www.facebook.com/profile.php?id=61591471053395",
-          "tiktok_url": "https://www.tiktok.com/@royaliik0ju"
+          "tiktok_url": "https://www.tiktok.com/@royalbeing2026"
         }
       },
       "faq-preview": {
