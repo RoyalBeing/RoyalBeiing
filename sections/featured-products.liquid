@@ -56,7 +56,10 @@
           {%- endfor -%}
           {%- if rb_orphan_count > 0 -%}
             {%- for h in rb_orphan_list -%}
-              {%- assign rec = rb_pack_signature[h] -%}
+              {%- assign rec = blank -%}
+              {%- for soap in rb_pack_signature -%}
+                {%- if soap.handle == h -%}{%- assign rec = soap -%}{%- endif -%}
+              {%- endfor -%}
               {%- if rec != blank -%}
                 {%- assign price_cents = rec.price | times: 100 | round -%}
                 {%- assign hero = rec.hero | default: 'rb-life-stack.jpg' -%}
