@@ -2416,7 +2416,6 @@ body.grev-lock{overflow:hidden}
   background:var(--rb-mist);
   width:100%;
   min-height:260px;
-  max-height:440px;
   box-shadow:var(--shadow-sm);
 }
 .about-block__media img{
