@@ -2,8 +2,10 @@
 
 Date: 27 September 2026  
 Repo: https://github.com/RoyalBeing/RoyalBeiing  
-Branch backup: `backup/pre-narratives-impl-20260927`  
-Theme backup archive: `royal-being-theme-backup-2026-09-27.zip` (local dated ZIP; GitHub `main` is the source of truth)
+Commit on `main`: `6222f2a`  
+Pre-change git branch: `backup/pre-narratives-impl-20260927`  
+Release tag: `backup/official-narratives-20260927`  
+Theme backup archive: `backups/royal-being-theme-backup-2026-09-27.zip` (117MB local dated ZIP; GitHub `main` is the source of truth)
 
 ---
 
@@ -88,8 +90,8 @@ Theme backup archive: `royal-being-theme-backup-2026-09-27.zip` (local dated ZIP
 
 ### GoDaddy / backup
 - Pre-change git branch `backup/pre-narratives-impl-20260927`.
-- Dated theme ZIP created locally (no secrets).
-- Implementation committed and pushed to GitHub `main`.
+- Dated theme ZIP created locally at `backups/royal-being-theme-backup-2026-09-27.zip` (no secrets).
+- Implementation merged and pushed to GitHub `main` (`6222f2a`) and tagged `backup/official-narratives-20260927`.
 - DNS / GoDaddy hosting was not changed (Shopify remains the storefront host; work completed first as instructed).
 
 ---
@@ -194,8 +196,8 @@ Remaining items that could be done in theme code without Admin/API/GoDaddy: **No
 **Backup prepared and verified**
 
 - Pre-implementation git branch created before edits.
-- Full theme (Liquid, JSON templates, sections, snippets, CSS, JS, catalog, optimized assets) is committed on GitHub `main`.
-- Dated ZIP archive of the theme (no `.git`, no credentials) created as `royal-being-theme-backup-2026-09-27.zip`.
+- Full theme (Liquid, JSON templates, sections, snippets, CSS, JS, catalog, optimized assets) is committed on GitHub `main` (`6222f2a`) and tagged `backup/official-narratives-20260927`.
+- Dated ZIP archive of the theme (no `.git`, no credentials) created as `backups/royal-being-theme-backup-2026-09-27.zip`.
 - Shopify remains the hosting platform for storefront and checkout. No attempt was made to move Shopify onto ordinary GoDaddy web hosting.
 - Domain/DNS was **not** pointed or changed (client instruction: complete the site first; do not disturb the live domain prematurely).
 - Upload of the ZIP into GoDaddy file manager is **blocked only by external account access** (no GoDaddy credentials in Cursor).
