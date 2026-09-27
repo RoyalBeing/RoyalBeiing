@@ -1,3 +1,14 @@
+{%- liquid
+  assign pth = request.path | downcase
+  assign is_about = false
+  if pth contains '/pages/about' or pth contains '/pages/philosophy' or pth contains '/pages/terms'
+    assign is_about = true
+  endif
+-%}
+<div class="rb-about-virtual"{% unless is_about %} hidden{% endunless %}>
+  {% render 'rb-about-page' %}
+</div>
+<div class="rb-404-fallback"{% if is_about %} hidden{% endif %}>
 <section class="section" style="min-height:60vh;display:grid;place-items:center" {{ section.shopify_attributes }}>
   <div class="wrap center prose">
     <p class="eyebrow">Error 404</p>
@@ -5,10 +16,24 @@
     <p class="lead" style="margin-inline:auto">{{ section.settings.text }}</p>
     <p>
       <a class="btn btn-primary" href="{{ routes.root_url }}">{{ section.settings.home_label }}</a>
-      <a class="btn btn-outline" href="{{ routes.all_products_collection_url }}">{{ section.settings.shop_label }}</a>
+      <a class="btn btn-outline" href="{{ routes.collections_url }}">{{ section.settings.shop_label }}</a>
     </p>
   </div>
 </section>
+</div>
+<script>
+(function () {
+  var p = (location.pathname || '').replace(/\/$/, '');
+  if (/\/pages\/(about|about-us|philosophy|terms)(-conditions)?$/.test(p)) {
+    document.documentElement.classList.add('rb-about-route');
+    document.title = 'About Us · Royal Being';
+    var about = document.querySelector('.rb-about-virtual');
+    var fallback = document.querySelector('.rb-404-fallback');
+    if (about) { about.hidden = false; }
+    if (fallback) { fallback.hidden = true; }
+  }
+})();
+</script>
 
 {% schema %}
 {

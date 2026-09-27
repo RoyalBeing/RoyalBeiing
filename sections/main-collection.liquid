@@ -31,7 +31,7 @@
   <div class="page-banner__inner wrap">
     <nav class="breadcrumbs"><a href="{{ routes.root_url }}">Home</a> / <a href="{{ routes.collections_url }}">Shop</a> / {{ rec.title | default: collection.title }}</nav>
     <p class="eyebrow">{{ section.settings.eyebrow | default: 'Collection' }}</p>
-    <h1>{{ rec.title | default: collection.title }}</h1>
+    <h1>{% if collection.handle == 'all' %}Shop All Soaps{% else %}{{ rec.title | default: collection.title }}{% endif %}</h1>
   </div>
 </section>
 
