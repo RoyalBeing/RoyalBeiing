@@ -2415,10 +2415,8 @@ body.grev-lock{overflow:hidden}
   border-radius:var(--radius-lg);
   background:var(--rb-mist);
   width:100%;
-  min-height:260px;
+  min-height:0;
   box-shadow:var(--shadow-sm);
-}
-.about-block__media{
   display:flex;
   align-items:center;
   justify-content:center;
