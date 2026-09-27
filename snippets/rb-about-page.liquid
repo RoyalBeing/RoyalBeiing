@@ -1,14 +1,22 @@
 {%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
 {%- assign rb_catalog = rb_catalog_json | parse_json -%}
 <section class="about-page">
-  <div class="about-hero">
-    <div class="wrap about-hero__inner">
-      {% render 'rb-logo', width: 120, height: 120, loading: 'eager' %}
+  <header class="page-hero">
+    <div class="page-hero__media">
+      <img src="{{ 'rb-life-female-4.jpg' | asset_url }}" alt="Royal Being ambassador in a terry robe" width="1600" height="900">
+    </div>
+    <div class="page-hero__scrim"></div>
+    <div class="wrap page-hero__inner">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span aria-hidden="true"> / </span>
+        <span>About Us</span>
+      </nav>
       <p class="eyebrow">The Ritual of Being</p>
       <h1>About Us</h1>
       <p class="lead">Official Royal Being philosophy, story, promise, and terms of sale.</p>
     </div>
-  </div>
+  </header>
 
   <div class="wrap about-stack">
     <article class="about-block reveal" id="philosophy">
@@ -16,40 +24,44 @@
         <img src="{{ 'rb-life-female-robe.jpg' | asset_url }}" alt="Royal Being ambassador in a terry robe" width="900" height="1200" loading="lazy">
       </div>
       <div class="about-block__copy">
-        <p class="eyebrow">01</p>
+        <p class="eyebrow">01 · Philosophy</p>
         <h2>Our Royal Being Philosophy</h2>
         <p>{{ rb_catalog.pages.philosophy }}</p>
       </div>
     </article>
 
     <article class="about-block about-block--flip reveal" id="about-us">
-      <div class="about-block__media">
-        <img src="{{ 'rb-life-family.jpg' | asset_url }}" alt="Royal Being family ritual" width="900" height="700" loading="lazy">
+      <div class="about-block__media about-block__media--wide">
+        <img src="{{ 'rb-life-female-4.jpg' | asset_url }}" alt="Royal Being ritual in the bath" width="1400" height="800" loading="lazy">
       </div>
       <div class="about-block__copy">
-        <p class="eyebrow">02</p>
+        <p class="eyebrow">02 · Our story</p>
         <h2>About Us</h2>
         <p>{{ rb_catalog.pages.about }}</p>
       </div>
     </article>
 
+    <figure class="about-band reveal">
+      <img src="{{ 'rb-life-family.jpg' | asset_url }}" alt="Royal Being families sharing the herbal soap ritual" width="1600" height="900" loading="lazy">
+    </figure>
+
     <div class="about-pair reveal">
       <article class="about-card" id="herbal-products">
-        <p class="eyebrow">03</p>
+        <p class="eyebrow">03 · The bars</p>
         <h2>Our Herbal Products</h2>
         <p>{{ rb_catalog.pages.herbal_products }}</p>
       </article>
       <article class="about-card about-card--green" id="our-promise">
-        <p class="eyebrow">04</p>
+        <p class="eyebrow">04 · Promise</p>
         <h2>Our Promise</h2>
         <p>{{ rb_catalog.pages.promise }}</p>
       </article>
     </div>
 
     <article class="about-legal reveal" id="terms">
-      <p class="eyebrow">05</p>
+      <p class="eyebrow">05 · Terms</p>
       <h2>Terms &amp; Conditions of Sale</h2>
-      <p>Please review this document carefully before finalizing your purchase. By checking the box at checkout, you agree to be bound legally by these Terms and Conditions.</p>
+      <p class="about-legal__intro">Please review this document carefully before finalizing your purchase. By checking the box at checkout, you agree to be bound legally by these Terms and Conditions.</p>
       <div class="about-legal__grid">
         <section>
           <h3>1. Product Nature &amp; Variations</h3>
@@ -85,7 +97,7 @@
     </article>
 
     <article class="about-legal about-legal--ip reveal" id="intellectual-property">
-      <p class="eyebrow">06</p>
+      <p class="eyebrow">06 · Ownership</p>
       <h2>Intellectual Property</h2>
       <p><strong>Copyright &amp; Trademarks:</strong> All branding, graphic designs, custom text descriptions, product titles (including The Royal Collection, The Signature Collection, The Common Collection, The Royal Duke Collection, and The Royal Kid Herbal Collection), and photography are the exclusive property of Royal Being LLC and are protected under international copyright law.</p>
     </article>

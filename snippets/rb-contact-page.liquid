@@ -1,35 +1,51 @@
 <section class="contact-page">
-  <div class="contact-hero">
-    <div class="contact-hero__media">
+  <header class="page-hero">
+    <div class="page-hero__media">
       <img src="{{ 'rb-life-female-robe.jpg' | asset_url }}" alt="Royal Being ambassador" width="1600" height="1000">
     </div>
-    <div class="contact-hero__copy">
-      {% render 'rb-logo', width: 88, height: 88, loading: 'eager' %}
+    <div class="page-hero__scrim"></div>
+    <div class="wrap page-hero__inner">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span aria-hidden="true"> / </span>
+        <span>Contact</span>
+      </nav>
       <p class="eyebrow">Customer Care</p>
       <h1>Contact Us</h1>
-      <p class="lead">We are here for questions about your ritual, your order, and the care of your handcrafted bars.</p>
+      <p class="lead">Questions about your ritual, your order, or the care of your handcrafted bars — we are here.</p>
     </div>
-  </div>
+  </header>
 
   <div class="wrap contact-grid">
     <div class="contact-info reveal">
       <p class="eyebrow">Support</p>
       <h2>How we can help</h2>
-      <p>For damaged keepsake boxes or bars, notify us within 48 hours of delivery at <a href="mailto:RoyalBeing@yahoo.com">RoyalBeing@yahoo.com</a> with photographic proof. Standard retail orders are hand-packed and shipped within 2–4 business days. Soaps are made to order within approximately 48 hours.</p>
+      <p>For damaged keepsake boxes or bars, notify us within 48 hours of delivery at <a href="mailto:RoyalBeing@yahoo.com">RoyalBeing@yahoo.com</a> with photographic proof.</p>
       <ul class="contact-facts">
-        <li><strong>Email</strong><a href="mailto:RoyalBeing@yahoo.com">RoyalBeing@yahoo.com</a></li>
-        <li><strong>Made to order</strong>Soaps are crafted within approximately 48 hours.</li>
-        <li><strong>Shipping</strong>USA, Netherlands, and Belgium.</li>
+        <li>
+          <span>Email</span>
+          <a href="mailto:RoyalBeing@yahoo.com">RoyalBeing@yahoo.com</a>
+        </li>
+        <li>
+          <span>Made to order</span>
+          <b>Soaps are crafted within approximately 48 hours.</b>
+        </li>
+        <li>
+          <span>Shipping</span>
+          <b>USA, Netherlands, and Belgium. Packed in 2–4 business days.</b>
+        </li>
       </ul>
       <div class="contact-social">
-        {%- if settings.social_instagram != blank -%}<a class="btn btn-outline" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
-        {%- if settings.social_facebook != blank -%}<a class="btn btn-outline" href="{{ settings.social_facebook }}" target="_blank" rel="noopener">Facebook</a>{%- endif -%}
-        {%- if settings.social_tiktok != blank -%}<a class="btn btn-outline" href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">TikTok</a>{%- endif -%}
+        {%- if settings.social_instagram != blank -%}<a class="btn btn-outline btn-sm" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
+        {%- if settings.social_facebook != blank -%}<a class="btn btn-outline btn-sm" href="{{ settings.social_facebook }}" target="_blank" rel="noopener">Facebook</a>{%- endif -%}
+        {%- if settings.social_tiktok != blank -%}<a class="btn btn-outline btn-sm" href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">TikTok</a>{%- endif -%}
       </div>
       <p class="contact-faq-cta"><a href="{{ routes.root_url }}#faq-preview">Read frequently asked questions</a></p>
     </div>
 
     <div class="contact-form-card card-soft reveal">
+      <p class="eyebrow">Message</p>
+      <h2>Send a note</h2>
       {%- form 'contact', id: 'RoyalBeingContactForm', class: 'contact-form' -%}
         {%- if form.posted_successfully? -%}
           <p class="form-status form-status--success" role="status">Thank you. Your message has been sent. We will reply to the email you provided.</p>
@@ -37,7 +53,7 @@
           {%- if form.errors -%}
             <div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>
           {%- endif -%}
-          <div class="review-form__grid">
+          <div class="contact-form__grid">
             <label class="form-field">
               <span>Name</span>
               <input type="text" name="contact[name]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" required autocomplete="name">
@@ -46,8 +62,6 @@
               <span>Email</span>
               <input type="email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required autocomplete="email">
             </label>
-          </div>
-          <div class="review-form__grid">
             <label class="form-field">
               <span>Phone <em>(optional)</em></span>
               <input type="tel" name="contact[phone]" autocomplete="tel">
@@ -69,12 +83,11 @@
           </label>
           <label class="form-field">
             <span>Message</span>
-            <textarea name="contact[body]" rows="6" required></textarea>
+            <textarea name="contact[body]" rows="5" required></textarea>
           </label>
-          <button type="submit" class="btn btn-primary btn-block">Send message</button>
+          <button type="submit" class="btn btn-primary">Send message</button>
         {%- endif -%}
       {%- endform -%}
     </div>
   </div>
 </section>
-
