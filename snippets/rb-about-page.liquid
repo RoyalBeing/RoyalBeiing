@@ -1,8 +1,8 @@
-{%- if rb_catalog == blank -%}
-  {%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
-  {%- assign rb_catalog = rb_catalog_json | parse_json -%}
-{%- endif -%}
-{%- assign rb_pg = rb_catalog.about_copy | default: rb_catalog.pages -%}
+{%- capture rb_copy_philosophy -%}Welcome to Royal Being. We are a small community that started with a simple idea: bringing honest, plant-based, wholesome goodness back to daily self-care. We lovingly source pure, raw botanicals and transform them into wholesome herbal soaps that nourish your skin without any harsh additives. No secrets. No short cuts. Just complete transparency from nature to your bathroom counter or shower.{%- endcapture -%}
+{%- capture rb_copy_philosophy_2 -%}Each of our herbal soaps are crafted by hand in small batches, and gentle for you. Every batch we pour is a celebration of the earth's natural bounty. We are deeply committed to your wellness and the health of our planet. When you choose our herbal creations, you are supporting gentle practices, sustainable ingredients, and a brand that truly cares. All of our products are derived from nature, gentle for your skin, and safe for you. We believe that what you put on your body matters just as much as what you put in it, which is why we formulate our herbal bars with organic, all natural, and ethically sourced ingredients. Every purchase you make, gives us an opportunity to live out our dreams of continuing in our pursuit of clean and sustainable skincare. We remain committed to creating products that not only nourish, but also replenish the mind, body, and skin.{%- endcapture -%}
+{%- capture rb_copy_about -%}Royal Being is a small woman-owned business located in the USA. Each proactive herbal selection is handmade in small batches and in most cases, made to order to guarantee freshness, purity, and longevity of our products. All natural ingredients and essential oils used in our creations are ethically sourced and formulated in the USA. We offer herbal soaps that address multiple or specific concerns, alongside products that nourish your skin. We hope you'll explore our entire collection of wonderful herbal products. Welcome to our family.{%- endcapture -%}
+{%- capture rb_copy_herbal -%}Our products are for all skin types. They are especially perfect for those seeking a natural and holistic approach to skincare health and wellness. Whether you are looking to unwind after a long day, seeking to boost your mood, or just to wanting to sleep restfully at night, our herbal soaps and products can help in achieving your mindful, wellness goals.{%- endcapture -%}
+{%- capture rb_copy_promise -%}Cruelty-Free. Biodegradable. Formulated without parabens, synthetic sulfates, or phthalates. Made in small batches for our Royal Beings.{%- endcapture -%}
 <section class="about-page">
   <header class="page-hero">
     <div class="page-hero__media">
@@ -29,7 +29,8 @@
       <div class="about-block__copy">
         <p class="eyebrow">01 · Philosophy</p>
         <h2>Our Royal Being Philosophy</h2>
-        <p>{{ rb_pg.philosophy }}</p>
+        <p>{{ rb_copy_philosophy }}</p>
+        <p>{{ rb_copy_philosophy_2 }}</p>
       </div>
     </article>
 
@@ -40,7 +41,7 @@
       <div class="about-block__copy">
         <p class="eyebrow">02 · Our story</p>
         <h2>About Us</h2>
-        <p>{{ rb_pg.about }}</p>
+        <p>{{ rb_copy_about }}</p>
       </div>
     </article>
 
@@ -52,12 +53,12 @@
       <article class="about-card" id="herbal-products">
         <p class="eyebrow">03 · The bars</p>
         <h2>Our Herbal Products</h2>
-        <p>{{ rb_pg.herbal_products }}</p>
+        <p>{{ rb_copy_herbal }}</p>
       </article>
       <article class="about-card about-card--green" id="our-promise">
         <p class="eyebrow">04 · Promise</p>
         <h2>Our Promise</h2>
-        <p>{{ rb_pg.promise }}</p>
+        <p>{{ rb_copy_promise }}</p>
       </article>
     </div>
 
