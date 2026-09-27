@@ -20,8 +20,18 @@
         assign catalog = collections.all.products
       endif
     -%}
-    {%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
-    {%- assign rb_catalog = rb_catalog_json | parse_json -%}
+    {%- capture rb_shared_json -%}{% render 'rb-catalog-shared' %}{%- endcapture -%}
+    {%- assign rb_catalog = rb_shared_json | parse_json -%}
+    {%- capture rb_json_royal -%}{% render 'rb-soaps-royal' %}{%- endcapture -%}
+    {%- capture rb_json_signature -%}{% render 'rb-soaps-signature' %}{%- endcapture -%}
+    {%- capture rb_json_common -%}{% render 'rb-soaps-common' %}{%- endcapture -%}
+    {%- capture rb_json_duke -%}{% render 'rb-soaps-duke' %}{%- endcapture -%}
+    {%- capture rb_json_kid -%}{% render 'rb-soaps-kid' %}{%- endcapture -%}
+    {%- assign rb_pack_royal = rb_json_royal | parse_json -%}
+    {%- assign rb_pack_signature = rb_json_signature | parse_json -%}
+    {%- assign rb_pack_common = rb_json_common | parse_json -%}
+    {%- assign rb_pack_duke = rb_json_duke | parse_json -%}
+    {%- assign rb_pack_kid = rb_json_kid | parse_json -%}
     {%- include 'rb-orphan-soaps' -%}
 
     <div class="pcar reveal">
@@ -34,19 +44,47 @@
           {%- comment -%} Active / available products first {%- endcomment -%}
           {%- for product in catalog -%}
             {%- if product.available -%}
-              {%- assign rb_record = rb_catalog.soaps[product.handle] -%}
+              {%- liquid
+                assign rb_record = rb_pack_royal[product.handle]
+                if rb_record == blank
+                  assign rb_record = rb_pack_signature[product.handle]
+                endif
+                if rb_record == blank
+                  assign rb_record = rb_pack_common[product.handle]
+                endif
+                if rb_record == blank
+                  assign rb_record = rb_pack_duke[product.handle]
+                endif
+                if rb_record == blank
+                  assign rb_record = rb_pack_kid[product.handle]
+                endif
+              -%}
               <div class="pcar__slide" data-pcar-slide>{% include 'product-card-carousel' %}</div>
             {%- endif -%}
           {%- endfor -%}
           {%- for product in catalog -%}
             {%- unless product.available -%}
-              {%- assign rb_record = rb_catalog.soaps[product.handle] -%}
+              {%- liquid
+                assign rb_record = rb_pack_royal[product.handle]
+                if rb_record == blank
+                  assign rb_record = rb_pack_signature[product.handle]
+                endif
+                if rb_record == blank
+                  assign rb_record = rb_pack_common[product.handle]
+                endif
+                if rb_record == blank
+                  assign rb_record = rb_pack_duke[product.handle]
+                endif
+                if rb_record == blank
+                  assign rb_record = rb_pack_kid[product.handle]
+                endif
+              -%}
               <div class="pcar__slide" data-pcar-slide>{% include 'product-card-carousel' %}</div>
             {%- endunless -%}
           {%- endfor -%}
           {%- if rb_orphan_count > 0 -%}
             {%- for h in rb_orphan_list -%}
-              {%- assign rec = rb_catalog.soaps[h] -%}
+              {%- assign rec = rb_pack_signature[h] -%}
               {%- if rec != blank -%}
                 {%- assign price_cents = rec.price | times: 100 | round -%}
                 {%- assign hero = rec.hero | default: 'rb-life-stack.jpg' -%}

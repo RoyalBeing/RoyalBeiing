@@ -13,9 +13,19 @@
     assign col_key = 'royal-kid'
   endif
 -%}
-{%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
-{%- assign rb_catalog = rb_catalog_json | parse_json -%}
+{%- capture rb_shared_json -%}{% render 'rb-catalog-shared' %}{%- endcapture -%}
+{%- assign rb_catalog = rb_shared_json | parse_json -%}
 {%- assign rec = rb_catalog.col_records[col_key] -%}
+{%- capture rb_json_royal -%}{% render 'rb-soaps-royal' %}{%- endcapture -%}
+{%- capture rb_json_signature -%}{% render 'rb-soaps-signature' %}{%- endcapture -%}
+{%- capture rb_json_common -%}{% render 'rb-soaps-common' %}{%- endcapture -%}
+{%- capture rb_json_duke -%}{% render 'rb-soaps-duke' %}{%- endcapture -%}
+{%- capture rb_json_kid -%}{% render 'rb-soaps-kid' %}{%- endcapture -%}
+{%- assign rb_pack_royal = rb_json_royal | parse_json -%}
+{%- assign rb_pack_signature = rb_json_signature | parse_json -%}
+{%- assign rb_pack_common = rb_json_common | parse_json -%}
+{%- assign rb_pack_duke = rb_json_duke | parse_json -%}
+{%- assign rb_pack_kid = rb_json_kid | parse_json -%}
 <section class="page-banner col-hero" {{ section.shopify_attributes }}>
   {%- if rec != blank and rec.hero != blank -%}
     <div class="page-banner__media"><img src="{{ rec.hero | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="2000" height="1100"></div>
@@ -102,14 +112,28 @@
     <div class="product-grid product-grid--pop reveal">
       {%- paginate collection.products by section.settings.products_per_page -%}
         {%- for product in collection.products -%}
-          {%- assign rb_record = rb_catalog.soaps[product.handle] -%}
+          {%- liquid
+            assign rb_record = rb_pack_royal[product.handle]
+            if rb_record == blank
+              assign rb_record = rb_pack_signature[product.handle]
+            endif
+            if rb_record == blank
+              assign rb_record = rb_pack_common[product.handle]
+            endif
+            if rb_record == blank
+              assign rb_record = rb_pack_duke[product.handle]
+            endif
+            if rb_record == blank
+              assign rb_record = rb_pack_kid[product.handle]
+            endif
+          -%}
           {% include 'product-card' %}
         {%- else -%}
           {%- if extra_here == 0 -%}<p>No products in this collection yet.</p>{%- endif -%}
         {%- endfor -%}
         {%- if extra_here > 0 and paginate.current_page == 1 -%}
           {%- for h in rb_orphan_list -%}
-            {%- assign rec = rb_catalog.soaps[h] -%}
+            {%- assign rec = rb_pack_signature[h] -%}
             {%- if rec != blank -%}
               {%- if collection.handle == 'all' or rec.collection == col_key -%}
                 {%- assign price_cents = rec.price | times: 100 | round -%}

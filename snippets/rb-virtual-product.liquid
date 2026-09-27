@@ -1,10 +1,12 @@
 {%- comment -%} Full PDP for an official catalog soap that does not yet exist as a Shopify product. Pass rb_handle as a string. {%- endcomment -%}
 {%- if rb_catalog == blank -%}
-  {%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
-  {%- assign rb_catalog = rb_catalog_json | parse_json -%}
+  {%- capture rb_shared_json -%}{% render 'rb-catalog-shared' %}{%- endcapture -%}
+  {%- assign rb_catalog = rb_shared_json | parse_json -%}
 {%- endif -%}
 {%- if rec == blank and rb_handle != blank -%}
-  {%- assign rec = rb_catalog.soaps[rb_handle] -%}
+  {%- capture rb_json_signature -%}{% render 'rb-soaps-signature' %}{%- endcapture -%}
+  {%- assign rb_pack_signature = rb_json_signature | parse_json -%}
+  {%- assign rec = rb_pack_signature[rb_handle] -%}
 {%- endif -%}
 {%- if rec != blank -%}
 {%- assign price_cents = rec.price | times: 100 | round -%}
