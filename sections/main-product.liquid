@@ -113,7 +113,7 @@
         {%- elsif product.collections.first -%}
           <div class="pdp__coll"><a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a></div>
         {%- endif -%}
-        <h1>{{ product.title }}</h1>
+        <h1>{% if rb_record != blank %}{{ rb_record.title }}{% else %}{{ product.title }}{% endif %}</h1>
         {%- if rb_is_robe and current.available == false -%}
           <span class="badge badge--soldout" style="margin-bottom:10px;display:inline-block">Sold Out</span>
         {%- elsif product.tags contains 'Coming Soon' and soap_mto == false -%}
@@ -333,7 +333,7 @@
           {%- assign shown = 0 -%}
           {%- for p in related.products -%}
             {%- if p.id != product.id and shown < 4 -%}
-              {% render 'product-card', product: p %}
+              {% render 'product-card', product: p, rb_record: rb_catalog.products[p.handle] %}
               {%- assign shown = shown | plus: 1 -%}
             {%- endif -%}
           {%- endfor -%}

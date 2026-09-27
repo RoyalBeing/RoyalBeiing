@@ -17,6 +17,7 @@
       <span class="logo__text">{{ shop.name }}<small>{{ settings.brand_phrase | default: 'The Ritual of Being' }}</small></span>
     </a>
 
+    {%- include 'rb-orphan-soaps' -%}
     <nav class="nav" aria-label="Primary">
       <div class="nav__item"><a class="nav__link" href="{{ routes.root_url }}">Home</a></div>
       <div class="nav__item">
@@ -25,10 +26,16 @@
           <div class="mega__col">
             <h4>Shop by Collection</h4>
             <div class="mega__list">
-              <a href="{{ routes.all_products_collection_url }}">Shop All Soaps<span class="count">{{ collections.all.products_count }}</span></a>
+              <a href="{{ routes.all_products_collection_url }}">Shop All Soaps<span class="count">{{ collections.all.products_count | plus: rb_orphan_count }}</span></a>
               {%- for collection in collections -%}
                 {%- unless collection.handle == 'all' or collection.products_count == 0 -%}
-                  <a href="{{ collection.url }}">{{ collection.title }}<span class="count">{{ collection.products_count }}</span></a>
+                  {%- assign shown_count = collection.products_count -%}
+                  {%- if rb_orphan_count > 0 -%}
+                    {%- if collection.handle == 'signature' or collection.handle == 'the-signature-collection' -%}
+                      {%- assign shown_count = collection.products_count | plus: rb_orphan_count -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                  <a href="{{ collection.url }}">{{ collection.title }}<span class="count">{{ shown_count }}</span></a>
                 {%- endunless -%}
               {%- endfor -%}
             </div>
@@ -111,10 +118,16 @@
     <div class="m-acc">
       <button type="button">Shop {% render 'icon', name: 'chev' %}</button>
       <div class="m-acc__body">
-        <a href="{{ routes.all_products_collection_url }}">Shop All · {{ collections.all.products_count }}</a>
+        <a href="{{ routes.all_products_collection_url }}">Shop All · {{ collections.all.products_count | plus: rb_orphan_count }}</a>
         {%- for collection in collections -%}
           {%- unless collection.handle == 'all' or collection.products_count == 0 -%}
-            <a href="{{ collection.url }}">{{ collection.title }} · {{ collection.products_count }}</a>
+            {%- assign shown_count = collection.products_count -%}
+            {%- if rb_orphan_count > 0 -%}
+              {%- if collection.handle == 'signature' or collection.handle == 'the-signature-collection' -%}
+                {%- assign shown_count = collection.products_count | plus: rb_orphan_count -%}
+              {%- endif -%}
+            {%- endif -%}
+            <a href="{{ collection.url }}">{{ collection.title }} · {{ shown_count }}</a>
           {%- endunless -%}
         {%- endfor -%}
       </div>

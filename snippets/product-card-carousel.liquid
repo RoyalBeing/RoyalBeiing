@@ -60,6 +60,10 @@
   endunless
 
   assign tilt = product.id | modulo: 5
+  assign card_title = product.title
+  if rb_record != blank
+    assign card_title = rb_record.title
+  endif
 -%}
 <article
   class="pcar-card"
@@ -98,7 +102,7 @@
   </a>
   <div class="pcar-card__body">
     <span class="pcar-card__coll">{% if coll_title != blank %}{{ coll_title }}{% else %}&nbsp;{% endif %}</span>
-    <a class="pcar-card__name" href="{{ product.url }}">{{ product.title }}</a>
+    <a class="pcar-card__name" href="{{ product.url }}">{{ card_title }}</a>
     <span class="pcar-card__price">
       {{ variant.price | money }}
       {%- if on_sale -%}

@@ -86,16 +86,36 @@
       <div class="prose reveal" style="margin-bottom:40px">{{ collection.description }}</div>
     {%- endif -%}
 
+    {%- include 'rb-orphan-soaps' -%}
+    {%- assign extra_here = 0 -%}
+    {%- if rb_orphan_count > 0 -%}
+      {%- if collection.handle == 'all' -%}
+        {%- assign extra_here = rb_orphan_count -%}
+      {%- elsif col_key == 'signature' -%}
+        {%- assign extra_here = rb_orphan_count -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- assign shown_count = collection.products_count | plus: extra_here -%}
     <div class="shop-toolbar">
-      <span class="count">{{ collection.products_count }} soap{% if collection.products_count != 1 %}s{% endif %}</span>
+      <span class="count">{{ shown_count }} soap{% if shown_count != 1 %}s{% endif %}</span>
     </div>
     <div class="product-grid product-grid--pop reveal">
       {%- paginate collection.products by section.settings.products_per_page -%}
         {%- for product in collection.products -%}
-          {% render 'product-card', product: product %}
+          {% render 'product-card', product: product, rb_record: rb_catalog.products[product.handle] %}
         {%- else -%}
-          <p>No products in this collection yet.</p>
+          {%- if extra_here == 0 -%}<p>No products in this collection yet.</p>{%- endif -%}
         {%- endfor -%}
+        {%- if extra_here > 0 and paginate.current_page == 1 -%}
+          {%- for h in rb_orphan_list -%}
+            {%- assign rec = rb_catalog.products[h] -%}
+            {%- if rec != blank -%}
+              {%- if collection.handle == 'all' or rec.collection == col_key -%}
+                {% render 'rb-catalog-card', rb_record: rec %}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
         {%- if paginate.pages > 1 -%}
           <div class="pagination" style="grid-column:1/-1">
             {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">Previous</a>{%- endif -%}

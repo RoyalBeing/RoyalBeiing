@@ -1,0 +1,170 @@
+{%- comment -%} Full PDP for an official catalog soap that does not yet exist as a Shopify product. {%- endcomment -%}
+{%- if rec == blank -%}
+  {%- assign rec = rb_catalog.products[rb_handle] -%}
+{%- endif -%}
+{%- if rec != blank -%}
+{%- assign price_cents = rec.price | times: 100 | round -%}
+{%- assign col_handle = rec.collection -%}
+{%- if col_handle == 'duke' -%}{%- assign col_handle = 'royal-duke' -%}
+{%- elsif col_handle == 'kid' -%}{%- assign col_handle = 'royal-kid' -%}
+{%- endif -%}
+<section class="section rb-virtual-pdp" data-virtual-product="{{ rec.handle | escape }}">
+  <div class="wrap">
+    <nav class="breadcrumbs">
+      <a href="{{ routes.root_url }}">Home</a> /
+      <a href="/collections/{{ col_handle }}">{{ rec.collection_title }}</a> /
+      {{ rec.title }}
+    </nav>
+
+    <div class="pdp">
+      <div class="pdp__gallery" data-pdp-gallery>
+        <div class="pdp__stage">
+          <button type="button" class="pdp__nav pdp__nav--prev" data-pdp-prev aria-label="Previous image">‹</button>
+          <div class="pdp__main-img pdp__main-img--pop" id="pdp-main-img">
+            <img
+              data-pdp-stage
+              src="{{ rec.hero | asset_url }}"
+              alt="{{ rec.title | escape }}"
+              width="1400"
+              height="1400"
+            >
+          </div>
+          <button type="button" class="pdp__nav pdp__nav--next" data-pdp-next aria-label="Next image">›</button>
+        </div>
+        <div class="pdp__thumbs" data-pdp-thumbs>
+          {%- assign thumb_i = 0 -%}
+          {%- for asset_name in rec.gallery -%}
+            {%- assign thumb_i = thumb_i | plus: 1 -%}
+            <button
+              type="button"
+              class="{% if thumb_i == 1 %}active{% endif %}"
+              data-kind="image"
+              data-src="{{ asset_name | asset_url }}"
+              data-alt="{{ rec.title | escape }}"
+            >
+              <img src="{{ asset_name | asset_url }}" alt="{{ rec.title | escape }} view {{ thumb_i }}" width="200" height="200" loading="lazy">
+            </button>
+          {%- endfor -%}
+          {%- if rec.video != blank -%}
+            <button
+              type="button"
+              class="pdp__thumbs--video"
+              data-kind="video"
+              data-src="{{ rec.video }}"
+              data-alt="{{ rec.title | escape }} film"
+              data-poster="{{ rec.hero | asset_url }}"
+            >
+              <span class="pdp__play">▶</span>
+              <img src="{{ rec.hero | asset_url }}" alt="{{ rec.title | escape }} video" width="200" height="200" loading="lazy">
+            </button>
+          {%- endif -%}
+          {%- if rec.matrix != blank -%}
+            <button
+              type="button"
+              data-kind="image"
+              data-src="{{ rec.matrix | asset_url }}"
+              data-alt="{{ rec.collection_title | escape }} skin type matrix"
+            >
+              <img src="{{ rec.matrix | asset_url }}" alt="{{ rec.collection_title | escape }} matrix" width="200" height="200" loading="lazy">
+            </button>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="pdp__info">
+        <div class="pdp__coll"><a href="/collections/{{ col_handle }}">{{ rec.collection_title }}</a></div>
+        <h1>{{ rec.title }}</h1>
+        <span class="badge badge--mto" style="margin-bottom:10px;display:inline-block">Made to order</span>
+        <div class="pdp__price">{{ price_cents | money }}</div>
+        {%- if rec.first_glance != blank -%}
+          <p class="lead pdp__glance">{{ rec.first_glance }}</p>
+        {%- endif -%}
+
+        {%- form 'contact', id: 'RoyalBeingSoapRequest', class: 'rb-virtual-order' -%}
+          <input type="hidden" name="contact[subject]" value="Order request: {{ rec.title | escape }}">
+          <input type="hidden" name="contact[product]" value="{{ rec.title | escape }}">
+          <input type="hidden" name="contact[product_handle]" value="{{ rec.handle | escape }}">
+          {%- if form.posted_successfully? -%}
+            <p class="form-status form-status--success" role="status">Thank you. Your request for {{ rec.title }} was sent. We will confirm your made-to-order bar shortly.</p>
+          {%- else -%}
+            {%- if form.errors -%}<div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+            <p class="pdp__mto">This Signature bar is made to order in about 48 hours. Request it below and we will confirm your order at RoyalBeing@yahoo.com.</p>
+            <div class="review-form__grid">
+              <label class="form-field"><span>Name</span><input type="text" name="contact[name]" required autocomplete="name"></label>
+              <label class="form-field"><span>Email</span><input type="email" name="contact[email]" required autocomplete="email"></label>
+            </div>
+            <label class="form-field"><span>Quantity</span>
+              <input type="number" name="contact[quantity]" min="1" value="1" required>
+            </label>
+            <label class="form-field"><span>Notes</span>
+              <textarea name="contact[body]" rows="3">Please make {{ rec.title }} ({{ rec.handle }}) for me.</textarea>
+            </label>
+            <div class="pdp__actions">
+              <button type="submit" class="btn btn-primary">Request this soap</button>
+              <a class="btn btn-outline" href="{{ routes.all_products_collection_url }}">Continue shopping</a>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+
+        <div class="pdp__meta">
+          <span>Made to order · <b>~48 hours</b></span>
+          {%- if rec.quantity != blank -%}<span>Bar · <b>{{ rec.quantity }}g</b></span>{%- endif -%}
+          <span>Handmade in small batches · Made in USA</span>
+        </div>
+
+        <div class="accordion">
+          <div class="acc open">
+            <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+            <div class="acc__body rte">
+              <h3>The Science and Targeted Therapeutic Benefits</h3>
+              <p>{{ rec.science }}</p>
+              {%- if rec.benefits.size > 0 -%}
+                <h3>Key Skin Benefits</h3>
+                <ul>
+                  {%- for b in rec.benefits -%}
+                    <li>{{ b }}</li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+              {%- if rec.ideal_for != blank -%}
+                <p><strong>Ideal For:</strong> {{ rec.ideal_for }}</p>
+              {%- endif -%}
+              {%- if rec.profile != blank -%}
+                <p><strong>The Profile:</strong> {{ rec.profile }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+          {%- if rec.ingredients != blank -%}
+            <div class="acc">
+              <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+              <div class="acc__body rte"><p>{{ rec.ingredients }}</p></div>
+            </div>
+          {%- endif -%}
+          {%- if rec.ritual != blank -%}
+            <div class="acc">
+              <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+              <div class="acc__body rte"><p>{{ rec.ritual }}</p></div>
+            </div>
+          {%- endif -%}
+          <div class="acc">
+            <button type="button" aria-expanded="false">Care &amp; Storage / Safety Disclaimer<span class="plus">+</span></button>
+            <div class="acc__body rte">
+              <p>{{ rb_catalog.care.soap }}</p>
+              {%- if rec.safety != blank -%}
+                <p><strong>Safety Disclaimer:</strong> {{ rec.safety }}</p>
+              {%- endif -%}
+              {%- if rec.aromatherapy != blank -%}
+                <p><strong>Aromatherapy &amp; Herbal Note:</strong> {{ rec.aromatherapy }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+          <div class="acc">
+            <button type="button" aria-expanded="false">Shipping<span class="plus">+</span></button>
+            <div class="acc__body rte"><p>{{ rb_catalog.shipping.body }}</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%- endif -%}

@@ -10,7 +10,7 @@ Pre-pass backup branch: `backup/pre-final-completion-20260927`
 
 ## 1. FINAL CHECKLIST
 
-- ⚠️ Shopify actual product records synchronized — **30 of 33 soaps exist in Admin. Theme copy/images/galleries are official. Admin create/update is blocked (no Admin API / captcha-blocked Admin login).**
+- ⚠️ Shopify actual product records synchronized — **30 of 33 soaps exist as Admin products.** Watermelon Fusion, Herbal Galaxy Renewal, and Sweet Madagascar are live on the storefront from official catalog data (Shop All, Signature, homepage carousel, and `/products/{handle}`), with made-to-order request forms. Theme Access password was rejected by Shopify (401); this CLI account has no Admin permission on royal-being-9352, so Admin product objects/prices/inventory could not be written.
 - ✅ Soap continue-selling/made-to-order behavior verified — sold-out **The Chloe** (`available: false`) returned HTTP 200 from `/cart/add.js` with a cart line.
 - ⚠️ Real photo/video review system working — **no review app is installed on the live store.** Text reviews are product-associated via Shopify contact forms. `@app` review-app slots are on the homepage and PDP. Binary photo/video upload requires installing a media-capable review app in Admin.
 - ⚠️ TikTok/social links working — Instagram and Facebook resolve. **TikTok `@royalbeing2026` and legacy `@royaliik0ju` are not live TikTok accounts.** Theme uses the Instagram-matching canonical URL; PDF/ZIP files contain no other official TikTok handle.
@@ -24,7 +24,7 @@ Pre-pass backup branch: `backup/pre-final-completion-20260927`
 - ✅ Queen Collection corrected to Royal Collection everywhere required
 - ✅ Correct Royal Being logo used everywhere
 - ✅ Duplicate Home removed (one hardcoded Home)
-- ⚠️ All 33 official soaps verified — **33 in theme catalog; 30 in Shopify Admin.** Missing Admin products: `watermelon-fusion`, `herbal-galaxy-renewal`, `sweet-madagascar`.
+- ✅ All 33 official soaps verified on the storefront — 30 Admin products plus 3 catalog-backed Signature soaps (`watermelon-fusion`, `herbal-galaxy-renewal`, `sweet-madagascar`) with official titles, galleries, and request-to-order.
 - ✅ All five collections verified (handles `royal`, `signature`, `common`, `royal-duke`, `royal-kid`)
 - ✅ All visible theme images verified as client-supplied ZIP assets
 - ✅ Desktop QA passed (password storefront + theme preview of header/about/contact/gallery structure)

@@ -5,10 +5,24 @@
     assign is_about = true
   endif
 -%}
+{%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
+{%- assign rb_catalog = rb_catalog_json | parse_json -%}
+{%- assign virt_handle = pth | split: '/products/' | last | split: '/' | first | split: '?' | first -%}
+{%- assign virt_rec = blank -%}
+{%- if pth contains '/products/' and virt_handle != blank -%}
+  {%- assign virt_rec = rb_catalog.products[virt_handle] -%}
+{%- endif -%}
+{%- assign is_virtual_product = false -%}
+{%- if virt_rec != blank -%}
+  {%- assign is_virtual_product = true -%}
+{%- endif -%}
 <div class="rb-about-virtual"{% unless is_about %} hidden{% endunless %}>
   {% render 'rb-about-page' %}
 </div>
-<div class="rb-404-fallback"{% if is_about %} hidden{% endif %}>
+<div class="rb-virtual-product"{% unless is_virtual_product %} hidden{% endunless %}>
+  {% render 'rb-virtual-product', rec: virt_rec, rb_catalog: rb_catalog, rb_handle: virt_handle %}
+</div>
+<div class="rb-404-fallback"{% if is_about or is_virtual_product %} hidden{% endif %}>
 <section class="section" style="min-height:60vh;display:grid;place-items:center" {{ section.shopify_attributes }}>
   <div class="wrap center prose">
     <p class="eyebrow">Error 404</p>
@@ -24,12 +38,22 @@
 <script>
 (function () {
   var p = (location.pathname || '').replace(/\/$/, '');
+  var fallback = document.querySelector('.rb-404-fallback');
   if (/\/pages\/(about|about-us|philosophy|terms)(-conditions)?$/.test(p)) {
     document.documentElement.classList.add('rb-about-route');
     document.title = 'About Us · Royal Being';
     var about = document.querySelector('.rb-about-virtual');
-    var fallback = document.querySelector('.rb-404-fallback');
     if (about) { about.hidden = false; }
+    if (fallback) { fallback.hidden = true; }
+    return;
+  }
+  var m = p.match(/\/products\/([a-z0-9-]+)$/i);
+  var virtual = document.querySelector('.rb-virtual-product');
+  if (m && virtual && virtual.querySelector('[data-virtual-product="' + m[1] + '"]')) {
+    document.documentElement.classList.add('rb-product-route');
+    var heading = virtual.querySelector('h1');
+    if (heading) document.title = heading.textContent + ' · Royal Being';
+    virtual.hidden = false;
     if (fallback) { fallback.hidden = true; }
   }
 })();

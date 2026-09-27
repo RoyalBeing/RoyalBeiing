@@ -24,6 +24,10 @@
       assign sold_out = true
     endif
   endif
+  assign card_title = product.title
+  if rb_record != blank
+    assign card_title = rb_record.title
+  endif
   assign coming_soon = false
   if product.tags contains 'Coming Soon' and soap_mto == false
     assign coming_soon = true
@@ -61,7 +65,7 @@
         {%- endif -%}
       {%- endfor -%}
     {%- endif -%}
-    <h3 class="pcard__name"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <h3 class="pcard__name"><a href="{{ product.url }}">{{ card_title }}</a></h3>
     <div class="pcard__foot">
       <div class="pcard__price">{{ variant.price | money }}</div>
       {%- if sold_out -%}
