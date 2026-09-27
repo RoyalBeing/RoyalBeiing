@@ -10,7 +10,7 @@
 {%- assign virt_handle = pth | split: '/products/' | last | split: '/' | first | split: '?' | first -%}
 {%- assign virt_rec = blank -%}
 {%- if pth contains '/products/' and virt_handle != blank -%}
-  {%- assign virt_rec = rb_catalog.products[virt_handle] -%}
+  {%- assign virt_rec = rb_catalog.soaps[virt_handle] -%}
 {%- endif -%}
 {%- assign is_virtual_product = false -%}
 {%- if virt_rec != blank -%}

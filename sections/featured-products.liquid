@@ -34,19 +34,19 @@
           {%- comment -%} Active / available products first {%- endcomment -%}
           {%- for product in catalog -%}
             {%- if product.available -%}
-              {%- assign rb_record = rb_catalog.products[product.handle] -%}
+              {%- assign rb_record = rb_catalog.soaps[product.handle] -%}
               <div class="pcar__slide" data-pcar-slide>{% include 'product-card-carousel' %}</div>
             {%- endif -%}
           {%- endfor -%}
           {%- for product in catalog -%}
             {%- unless product.available -%}
-              {%- assign rb_record = rb_catalog.products[product.handle] -%}
+              {%- assign rb_record = rb_catalog.soaps[product.handle] -%}
               <div class="pcar__slide" data-pcar-slide>{% include 'product-card-carousel' %}</div>
             {%- endunless -%}
           {%- endfor -%}
           {%- if rb_orphan_count > 0 -%}
             {%- for h in rb_orphan_list -%}
-              {%- assign rec = rb_catalog.products[h] -%}
+              {%- assign rec = rb_catalog.soaps[h] -%}
               {%- if rec != blank -%}
                 {%- assign price_cents = rec.price | times: 100 | round -%}
                 {%- assign hero = rec.hero | default: 'rb-life-stack.jpg' -%}

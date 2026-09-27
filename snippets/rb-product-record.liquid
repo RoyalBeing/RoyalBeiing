@@ -12,7 +12,7 @@
 {%- elsif rb_handle == 'this-iris' -%}
   {%- assign rb_handle = 'the-iris' -%}
 {%- endif -%}
-{%- assign rb_record = rb_catalog.products[rb_handle] -%}
+{%- assign rb_record = rb_catalog.soaps[rb_handle] -%}
 {%- assign rb_is_robe = false -%}
 {%- assign rb_is_soap = false -%}
 {%- if rb_catalog.robe.handles contains product.handle or product.type == 'Robe' or product.tags contains 'Robe' -%}

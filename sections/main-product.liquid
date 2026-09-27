@@ -208,7 +208,7 @@
         {%- endform -%}
 
         <div class="pdp__meta">
-          {%- if current.weight > 0 -%}<span>Weight · <b>{{ current.weight | weight_with_unit: current.weight_unit }}</b></span>{%- endif -%}
+          {%- if rb_record != blank and rb_record.weight != blank -%}<span>Weight · <b>{{ rb_record.weight }}</b></span>{%- endif -%}
           {%- if soap_mto -%}<span>Made to order · <b>~48 hours</b></span>{%- endif -%}
           <span>{{ section.settings.ships_note }}</span>
         </div>

@@ -4,7 +4,7 @@
   {%- assign rb_catalog = rb_catalog_json | parse_json -%}
 {%- endif -%}
 {%- if rec == blank and rb_handle != blank -%}
-  {%- assign rec = rb_catalog.products[rb_handle] -%}
+  {%- assign rec = rb_catalog.soaps[rb_handle] -%}
 {%- endif -%}
 {%- if rec != blank -%}
 {%- assign price_cents = rec.price | times: 100 | round -%}

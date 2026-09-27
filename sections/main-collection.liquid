@@ -15,7 +15,7 @@
 -%}
 {%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
 {%- assign rb_catalog = rb_catalog_json | parse_json -%}
-{%- assign rec = rb_catalog.collections[col_key] -%}
+{%- assign rec = rb_catalog.col_records[col_key] -%}
 <section class="page-banner col-hero" {{ section.shopify_attributes }}>
   {%- if rec != blank and rec.hero != blank -%}
     <div class="page-banner__media"><img src="{{ rec.hero | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="2000" height="1100"></div>
@@ -102,14 +102,14 @@
     <div class="product-grid product-grid--pop reveal">
       {%- paginate collection.products by section.settings.products_per_page -%}
         {%- for product in collection.products -%}
-          {%- assign rb_record = rb_catalog.products[product.handle] -%}
+          {%- assign rb_record = rb_catalog.soaps[product.handle] -%}
           {% include 'product-card' %}
         {%- else -%}
           {%- if extra_here == 0 -%}<p>No products in this collection yet.</p>{%- endif -%}
         {%- endfor -%}
         {%- if extra_here > 0 and paginate.current_page == 1 -%}
           {%- for h in rb_orphan_list -%}
-            {%- assign rec = rb_catalog.products[h] -%}
+            {%- assign rec = rb_catalog.soaps[h] -%}
             {%- if rec != blank -%}
               {%- if collection.handle == 'all' or rec.collection == col_key -%}
                 {%- assign price_cents = rec.price | times: 100 | round -%}
