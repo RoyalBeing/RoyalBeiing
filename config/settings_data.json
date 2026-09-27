@@ -4,7 +4,7 @@
     "coupon_code": "ROYAL 20",
     "social_facebook": "https://www.facebook.com/profile.php?id=61591471053395",
     "social_instagram": "https://www.instagram.com/royalbeing2026/",
-    "social_tiktok": "https://www.tiktok.com/@royalbeing2026",
+    "social_tiktok": "",
     "cart_note_coupon": true,
     "cart_empty_text": "Your ritual awaits.",
     "sections": {
@@ -258,7 +258,7 @@
           "text": "Elevate your skincare cleansing routine with Watermelon Fusion \u2014 a luxurious herbal bar with goat\u2019s milk, watermelon, peppermint, and gentle poppy-seed exfoliation.",
           "closing": "Elevate your daily cleansing into a sacred spa ritual.",
           "meta_natural": "100% Natural & Handmade",
-          "meta_weight": "6.7 oz",
+          "meta_weight": "",
           "button_label": "SHOP WATERMELON FUSION",
           "video_url": "https://cdn.shopify.com/videos/c/o/v/4ea7ed019d114331a66343175f778527.mp4"
         }
@@ -621,10 +621,10 @@
           "text": "Follow Royal Being for new soap reveals, behind-the-scenes moments, collection launches, lathering videos, skincare rituals, and small-batch updates.",
           "instagram_label": "FOLLOW ON INSTAGRAM",
           "facebook_label": "FOLLOW ON FACEBOOK",
-          "tiktok_label": "FOLLOW ON TIKTOK",
+          "tiktok_label": "",
           "instagram_url": "https://www.instagram.com/royalbeing2026/",
           "facebook_url": "https://www.facebook.com/profile.php?id=61591471053395",
-          "tiktok_url": "https://www.tiktok.com/@royalbeing2026"
+          "tiktok_url": ""
         }
       },
       "faq-preview": {
