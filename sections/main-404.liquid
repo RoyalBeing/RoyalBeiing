@@ -5,16 +5,11 @@
     assign is_about = true
   endif
 -%}
-{%- capture rb_shared_json -%}{% render 'rb-catalog-shared' %}{%- endcapture -%}
-{%- assign rb_catalog = rb_shared_json | parse_json -%}
-{%- capture rb_json_signature -%}{% render 'rb-soaps-signature' %}{%- endcapture -%}
-{%- assign rb_pack_signature = rb_json_signature | parse_json -%}
+{%- include 'rb-load-packs' -%}
 {%- assign virt_handle = pth | split: '/products/' | last | split: '/' | first | split: '?' | first -%}
 {%- assign virt_rec = blank -%}
 {%- if pth contains '/products/' and virt_handle != blank -%}
-  {%- for soap in rb_pack_signature -%}
-    {%- if soap.handle == virt_handle -%}{%- assign virt_rec = soap -%}{%- endif -%}
-  {%- endfor -%}
+  {%- assign virt_rec = rb_pack_signature[virt_handle] -%}
 {%- endif -%}
 {%- assign is_virtual_product = false -%}
 {%- if virt_rec != blank -%}

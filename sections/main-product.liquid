@@ -1,5 +1,4 @@
 {%- include 'rb-product-record' -%}
-<!-- rb-debug rec={{ rb_record.title }} json={{ rb_soap_json.size }} n={{ rb_soap_pack.size }} first={{ rb_soap_pack[1].handle }} handle={{ rb_handle }} -->
 {%- assign current = product.selected_or_first_available_variant -%}
 {%- liquid
   assign soap_mto = false
@@ -120,7 +119,14 @@
         {%- elsif product.tags contains 'Coming Soon' and soap_mto == false -%}
           <span class="badge badge--soon" style="margin-bottom:10px;display:inline-block">Coming Soon</span>
         {%- endif -%}
-        <div class="pdp__price">{% render 'price', product: product %}</div>
+        <div class="pdp__price">
+          {%- if rb_record != blank and rb_record.price != blank -%}
+            {%- assign catalog_cents = rb_record.price | times: 100 | round -%}
+            <span class="price"><span class="price__sale">{{ catalog_cents | money }}</span></span>
+          {%- else -%}
+            {% render 'price', product: product %}
+          {%- endif -%}
+        </div>
 
         {%- if rb_record != blank and rb_record.first_glance != blank -%}
           <p class="lead pdp__glance">{{ rb_record.first_glance }}</p>
@@ -209,7 +215,7 @@
         {%- endform -%}
 
         <div class="pdp__meta">
-          {%- if rb_record != blank and rb_record.weight != blank -%}<span>Weight · <b>{{ rb_record.weight }}</b></span>{%- endif -%}
+          {%- if rb_record != blank and rb_record.quantity != blank -%}<span>Bar · <b>{{ rb_record.quantity }}g</b></span>{%- endif -%}
           {%- if soap_mto -%}<span>Made to order · <b>~48 hours</b></span>{%- endif -%}
           <span>{{ section.settings.ships_note }}</span>
         </div>

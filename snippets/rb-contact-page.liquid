@@ -36,8 +36,15 @@
         </li>
       </ul>
       <div class="contact-social">
-        {%- if settings.social_instagram != blank -%}<a class="btn btn-outline btn-sm" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
-        {%- if settings.social_facebook != blank -%}<a class="btn btn-outline btn-sm" href="{{ settings.social_facebook }}" target="_blank" rel="noopener">Facebook</a>{%- endif -%}
+        {%- liquid
+          assign ig = settings.social_instagram
+          if ig == blank
+            assign ig = 'https://www.instagram.com/royalbeing2026/'
+          endif
+          assign fb = settings.social_facebook
+        -%}
+        {%- if ig != blank -%}<a class="btn btn-outline btn-sm" href="{{ ig }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
+        {%- if fb != blank -%}<a class="btn btn-outline btn-sm" href="{{ fb }}" target="_blank" rel="noopener">Facebook</a>{%- endif -%}
       </div>
       <p class="contact-faq-cta"><a href="{{ routes.root_url }}#faq-preview">Read frequently asked questions</a></p>
     </div>

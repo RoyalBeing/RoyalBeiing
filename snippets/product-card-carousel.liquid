@@ -63,6 +63,9 @@
   assign card_title = product.title
   if rb_record != blank
     assign card_title = rb_record.title
+    if rb_record.collection_title != blank
+      assign coll_title = rb_record.collection_title
+    endif
   endif
 -%}
 <article
@@ -104,7 +107,12 @@
     <span class="pcar-card__coll">{% if coll_title != blank %}{{ coll_title }}{% else %}&nbsp;{% endif %}</span>
     <a class="pcar-card__name" href="{{ product.url }}">{{ card_title }}</a>
     <span class="pcar-card__price">
-      {{ variant.price | money }}
+      {%- if rb_record != blank and rb_record.price != blank -%}
+        {%- assign catalog_cents = rb_record.price | times: 100 | round -%}
+        {{ catalog_cents | money }}
+      {%- else -%}
+        {{ variant.price | money }}
+      {%- endif -%}
       {%- if on_sale -%}
         <s class="pcar-card__compare">{{ variant.compare_at_price | money }}</s>
       {%- endif -%}

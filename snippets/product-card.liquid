@@ -33,12 +33,19 @@
     assign coming_soon = true
   endif
   assign hero = 'rb-p-' | append: h | append: '.jpg'
+  if rb_record != blank and rb_record.hero != blank
+    assign hero = rb_record.hero
+  endif
+  assign card_coll = ''
+  if rb_record != blank and rb_record.collection_title != blank
+    assign card_coll = rb_record.collection_title
+  endif
 -%}
 <article class="pcard pcard--pop" data-product-id="{{ product.id }}">
-  <a class="pcard__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+  <a class="pcard__media" href="{{ product.url }}" aria-label="{{ card_title | escape }}">
     <img
       src="{{ hero | asset_url }}"
-      alt="{{ product.title | escape }}"
+      alt="{{ card_title | escape }}"
       loading="lazy"
       width="800"
       height="800"
@@ -57,7 +64,9 @@
     </div>
   </a>
   <div class="pcard__body">
-    {%- if product.collections.size > 0 -%}
+    {%- if card_coll != blank -%}
+      <div class="pcard__coll">{{ card_coll }}</div>
+    {%- elsif product.collections.size > 0 -%}
       {%- for collection in product.collections -%}
         {%- if collection.handle != 'all' and collection.handle != 'frontpage' -%}
           <div class="pcard__coll">{{ collection.title }}</div>
@@ -67,7 +76,14 @@
     {%- endif -%}
     <h3 class="pcard__name"><a href="{{ product.url }}">{{ card_title }}</a></h3>
     <div class="pcard__foot">
-      <div class="pcard__price">{{ variant.price | money }}</div>
+      <div class="pcard__price">
+        {%- if rb_record != blank and rb_record.price != blank -%}
+          {%- assign catalog_cents = rb_record.price | times: 100 | round -%}
+          {{ catalog_cents | money }}
+        {%- else -%}
+          {{ variant.price | money }}
+        {%- endif -%}
+      </div>
       {%- if sold_out -%}
         <a class="btn btn-light btn-sm" href="{{ product.url }}">View</a>
       {%- else -%}

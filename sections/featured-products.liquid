@@ -20,18 +20,7 @@
         assign catalog = collections.all.products
       endif
     -%}
-    {%- capture rb_shared_json -%}{% render 'rb-catalog-shared' %}{%- endcapture -%}
-    {%- assign rb_catalog = rb_shared_json | parse_json -%}
-    {%- capture rb_json_royal -%}{% render 'rb-soaps-royal' %}{%- endcapture -%}
-    {%- capture rb_json_signature -%}{% render 'rb-soaps-signature' %}{%- endcapture -%}
-    {%- capture rb_json_common -%}{% render 'rb-soaps-common' %}{%- endcapture -%}
-    {%- capture rb_json_duke -%}{% render 'rb-soaps-duke' %}{%- endcapture -%}
-    {%- capture rb_json_kid -%}{% render 'rb-soaps-kid' %}{%- endcapture -%}
-    {%- assign rb_pack_royal = rb_json_royal | parse_json -%}
-    {%- assign rb_pack_signature = rb_json_signature | parse_json -%}
-    {%- assign rb_pack_common = rb_json_common | parse_json -%}
-    {%- assign rb_pack_duke = rb_json_duke | parse_json -%}
-    {%- assign rb_pack_kid = rb_json_kid | parse_json -%}
+    {%- include 'rb-load-packs' -%}
     {%- include 'rb-orphan-soaps' -%}
 
     <div class="pcar reveal">
@@ -56,10 +45,7 @@
           {%- endfor -%}
           {%- if rb_orphan_count > 0 -%}
             {%- for h in rb_orphan_list -%}
-              {%- assign rec = blank -%}
-              {%- for soap in rb_pack_signature -%}
-                {%- if soap.handle == h -%}{%- assign rec = soap -%}{%- endif -%}
-              {%- endfor -%}
+              {%- assign rec = rb_pack_signature[h] -%}
               {%- if rec != blank -%}
                 {%- assign price_cents = rec.price | times: 100 | round -%}
                 {%- assign hero = rec.hero | default: 'rb-life-stack.jpg' -%}
