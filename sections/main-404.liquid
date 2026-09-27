@@ -17,7 +17,7 @@
   {%- assign is_virtual_product = true -%}
 {%- endif -%}
 <div class="rb-about-virtual"{% unless is_about %} hidden{% endunless %}>
-  {% render 'rb-about-page' %}
+  {% include 'rb-about-page' %}
 </div>
 <div class="rb-virtual-product">
   {% render 'rb-virtual-product', rb_handle: 'watermelon-fusion' %}

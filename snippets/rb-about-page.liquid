@@ -1,5 +1,8 @@
-{%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
-{%- assign rb_catalog = rb_catalog_json | parse_json -%}
+{%- if rb_catalog == blank -%}
+  {%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
+  {%- assign rb_catalog = rb_catalog_json | parse_json -%}
+{%- endif -%}
+{%- assign rb_pg = rb_catalog['pages'] -%}
 <section class="about-page">
   <header class="page-hero">
     <div class="page-hero__media">
@@ -26,7 +29,7 @@
       <div class="about-block__copy">
         <p class="eyebrow">01 · Philosophy</p>
         <h2>Our Royal Being Philosophy</h2>
-        <p>{{ rb_catalog.pages.philosophy }}</p>
+        <p>{{ rb_pg.philosophy }}</p>
       </div>
     </article>
 
@@ -37,7 +40,7 @@
       <div class="about-block__copy">
         <p class="eyebrow">02 · Our story</p>
         <h2>About Us</h2>
-        <p>{{ rb_catalog.pages.about }}</p>
+        <p>{{ rb_pg.about }}</p>
       </div>
     </article>
 
@@ -49,12 +52,12 @@
       <article class="about-card" id="herbal-products">
         <p class="eyebrow">03 · The bars</p>
         <h2>Our Herbal Products</h2>
-        <p>{{ rb_catalog.pages.herbal_products }}</p>
+        <p>{{ rb_pg.herbal_products }}</p>
       </article>
       <article class="about-card about-card--green" id="our-promise">
         <p class="eyebrow">04 · Promise</p>
         <h2>Our Promise</h2>
-        <p>{{ rb_catalog.pages.promise }}</p>
+        <p>{{ rb_pg.promise }}</p>
       </article>
     </div>
 
