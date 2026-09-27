@@ -43,15 +43,19 @@
         <ul>
           {%- if section.settings.care_menu.links.size > 0 -%}
             {%- for link in section.settings.care_menu.links -%}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- assign lt = link.title | downcase | strip -%}
+              {%- if lt == 'catalog' or lt == 'catalogue' -%}
+              {%- elsif lt == 'contact' -%}
+                <li><a href="/pages/contact">Contact</a></li>
+              {%- else -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endif -%}
             {%- endfor -%}
           {%- else -%}
             <li><a href="{{ about_url }}">About Us</a></li>
             <li><a href="{{ routes.root_url }}#faq-preview">FAQs</a></li>
             <li><a href="{{ routes.root_url }}#share-review">Share a Review</a></li>
-            {%- if shop.email != blank -%}
-              <li><a href="mailto:{{ shop.email }}">Contact</a></li>
-            {%- endif -%}
+            <li><a href="/pages/contact">Contact</a></li>
           {%- endif -%}
         </ul>
       </div>
@@ -61,7 +65,10 @@
         <ul>
           {%- if section.settings.ritual_menu.links.size > 0 -%}
             {%- for link in section.settings.ritual_menu.links -%}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- assign lt = link.title | downcase | strip -%}
+              {%- unless lt == 'catalog' or lt == 'catalogue' -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endunless -%}
             {%- endfor -%}
           {%- else -%}
             <li><a href="{{ routes.root_url }}#collections">Collections</a></li>
@@ -77,8 +84,11 @@
       <div>© {{ 'now' | date: '%Y' }} {{ shop.name }}
         {%- if section.settings.legal_menu.links.size > 0 -%}
           {%- for link in section.settings.legal_menu.links -%}
+              {%- assign lt = link.title | downcase | strip -%}
+              {%- unless lt == 'catalog' or lt == 'catalogue' -%}
             · <a href="{{ link.url }}">{{ link.title }}</a>
-          {%- endfor -%}
+              {%- endunless -%}
+            {%- endfor -%}
         {%- else -%}
           · <a href="{{ about_url }}">About Us</a>
           · <a href="{{ terms_url }}">Terms &amp; Conditions</a>

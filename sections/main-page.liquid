@@ -1,3 +1,8 @@
+{%- if page.handle == 'contact' or page.handle == 'contact-us' -%}
+  {% render 'rb-contact-page' %}
+{%- elsif page.handle == 'about' or page.handle == 'about-us' or page.handle == 'philosophy' or page.handle == 'terms' -%}
+  {% render 'rb-about-page' %}
+{%- else -%}
 <section class="page-banner" {{ section.shopify_attributes }}>
   {%- if section.settings.image != blank -%}
     <div class="page-banner__media"><img src="{{ section.settings.image | image_url: width: 2000 }}" alt=""></div>
@@ -15,6 +20,7 @@
     {{ page.content }}
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {

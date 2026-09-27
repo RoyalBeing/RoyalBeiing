@@ -54,10 +54,11 @@
         </div>
       </div>
       <div class="nav__item"><a class="nav__link" href="{{ about_url }}">About Us</a></div>
+      <div class="nav__item"><a class="nav__link" href="/pages/contact">Contact</a></div>
       {%- if section.settings.menu.links.size > 0 -%}
         {%- for link in section.settings.menu.links -%}
           {%- assign lt = link.title | downcase | strip -%}
-          {%- unless lt == 'home' or lt == 'about' or lt == 'about us' or lt == 'shop' -%}
+          {%- unless lt == 'home' or lt == 'about' or lt == 'about us' or lt == 'shop' or lt == 'catalog' or lt == 'catalogue' or lt == 'contact' -%}
           <div class="nav__item">
             <a class="nav__link" href="{{ link.url }}">
               {{ link.title }}
@@ -68,7 +69,7 @@
                 <div class="mega__col"><div class="mega__list">
                   {%- for child in link.links -%}
                     {%- assign ct = child.title | downcase | strip -%}
-                    {%- unless ct == 'home' -%}
+                    {%- unless ct == 'home' or ct == 'catalog' or ct == 'catalogue' -%}
                       <a href="{{ child.url }}">{{ child.title }}</a>
                     {%- endunless -%}
                   {%- endfor -%}
@@ -119,17 +120,18 @@
       </div>
     </div>
     <a class="m-link" href="{{ about_url }}">About Us</a>
+    <a class="m-link" href="/pages/contact">Contact</a>
     {%- if section.settings.menu.links.size > 0 -%}
       {%- for link in section.settings.menu.links -%}
         {%- assign lt = link.title | downcase | strip -%}
-        {%- unless lt == 'home' or lt == 'about' or lt == 'about us' or lt == 'shop' -%}
+        {%- unless lt == 'home' or lt == 'about' or lt == 'about us' or lt == 'shop' or lt == 'catalog' or lt == 'catalogue' or lt == 'contact' -%}
         {%- if link.links.size > 0 -%}
           <div class="m-acc">
             <button type="button">{{ link.title }} {% render 'icon', name: 'chev' %}</button>
             <div class="m-acc__body">
               {%- for child in link.links -%}
                 {%- assign ct = child.title | downcase | strip -%}
-                {%- unless ct == 'home' -%}
+                {%- unless ct == 'home' or ct == 'catalog' or ct == 'catalogue' -%}
                   <a href="{{ child.url }}">{{ child.title }}</a>
                 {%- endunless -%}
               {%- endfor -%}

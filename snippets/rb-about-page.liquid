@@ -1,0 +1,93 @@
+{%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
+{%- assign rb_catalog = rb_catalog_json | parse_json -%}
+<section class="about-page">
+  <div class="about-hero">
+    <div class="wrap about-hero__inner">
+      {% render 'rb-logo', width: 120, height: 120, loading: 'eager' %}
+      <p class="eyebrow">The Ritual of Being</p>
+      <h1>About Us</h1>
+      <p class="lead">Official Royal Being philosophy, story, promise, and terms of sale.</p>
+    </div>
+  </div>
+
+  <div class="wrap about-stack">
+    <article class="about-block reveal" id="philosophy">
+      <div class="about-block__media">
+        <img src="{{ 'rb-life-female-robe.jpg' | asset_url }}" alt="Royal Being ambassador in a terry robe" width="900" height="1200" loading="lazy">
+      </div>
+      <div class="about-block__copy">
+        <p class="eyebrow">01</p>
+        <h2>Our Royal Being Philosophy</h2>
+        <p>{{ rb_catalog.pages.philosophy }}</p>
+      </div>
+    </article>
+
+    <article class="about-block about-block--flip reveal" id="about-us">
+      <div class="about-block__media">
+        <img src="{{ 'rb-life-family.jpg' | asset_url }}" alt="Royal Being family ritual" width="900" height="700" loading="lazy">
+      </div>
+      <div class="about-block__copy">
+        <p class="eyebrow">02</p>
+        <h2>About Us</h2>
+        <p>{{ rb_catalog.pages.about }}</p>
+      </div>
+    </article>
+
+    <div class="about-pair reveal">
+      <article class="about-card" id="herbal-products">
+        <p class="eyebrow">03</p>
+        <h2>Our Herbal Products</h2>
+        <p>{{ rb_catalog.pages.herbal_products }}</p>
+      </article>
+      <article class="about-card about-card--green" id="our-promise">
+        <p class="eyebrow">04</p>
+        <h2>Our Promise</h2>
+        <p>{{ rb_catalog.pages.promise }}</p>
+      </article>
+    </div>
+
+    <article class="about-legal reveal" id="terms">
+      <p class="eyebrow">05</p>
+      <h2>Terms &amp; Conditions of Sale</h2>
+      <p>Please review this document carefully before finalizing your purchase. By checking the box at checkout, you agree to be bound legally by these Terms and Conditions.</p>
+      <div class="about-legal__grid">
+        <section>
+          <h3>1. Product Nature &amp; Variations</h3>
+          <ul>
+            <li><strong>Handcrafted Variations:</strong> Our herbal soaps are individually crafted in small batches using raw, natural ingredients. You acknowledge that slight variations in color, weight, shape, scent, and swirl patterns are normal and do not constitute a product defect.</li>
+            <li><strong>Aromatherapy &amp; Scent Fading:</strong> Because we use pure essential oils instead of synthetic chemical fixatives, natural scent profiles may soften or fade over time if exposed to air, light, or heat.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>2. Health, Safety &amp; Allergy Warning</h3>
+          <ul>
+            <li><strong>Allergy Disclaimer:</strong> Our products contain active plant extracts, seed oils, nut oils, and essential oils. You are responsible for reviewing the full ingredient list on each product packaging box prior to use.</li>
+            <li><strong>Patch Test Advisory:</strong> We strongly recommend performing a small patch test on your skin before full body application. Discontinue use immediately if irritation, redness, or rash occurs.</li>
+            <li><strong>Medical Advisory:</strong> Content on our website is for educational purposes only. It does not replace professional medical advice. If you are pregnant, nursing, or under medical supervision, consult a physician before using products with high concentrations of essential oils.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>3. Shipping, Lead Times &amp; Risk of Loss</h3>
+          <ul>
+            <li><strong>Processing Times:</strong> Standard retail orders are hand-packed and shipped within 2–4 business days, excluding major holidays. Soaps are made to order within approximately 48 hours.</li>
+            <li><strong>Delivery Estimates:</strong> Shipping timelines provided at checkout are estimates from third-party carriers and are not guaranteed.</li>
+            <li><strong>Damaged or Lost Packages:</strong> Risk of loss and title for all merchandise pass to you upon our delivery to the shipping carrier. We are not liable for delayed, lost, stolen, or mis-delivered packages.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>4. Returns, Exchanges &amp; Refund Policy</h3>
+          <ul>
+            <li><strong>Hygiene Restrictions:</strong> Due to the personal care, hygienic, and perishable nature of bath products, we do not accept returns or exchanges on opened, unsealed, or used soap bars.</li>
+            <li><strong>Damaged Goods:</strong> If your keepsake box or bars arrive severely damaged during transit, you must notify our customer support team within 48 hours of delivery at <a href="mailto:RoyalBeing@yahoo.com">RoyalBeing@yahoo.com</a> with photographic proof to qualify for a replacement or store credit.</li>
+          </ul>
+        </section>
+      </div>
+    </article>
+
+    <article class="about-legal about-legal--ip reveal" id="intellectual-property">
+      <p class="eyebrow">06</p>
+      <h2>Intellectual Property</h2>
+      <p><strong>Copyright &amp; Trademarks:</strong> All branding, graphic designs, custom text descriptions, product titles (including The Royal Collection, The Signature Collection, The Common Collection, The Royal Duke Collection, and The Royal Kid Herbal Collection), and photography are the exclusive property of Royal Being LLC and are protected under international copyright law.</p>
+    </article>
+  </div>
+</section>

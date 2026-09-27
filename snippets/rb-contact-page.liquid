@@ -1,0 +1,80 @@
+<section class="contact-page">
+  <div class="contact-hero">
+    <div class="contact-hero__media">
+      <img src="{{ 'rb-life-female-robe.jpg' | asset_url }}" alt="Royal Being ambassador" width="1600" height="1000">
+    </div>
+    <div class="contact-hero__copy">
+      {% render 'rb-logo', width: 88, height: 88, loading: 'eager' %}
+      <p class="eyebrow">Customer Care</p>
+      <h1>Contact Us</h1>
+      <p class="lead">We are here for questions about your ritual, your order, and the care of your handcrafted bars.</p>
+    </div>
+  </div>
+
+  <div class="wrap contact-grid">
+    <div class="contact-info reveal">
+      <p class="eyebrow">Support</p>
+      <h2>How we can help</h2>
+      <p>For damaged keepsake boxes or bars, notify us within 48 hours of delivery at <a href="mailto:RoyalBeing@yahoo.com">RoyalBeing@yahoo.com</a> with photographic proof. Standard retail orders are hand-packed and shipped within 2–4 business days. Soaps are made to order within approximately 48 hours.</p>
+      <ul class="contact-facts">
+        <li><strong>Email</strong><a href="mailto:RoyalBeing@yahoo.com">RoyalBeing@yahoo.com</a></li>
+        <li><strong>Made to order</strong>Soaps are crafted within approximately 48 hours.</li>
+        <li><strong>Shipping</strong>USA, Netherlands, and Belgium.</li>
+      </ul>
+      <div class="contact-social">
+        {%- if settings.social_instagram != blank -%}<a class="btn btn-outline" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
+        {%- if settings.social_facebook != blank -%}<a class="btn btn-outline" href="{{ settings.social_facebook }}" target="_blank" rel="noopener">Facebook</a>{%- endif -%}
+        {%- if settings.social_tiktok != blank -%}<a class="btn btn-outline" href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">TikTok</a>{%- endif -%}
+      </div>
+      <p class="contact-faq-cta"><a href="{{ routes.root_url }}#faq-preview">Read frequently asked questions</a></p>
+    </div>
+
+    <div class="contact-form-card card-soft reveal">
+      {%- form 'contact', id: 'RoyalBeingContactForm', class: 'contact-form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="form-status form-status--success" role="status">Thank you. Your message has been sent. We will reply to the email you provided.</p>
+        {%- else -%}
+          {%- if form.errors -%}
+            <div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>
+          {%- endif -%}
+          <div class="review-form__grid">
+            <label class="form-field">
+              <span>Name</span>
+              <input type="text" name="contact[name]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" required autocomplete="name">
+            </label>
+            <label class="form-field">
+              <span>Email</span>
+              <input type="email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required autocomplete="email">
+            </label>
+          </div>
+          <div class="review-form__grid">
+            <label class="form-field">
+              <span>Phone <em>(optional)</em></span>
+              <input type="tel" name="contact[phone]" autocomplete="tel">
+            </label>
+            <label class="form-field">
+              <span>Order number <em>(optional)</em></span>
+              <input type="text" name="contact[order_number]" autocomplete="off">
+            </label>
+          </div>
+          <label class="form-field">
+            <span>Subject</span>
+            <select name="contact[subject]" required>
+              <option value="Order question">Order question</option>
+              <option value="Product question">Product question</option>
+              <option value="Damaged shipment">Damaged shipment</option>
+              <option value="Wholesale or press">Wholesale or press</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>Message</span>
+            <textarea name="contact[body]" rows="6" required></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary btn-block">Send message</button>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+

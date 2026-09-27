@@ -292,6 +292,37 @@
   </div>
 </section>
 
+<section class="section rb-pdp-reviews" id="product-reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Community</p>
+      <h2>Reviews for {{ product.title }}</h2>
+    </div>
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}
+        <div class="grev__app" {{ block.shopify_attributes }}>{% render block %}</div>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- form 'contact', id: 'RoyalBeingProductReview', class: 'review-form card-soft' -%}
+      <input type="hidden" name="contact[subject]" value="Review: {{ product.title | escape }}">
+      <input type="hidden" name="contact[product]" value="{{ product.title | escape }}">
+      <input type="hidden" name="contact[product_url]" value="{{ shop.url }}{{ product.url }}">
+      {%- if form.posted_successfully? -%}
+        <p class="form-status form-status--success" role="status">Thank you. Your review of {{ product.title }} was sent.</p>
+      {%- else -%}
+        {%- if form.errors -%}<div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+        <div class="review-form__grid">
+          <label class="form-field"><span>Name</span><input type="text" name="contact[name]" required autocomplete="name"></label>
+          <label class="form-field"><span>Email</span><input type="email" name="contact[email]" required autocomplete="email"></label>
+        </div>
+        <label class="form-field"><span>Your review</span><textarea name="contact[body]" rows="4" required></textarea></label>
+        <p class="note">Photo and video reviews display through the review app block above when a media-capable review app is installed on this store.</p>
+        <button type="submit" class="btn btn-primary">Submit review</button>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+
 {%- if section.settings.show_related -%}
   {%- assign related = product.collections.first -%}
   {%- if related -%}
@@ -328,6 +359,9 @@
     { "type": "text", "id": "ships_note", "label": "Shipping note", "default": "Handmade in small batches · Made in USA" },
     { "type": "textarea", "id": "caution", "label": "Fallback safety disclaimer", "default": "For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children." },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true }
+  ],
+  "blocks": [
+    { "type": "@app" }
   ]
 }
 {% endschema %}

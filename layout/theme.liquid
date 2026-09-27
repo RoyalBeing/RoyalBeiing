@@ -27,6 +27,14 @@
   {{ 'rb-main.css' | asset_url | stylesheet_tag }}
   {{ content_for_header }}
   <!-- rb-theme:homepage-v3-forced -->
+  <script>
+    (function () {
+      var p = (location.pathname || '').replace(/\/$/, '');
+      if (/\/pages\/(about|about-us|philosophy|terms)(-conditions)?$/.test(p)) {
+        document.documentElement.classList.add('rb-about-route');
+      }
+    })();
+  </script>
 </head>
 <body class="template-{{ template.name }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix }}{% endif %}">
   <a class="skip-link" href="#main">Skip to content</a>
