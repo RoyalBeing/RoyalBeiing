@@ -6,7 +6,10 @@
 {%- if rec == blank and rb_handle != blank -%}
   {%- capture rb_json_signature -%}{% render 'rb-soaps-signature' %}{%- endcapture -%}
   {%- assign rb_pack_signature = rb_json_signature | parse_json -%}
-  {%- assign rec = rb_pack_signature[rb_handle] -%}
+  {%- assign rec = blank -%}
+  {%- for soap in rb_pack_signature -%}
+    {%- if soap.handle == rb_handle -%}{%- assign rec = soap -%}{%- endif -%}
+  {%- endfor -%}
 {%- endif -%}
 {%- if rec != blank -%}
 {%- assign price_cents = rec.price | times: 100 | round -%}

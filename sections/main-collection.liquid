@@ -112,28 +112,17 @@
     <div class="product-grid product-grid--pop reveal">
       {%- paginate collection.products by section.settings.products_per_page -%}
         {%- for product in collection.products -%}
-          {%- liquid
-            assign rb_record = rb_pack_royal[product.handle]
-            if rb_record == blank
-              assign rb_record = rb_pack_signature[product.handle]
-            endif
-            if rb_record == blank
-              assign rb_record = rb_pack_common[product.handle]
-            endif
-            if rb_record == blank
-              assign rb_record = rb_pack_duke[product.handle]
-            endif
-            if rb_record == blank
-              assign rb_record = rb_pack_kid[product.handle]
-            endif
-          -%}
+          {% include 'rb-product-record' %}
           {% include 'product-card' %}
         {%- else -%}
           {%- if extra_here == 0 -%}<p>No products in this collection yet.</p>{%- endif -%}
         {%- endfor -%}
         {%- if extra_here > 0 and paginate.current_page == 1 -%}
           {%- for h in rb_orphan_list -%}
-            {%- assign rec = rb_pack_signature[h] -%}
+            {%- assign rec = blank -%}
+            {%- for soap in rb_pack_signature -%}
+              {%- if soap.handle == h -%}{%- assign rec = soap -%}{%- endif -%}
+            {%- endfor -%}
             {%- if rec != blank -%}
               {%- if collection.handle == 'all' or rec.collection == col_key -%}
                 {%- assign price_cents = rec.price | times: 100 | round -%}

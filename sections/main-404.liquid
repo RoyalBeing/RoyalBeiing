@@ -12,7 +12,9 @@
 {%- assign virt_handle = pth | split: '/products/' | last | split: '/' | first | split: '?' | first -%}
 {%- assign virt_rec = blank -%}
 {%- if pth contains '/products/' and virt_handle != blank -%}
-  {%- assign virt_rec = rb_pack_signature[virt_handle] -%}
+  {%- for soap in rb_pack_signature -%}
+    {%- if soap.handle == virt_handle -%}{%- assign virt_rec = soap -%}{%- endif -%}
+  {%- endfor -%}
 {%- endif -%}
 {%- assign is_virtual_product = false -%}
 {%- if virt_rec != blank -%}

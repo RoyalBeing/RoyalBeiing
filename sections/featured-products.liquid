@@ -44,41 +44,13 @@
           {%- comment -%} Active / available products first {%- endcomment -%}
           {%- for product in catalog -%}
             {%- if product.available -%}
-              {%- liquid
-                assign rb_record = rb_pack_royal[product.handle]
-                if rb_record == blank
-                  assign rb_record = rb_pack_signature[product.handle]
-                endif
-                if rb_record == blank
-                  assign rb_record = rb_pack_common[product.handle]
-                endif
-                if rb_record == blank
-                  assign rb_record = rb_pack_duke[product.handle]
-                endif
-                if rb_record == blank
-                  assign rb_record = rb_pack_kid[product.handle]
-                endif
-              -%}
+              {% include 'rb-product-record' %}
               <div class="pcar__slide" data-pcar-slide>{% include 'product-card-carousel' %}</div>
             {%- endif -%}
           {%- endfor -%}
           {%- for product in catalog -%}
             {%- unless product.available -%}
-              {%- liquid
-                assign rb_record = rb_pack_royal[product.handle]
-                if rb_record == blank
-                  assign rb_record = rb_pack_signature[product.handle]
-                endif
-                if rb_record == blank
-                  assign rb_record = rb_pack_common[product.handle]
-                endif
-                if rb_record == blank
-                  assign rb_record = rb_pack_duke[product.handle]
-                endif
-                if rb_record == blank
-                  assign rb_record = rb_pack_kid[product.handle]
-                endif
-              -%}
+              {% include 'rb-product-record' %}
               <div class="pcar__slide" data-pcar-slide>{% include 'product-card-carousel' %}</div>
             {%- endunless -%}
           {%- endfor -%}

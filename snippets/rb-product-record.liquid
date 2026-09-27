@@ -25,7 +25,11 @@
 {%- assign rb_record = blank -%}
 {%- if rb_soap_json != blank -%}
   {%- assign rb_soap_pack = rb_soap_json | parse_json -%}
-  {%- assign rb_record = rb_soap_pack[rb_handle] -%}
+  {%- for soap in rb_soap_pack -%}
+    {%- if soap.handle == rb_handle -%}
+      {%- assign rb_record = soap -%}
+    {%- endif -%}
+  {%- endfor -%}
 {%- endif -%}
 {%- assign rb_is_robe = false -%}
 {%- assign rb_is_soap = false -%}
