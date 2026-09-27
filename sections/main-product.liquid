@@ -333,7 +333,7 @@
           {%- assign shown = 0 -%}
           {%- for p in related.products -%}
             {%- if p.id != product.id and shown < 4 -%}
-              {% render 'product-card', product: p, rb_record: rb_catalog.products[p.handle] %}
+              {% render 'product-card', product: p %}
               {%- assign shown = shown | plus: 1 -%}
             {%- endif -%}
           {%- endfor -%}

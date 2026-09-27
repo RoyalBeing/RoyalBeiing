@@ -102,7 +102,8 @@
     <div class="product-grid product-grid--pop reveal">
       {%- paginate collection.products by section.settings.products_per_page -%}
         {%- for product in collection.products -%}
-          {% render 'product-card', product: product, rb_record: rb_catalog.products[product.handle] %}
+          {%- assign rb_record = rb_catalog.products[product.handle] -%}
+          {% include 'product-card' %}
         {%- else -%}
           {%- if extra_here == 0 -%}<p>No products in this collection yet.</p>{%- endif -%}
         {%- endfor -%}
@@ -111,7 +112,8 @@
             {%- assign rec = rb_catalog.products[h] -%}
             {%- if rec != blank -%}
               {%- if collection.handle == 'all' or rec.collection == col_key -%}
-                {% render 'rb-catalog-card', rb_record: rec %}
+                {%- assign card_style = '' -%}
+                {% include 'rb-catalog-card' %}
               {%- endif -%}
             {%- endif -%}
           {%- endfor -%}

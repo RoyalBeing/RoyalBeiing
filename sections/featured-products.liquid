@@ -34,19 +34,22 @@
           {%- comment -%} Active / available products first {%- endcomment -%}
           {%- for product in catalog -%}
             {%- if product.available -%}
-              <div class="pcar__slide" data-pcar-slide>{% render 'product-card-carousel', product: product, rb_record: rb_catalog.products[product.handle] %}</div>
+              {%- assign rb_record = rb_catalog.products[product.handle] -%}
+              <div class="pcar__slide" data-pcar-slide>{% include 'product-card-carousel' %}</div>
             {%- endif -%}
           {%- endfor -%}
           {%- for product in catalog -%}
             {%- unless product.available -%}
-              <div class="pcar__slide" data-pcar-slide>{% render 'product-card-carousel', product: product, rb_record: rb_catalog.products[product.handle] %}</div>
+              {%- assign rb_record = rb_catalog.products[product.handle] -%}
+              <div class="pcar__slide" data-pcar-slide>{% include 'product-card-carousel' %}</div>
             {%- endunless -%}
           {%- endfor -%}
           {%- if rb_orphan_count > 0 -%}
             {%- for h in rb_orphan_list -%}
               {%- assign rec = rb_catalog.products[h] -%}
               {%- if rec != blank -%}
-                <div class="pcar__slide" data-pcar-slide>{% render 'rb-catalog-card', rb_record: rec, card_style: 'carousel' %}</div>
+                {%- assign card_style = 'carousel' -%}
+                <div class="pcar__slide" data-pcar-slide>{% include 'rb-catalog-card' %}</div>
               {%- endif -%}
             {%- endfor -%}
           {%- endif -%}

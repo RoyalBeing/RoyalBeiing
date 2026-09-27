@@ -1,4 +1,5 @@
 {%- comment -%} Full PDP for an official catalog soap that does not yet exist as a Shopify product. {%- endcomment -%}
+{%- assign rec = virt_rec -%}
 {%- if rec == blank -%}
   {%- assign rec = rb_catalog.products[rb_handle] -%}
 {%- endif -%}

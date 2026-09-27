@@ -20,7 +20,7 @@
   {% render 'rb-about-page' %}
 </div>
 <div class="rb-virtual-product"{% unless is_virtual_product %} hidden{% endunless %}>
-  {% render 'rb-virtual-product', rec: virt_rec, rb_catalog: rb_catalog, rb_handle: virt_handle %}
+  {% include 'rb-virtual-product' %}
 </div>
 <div class="rb-404-fallback"{% if is_about or is_virtual_product %} hidden{% endif %}>
 <section class="section" style="min-height:60vh;display:grid;place-items:center" {{ section.shopify_attributes }}>
