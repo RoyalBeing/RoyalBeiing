@@ -2,7 +2,7 @@
   {%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
   {%- assign rb_catalog = rb_catalog_json | parse_json -%}
 {%- endif -%}
-{%- assign rb_pg = rb_catalog['pages'] -%}
+{%- assign rb_pg = rb_catalog.about_copy | default: rb_catalog.pages -%}
 <section class="about-page">
   <header class="page-hero">
     <div class="page-hero__media">
