@@ -19,8 +19,10 @@
 <div class="rb-about-virtual"{% unless is_about %} hidden{% endunless %}>
   {% render 'rb-about-page' %}
 </div>
-<div class="rb-virtual-product"{% unless is_virtual_product %} hidden{% endunless %}>
-  {% include 'rb-virtual-product' %}
+<div class="rb-virtual-product">
+  {% render 'rb-virtual-product', rb_handle: 'watermelon-fusion' %}
+  {% render 'rb-virtual-product', rb_handle: 'herbal-galaxy-renewal' %}
+  {% render 'rb-virtual-product', rb_handle: 'sweet-madagascar' %}
 </div>
 <div class="rb-404-fallback"{% if is_about or is_virtual_product %} hidden{% endif %}>
 <section class="section" style="min-height:60vh;display:grid;place-items:center" {{ section.shopify_attributes }}>
@@ -49,12 +51,18 @@
   }
   var m = p.match(/\/products\/([a-z0-9-]+)$/i);
   var virtual = document.querySelector('.rb-virtual-product');
-  if (m && virtual && virtual.querySelector('[data-virtual-product="' + m[1] + '"]')) {
-    document.documentElement.classList.add('rb-product-route');
-    var heading = virtual.querySelector('h1');
-    if (heading) document.title = heading.textContent + ' · Royal Being';
-    virtual.hidden = false;
-    if (fallback) { fallback.hidden = true; }
+  if (m && virtual) {
+    var match = virtual.querySelector('[data-virtual-product="' + m[1] + '"]');
+    if (match) {
+      document.documentElement.classList.add('rb-product-route');
+      var heading = match.querySelector('h1');
+      if (heading) document.title = heading.textContent + ' · Royal Being';
+      virtual.hidden = false;
+      Array.prototype.forEach.call(virtual.querySelectorAll('[data-virtual-product]'), function (el) {
+        el.hidden = el.getAttribute('data-virtual-product') !== m[1];
+      });
+      if (fallback) { fallback.hidden = true; }
+    }
   }
 })();
 </script>

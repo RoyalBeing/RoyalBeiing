@@ -1,6 +1,9 @@
-{%- comment -%} Full PDP for an official catalog soap that does not yet exist as a Shopify product. {%- endcomment -%}
-{%- assign rec = virt_rec -%}
-{%- if rec == blank -%}
+{%- comment -%} Full PDP for an official catalog soap that does not yet exist as a Shopify product. Pass rb_handle as a string. {%- endcomment -%}
+{%- if rb_catalog == blank -%}
+  {%- capture rb_catalog_json -%}{% render 'rb-catalog-data' %}{%- endcapture -%}
+  {%- assign rb_catalog = rb_catalog_json | parse_json -%}
+{%- endif -%}
+{%- if rec == blank and rb_handle != blank -%}
   {%- assign rec = rb_catalog.products[rb_handle] -%}
 {%- endif -%}
 {%- if rec != blank -%}
