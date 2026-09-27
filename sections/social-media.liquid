@@ -15,10 +15,6 @@
         if fb == blank
           assign fb = section.settings.facebook_url
         endif
-        assign tt = settings.social_tiktok
-        if tt == blank
-          assign tt = section.settings.tiktok_url
-        endif
         if ig == blank
           assign ig = 'https://www.instagram.com/royalbeing2026/'
         endif
@@ -28,9 +24,6 @@
       {%- endif -%}
       {%- if section.settings.facebook_label != blank and fb != blank -%}
         <a class="btn btn-outline" href="{{ fb }}" target="_blank" rel="noopener">{{ section.settings.facebook_label }}</a>
-      {%- endif -%}
-      {%- if section.settings.tiktok_label != blank and tt != blank -%}
-        <a class="btn btn-outline" href="{{ tt }}" target="_blank" rel="noopener">{{ section.settings.tiktok_label }}</a>
       {%- endif -%}
     </div>
   </div>
