@@ -39,7 +39,7 @@
             "settings": {
               "fallback_asset": "rb-hero-royal.jpg",
               "panel": "left",
-              "object_position": "78% center",
+              "object_position": "78% 10%",
               "eyebrow": "THE ROYAL COLLECTION",
               "heading": "Turn Your Daily Cleanse Into a Royal Ritual",
               "text": "Luxurious herbal soaps, handmade in small batches to nourish your skin and elevate every moment of self-care.",
@@ -52,7 +52,7 @@
             "settings": {
               "fallback_asset": "rb-hero-duke.jpg",
               "panel": "right",
-              "object_position": "18% center",
+              "object_position": "50% 38%",
               "eyebrow": "THE ROYAL DUKE COLLECTION",
               "heading": "Refined Care for the Modern Gentleman",
               "text": "Bold, long-lasting herbal bars with rich woods, warm spices, and distinguished character.",
@@ -65,7 +65,7 @@
             "settings": {
               "fallback_asset": "rb-hero-kid.jpg",
               "panel": "left",
-              "object_position": "82% center",
+              "object_position": "50% 22%",
               "eyebrow": "THE ROYAL KID HERBAL COLLECTION",
               "heading": "Gentle Rituals for Little Royal Beings",
               "text": "Thoughtfully crafted herbal soaps created to make bath time gentle, joyful, and special.",

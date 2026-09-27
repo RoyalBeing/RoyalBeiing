@@ -82,7 +82,7 @@
       {%- comment -%}Default three collection slides{%- endcomment -%}
       <div class="hero__slide hero__slide--panel-left is-active" data-slide role="group" aria-roledescription="slide" aria-label="1 of 3">
         <div class="hero__media">
-          <img src="{{ 'rb-hero-royal.jpg' | asset_url }}" alt="The Royal Collection" width="2048" height="938" style="object-position: 78% center" loading="eager" fetchpriority="high">
+          <img src="{{ 'rb-hero-royal.jpg' | asset_url }}" alt="The Royal Collection" width="2048" height="938" style="object-position: 78% 10%" loading="eager" fetchpriority="high">
         </div>
         <div class="hero__panel">
           <div class="hero__inner">
@@ -95,7 +95,7 @@
       </div>
       <div class="hero__slide hero__slide--panel-right" data-slide role="group" aria-roledescription="slide" aria-label="2 of 3" aria-hidden="true">
         <div class="hero__media">
-          <img src="{{ 'rb-hero-duke.jpg' | asset_url }}" alt="The Royal Duke Collection" width="2048" height="936" style="object-position: 18% center" loading="lazy">
+          <img src="{{ 'rb-hero-duke.jpg' | asset_url }}" alt="The Royal Duke Collection" width="2048" height="936" style="object-position: 50% 38%" loading="lazy">
         </div>
         <div class="hero__panel">
           <div class="hero__inner">
@@ -108,7 +108,7 @@
       </div>
       <div class="hero__slide hero__slide--panel-left" data-slide role="group" aria-roledescription="slide" aria-label="3 of 3" aria-hidden="true">
         <div class="hero__media">
-          <img src="{{ 'rb-hero-kid.jpg' | asset_url }}" alt="The Royal Kid Herbal Collection" width="2048" height="936" style="object-position: 82% center" loading="lazy">
+          <img src="{{ 'rb-hero-kid.jpg' | asset_url }}" alt="The Royal Kid Herbal Collection" width="2048" height="936" style="object-position: 50% 22%" loading="lazy">
         </div>
         <div class="hero__panel">
           <div class="hero__inner">
@@ -159,7 +159,7 @@
           { "value": "left", "label": "Left" },
           { "value": "right", "label": "Right" }
         ], "default": "left" },
-        { "type": "text", "id": "object_position", "label": "Image object-position", "default": "center", "info": "e.g. 78% center" },
+        { "type": "text", "id": "object_position", "label": "Image object-position", "default": "center 16%", "info": "e.g. 78% 14% to keep faces in frame" },
         { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE ROYAL COLLECTION" },
         { "type": "text", "id": "heading", "label": "Heading", "default": "Turn Your Daily Cleanse Into a Royal Ritual" },
         { "type": "textarea", "id": "text", "label": "Text", "default": "Luxurious herbal soaps, handmade in small batches to nourish your skin and elevate every moment of self-care." },
@@ -177,7 +177,7 @@
           "settings": {
             "fallback_asset": "rb-hero-royal.jpg",
             "panel": "left",
-            "object_position": "78% center",
+            "object_position": "78% 10%",
             "eyebrow": "THE ROYAL COLLECTION",
             "heading": "Turn Your Daily Cleanse Into a Royal Ritual",
             "text": "Luxurious herbal soaps, handmade in small batches to nourish your skin and elevate every moment of self-care.",
@@ -189,7 +189,7 @@
           "settings": {
             "fallback_asset": "rb-hero-duke.jpg",
             "panel": "right",
-            "object_position": "18% center",
+            "object_position": "50% 38%",
             "eyebrow": "THE ROYAL DUKE COLLECTION",
             "heading": "Refined Care for the Modern Gentleman",
             "text": "Bold, long-lasting herbal bars with rich woods, warm spices, and distinguished character.",
@@ -201,7 +201,7 @@
           "settings": {
             "fallback_asset": "rb-hero-kid.jpg",
             "panel": "left",
-            "object_position": "82% center",
+            "object_position": "50% 22%",
             "eyebrow": "THE ROYAL KID HERBAL COLLECTION",
             "heading": "Gentle Rituals for Little Royal Beings",
             "text": "Thoughtfully crafted herbal soaps created to make bath time gentle, joyful, and special.",
