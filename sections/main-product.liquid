@@ -1,5 +1,5 @@
 {%- include 'rb-product-record' -%}
-<!-- rb-debug rec={{ rb_record.title }} handle={{ product.handle }} -->
+<!-- rb-debug rec={{ rb_record.title }} json={{ rb_soap_json.size }} handle={{ rb_handle }} -->
 {%- assign current = product.selected_or_first_available_variant -%}
 {%- liquid
   assign soap_mto = false

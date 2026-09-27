@@ -1,21 +1,26 @@
-{%- comment -%} Load official PDF soap record without a too-large parse_json. {%- endcomment -%}
+{%- comment -%} Load official PDF soap record from a small per-collection JSON pack. {%- endcomment -%}
 {%- capture rb_shared_json -%}{% render 'rb-catalog-shared' %}{%- endcapture -%}
 {%- assign rb_catalog = rb_shared_json | parse_json -%}
 {%- assign rb_handle = product.handle -%}
-{%- if rb_handle == 'herbal-galaxy-renewal-soap' -%}{%- assign rb_handle = 'herbal-galaxy-renewal' -%}
-{%- elsif rb_handle == 'anti-aging-herbal-soap' -%}{%- assign rb_handle = 'anti-aging-herbal' -%}
-{%- elsif rb_handle == 'this-iris' -%}{%- assign rb_handle = 'the-iris' -%}{%- endif -%}
+{%- if rb_handle == 'herbal-galaxy-renewal-soap' -%}
+  {%- assign rb_handle = 'herbal-galaxy-renewal' -%}
+{%- elsif rb_handle == 'anti-aging-herbal-soap' -%}
+  {%- assign rb_handle = 'anti-aging-herbal' -%}
+{%- elsif rb_handle == 'this-iris' -%}
+  {%- assign rb_handle = 'the-iris' -%}
+{%- endif -%}
+{%- assign rb_handle_key = ',' | append: rb_handle | append: ',' -%}
 {%- assign rb_soap_json = '' -%}
-{%- if rb_handle == 'glow-rify' or rb_handle == 'the-rose-garden' or rb_handle == 'fresh-floral-fiesta' or rb_handle == 'the-enchanted-garden' or rb_handle == 'gilded-age' or rb_handle == 'the-reiny' or rb_handle == 'the-duchess' -%}
-{%- capture rb_soap_json -%}{% render 'rb-soaps-royal' %}{%- endcapture -%}
-{%- elsif rb_handle == 'african-rhapsody' or rb_handle == 'aquatic-escape' or rb_handle == 'sweet-madagascar' or rb_handle == 'melanin-popping' or rb_handle == 'turmeric-swirl' or rb_handle == 'charcoal-moment' or rb_handle == 'islander' or rb_handle == 'watermelon-fusion' or rb_handle == 'zen-moment' or rb_handle == 'herbal-galaxy-renewal' -%}
-{%- capture rb_soap_json -%}{% render 'rb-soaps-signature' %}{%- endcapture -%}
-{%- elsif rb_handle == 'anti-aging-herbal' or rb_handle == 'aloe-vera-wave' or rb_handle == 'beef-tallow' or rb_handle == 'blissful-lavender' or rb_handle == 'detoxify' or rb_handle == 'citrus-heaven' or rb_handle == 'calm' -%}
-{%- capture rb_soap_json -%}{% render 'rb-soaps-common' %}{%- endcapture -%}
-{%- elsif rb_handle == 'the-ethan' or rb_handle == 'the-aristocrat' or rb_handle == 'woody' or rb_handle == 'bamboozled' or rb_handle == 'teakwood' -%}
-{%- capture rb_soap_json -%}{% render 'rb-soaps-duke' %}{%- endcapture -%}
-{%- elsif rb_handle == 'the-chloe' or rb_handle == 'the-bodhi' or rb_handle == 'the-matthew' or rb_handle == 'the-iris' -%}
-{%- capture rb_soap_json -%}{% render 'rb-soaps-kid' %}{%- endcapture -%}
+{%- if ',glow-rify,the-rose-garden,fresh-floral-fiesta,the-enchanted-garden,gilded-age,the-reiny,the-duchess,' contains rb_handle_key -%}
+  {%- capture rb_soap_json -%}{% render 'rb-soaps-royal' %}{%- endcapture -%}
+{%- elsif ',african-rhapsody,aquatic-escape,sweet-madagascar,melanin-popping,turmeric-swirl,charcoal-moment,islander,watermelon-fusion,zen-moment,herbal-galaxy-renewal,' contains rb_handle_key -%}
+  {%- capture rb_soap_json -%}{% render 'rb-soaps-signature' %}{%- endcapture -%}
+{%- elsif ',anti-aging-herbal,aloe-vera-wave,beef-tallow,blissful-lavender,detoxify,citrus-heaven,calm,' contains rb_handle_key -%}
+  {%- capture rb_soap_json -%}{% render 'rb-soaps-common' %}{%- endcapture -%}
+{%- elsif ',the-ethan,the-aristocrat,woody,bamboozled,teakwood,' contains rb_handle_key -%}
+  {%- capture rb_soap_json -%}{% render 'rb-soaps-duke' %}{%- endcapture -%}
+{%- elsif ',the-chloe,the-bodhi,the-matthew,the-iris,' contains rb_handle_key -%}
+  {%- capture rb_soap_json -%}{% render 'rb-soaps-kid' %}{%- endcapture -%}
 {%- endif -%}
 {%- assign rb_record = blank -%}
 {%- if rb_soap_json != blank -%}
@@ -25,6 +30,10 @@
 {%- assign rb_is_robe = false -%}
 {%- assign rb_is_soap = false -%}
 {%- if rb_catalog.robe.handles contains product.handle or product.type == 'Robe' or product.tags contains 'Robe' -%}
-{%- assign rb_is_robe = true -%}{%- endif -%}
+  {%- assign rb_is_robe = true -%}
+{%- endif -%}
 {%- if rb_record != blank or product.type == 'Herbal Soap' or product.tags contains 'Herbal Soap' -%}
-{%- unless rb_is_robe -%}{%- assign rb_is_soap = true -%}{%- endunless -%}{%- endif -%}
+  {%- unless rb_is_robe -%}
+    {%- assign rb_is_soap = true -%}
+  {%- endunless -%}
+{%- endif -%}
