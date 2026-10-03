@@ -2118,13 +2118,16 @@ body.grev-lock{overflow:hidden}
 .robeing-media{
   border-radius:var(--radius-lg);
   overflow:hidden;
-  background:#1a1a1a;
-  aspect-ratio:3/4;
+  background:transparent;
+  aspect-ratio:614/930;
   width:100%;
+}
+.robeing-section--queen .robeing-media{
+  aspect-ratio:819/1024;
 }
 .robeing-media img{
   width:100%;height:100%;
-  object-fit:contain;
+  object-fit:cover;
   object-position:center;
   display:block;
 }
@@ -2231,7 +2234,6 @@ body.grev-lock{overflow:hidden}
   .robeing-visual{display:contents}
   .robeing-media{
     order:2;
-    aspect-ratio:3/4;
     max-width:none;
     max-height:none;
     width:100%;

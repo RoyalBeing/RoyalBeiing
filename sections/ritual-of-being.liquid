@@ -30,7 +30,7 @@
 
       assign img_alt = section.settings.image_alt
       if img_alt == blank
-        assign img_alt = 'Royal Being male ambassador holding The Charcoal Moment soap in a dark luxury spa setting'
+        assign img_alt = 'Hands holding a pink Royal Being soap bar'
       endif
     -%}
 
@@ -48,17 +48,17 @@
                 decoding="async"
                 width="{{ section.settings.image.width | default: 900 }}"
                 height="{{ section.settings.image.height | default: 1200 }}"
-                style="object-position: {{ section.settings.image_position | default: '52% 72%' }};"
+                style="object-position: center;"
               >
             {%- else -%}
               <img
-                src="{{ 'rb-ritual-being.jpg' | asset_url }}"
+                src="{{ 'rb-ritual-hands.jpg' | asset_url }}"
                 alt="{{ img_alt | escape }}"
                 loading="lazy"
                 decoding="async"
-                width="900"
-                height="1200"
-                style="object-position: {{ section.settings.image_position | default: '52% 72%' }};"
+                width="614"
+                height="930"
+                style="object-position: center;"
               >
             {%- endif -%}
           </div>

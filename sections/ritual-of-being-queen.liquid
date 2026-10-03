@@ -32,7 +32,7 @@
 
       assign img_alt = section.settings.image_alt
       if img_alt == blank
-        assign img_alt = 'Royal Being female ambassador holding a sage herbal soap in a steam-filled spa bath'
+        assign img_alt = 'Royal Being spa collage for Watermelon Fusion'
       endif
     -%}
 
@@ -50,17 +50,17 @@
                 decoding="async"
                 width="{{ section.settings.image.width | default: 900 }}"
                 height="{{ section.settings.image.height | default: 1200 }}"
-                style="object-position: {{ section.settings.image_position | default: '50% 42%' }};"
+                style="object-position: center;"
               >
             {%- else -%}
               <img
-                src="{{ 'rb-ritual-being-queen.jpg' | asset_url }}"
+                src="{{ 'rb-ritual-radiant.jpg' | asset_url }}"
                 alt="{{ img_alt | escape }}"
                 loading="lazy"
                 decoding="async"
-                width="900"
-                height="1200"
-                style="object-position: {{ section.settings.image_position | default: '50% 42%' }};"
+                width="819"
+                height="1024"
+                style="object-position: center;"
               >
             {%- endif -%}
           </div>
