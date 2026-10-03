@@ -858,7 +858,7 @@ body.grev-lock{overflow:hidden}
 .rb-social{background:var(--rb-ivory-50)}
 .rb-social__card{
   display:grid;
-  grid-template-columns:minmax(280px,.78fr) 1.35fr;
+  grid-template-columns:minmax(260px,.78fr) minmax(0,1.35fr);
   gap:clamp(28px,4vw,52px);
   align-items:center;
   background:#fff;
@@ -878,6 +878,7 @@ body.grev-lock{overflow:hidden}
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:10px;
   width:100%;
+  min-width:0;
   margin:0;
   padding:0;
   text-align:left;
