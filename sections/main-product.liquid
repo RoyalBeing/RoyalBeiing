@@ -14,7 +14,7 @@
 {%- assign rb_parse_test = '{"ok":"yes"}' | parse_json -%}
 {%- if rb_one_json != blank -%}
   {%- assign rb_one = rb_one_json | parse_json -%}
-  <div id="rb-json-debug" hidden data-len="{{ rb_one_json | size }}" data-test="{{ rb_parse_test.ok }}" data-sci="{{ rb_one.science | truncate: 50 | escape }}" data-title="{{ rb_one.title | escape }}"></div>
+  <div id="rb-json-debug" hidden data-len="{{ rb_one_json | size }}" data-test="{{ rb_parse_test.ok }}" data-bracket="{{ rb_parse_test['ok'] }}" data-raw="{{ rb_parse_test | escape }}" data-sci="{{ rb_one['science'] | truncate: 40 | escape }}"></div>
   {%- if rb_one != blank -%}
     {%- assign rb_record = rb_one -%}
     {%- unless rb_is_robe -%}
