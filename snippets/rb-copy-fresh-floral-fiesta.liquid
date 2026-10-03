@@ -1,0 +1,37 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Clarify your skin and elevate your senses with Fresh Floral Fiesta. This invigorating bar pairs overactive oil-regulating Palmarosa with exotic Jasmine to deeply cleanse without stripping your moisture. It draws out impurities, tightens pores, and leaves your skin feeling crisp, clean, and beautifully balanced.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>Fresh Floral Fiesta is an invigorating, oil-balancing bar designed to clarify, tone, and refresh congested or combination skin. The dynamic pairing of palmarosa and jasmine purifies the complexion while providing a burst of lightweight, non-greasy hydration.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Natural Sebum Control: Palmarosa oil regulates overactive oil glands, keeping breakouts and midday shine at bay</li>
+                    <li>Deeply Clarifying: Natural antiseptic properties cleanse deep within pores to eliminate acne-causing bacteria</li>
+                    <li>Elasticity &amp; Firming: Jasmine extract promotes collagen synthesis improving skin tone and keeping the complexion firm</li>
+                    <li>Scar &amp; Blemish Healing: Active botanicals accelerate the fading of post-acne marks and minor skin blemishes</li>
+                    <li>Lightweight Hydration: The formula delivers essential moisture to dry areas without clogging pores or feeling heavy</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Oily, combination, or congested skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Goats Milk, Palmarosa Oil, Rosewood Oil, Ylang Ylang, Geranium Oil, Organic Rose Oil, Neroli Oil, Organic Lavender Oil, Jasmine Oil, Organic Coconut Oil, Organic Chamomile Roman, Clary Sage Oil, Japanese Magnolia Oil and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Massage into damp skin daily for a refreshing, deeply purifying cleanse.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

@@ -1,28 +1,28 @@
 {%- comment -%} Full PDP for an official catalog soap that does not yet exist as a Shopify product. Pass rb_handle as a string. {%- endcomment -%}
-{%- if rb_catalog == blank -%}
-  {%- capture rb_shared_json -%}{% render 'rb-catalog-shared' %}{%- endcapture -%}
-  {%- assign rb_shared_json = rb_shared_json | strip -%}
-  {%- assign rb_catalog = rb_shared_json | parse_json -%}
-{%- endif -%}
-{%- if rec == blank and rb_handle != blank -%}
-  {%- capture rb_one_json -%}{% render 'rb-soap-json', rb_handle: rb_handle %}{%- endcapture -%}
-  {%- assign rb_one_json = rb_one_json | strip -%}
-  {%- if rb_one_json != blank -%}
-    {%- assign rec = rb_one_json | parse_json -%}
-  {%- endif -%}
-{%- endif -%}
-{%- if rec != blank -%}
-{%- assign price_cents = rec.price | times: 100 | round -%}
-{%- assign col_handle = rec.collection -%}
-{%- if col_handle == 'duke' -%}{%- assign col_handle = 'royal-duke' -%}
-{%- elsif col_handle == 'kid' -%}{%- assign col_handle = 'royal-kid' -%}
-{%- endif -%}
-<section class="section rb-virtual-pdp" data-virtual-product="{{ rec.handle | escape }}">
+{%- liquid
+  assign v_title = blank
+  assign v_price = blank
+  case rb_handle
+    when 'watermelon-fusion'
+      assign v_title = 'Watermelon Fusion'
+      assign v_price = '18.99'
+    when 'herbal-galaxy-renewal'
+      assign v_title = 'Herbal Galaxy Renewal Soap'
+      assign v_price = '14'
+    when 'sweet-madagascar'
+      assign v_title = 'Sweet Madagascar'
+      assign v_price = '21.99'
+  endcase
+  assign v_hero = 'rb-p-' | append: rb_handle | append: '.jpg'
+  assign price_cents = v_price | times: 100 | round
+-%}
+{%- if v_title != blank -%}
+<section class="section rb-virtual-pdp" data-virtual-product="{{ rb_handle | escape }}">
   <div class="wrap">
     <nav class="breadcrumbs">
       <a href="{{ routes.root_url }}">Home</a> /
-      <a href="/collections/{{ col_handle }}">{{ rec.collection_title }}</a> /
-      {{ rec.title }}
+      <a href="/collections/signature">The Signature Collection</a> /
+      {{ v_title }}
     </nav>
 
     <div class="pdp">
@@ -32,69 +32,29 @@
           <div class="pdp__main-img pdp__main-img--pop" id="pdp-main-img">
             <img
               data-pdp-stage
-              src="{{ rec.hero | asset_url }}"
-              alt="{{ rec.title | escape }}"
+              src="{{ v_hero | asset_url }}"
+              alt="{{ v_title | escape }}"
               width="1400"
               height="1400"
             >
           </div>
           <button type="button" class="pdp__nav pdp__nav--next" data-pdp-next aria-label="Next image">›</button>
         </div>
-        <div class="pdp__thumbs" data-pdp-thumbs>
-          {%- assign thumb_i = 0 -%}
-          {%- for asset_name in rec.gallery -%}
-            {%- assign thumb_i = thumb_i | plus: 1 -%}
-            <button
-              type="button"
-              class="{% if thumb_i == 1 %}active{% endif %}"
-              data-kind="image"
-              data-src="{{ asset_name | asset_url }}"
-              data-alt="{{ rec.title | escape }}"
-            >
-              <img src="{{ asset_name | asset_url }}" alt="{{ rec.title | escape }} view {{ thumb_i }}" width="200" height="200" loading="lazy">
-            </button>
-          {%- endfor -%}
-          {%- if rec.video != blank -%}
-            <button
-              type="button"
-              class="pdp__thumbs--video"
-              data-kind="video"
-              data-src="{{ rec.video }}"
-              data-alt="{{ rec.title | escape }} film"
-              data-poster="{{ rec.hero | asset_url }}"
-            >
-              <span class="pdp__play">▶</span>
-              <img src="{{ rec.hero | asset_url }}" alt="{{ rec.title | escape }} video" width="200" height="200" loading="lazy">
-            </button>
-          {%- endif -%}
-          {%- if rec.matrix != blank -%}
-            <button
-              type="button"
-              data-kind="image"
-              data-src="{{ rec.matrix | asset_url }}"
-              data-alt="{{ rec.collection_title | escape }} skin type matrix"
-            >
-              <img src="{{ rec.matrix | asset_url }}" alt="{{ rec.collection_title | escape }} matrix" width="200" height="200" loading="lazy">
-            </button>
-          {%- endif -%}
-        </div>
       </div>
 
       <div class="pdp__info">
-        <div class="pdp__coll"><a href="/collections/{{ col_handle }}">{{ rec.collection_title }}</a></div>
-        <h1>{{ rec.title }}</h1>
+        <div class="pdp__coll"><a href="/collections/signature">The Signature Collection</a></div>
+        <h1>{{ v_title }}</h1>
         <span class="badge badge--mto" style="margin-bottom:10px;display:inline-block">Made to order</span>
         <div class="pdp__price">{{ price_cents | money }}</div>
-        {%- if rec.first_glance != blank -%}
-          <p class="lead pdp__glance">{{ rec.first_glance }}</p>
-        {%- endif -%}
+        {%- render 'rb-soap-part', rb_handle: rb_handle, rb_part: 'glance' -%}
 
         {%- form 'contact', id: 'RoyalBeingSoapRequest', class: 'rb-virtual-order' -%}
-          <input type="hidden" name="contact[subject]" value="Order request: {{ rec.title | escape }}">
-          <input type="hidden" name="contact[product]" value="{{ rec.title | escape }}">
-          <input type="hidden" name="contact[product_handle]" value="{{ rec.handle | escape }}">
+          <input type="hidden" name="contact[subject]" value="Order request: {{ v_title | escape }}">
+          <input type="hidden" name="contact[product]" value="{{ v_title | escape }}">
+          <input type="hidden" name="contact[product_handle]" value="{{ rb_handle | escape }}">
           {%- if form.posted_successfully? -%}
-            <p class="form-status form-status--success" role="status">Thank you. Your request for {{ rec.title }} was sent. We will confirm your made-to-order bar shortly.</p>
+            <p class="form-status form-status--success" role="status">Thank you. Your request for {{ v_title }} was sent. We will confirm your made-to-order bar shortly.</p>
           {%- else -%}
             {%- if form.errors -%}<div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
             <p class="pdp__mto">This Signature bar is made to order in about 48 hours. Request it below and we will confirm your order at RoyalBeing@yahoo.com.</p>
@@ -106,7 +66,7 @@
               <input type="number" name="contact[quantity]" min="1" value="1" required>
             </label>
             <label class="form-field"><span>Notes</span>
-              <textarea name="contact[body]" rows="3">Please make {{ rec.title }} ({{ rec.handle }}) for me.</textarea>
+              <textarea name="contact[body]" rows="3">Please make {{ v_title }} ({{ rb_handle }}) for me.</textarea>
             </label>
             <div class="pdp__actions">
               <button type="submit" class="btn btn-primary">Request this soap</button>
@@ -120,64 +80,7 @@
           <span>Handmade in small batches · Made in USA</span>
         </div>
 
-        {%- liquid
-          assign rb_care_copy = rb_catalog.care.soap
-          if rb_care_copy == blank
-            assign rb_care_copy = 'Keep your bar dry between uses on a well-draining soap dish, away from direct streams of water.'
-          endif
-          assign rb_ship_copy = 'Soaps are made to order within approximately 48 hours. Standard retail orders are then hand-packed and shipped within 2-4 business days, excluding major holidays. Shipping timelines provided at checkout are estimates from third-party carriers and are not guaranteed. Royal Being currently ships to the United States, the Netherlands, and Belgium. Risk of loss and title for all merchandise pass to you upon our delivery to the shipping carrier. We are not liable for delayed, lost, stolen, or mis-delivered packages.'
-        -%}
-        <div class="accordion">
-          <div class="acc open">
-            <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
-            <div class="acc__body rte">
-              <h3>The Science and Targeted Therapeutic Benefits</h3>
-              <p>{{ rec.science }}</p>
-              {%- if rec.benefits.size > 0 -%}
-                <h3>Key Skin Benefits</h3>
-                <ul>
-                  {%- for b in rec.benefits -%}
-                    <li>{{ b }}</li>
-                  {%- endfor -%}
-                </ul>
-              {%- endif -%}
-              {%- if rec.collection == 'kid' and rec.ideal_for != blank -%}
-                <p><strong>Best For:</strong> {{ rec.ideal_for }}</p>
-              {%- elsif rec.profile != blank -%}
-                <p><strong>The Profile:</strong> {{ rec.profile }}</p>
-              {%- elsif rec.ideal_for != blank -%}
-                <p><strong>Ideal For:</strong> {{ rec.ideal_for }}</p>
-              {%- endif -%}
-            </div>
-          </div>
-          <div class="acc">
-            <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
-            <div class="acc__body rte"><p>{{ rec.ingredients }}</p></div>
-          </div>
-          <div class="acc">
-            <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
-            <div class="acc__body rte"><p>{{ rec.ritual }}</p></div>
-          </div>
-          <div class="acc">
-            <button type="button" aria-expanded="false">Care<span class="plus">+</span></button>
-            <div class="acc__body rte"><p>{{ rb_care_copy }}</p></div>
-          </div>
-          <div class="acc">
-            <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
-            <div class="acc__body rte">
-              {%- if rec.safety != blank -%}
-                <p><strong>Safety Disclaimer:</strong> {{ rec.safety }}</p>
-              {%- endif -%}
-              {%- if rec.aromatherapy != blank -%}
-                <p><strong>Aromatherapy &amp; Herbal Note:</strong> {{ rec.aromatherapy }}</p>
-              {%- endif -%}
-            </div>
-          </div>
-          <div class="acc">
-            <button type="button" aria-expanded="false">Shipping<span class="plus">+</span></button>
-            <div class="acc__body rte"><p>{{ rb_ship_copy }}</p></div>
-          </div>
-        </div>
+        <div class="accordion">{%- render 'rb-soap-part', rb_handle: rb_handle, rb_part: 'acc' -%}</div>
       </div>
     </div>
   </div>

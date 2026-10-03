@@ -1,0 +1,34 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Your private, evening sanctuary in a bar. Woody combines the rich, creamy warmth of ancient Sandalwood with the smoky, sweet undertones of fine Tobacco leaf. Designed to capture the cozy essence of a leather-bound study, this deeply grounding bar helps you decompress after a long day while delivering intensive, skin-conditioning moisture.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>Woody is a deeply comforting, intensely hydrating remedy built for hard-working, weather-beaten skin. It carries a heavy, smoky aroma reminiscent of a vintage, leather-bound private library. By combining grounding sandalwood with robust tobacco leaf extracts, this emollient block shields your skin from drying out due to cold winds, sweat, or manual labor.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Sandalwood Oil (Santalum Album): Celebrated for centuries as a therapeutic skin healer. It delivers intensive anti-inflammatory relief to raw, chapped, or wind-burned skin tissue while locking in deep hydration</li>
+                    <li>Tobacco Leaf Extract (Nicotiana Tabacum): Packed with skinconditioning bioflavonoids, it serves as a natural soothing agent that calms superficial itchiness and binds moisture to the epidermal layer</li>
+    </ul>
+    <p><strong>The Profile:</strong> Rich, smoky, and ultra-grounding</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Goat's Milk, Cedarwood Oil, Sandalwood Oil, Tobacco Oil, Organic Patchouli Oil, Sweet Orange Oil, Organic Bergamot Oil, Natural Coloring, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Use during a hot evening shower or bath to relax tense muscles and quiet a busy mind.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Unveil silky smooth skin with a taste of the tropics. Islander utilizes natural, enzyme-rich Pineapple extract to gently dissolve dead skin cells and rough patches without harsh scrubbing. Balanced by grounding Clary Sage, this tropical bar brightens dullness to reveal a fresh, polished skin surface underneath.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>Islander brings an enzymatic, gentle micro-peel straight to your shower. It blends the natural Alpha-Hydroxy Acids (AHAs) found in fresh Pineapple extract with the grounding, herbaceous, and endocrine-balancing properties of Clary Sage.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Chemical Exfoliation: Natural bromelain enzymes in the pineapple dissolve dead keratin proteins, softening rough elbows, knees, and texturized skin</li>
+                    <li>Keratosis Pilaris Relief: Helps smooth down annoying "strawberry legs" or tiny arm bumps by preventing pore buildup</li>
+                    <li>Skin Firmness: Clary Sage helps tighten lax skin tissue while promoting a peaceful, steady state of moisture balance</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Rough texture, flaky patches, or dull skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Coconut Milk, Glycerin, Organic Coconut Oil, Honey, Ylang Ylang Oil, Lime Oil, Lemon Oil, Orange Oil, Spearmint Oil, Organic Bergamot, Oil, Mango Butter, Vanilla Oil, Pineapple Oil, Ginger Oil, Plumeria Oil, Tea Tree Oil, Vetiver Oil, Organic Pachouli Oil, Clary Sage Oil, Geranium Oil, Organic Frankincense oil, Sandalwood Oil, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Lather onto rough areas (like elbows and knees) for smooth, enzymatic exfoliation.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

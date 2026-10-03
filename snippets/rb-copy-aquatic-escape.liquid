@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Wash away dryness and escape to the coast. Aquatic Escape pairs deeply hydrating, fatty-acid-rich Coconut with the warm, grounding embrace of Sandalwood. Formulated to replenish lost moisture and soothe weatherbeaten skin, this ultra-creamy bar leaves your body touch-ably soft, smooth, and gently scented of sun-warmed paradise.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>Formulated as a creamy escape from daily environmental stress, this ultranourishing bar blends fatty-acid-rich Coconut with a smooth, warm Sandalwood base. It mimics the gentle, comforting warmth of a sun-drenched coastline, working to rebuild dry skin and leave a delicate, sophisticated trail.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Intense Lipid Replenishment: Lauric acid in the coconut oils provides heavy-duty hydration to instantly smooth flaky skin patches</li>
+                    <li>Moisture Barrier Lockdown: Creates a lightweight, protective emollient shield to prevent trans-epidermal water loss in dry climates</li>
+                    <li>Anti-Chafing Comfort: Sandalwood compounds soothe raw irritated, or wind-burned skin, restoring structural elasticity</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Dry, dehydrated, or sensitive skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Goats Milk, Glycerin, Organic Coconut Oil, Lime Oil, Organic Lavender Oil, Organic Violet Oil, East Indian Sandalwood, Hawaiian Sandalwood, Sweet Orange Oil, Organic Grapefruit Oil, Eucalyptus Oil, Seaweed FO, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Smooth over your skin daily to lock in rich, non-greasy hydration.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

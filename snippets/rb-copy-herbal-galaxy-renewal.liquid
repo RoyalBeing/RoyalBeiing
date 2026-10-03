@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Supercharge your morning skin cell renewal. This striking green bar unleashes a powerful combination of nutrient-dense Spirulina and crisp, ultra-cooling Peppermint. While the botanical antioxidants work to revitalize and brighten tired skin tissue, the minty burst instantly shocks your senses awake.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>This striking, cosmic-green bar is engineered to supercharge your morning routine. It infuses a nutrient-dense Spirulina micro-algae complex with an icy, high-potency burst of pure Peppermint essential oil, delivering a shock of energy to sluggish skin cells.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Antioxidant Super-Shield: Spirulina feeds the skin vital amino acids and chlorophyll, accelerating tissue repair and skin metabolism.</li>
+                    <li>Vasoconstriction Activation: The high menthol content in Peppermint contracts blood vessels, rapidly reducing morning puffiness.</li>
+                    <li>Oxygenation Boost: Stimulates surface microcirculation, driving oxygen to the skin layer for an instant, awake complexion.</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Dull, fatigued, or sluggish skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Shea Butter, Goats Milk, Honey, Organic Coconut Oil, Vitamin E Oil, Organic Turmeric Oil, Vanilla Oil, Organic Clove Oil, Eucalyptus Oil, Organic Rose Oil, Organic Peppermint Oil, Spirulina Powder, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Use morning and night to maintain a clear, beautifully balanced baseline.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

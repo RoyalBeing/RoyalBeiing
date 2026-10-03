@@ -9,18 +9,13 @@
     assign rb_handle = 'the-iris'
   endif
 -%}
-{%- capture rb_one_json -%}{% render 'rb-soap-json', rb_handle: rb_handle %}{%- endcapture -%}
-{%- assign rb_one_json = rb_one_json | strip -%}
-{%- assign rb_parse_test = '{"ok":"yes"}' | parse_json -%}
-{%- if rb_one_json != blank -%}
-  {%- assign rb_one = rb_one_json | parse_json -%}
-  <div id="rb-json-debug" hidden data-len="{{ rb_one_json | size }}" data-test="{{ rb_parse_test.ok }}" data-bracket="{{ rb_parse_test['ok'] }}" data-raw="{{ rb_parse_test | escape }}" data-sci="{{ rb_one['science'] | truncate: 40 | escape }}"></div>
-  {%- if rb_one != blank -%}
-    {%- assign rb_record = rb_one -%}
-    {%- unless rb_is_robe -%}
-      {%- assign rb_is_soap = true -%}
-    {%- endunless -%}
-  {%- endif -%}
+{%- assign rb_soap_key = ',' | append: rb_handle | append: ',' -%}
+{%- assign rb_soap_handles = ',african-rhapsody,aloe-vera-wave,anti-aging-herbal,aquatic-escape,bamboozled,beef-tallow,blissful-lavender,calm,charcoal-moment,citrus-heaven,detoxify,fresh-floral-fiesta,gilded-age,glow-rify,herbal-galaxy-renewal,islander,melanin-popping,sweet-madagascar,teakwood,the-aristocrat,the-bodhi,the-chloe,the-duchess,the-enchanted-garden,the-ethan,the-iris,the-matthew,the-reiny,the-rose-garden,turmeric-swirl,watermelon-fusion,woody,zen-moment,' -%}
+{%- assign rb_is_soap = false -%}
+{%- if rb_soap_handles contains rb_soap_key -%}
+  {%- unless rb_is_robe -%}
+    {%- assign rb_is_soap = true -%}
+  {%- endunless -%}
 {%- endif -%}
 {%- assign current = product.selected_or_first_available_variant -%}
 {%- liquid
@@ -146,8 +141,8 @@
           {% render 'price', product: product %}
         </div>
 
-        {%- if rb_record != blank and rb_record.first_glance != blank -%}
-          <p class="lead pdp__glance">{{ rb_record.first_glance }}</p>
+        {%- if rb_is_soap -%}
+          {%- render 'rb-soap-part', rb_handle: rb_handle, rb_part: 'glance' -%}
         {%- elsif rb_is_robe -%}
           <p class="lead pdp__glance">{{ rb_catalog.robe.intro }}</p>
         {%- endif -%}
@@ -237,67 +232,8 @@
           <span>{{ section.settings.ships_note }}</span>
         </div>
 
-        {%- if rb_record != blank and rb_is_robe == false -%}
-          {%- liquid
-            assign rb_care_copy = rb_catalog.care.soap
-            if rb_care_copy == blank
-              assign rb_care_copy = 'Keep your bar dry between uses on a well-draining soap dish, away from direct streams of water.'
-            endif
-            assign rb_ship_copy = 'Soaps are made to order within approximately 48 hours. Standard retail orders are then hand-packed and shipped within 2-4 business days, excluding major holidays. Shipping timelines provided at checkout are estimates from third-party carriers and are not guaranteed. Royal Being currently ships to the United States, the Netherlands, and Belgium. Risk of loss and title for all merchandise pass to you upon our delivery to the shipping carrier. We are not liable for delayed, lost, stolen, or mis-delivered packages.'
-          -%}
-          <div class="accordion">
-            <div class="acc open">
-              <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
-              <div class="acc__body rte">
-                <h3>The Science and Targeted Therapeutic Benefits</h3>
-                <p>{{ rb_record.science }}</p>
-                {%- if rb_record.benefits.size > 0 -%}
-                  <h3>Key Skin Benefits</h3>
-                  <ul>
-                    {%- for b in rb_record.benefits -%}
-                      <li>{{ b }}</li>
-                    {%- endfor -%}
-                  </ul>
-                {%- endif -%}
-                {%- if rb_record.collection == 'kid' and rb_record.ideal_for != blank -%}
-                  <p><strong>Best For:</strong> {{ rb_record.ideal_for }}</p>
-                {%- elsif rb_record.profile != blank -%}
-                  <p><strong>The Profile:</strong> {{ rb_record.profile }}</p>
-                {%- elsif rb_record.ideal_for != blank -%}
-                  <p><strong>Ideal For:</strong> {{ rb_record.ideal_for }}</p>
-                {%- endif -%}
-              </div>
-            </div>
-            <div class="acc">
-              <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
-              <div class="acc__body rte"><p>{{ rb_record.ingredients }}</p></div>
-            </div>
-            <div class="acc">
-              <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
-              <div class="acc__body rte"><p>{{ rb_record.ritual }}</p></div>
-            </div>
-            <div class="acc">
-              <button type="button" aria-expanded="false">Care<span class="plus">+</span></button>
-              <div class="acc__body rte"><p>{{ rb_care_copy }}</p></div>
-            </div>
-            <div class="acc">
-              <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
-              <div class="acc__body rte">
-                {%- if rb_record.safety != blank -%}
-                  <p><strong>Safety Disclaimer:</strong> {{ rb_record.safety }}</p>
-                {%- else -%}
-                  <p><strong>Safety Disclaimer:</strong> {{ section.settings.caution }}</p>
-                {%- endif -%}
-                {%- if rb_record.aromatherapy != blank -%}
-                  <p><strong>Aromatherapy &amp; Herbal Note:</strong> {{ rb_record.aromatherapy }}</p>
-                {%- endif -%}
-              </div>
-            </div>
-            <div class="acc">
-              <button type="button" aria-expanded="false">Shipping<span class="plus">+</span></button>
-              <div class="acc__body rte"><p>{{ rb_ship_copy }}</p></div>
-            </div>
-          </div>
+        {%- if rb_is_soap -%}
+          <div class="accordion">{%- render 'rb-soap-part', rb_handle: rb_handle, rb_part: 'acc' -%}</div>
         {%- else -%}
           <div class="accordion">
             <div class="acc open">

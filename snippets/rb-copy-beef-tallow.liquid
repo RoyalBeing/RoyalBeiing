@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Old-school, zero-nonsense moisture that actually works. Our traditional Beef Tallow bar uses deeply purified tallow to deliver an intense hit of hydration that perfectly mirrors your skin's natural lipids. It sinks deep into the tightest, driest cracks to heal flakiness and lock in a rich, comfortable moisture barrier.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>A return to zero-nonsense, traditional skincare. This old-school bar utilizes deeply purified, premium beef tallow to rescue severely dry, cracked, or flaking skin. Because tallow's lipid profile is almost identical to human sebum, it absorbs with unparalleled efficiency to heal tough skin.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Biocompatible Lipid Supply: Delivers vitamins A, D, E, and K directly into deep cracks to repair severely compromised skin</li>
+                    <li>Heavy-Duty Moisture Lock: Establishes a long-lasting resilient barrier that blocks moisture loss through handwashing or manual labor</li>
+                    <li>Chronic Dryness Relief: Rapidly eliminates ashiness and flaking on tough zones like elbows, knees, knuckles, and heels</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Severely dry, cracked, or flaking skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Pasture Raised, Grass Fed Beef Tallow, Goat's Milk, Oatmeal Base, Honey, Organic Coconut Oil, Organic Olive Oil, Organic Castor Oil, Tea tree Oil, Organic Mint Oil, and Organic Lavender Oil.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Rub directly onto ultra-dry zones like elbows, hands, and heels for maximum lipid relief.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Safe, quiet relief for easily aggravated skin. Calm is formulated with extra-gentle, anti-inflammatory herbs designed to pacify itchy, reactive, or highly sensitive skin types. It avoids harsh cleansers completely, providing a mild, comforting wash that gently cleanses while easing irritation.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>Calm provides quiet, non-irritating relief for highly reactive, itchy, or easily aggravated skin. Completely free from intense scents or active exfoliants, it utilizes ultra-mild, anti-inflammatory herbs to gently cleanse while soothing the skin's nervous system.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Inflammation Suppression: Quickly pacifies angry, itchy, or chafed skin caused by allergies, tight clothing, or dry weather</li>
+                    <li>Ultra-Mild Cleansing Matrix: Cleanses the skin without stripping away the natural oils needed to prevent sensitivity flare-ups</li>
+                    <li>Hypoallergenic Shielding: Leaves a soothing, protective botanical film over reactive areas to prevent further irritation</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Highly sensitive, easily irritated, or itchy skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Oat Milk, Honey, Jojoba Oil, Organic Lavender Oil, Geranium Oil, Ylang Ylang Oil, Organic Chamomile Oil, Tea Tree Oil and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Gently glide the bar over reactive areas without scrubbing, then rinse with lukewarm water.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

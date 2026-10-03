@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Keep your skin strong and resilient. Our Anti-Aging Herbal Soap packs a hardworking blend of antioxidant-rich botanicals to defend your skin against environmental wear and tear. This sturdy bar reinforces your natural barrier, helping to smooth out rough texture and maintain everyday firmness.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>This robust, daily-use bar is crafted to defend your skin against environmental wear and tear without the need for complex chemicals. It infuses a traditional plant oil base with a dense concentrate of antioxidant-rich ground herbs, working to strengthen and condition maturing skin during your normal daily wash.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Environmental Barrier Shield: Natural botanical flavonoids neutralize free radicals from daily pollution and sun exposure</li>
+                    <li>Texture Conditioning: Gently smooths rough, weathered skin patches by delivering steady, plant-based vitamins</li>
+                    <li>Elasticity Support: Helps maintain surface firmness protecting thin or maturing skin from drying out and feeling tight</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Mature, aging, or weathered skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Goats Milk, Oat Milk Base, Honey Base, Kokum Butter, Murumuru Butter, Tucuma Butter, Cupuacu Butter, Ucuuba Butter, Organic Coconut Oil, Organic Frankincense Oil, Organic Lotus Oil, Eucalyptus Oil, Organic Lavender Oil, Organic Chamomile Oil, Japanese Magnolia Oil, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Lather up daily to protect, smooth, and restore your skin's natural resilience.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

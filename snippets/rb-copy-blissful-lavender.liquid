@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Wash away the day's grime and stress. Blissful Lavender uses real lavender buds and pure essential oils to create a comforting, time-tested wash. Perfect for your evening routine, this classic bar calms the skin while its familiar, soothing aroma coaxes your mind into a state of deep, restful relaxation.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>Blissful Lavender is the ultimate evening baseline bar, combining real lavender flower buds with pure essential oils. It is built to serve as a calming, reliable wash that cleanses away the day's physical grime while using classic aromatherapy to prep your mind for rest.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Evening Tension Relief: Lavender vapors interact with your senses in a warm shower to lower stress and encourage relaxation</li>
+                    <li>Gentle Antiseptic Cleanse: Mildly sanitizes the skin surface making it safe for daily maintenance across all skin types</li>
+                    <li>Natural Redness Pacification: Calms minor skin blotchiness or evening irritation, leaving skin comfortable before bed</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Stressed minds and normal, everyday skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Goat's Milk, Organic Lavender Oil, Vitamin E Oil, Organic Bergamot Oil, Organic Mint Oil, Lavender Buds, Natural Coloring and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Use during your nightly bath or shower to wind down and prepare for a deep sleep.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

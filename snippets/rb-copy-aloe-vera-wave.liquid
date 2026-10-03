@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">An instant wave of cooling relief for hardworking skin. Aloe Vera Wave drops a high concentration of pure aloe juice directly into your wash to quench parched, sun-baked, or wind-burned skin. It delivers lightweight moisture that absorbs fast without a greasy residue, leaving skin feeling instantly fresh.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>Aloe Vera Wave brings instant, cooling relief to parched or overheated skin. By replacing standard water content with pure, cold-pressed Aloe Vera plant juice, this bar delivers a lightweight wave of hydration that absorbs rapidly, making it an essential recovery wash for active families.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Instant Thermal Cooling: Rapidly lowers skin temperature sensations after sun exposure or heavy outdoor work</li>
+                    <li>Lightweight Moisture Injection: Floods dehydrated skin layers with clean moisture without leaving a heavy or greasy residue</li>
+                    <li>Epidermal Repair: Active enzymes in aloe stimulate fast recovery for wind-burned, dry, or peeling skin surfaces</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Dehydrated, overheated, or sun-exposed skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Aloe Vera Base, Organic Aloe Vera Gel, Goat's Milk, Organic Aloe Vera Oil, Cucumber Oil, Organic Violet Oil, Natural Coloring and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Perfect for a refreshing rinse after an outdoor workout or a long day in the sun.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

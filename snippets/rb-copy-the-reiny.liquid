@@ -1,0 +1,37 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Wash away the stress of the modern world. The Reiny is a specialized detoxifying bar that pairs sensual Ylang Ylang with crisp Bergamot to combat cortisol-driven breakouts. Its natural antibacterial properties pull toxins from deep within the pores, relieving irritation and bringing skin back to its calm, natural baseline.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>The Reiny is a deeply calming and stress-relieving bar formulated to detoxify, soothe, and balance irritated or congested skin. The powerful synergy of exotic ylang-ylang and crisp bergamot works to wash away environmental impurities while regulating your skin's natural ecosystems.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Stress-Induced Breakout Control: Ylang-ylang regulates cortisoldriven sebum production, preventing stress-related acne flares</li>
+                    <li>Deep Pore Purification: Bergamot acts as a natural antibacterial agent, drawing out deep-seated impurities and toxins</li>
+                    <li>Complexion Balancing: The formula expertly harmonizes dry and oily zones, making it ideal for combination skin</li>
+                    <li>Hyperpigmentation Fading: Natural compounds in bergamot help even out skin tone and fade stubborn dark spots</li>
+                    <li>Cellular Comfort: Anti-inflammatory properties soothe raw, windburned, or itchy skin, restoring a comfortable baseline</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Stressed, acne-prone, or combination skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Glycerin Base, Goat's Milk, Organic Bergamot Oil, Ylang Ylang Oil, Jasmine Oil, Saffron Oil, Cedarwood Oil, Sandalwood Oil, Sweet Orange Oil, Honey, Vanilla Oil, Saffron Strands, Natural Coloring and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Work into a creamy lather to purify acne-prone zones and calm your skin ecosystem.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

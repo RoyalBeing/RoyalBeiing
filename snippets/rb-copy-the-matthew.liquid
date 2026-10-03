@@ -1,0 +1,34 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">The ultimate post-play hydration burst! The Matthew combines juicy Melon, crisp Cucumber, and a relaxing touch of Chamomile. Perfect for washing away a busy afternoon of outdoor adventures, this water-rich bar cools down hot skin, provides lightweight moisture, and leaves a fresh, clean scent.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>The Matthew is the ultimate post-play cool-down remedy. Engineered for active kids coming in from a hot afternoon at the park, sports practice, or backyard mudkitchens, this bar acts as an immediate hydration burst. It delivers a crisp, water-rich wash that leaves your child feeling thoroughly refreshed and lightweight.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Cucumber &amp; Melon Juices: Packed with high water content amino acids, and vital minerals. They instantly lower the skin's surface temperature sensation after heavy sweating while drenching thirsty skin layers in hydration</li>
+                    <li>German Chamomile (Matricaria Chamomilla): Calms any minor heat rashes or chafing caused by tight sportswear or sweat accumulation, leaving skin balanced and quiet</li>
+    </ul>
+    <p><strong>Best For:</strong> Dehydrated, hot, or sweaty skin after outdoor play.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Oatmeal Base, Aloe Vera Base, Shea Butter Base, Organic Coconut Oil, Organic Aloe Vera Oil, Organic Aloe Vera Gel, Organic Castor Oil, Organic Calendula Oil, Organic Roman Chamomile Oil, Sweet Orange Oil, Melon Oil, Organic Cucumber Oil, Oatmeal, Natural Coloring, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Lather up after sports, park trips, or backyard play for an instant, cooling skin refresh.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of infants without supervision.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

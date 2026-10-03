@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Hit the hard reset button on your body. Detoxify is a heavy-duty, deep-cleansing bar built to strip away stubborn sweat, outdoor grime, and daily environmental buildup. It cuts right through surface oils and deep-seated impurities without drying you out, leaving your skin completely clean and refreshed.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>Built as a heavy-duty reset button for working bodies and athletes, Detoxify is a sturdy, deep-cleansing bar engineered to strip away stubborn sweat, outdoor grime, grease, and industrial buildup. It delivers a maximum-strength purge without using harsh chemical detergents.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Industrial Grime Removal: Effectively cuts through heavy engine oils, kitchen grease, stubborn soil, and dried sweat</li>
+                    <li>Bacterial Decongestion: Sanitizes the skin surface to prevent body acne and irritation caused by trapped sweat under workout gear</li>
+                    <li>Skin Refresh: Deeply purifies body pores, leaving the skin feeling entirely unburdened, clean, and breathing freely</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Oily, active, athletic, or grimy skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Goats Milk, Shea Butter, Bentonite Clay, Organic Frankincense Oil, Lemongrass Oil, Organic Patchouli Oil, Organic Grape Seed Oil, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Use after a long shift, heavy workout, or yard work for a thorough, deep-pore purge.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

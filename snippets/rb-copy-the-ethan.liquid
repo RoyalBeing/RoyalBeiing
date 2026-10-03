@@ -1,0 +1,34 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">A bold, magnetic jumpstart for the modern gentleman. The Ethan delivers a sophisticated juxtaposition of warm, comforting Vanilla and sharp, spicy Black Pepper. This high-performance bar uses a nutrient-dense base to gently cleanse thicker masculine skin, leaving behind a confident, sweetyet-spicy trace that commands attention from the moment you step out of the shower.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>The Ethan is an unapologetically bold bar engineered to awaken sluggish skin and charge your morning routine with raw energy. It juxtaposes the comforting warmth of pure vanilla with the fiery, exotic crackle of crushed black pepper essential oil. The result is a sophisticated scent profile that lingers subtly on the skin, providing a confident and complex aura throughout the day.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Black Pepper Essential Oil (Piper Nigrum): A natural circulatory stimulant. When applied topically, it increases local blood flow to warm up cold muscles, ease tension, and drive oxygen to dull skin cells</li>
+                    <li>Vanilla Planifolia Extract: Rich in polyphenols, vanilla acts as a powerful antioxidant that helps soothe skin inflammation and reverse environmental damage while softening rough skin texture</li>
+    </ul>
+    <p><strong>The Profile:</strong> Bold, spicy, and magnetic</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Goat's Milk, Vanilla Oil, Cedarwood Oil, Sandalwood Oil, Amber Oil, Vetiver Oil, Organic Bergamot Oil, Black Pepper, Fresh Linen FO, Sage Oil, White Tea FO, Eucalyptus Oil, Warm Oud FO, Natural Coloring, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Work into a rich lather between your hands, massage over your body, and rinse thoroughly with warm water.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

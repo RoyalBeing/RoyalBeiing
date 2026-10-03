@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Turn your bathroom into a high-clarity steam room. Zen Moment centers your mind and relaxes your body using a classic, maximum-strength aromatherapy pairing of Eucalyptus and Peppermint. It opens up your airways, relieves muscle tightness, and washes away mental fatigue after a long, exhausting day.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>Zen Moment strips away mental and physical exhaustion using maximum aromatherapy concentrations. It packs a concentrated punch of double-distilled Eucalyptus and sharp Peppermint to turn any standard shower stall into a deeply decongesting, clinical steam room.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Muscle Tension Release: The intensive hot-and-cold topical sensation helps loosen up tight shoulder and neck muscles during bathing</li>
+                    <li>Lymphatic Stimulation: The rapid cooling and warming actions activate blood flow, promoting the drainage of local metabolic toxins</li>
+                    <li>Dermal Reset: Re-energizes deadened, fatigued nerve endings across the skin, leaving your whole body feeling intensely tingling and clean</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Stressed minds, tired bodies, and mental fatigue.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Aloe Vera Base, Coconut Oil Base, Organic Aloe Vera Oil, Organic Lavender Oil, Organic Frankincense Oil, Organic Peppermint Oil, Eucalyptus Oil, Tea Tree Oil, Organic Violet Oil, Natural Coloring and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Take a hot shower, let the bar lather under the warm steam, and breathe deeply.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">An immediate morning wake-up call for your skin and senses. Citrus Heaven packs an energizing punch of cold-pressed citrus oils to slice right through morning sluggishness. This bright, uplifting bar naturally neutralizes stubborn body odors and food smells while leaving your skin feeling vibrant and clean.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>Citrus Heaven is a high-utility morning bar packed with an energizing punch of coldpressed citrus essential oils. Designed to slice straight through parental fatigue or early morning sluggishness, this bright bar naturally wakes up your body while serving as a powerful deodorizer.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Natural Scent Neutralization: Safely eliminates stubborn kitchen odors (like garlic or onion) and heavy body odors on contact</li>
+                    <li>Microcirculation Awakening: Bright citrus oils gently stimulate skin surface circulation for a refreshed, healthy look</li>
+                    <li>Clarifying Skin Tonic: Natural alpha-hydroxy properties in the citrus extracts lightly tone the skin, wiping away morning dullness</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Dull, tired skin and morning showers.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Goats Milk, Lime Oil, Tangerine Oil, Sweet Orange Oil, Organic Bergamot Oil, Organic Lemongrass Oil, Organic Grapefruit Oil, Lemon Oil, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Lather up in the morning for an instant burst of mental clarity and freshness.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

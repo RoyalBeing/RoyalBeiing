@@ -1,0 +1,34 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">Elevate your daily grooming into a high-end ritual. The Aristocrat pairs the sharp, sun-drenched brightness of Italian Bergamot with a deep, resinous base of Golden Amber. Multi-layered and undeniably regal, this premium herbal bar thoroughly cleanses away daily impurities while enveloping your skin in a crisp, distinguished aroma.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>The Aristocrat represents the pinnacle of refined, high-end grooming. This bar is designed to mimic the luxurious experience of a premium designer cologne wash. Crisp, sharp, and instantly recognizable Calabrian bergamot cuts through morning brain fog, while a deep, resinous amber base grounds the mind and anchors the fragrance.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Bergamot Essential Oil (Citrus Bergamia): A powerful natural astringent and antibacterial agent. It gently dissolves excess surface sebum and clears out surface impurities without disrupting the skin's moisture balance</li>
+                    <li>Natural Amber Resin: Beyond its warm, grounding aromatherapy benefits that lower cortisol levels, amber extract offers skinconditioning properties that leave a silky, non-greasy finish</li>
+    </ul>
+    <p><strong>The Profile:</strong> Crisp, regal, and multi-layered</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Goat's Milk, Cedarwood, Organic Patchouli Oil, Amber Oil, Warm Oud Oil, Organic Watermelon Seed Oil, Lime Oil, Organic Bergamot Oil, Natural Coloring, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Lather up during your morning shower to set a sophisticated tone for the day ahead.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}

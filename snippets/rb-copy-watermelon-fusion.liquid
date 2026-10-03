@@ -1,0 +1,35 @@
+{%- if rb_part == 'glance' -%}
+<p class="lead pdp__glance">The ultimate thirst-quencher for your skin. Watermelon Fusion infuses an ultra-hydrating, vitamin-packed Watermelon extract base with a crisp, refreshing rush of cool Peppermint. This juicy bar delivers an immediate wave of lightweight moisture, making it the perfect cool-down remedy after a heavy workout or a hot summer day.</p>
+{%- else -%}
+<div class="acc open">
+  <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <h3>The Science and Targeted Therapeutic Benefits</h3>
+    <p>The ultimate post-workout or mid-summer hydration remedy. Watermelon Fusion infuses a highly refreshing, vitamin-stuffed Watermelon fruit base with an immediate, icy slap of crisp Peppermint, drenching hot skin in instant moisture.</p>
+    <h3>Key Skin Benefits</h3>
+    <ul>
+                    <li>Deep Cellular Hydration: High water content combined with Lycopene plumps dehydrated skin cells that have lost moisture through heavy sweating</li>
+                    <li>Post-Sun Soothing: Vitamin C and amino acids calm overheated, sun-exposed skin, accelerating cellular cooling</li>
+                    <li>Thermal Cooling Sensations: Peppermint drops local skin temperature sensation, stopping post-exercise flushing and itchiness</li>
+    </ul>
+    <p><strong>Ideal For:</strong> Dehydrated, overheated, or sweaty skin.</p>
+  </div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Goat's Milk, Oat Milk Base, Organic Coconut Oil, Organic Watermelon Seed Oil, Organic Lavender Oil, Rose Oil, Eucalyptus Oil, Vanilla Oil, Organic Peppermint Oil, Clove Oil, Pink Clay Powder, Watermelon FO, Poppy Seeds, Natural Coloring, and Natural Preservative.</p></div>
+</div>
+<div class="acc">
+  <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+  <div class="acc__body rte"><p>Perfect for a post-workout wash to instantly lower skin temperature.</p></div>
+</div>
+{% render 'rb-acc-care' %}
+<div class="acc">
+  <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+  <div class="acc__body rte">
+    <p><strong>Safety Disclaimer:</strong> For external use only. Avoid direct contact with eyes. In case of contact, rinse thoroughly with water. Discontinue use immediately if irritation, redness, or rash occurs. Consult a healthcare professional if irritation persists. Keep out of reach of children.</p>
+    <p><strong>Aromatherapy &amp; Herbal Note:</strong> This product is hand-crafted with active botanicals, natural clays, and pure essential oils. We recommend performing a patch test on a small area of skin before your first full use. If you are pregnant, nursing, or under medical supervision, consult your physician before using bars containing high concentrations of essential oils.</p>
+  </div>
+</div>
+{% render 'rb-acc-shipping' %}
+{%- endif -%}
