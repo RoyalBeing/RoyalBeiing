@@ -1109,7 +1109,9 @@ body.grev-lock{overflow:hidden}
   .filter-toggle{display:inline-flex}
   .buy-bar{display:flex}
   body:has(.buy-bar){padding-bottom:88px}
-  .pdp__actions{display:none}
+  .acc>button{scroll-margin-bottom:104px}
+  .pdp__actions{display:flex;flex-wrap:wrap;align-items:center}
+  .pdp__actions > .btn-primary{display:none}
 }
 @media(max-width:640px){
   .product-grid{grid-template-columns:1fr 1fr;gap:14px}
