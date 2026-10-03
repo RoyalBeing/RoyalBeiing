@@ -13,17 +13,52 @@
     assign col_key = 'royal-kid'
   endif
 -%}
-{%- include 'rb-load-packs' -%}
+{%- comment -%} Catalog packs live in this section so a missing snippet cannot print an error. {%- endcomment -%}
+{%- capture rb_shared_json -%}{% render 'rb-catalog-shared' %}{%- endcapture -%}
+{%- assign rb_shared_json = rb_shared_json | strip -%}
+{%- assign rb_catalog = rb_shared_json | parse_json -%}
+{%- capture rb_json_royal -%}{% render 'rb-soaps-royal' %}{%- endcapture -%}
+{%- assign rb_json_royal = rb_json_royal | strip -%}
+{%- assign rb_pack_royal = rb_json_royal | parse_json -%}
+{%- capture rb_json_signature -%}{% render 'rb-soaps-signature' %}{%- endcapture -%}
+{%- assign rb_json_signature = rb_json_signature | strip -%}
+{%- assign rb_pack_signature = rb_json_signature | parse_json -%}
+{%- capture rb_json_common -%}{% render 'rb-soaps-common' %}{%- endcapture -%}
+{%- assign rb_json_common = rb_json_common | strip -%}
+{%- assign rb_pack_common = rb_json_common | parse_json -%}
+{%- capture rb_json_duke -%}{% render 'rb-soaps-duke' %}{%- endcapture -%}
+{%- assign rb_json_duke = rb_json_duke | strip -%}
+{%- assign rb_pack_duke = rb_json_duke | parse_json -%}
+{%- capture rb_json_kid -%}{% render 'rb-soaps-kid' %}{%- endcapture -%}
+{%- assign rb_json_kid = rb_json_kid | strip -%}
+{%- assign rb_pack_kid = rb_json_kid | parse_json -%}
 {%- assign rec = rb_catalog.col_records[col_key] -%}
+{%- liquid
+  assign banner_asset = blank
+  case col_key
+    when 'royal'
+      assign banner_asset = 'rb-banner-royal.jpg'
+    when 'signature'
+      assign banner_asset = 'rb-banner-signature.jpg'
+    when 'common'
+      assign banner_asset = 'rb-banner-common.jpg'
+    when 'royal-duke'
+      assign banner_asset = 'rb-banner-duke.jpg'
+    when 'royal-kid'
+      assign banner_asset = 'rb-banner-kid.jpg'
+  endcase
+-%}
 <section class="page-banner col-hero" {{ section.shopify_attributes }}>
-  {%- if rec != blank and rec.hero != blank -%}
-    <div class="page-banner__media"><img src="{{ rec.hero | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="2000" height="1100"></div>
+  {%- if banner_asset != blank -%}
+    <div class="page-banner__media"><img src="{{ banner_asset | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="1024" height="341"></div>
+  {%- elsif rec != blank and rec.hero != blank -%}
+    <div class="page-banner__media"><img src="{{ rec.hero | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="1024" height="341"></div>
   {%- elsif collection.featured_image -%}
     <div class="page-banner__media"><img src="{{ collection.featured_image | image_url: width: 2000 }}" alt="{{ collection.title | escape }}" width="{{ collection.featured_image.width }}" height="{{ collection.featured_image.height }}"></div>
   {%- else -%}
     {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', collection: collection %}{%- endcapture -%}
     {%- if rb_col_src != blank -%}
-      <div class="page-banner__media"><img src="{{ rb_col_src | strip }}" alt="{{ collection.title | escape }}" width="2000" height="1100"></div>
+      <div class="page-banner__media"><img src="{{ rb_col_src | strip }}" alt="{{ collection.title | escape }}" width="1024" height="341"></div>
     {%- endif -%}
   {%- endif -%}
   <div class="page-banner__scrim"></div>

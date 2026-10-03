@@ -171,6 +171,20 @@ p{margin:0 0 1rem}
 .breadcrumbs a:hover{color:var(--rb-green-900)}
 .page-banner .breadcrumbs{color:rgba(255,255,255,.75)}
 .page-banner .breadcrumbs a:hover{color:#fff}
+.page-banner.col-hero{
+  aspect-ratio:1024 / 341;
+  min-height:280px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-block:clamp(36px,5vw,72px);
+}
+.col-hero .page-banner__media{background:var(--rb-green-900)}
+.col-hero .page-banner__media img{object-fit:cover;object-position:center}
+.col-hero .page-banner__scrim{background:linear-gradient(180deg,rgba(47,51,47,.34),rgba(47,51,47,.46))}
+@media(max-width:700px){
+  .page-banner.col-hero{aspect-ratio:auto;min-height:320px}
+}
 
 /* ---------- Trust strip ---------- */
 .trust{background:var(--rb-green-900);color:var(--rb-ivory-50)}
