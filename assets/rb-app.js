@@ -658,9 +658,15 @@
   });
 
   $$('[data-pdp-gallery]').forEach((root) => {
-    const stage = root.querySelector('#pdp-main-img');
+    const stage = root.querySelector('[data-pdp-stage]') || root.querySelector('#pdp-main-img');
     const thumbs = $$('[data-pdp-thumbs] button', root);
-    if (!stage || !thumbs.length) return;
+    const prev = root.querySelector('[data-pdp-prev]');
+    const next = root.querySelector('[data-pdp-next]');
+    if (!stage || thumbs.length < 2) {
+      if (prev) prev.hidden = true;
+      if (next) next.hidden = true;
+      return;
+    }
     let i = 0;
     function paint(index) {
       i = (index + thumbs.length) % thumbs.length;

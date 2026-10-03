@@ -5,14 +5,11 @@
     assign is_about = true
   endif
 -%}
-{%- include 'rb-load-packs' -%}
 {%- assign virt_handle = pth | split: '/products/' | last | split: '/' | first | split: '?' | first -%}
-{%- assign virt_rec = blank -%}
-{%- if pth contains '/products/' and virt_handle != blank -%}
-  {%- assign virt_rec = rb_pack_signature[virt_handle] -%}
-{%- endif -%}
+{%- assign virt_handles = '|watermelon-fusion|herbal-galaxy-renewal|sweet-madagascar|' -%}
+{%- assign virt_key = '|' | append: virt_handle | append: '|' -%}
 {%- assign is_virtual_product = false -%}
-{%- if virt_rec != blank -%}
+{%- if pth contains '/products/' and virt_handles contains virt_key -%}
   {%- assign is_virtual_product = true -%}
 {%- endif -%}
 <div class="rb-about-virtual"{% unless is_about %} hidden{% endunless %}>

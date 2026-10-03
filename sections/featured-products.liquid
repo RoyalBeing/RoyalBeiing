@@ -20,7 +20,6 @@
         assign catalog = collections.all.products
       endif
     -%}
-    {%- include 'rb-load-packs' -%}
     {%- include 'rb-orphan-soaps' -%}
 
     <div class="pcar reveal">
@@ -45,28 +44,7 @@
           {%- endfor -%}
           {%- if rb_orphan_count > 0 -%}
             {%- for h in rb_orphan_list -%}
-              {%- assign rec = rb_pack_signature[h] -%}
-              {%- if rec != blank -%}
-                {%- assign price_cents = rec.price | times: 100 | round -%}
-                {%- assign hero = rec.hero | default: 'rb-life-stack.jpg' -%}
-                <div class="pcar__slide" data-pcar-slide>
-<article class="pcar-card" data-catalog-handle="{{ rec.handle | escape }}" data-mood="citrus">
-  <a class="pcar-card__media" href="/products/{{ rec.handle }}" aria-label="{{ rec.title | escape }}">
-    <span class="pcar-card__stage" aria-hidden="true"></span>
-    <span class="pcar-card__atm" aria-hidden="true"></span>
-    <img class="pcar-card__soap" src="{{ hero | asset_url }}" alt="{{ rec.title | escape }}" loading="lazy" width="900" height="900">
-  </a>
-  <div class="pcar-card__body">
-    <span class="pcar-card__coll">{{ rec.collection_title }}</span>
-    <a class="pcar-card__name" href="/products/{{ rec.handle }}">{{ rec.title }}</a>
-    <span class="pcar-card__price">{{ price_cents | money }}</span>
-    <div class="pcar-card__actions">
-      <a class="pcar-card__ritual" href="/products/{{ rec.handle }}">View ritual<span aria-hidden="true"> →</span></a>
-    </div>
-  </div>
-</article>
-                </div>
-              {%- endif -%}
+              <div class="pcar__slide" data-pcar-slide>{% render 'rb-orphan-card', rb_handle: h, rb_layout: 'slide' %}</div>
             {%- endfor -%}
           {%- endif -%}
         </div>

@@ -1108,6 +1108,7 @@ body.grev-lock{overflow:hidden}
   .filters.open{transform:none}
   .filter-toggle{display:inline-flex}
   .buy-bar{display:flex}
+  body:has(.buy-bar){padding-bottom:88px}
   .pdp__actions{display:none}
 }
 @media(max-width:640px){
@@ -2482,6 +2483,7 @@ html.rb-about-route .rb-about-virtual{display:block!important}
 .rb-about-virtual:not([hidden]) ~ .rb-404-fallback{display:none!important}
 html.rb-product-route .rb-404-fallback{display:none!important}
 html.rb-product-route .rb-virtual-product{display:block!important}
+html.rb-product-route .rb-virtual-pdp[hidden]{display:none!important}
 .rb-virtual-product[hidden]{display:none}
 .rb-virtual-product:not([hidden]) ~ .rb-404-fallback{display:none!important}
 .rb-virtual-order{margin:18px 0 8px}
@@ -2537,4 +2539,11 @@ html.rb-product-route .rb-virtual-product{display:block!important}
   .about-band{height:auto}
   .col-life img{height:auto;max-height:240px}
   .logo__mark{width:44px;height:44px}
+}
+@media (max-width:400px){
+  .header-inner{gap:4px;padding-inline:10px}
+  .icon-btn{width:34px;height:34px}
+  .logo{gap:6px;min-width:0}
+  .logo__mark{width:34px;height:34px}
+  .logo__text{font-size:1.05rem;letter-spacing:.02em}
 }

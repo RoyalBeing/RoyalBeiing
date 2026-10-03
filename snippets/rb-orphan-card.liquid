@@ -1,0 +1,56 @@
+{%- comment -%}
+  Signature soaps that are not Shopify products yet.
+  rb_handle: watermelon-fusion | herbal-galaxy-renewal | sweet-madagascar
+  rb_layout: grid | slide
+{%- endcomment -%}
+{%- liquid
+  assign o_title = blank
+  assign o_price = blank
+  case rb_handle
+    when 'watermelon-fusion'
+      assign o_title = 'Watermelon Fusion'
+      assign o_price = '18.99'
+    when 'herbal-galaxy-renewal'
+      assign o_title = 'Herbal Galaxy Renewal Soap'
+      assign o_price = '14'
+    when 'sweet-madagascar'
+      assign o_title = 'Sweet Madagascar'
+      assign o_price = '21.99'
+  endcase
+  assign o_hero = 'rb-p-' | append: rb_handle | append: '.jpg'
+  assign o_cents = o_price | times: 100 | round
+-%}
+{%- if o_title != blank -%}
+  {%- if rb_layout == 'slide' -%}
+<article class="pcar-card" data-catalog-handle="{{ rb_handle | escape }}">
+  <a class="pcar-card__media" href="/products/{{ rb_handle }}" aria-label="{{ o_title | escape }}">
+    <span class="pcar-card__stage" aria-hidden="true"></span>
+    <span class="pcar-card__atm" aria-hidden="true"></span>
+    <img class="pcar-card__soap" src="{{ o_hero | asset_url }}" alt="{{ o_title | escape }}" loading="lazy" width="900" height="900">
+  </a>
+  <div class="pcar-card__body">
+    <span class="pcar-card__coll">The Signature Collection</span>
+    <a class="pcar-card__name" href="/products/{{ rb_handle }}">{{ o_title }}</a>
+    <span class="pcar-card__price">{{ o_cents | money }}</span>
+    <div class="pcar-card__actions">
+      <a class="pcar-card__ritual" href="/products/{{ rb_handle }}">View ritual<span aria-hidden="true"> →</span></a>
+    </div>
+  </div>
+</article>
+  {%- else -%}
+<article class="pcard pcard--pop" data-catalog-handle="{{ rb_handle | escape }}">
+  <a class="pcard__media" href="/products/{{ rb_handle }}" aria-label="{{ o_title | escape }}">
+    <img src="{{ o_hero | asset_url }}" alt="{{ o_title | escape }}" loading="lazy" width="800" height="800">
+    <div class="pcard__badges"><span class="badge badge--mto">Made to order</span></div>
+  </a>
+  <div class="pcard__body">
+    <div class="pcard__coll">The Signature Collection</div>
+    <h3 class="pcard__name"><a href="/products/{{ rb_handle }}">{{ o_title }}</a></h3>
+    <div class="pcard__foot">
+      <div class="pcard__price">{{ o_cents | money }}</div>
+      <a class="btn btn-primary btn-sm" href="/products/{{ rb_handle }}">View</a>
+    </div>
+  </div>
+</article>
+  {%- endif -%}
+{%- endif -%}

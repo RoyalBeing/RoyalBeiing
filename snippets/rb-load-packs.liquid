@@ -1,4 +1,4 @@
-{%- comment -%} Parse official catalog JSON packs. Wrap sources in {% raw %} so trailing }} is not Liquid. {%- endcomment -%}
+{%- comment -%} Parse official catalog JSON packs. Source files are wrapped so trailing braces are not Liquid. {%- endcomment -%}
 {%- capture rb_shared_json -%}{% render 'rb-catalog-shared' %}{%- endcapture -%}
 {%- assign rb_shared_json = rb_shared_json | strip -%}
 {%- assign rb_catalog = rb_shared_json | parse_json -%}
