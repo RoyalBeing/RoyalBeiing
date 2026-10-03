@@ -855,18 +855,19 @@ body.grev-lock{overflow:hidden}
 .gallery-strip img{aspect-ratio:1;object-fit:contain;background:var(--rb-mist);border-radius:8px}
 
 /* ---------- Social Instagram mosaic (full-bleed, square tiles) ---------- */
-.rb-social{padding-bottom:0;background:var(--rb-ivory-50)}
+.rb-social{background:var(--rb-ivory-50)}
 .rb-social .social-cta{
   display:flex;gap:12px;flex-wrap:wrap;justify-content:center;
   margin-bottom:clamp(28px,4vw,40px);
 }
 .rb-ig{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:0;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
   width:100%;
-  margin:0;
-  padding:0;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding-inline:var(--pad-x);
   text-align:left;
 }
 .rb-ig__cell{
@@ -880,7 +881,7 @@ body.grev-lock{overflow:hidden}
 .rb-ig__cell img{
   width:100%;
   height:100%;
-  object-fit:contain;
+  object-fit:cover;
   object-position:center center;
   display:block;
   background:var(--rb-mist);
@@ -910,7 +911,7 @@ body.grev-lock{overflow:hidden}
   text-transform:uppercase;
 }
 @media (max-width:900px){
-  .rb-ig{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .rb-ig{gap:10px}
 }
 @media (max-width:640px){
   .rb-ig{grid-template-columns:repeat(2,minmax(0,1fr))}
