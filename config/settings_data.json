@@ -610,7 +610,7 @@
           "placeholder": "Enter your email address",
           "button_label": "JOIN THE ROYAL CIRCLE",
           "legal": "By subscribing, you agree to receive Royal Being news and promotional emails. You may unsubscribe at any time.",
-          "background_position": "center 42%"
+          "background_position": "center 40%"
         }
       },
       "social-media": {
@@ -698,7 +698,7 @@
           "button2_label": "EXPLORE THE COLLECTIONS",
           "button2_link": "#collections",
           "closing": "Royal Being \u2014 The Ritual of Being",
-          "background_position": "center 40%"
+          "background_position": "center 38%"
         }
       },
       "google-reviews": {
