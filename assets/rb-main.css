@@ -2086,16 +2086,18 @@ body.grev-lock{overflow:hidden}
 }
 .robeing-heading{
   color:var(--rb-green-900);
-  font-size:clamp(1.7rem,2.6vw,2.45rem);
+  font-size:clamp(2.15rem,3.2vw,3.15rem);
+  font-weight:600;
   line-height:1.12;
-  max-width:16ch;
+  max-width:none;
   margin:0;
 }
 .robeing-intro{
   margin:0;
-  color:#55584f;
-  font-size:clamp(.92rem,1.15vw,1.05rem);
-  line-height:1.7;
+  color:#5c5f56;
+  font-size:clamp(.95rem,1.15vw,1.05rem);
+  line-height:1.65;
+  max-width:42ch;
 }
 .robeing-body{
   display:grid;
@@ -2104,6 +2106,7 @@ body.grev-lock{overflow:hidden}
   align-items:start;
 }
 @media (min-width:901px){
+  .robeing-body{align-items:center}
   .robeing--flip .robeing-copy{order:1}
   .robeing--flip .robeing-visual{order:2}
 }
@@ -2155,24 +2158,25 @@ body.grev-lock{overflow:hidden}
 .robeing-row__heading{
   grid-area:heading;
   color:var(--rb-green-900);
-  font-size:clamp(1.22rem,1.7vw,1.55rem);
+  font-size:clamp(1.35rem,1.9vw,1.7rem);
+  font-weight:600;
   line-height:1.2;
   margin:0;
 }
 .robeing-row__text{
   grid-area:text;
   margin:2px 0 8px;
-  font-size:.86rem;
-  line-height:1.6;
-  color:#55584f;
-  max-width:48ch;
+  font-size:.9rem;
+  line-height:1.65;
+  color:#5c5f56;
+  max-width:none;
 }
 .robeing-link{
   grid-area:cta;
   justify-self:end;
   display:inline-flex;align-items:center;gap:6px;
   font-family:var(--font-body);
-  font-size:.62rem;font-weight:600;
+  font-size:.68rem;font-weight:600;
   letter-spacing:.14em;text-transform:uppercase;
   color:var(--rb-gold-600);
   white-space:nowrap;
@@ -2221,7 +2225,7 @@ body.grev-lock{overflow:hidden}
     margin-bottom:8px;
   }
   .robeing-heading{
-    font-size:clamp(1.65rem,6.6vw,2.1rem);
+    font-size:clamp(1.65rem,6.4vw,2.35rem);
     max-width:none;
   }
   .robeing-intro{max-width:none}
