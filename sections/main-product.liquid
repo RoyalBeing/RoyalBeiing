@@ -1,4 +1,25 @@
 {%- include 'rb-product-record' -%}
+{%- liquid
+  assign rb_handle = product.handle
+  if rb_handle == 'herbal-galaxy-renewal-soap'
+    assign rb_handle = 'herbal-galaxy-renewal'
+  elsif rb_handle == 'anti-aging-herbal-soap'
+    assign rb_handle = 'anti-aging-herbal'
+  elsif rb_handle == 'this-iris'
+    assign rb_handle = 'the-iris'
+  endif
+-%}
+{%- capture rb_one_json -%}{% render 'rb-soap-json', rb_handle: rb_handle %}{%- endcapture -%}
+{%- assign rb_one_json = rb_one_json | strip -%}
+{%- if rb_one_json != blank -%}
+  {%- assign rb_one = rb_one_json | parse_json -%}
+  {%- if rb_one != blank -%}
+    {%- assign rb_record = rb_one -%}
+    {%- unless rb_is_robe -%}
+      {%- assign rb_is_soap = true -%}
+    {%- endunless -%}
+  {%- endif -%}
+{%- endif -%}
 {%- assign current = product.selected_or_first_available_variant -%}
 {%- liquid
   assign soap_mto = false
@@ -31,7 +52,13 @@
         <div class="pdp__stage">
           <button type="button" class="pdp__nav pdp__nav--prev" data-pdp-prev aria-label="Previous image">‹</button>
           <div class="pdp__main-img pdp__main-img--pop" id="pdp-main-img">
-            {%- if rb_record != blank and rb_record.hero != blank -%}
+            {%- if product.featured_media -%}
+              {%- if product.featured_media.media_type == 'video' or product.featured_media.media_type == 'external_video' -%}
+                {{ product.featured_media | video_tag: image_size: '1400x', controls: true, muted: false, autoplay: false, loop: false, playsinline: true }}
+              {%- else -%}
+                <img data-pdp-stage src="{{ product.featured_media | image_url: width: 1400 }}" alt="{{ product.featured_media.alt | default: product.title | escape }}" width="1400" height="1400">
+              {%- endif -%}
+            {%- elsif rb_record != blank and rb_record.hero != blank -%}
               <img
                 data-pdp-stage
                 src="{{ rb_record.hero | asset_url }}"
@@ -39,12 +66,6 @@
                 width="1400"
                 height="1400"
               >
-            {%- elsif product.featured_media -%}
-              {%- if product.featured_media.media_type == 'video' or product.featured_media.media_type == 'external_video' -%}
-                {{ product.featured_media | video_tag: image_size: '1400x', controls: true, muted: false, autoplay: false, loop: false, playsinline: true }}
-              {%- else -%}
-                <img data-pdp-stage src="{{ product.featured_media | image_url: width: 1400 }}" alt="{{ product.featured_media.alt | default: product.title | escape }}" width="1400" height="1400">
-              {%- endif -%}
             {%- else -%}
               {%- capture rb_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
               <img data-pdp-stage src="{{ rb_img | strip }}" alt="{{ product.title | escape }}" width="1400" height="1400">
@@ -55,7 +76,19 @@
 
         <div class="pdp__thumbs" data-pdp-thumbs>
           {%- assign thumb_i = 0 -%}
-          {%- if rb_record != blank -%}
+          {%- if product.media.size > 1 -%}
+            {%- for m in product.media -%}
+              <button
+                type="button"
+                class="{% if forloop.first %}active{% endif %}"
+                data-kind="{% if m.media_type == 'video' or m.media_type == 'external_video' %}video{% else %}image{% endif %}"
+                data-src="{% if m.media_type == 'video' %}{{ m.sources.last.url }}{% else %}{{ m | image_url: width: 1400 }}{% endif %}"
+                data-alt="{{ m.alt | default: product.title | escape }}"
+              >
+                <img src="{{ m | image_url: width: 200 }}" alt="{{ product.title | escape }} view {{ forloop.index }}" width="200" height="200" loading="lazy">
+              </button>
+            {%- endfor -%}
+          {%- elsif rb_record != blank -%}
             {%- for asset_name in rb_record.gallery -%}
               {%- assign thumb_i = thumb_i | plus: 1 -%}
               <button
@@ -91,18 +124,6 @@
                 <img src="{{ rb_record.matrix | asset_url }}" alt="{{ rb_record.collection_title | escape }} matrix" width="200" height="200" loading="lazy">
               </button>
             {%- endif -%}
-          {%- elsif product.media.size > 1 -%}
-            {%- for m in product.media -%}
-              <button
-                type="button"
-                class="{% if forloop.first %}active{% endif %}"
-                data-kind="{% if m.media_type == 'video' or m.media_type == 'external_video' %}video{% else %}image{% endif %}"
-                data-src="{% if m.media_type == 'video' %}{{ m.sources.last.url }}{% else %}{{ m | image_url: width: 1400 }}{% endif %}"
-                data-alt="{{ m.alt | default: product.title | escape }}"
-              >
-                <img src="{{ m | image_url: width: 200 }}" alt="{{ product.title | escape }} view {{ forloop.index }}" width="200" height="200" loading="lazy">
-              </button>
-            {%- endfor -%}
           {%- endif -%}
         </div>
       </div>
@@ -113,19 +134,14 @@
         {%- elsif product.collections.first -%}
           <div class="pdp__coll"><a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a></div>
         {%- endif -%}
-        <h1>{% if rb_record != blank %}{{ rb_record.title }}{% else %}{{ product.title }}{% endif %}</h1>
+        <h1>{{ product.title }}</h1>
         {%- if rb_is_robe and current.available == false -%}
           <span class="badge badge--soldout" style="margin-bottom:10px;display:inline-block">Sold Out</span>
         {%- elsif product.tags contains 'Coming Soon' and soap_mto == false -%}
           <span class="badge badge--soon" style="margin-bottom:10px;display:inline-block">Coming Soon</span>
         {%- endif -%}
         <div class="pdp__price">
-          {%- if rb_record != blank and rb_record.price != blank -%}
-            {%- assign catalog_cents = rb_record.price | times: 100 | round -%}
-            <span class="price"><span class="price__sale">{{ catalog_cents | money }}</span></span>
-          {%- else -%}
-            {% render 'price', product: product %}
-          {%- endif -%}
+          {% render 'price', product: product %}
         </div>
 
         {%- if rb_record != blank and rb_record.first_glance != blank -%}
@@ -215,24 +231,22 @@
         {%- endform -%}
 
         <div class="pdp__meta">
-          {%- if rb_record != blank and rb_record.quantity != blank -%}<span>Bar · <b>{{ rb_record.quantity }}g</b></span>{%- endif -%}
           {%- if soap_mto -%}<span>Made to order · <b>~48 hours</b></span>{%- endif -%}
           <span>{{ section.settings.ships_note }}</span>
         </div>
 
-        <div class="accordion">
-          <div class="acc open">
-            <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
-            <div class="acc__body rte">
-              {%- if rb_is_robe -%}
-                <p>{{ rb_catalog.robe.description }}</p>
-                <h3>The Standout Features</h3>
-                <ul>
-                  {%- for feat in rb_catalog.robe.features -%}
-                    <li>{{ feat }}</li>
-                  {%- endfor -%}
-                </ul>
-              {%- elsif rb_record != blank -%}
+        {%- if rb_record != blank and rb_is_robe == false -%}
+          {%- liquid
+            assign rb_care_copy = rb_catalog.care.soap
+            if rb_care_copy == blank
+              assign rb_care_copy = 'Keep your bar dry between uses on a well-draining soap dish, away from direct streams of water.'
+            endif
+            assign rb_ship_copy = 'Soaps are made to order within approximately 48 hours. Standard retail orders are then hand-packed and shipped within 2-4 business days, excluding major holidays. Shipping timelines provided at checkout are estimates from third-party carriers and are not guaranteed. Royal Being currently ships to the United States, the Netherlands, and Belgium. Risk of loss and title for all merchandise pass to you upon our delivery to the shipping carrier. We are not liable for delayed, lost, stolen, or mis-delivered packages.'
+          -%}
+          <div class="accordion">
+            <div class="acc open">
+              <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+              <div class="acc__body rte">
                 <h3>The Science and Targeted Therapeutic Benefits</h3>
                 <p>{{ rb_record.science }}</p>
                 {%- if rb_record.benefits.size > 0 -%}
@@ -243,57 +257,75 @@
                     {%- endfor -%}
                   </ul>
                 {%- endif -%}
-                {%- if rb_record.ideal_for != blank -%}
+                {%- if rb_record.collection == 'kid' and rb_record.ideal_for != blank -%}
+                  <p><strong>Best For:</strong> {{ rb_record.ideal_for }}</p>
+                {%- elsif rb_record.profile != blank -%}
+                  <p><strong>The Profile:</strong> {{ rb_record.profile }}</p>
+                {%- elsif rb_record.ideal_for != blank -%}
                   <p><strong>Ideal For:</strong> {{ rb_record.ideal_for }}</p>
                 {%- endif -%}
-                {%- if rb_record.profile != blank -%}
-                  <p><strong>The Profile:</strong> {{ rb_record.profile }}</p>
+              </div>
+            </div>
+            <div class="acc">
+              <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+              <div class="acc__body rte"><p>{{ rb_record.ingredients }}</p></div>
+            </div>
+            <div class="acc">
+              <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+              <div class="acc__body rte"><p>{{ rb_record.ritual }}</p></div>
+            </div>
+            <div class="acc">
+              <button type="button" aria-expanded="false">Care<span class="plus">+</span></button>
+              <div class="acc__body rte"><p>{{ rb_care_copy }}</p></div>
+            </div>
+            <div class="acc">
+              <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
+              <div class="acc__body rte">
+                {%- if rb_record.safety != blank -%}
+                  <p><strong>Safety Disclaimer:</strong> {{ rb_record.safety }}</p>
+                {%- else -%}
+                  <p><strong>Safety Disclaimer:</strong> {{ section.settings.caution }}</p>
                 {%- endif -%}
-              {%- else -%}
-                {{ product.description }}
-              {%- endif -%}
+                {%- if rb_record.aromatherapy != blank -%}
+                  <p><strong>Aromatherapy &amp; Herbal Note:</strong> {{ rb_record.aromatherapy }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+            <div class="acc">
+              <button type="button" aria-expanded="false">Shipping<span class="plus">+</span></button>
+              <div class="acc__body rte"><p>{{ rb_ship_copy }}</p></div>
             </div>
           </div>
-
-          {%- unless rb_is_robe -%}
-            {%- if rb_record != blank and rb_record.ingredients != blank -%}
-              <div class="acc">
-                <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
-                <div class="acc__body rte"><p>{{ rb_record.ingredients }}</p></div>
+        {%- else -%}
+          <div class="accordion">
+            <div class="acc open">
+              <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
+              <div class="acc__body rte">
+                {%- if rb_is_robe -%}
+                  <p>{{ rb_catalog.robe.description }}</p>
+                  <h3>The Standout Features</h3>
+                  <ul>
+                    {%- for feat in rb_catalog.robe.features -%}
+                      <li>{{ feat }}</li>
+                    {%- endfor -%}
+                  </ul>
+                {%- else -%}
+                  {{ product.description }}
+                {%- endif -%}
               </div>
-            {%- endif -%}
-            {%- if rb_record != blank and rb_record.ritual != blank -%}
-              <div class="acc">
-                <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
-                <div class="acc__body rte"><p>{{ rb_record.ritual }}</p></div>
-              </div>
-            {%- endif -%}
-          {%- endunless -%}
-
-          <div class="acc">
-            <button type="button" aria-expanded="false">Care &amp; Storage / Safety Disclaimer<span class="plus">+</span></button>
-            <div class="acc__body rte">
-              {%- unless rb_is_robe -%}
-                <p>{{ rb_catalog.care.soap }}</p>
-              {%- endunless -%}
-              {%- if rb_record != blank and rb_record.safety != blank -%}
-                <p><strong>Safety Disclaimer:</strong> {{ rb_record.safety }}</p>
-              {%- else -%}
+            </div>
+            <div class="acc">
+              <button type="button" aria-expanded="false">Care &amp; Storage / Safety Disclaimer<span class="plus">+</span></button>
+              <div class="acc__body rte">
                 <p><strong>Safety Disclaimer:</strong> {{ section.settings.caution }}</p>
-              {%- endif -%}
-              {%- if rb_record != blank and rb_record.aromatherapy != blank -%}
-                <p><strong>Aromatherapy &amp; Herbal Note:</strong> {{ rb_record.aromatherapy }}</p>
-              {%- endif -%}
+              </div>
+            </div>
+            <div class="acc">
+              <button type="button" aria-expanded="false">Shipping<span class="plus">+</span></button>
+              <div class="acc__body rte"><p>{{ rb_catalog.shipping.body }}</p></div>
             </div>
           </div>
-
-          <div class="acc">
-            <button type="button" aria-expanded="false">Shipping<span class="plus">+</span></button>
-            <div class="acc__body rte">
-              <p>{{ rb_catalog.shipping.body }}</p>
-            </div>
-          </div>
-        </div>
+        {%- endif -%}
       </div>
     </div>
   </div>

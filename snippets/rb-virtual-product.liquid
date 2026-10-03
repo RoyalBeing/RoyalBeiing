@@ -5,10 +5,11 @@
   {%- assign rb_catalog = rb_shared_json | parse_json -%}
 {%- endif -%}
 {%- if rec == blank and rb_handle != blank -%}
-  {%- capture rb_json_signature -%}{% render 'rb-soaps-signature' %}{%- endcapture -%}
-  {%- assign rb_json_signature = rb_json_signature | strip -%}
-  {%- assign rb_pack_signature = rb_json_signature | parse_json -%}
-  {%- assign rec = rb_pack_signature[rb_handle] -%}
+  {%- capture rb_one_json -%}{% render 'rb-soap-json', rb_handle: rb_handle %}{%- endcapture -%}
+  {%- assign rb_one_json = rb_one_json | strip -%}
+  {%- if rb_one_json != blank -%}
+    {%- assign rec = rb_one_json | parse_json -%}
+  {%- endif -%}
 {%- endif -%}
 {%- if rec != blank -%}
 {%- assign price_cents = rec.price | times: 100 | round -%}
@@ -116,10 +117,16 @@
 
         <div class="pdp__meta">
           <span>Made to order · <b>~48 hours</b></span>
-          {%- if rec.quantity != blank -%}<span>Bar · <b>{{ rec.quantity }}g</b></span>{%- endif -%}
           <span>Handmade in small batches · Made in USA</span>
         </div>
 
+        {%- liquid
+          assign rb_care_copy = rb_catalog.care.soap
+          if rb_care_copy == blank
+            assign rb_care_copy = 'Keep your bar dry between uses on a well-draining soap dish, away from direct streams of water.'
+          endif
+          assign rb_ship_copy = 'Soaps are made to order within approximately 48 hours. Standard retail orders are then hand-packed and shipped within 2-4 business days, excluding major holidays. Shipping timelines provided at checkout are estimates from third-party carriers and are not guaranteed. Royal Being currently ships to the United States, the Netherlands, and Belgium. Risk of loss and title for all merchandise pass to you upon our delivery to the shipping carrier. We are not liable for delayed, lost, stolen, or mis-delivered packages.'
+        -%}
         <div class="accordion">
           <div class="acc open">
             <button type="button" aria-expanded="true">Description<span class="plus">+</span></button>
@@ -134,30 +141,30 @@
                   {%- endfor -%}
                 </ul>
               {%- endif -%}
-              {%- if rec.ideal_for != blank -%}
-                <p><strong>Ideal For:</strong> {{ rec.ideal_for }}</p>
-              {%- endif -%}
-              {%- if rec.profile != blank -%}
+              {%- if rec.collection == 'kid' and rec.ideal_for != blank -%}
+                <p><strong>Best For:</strong> {{ rec.ideal_for }}</p>
+              {%- elsif rec.profile != blank -%}
                 <p><strong>The Profile:</strong> {{ rec.profile }}</p>
+              {%- elsif rec.ideal_for != blank -%}
+                <p><strong>Ideal For:</strong> {{ rec.ideal_for }}</p>
               {%- endif -%}
             </div>
           </div>
-          {%- if rec.ingredients != blank -%}
-            <div class="acc">
-              <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
-              <div class="acc__body rte"><p>{{ rec.ingredients }}</p></div>
-            </div>
-          {%- endif -%}
-          {%- if rec.ritual != blank -%}
-            <div class="acc">
-              <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
-              <div class="acc__body rte"><p>{{ rec.ritual }}</p></div>
-            </div>
-          {%- endif -%}
           <div class="acc">
-            <button type="button" aria-expanded="false">Care &amp; Storage / Safety Disclaimer<span class="plus">+</span></button>
+            <button type="button" aria-expanded="false">Ingredients<span class="plus">+</span></button>
+            <div class="acc__body rte"><p>{{ rec.ingredients }}</p></div>
+          </div>
+          <div class="acc">
+            <button type="button" aria-expanded="false">The Ritual<span class="plus">+</span></button>
+            <div class="acc__body rte"><p>{{ rec.ritual }}</p></div>
+          </div>
+          <div class="acc">
+            <button type="button" aria-expanded="false">Care<span class="plus">+</span></button>
+            <div class="acc__body rte"><p>{{ rb_care_copy }}</p></div>
+          </div>
+          <div class="acc">
+            <button type="button" aria-expanded="false">Storage / Safety Disclaimer<span class="plus">+</span></button>
             <div class="acc__body rte">
-              <p>{{ rb_catalog.care.soap }}</p>
               {%- if rec.safety != blank -%}
                 <p><strong>Safety Disclaimer:</strong> {{ rec.safety }}</p>
               {%- endif -%}
@@ -168,7 +175,7 @@
           </div>
           <div class="acc">
             <button type="button" aria-expanded="false">Shipping<span class="plus">+</span></button>
-            <div class="acc__body rte"><p>{{ rb_catalog.shipping.body }}</p></div>
+            <div class="acc__body rte"><p>{{ rb_ship_copy }}</p></div>
           </div>
         </div>
       </div>
