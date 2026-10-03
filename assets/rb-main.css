@@ -1306,11 +1306,11 @@ body.grev-lock{overflow:hidden}
   box-shadow:var(--shadow-md);
 }
 .cshow-card__media{
-  display:block;aspect-ratio:4/5;overflow:hidden;background:var(--rb-mist);flex:1 1 auto;
+  display:block;aspect-ratio:4/5;overflow:hidden;background:transparent;flex:1 1 auto;
 }
 .cshow-card__media img{
   width:100%;height:100%;
-  object-fit:contain;object-position:center;
+  object-fit:cover;object-position:center;
   display:block;
 }
 .cshow-card__body{

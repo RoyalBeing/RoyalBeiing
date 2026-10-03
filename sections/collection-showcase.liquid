@@ -59,10 +59,10 @@
                 height="{{ block.settings.image.height }}"
                 style="object-position: {{ objpos }}"
               >
+            {%- elsif block.settings.fallback_asset != blank -%}
+              <img src="{{ block.settings.fallback_asset | asset_url }}" alt="{{ label | escape }}" loading="lazy" width="819" height="1024" style="object-position: {{ objpos }}">
             {%- elsif col != blank and col.featured_image -%}
               <img src="{{ col.featured_image | image_url: width: 1400 }}" alt="{{ col.title | escape }}" loading="lazy" width="{{ col.featured_image.width }}" height="{{ col.featured_image.height }}" style="object-position: {{ objpos }}">
-            {%- elsif block.settings.fallback_asset != blank -%}
-              <img src="{{ block.settings.fallback_asset | asset_url }}" alt="{{ label | escape }}" loading="lazy" width="1000" height="1000" style="object-position: {{ objpos }}">
             {%- else -%}
               {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', handle: block.settings.collection %}{%- endcapture -%}
               {%- if rb_col_src != blank -%}
