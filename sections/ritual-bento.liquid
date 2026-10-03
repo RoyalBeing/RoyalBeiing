@@ -17,7 +17,7 @@
         elsif section.settings.dark_asset != blank
           assign dark_src = section.settings.dark_asset | asset_url
         else
-          assign dark_src = 'rb-bento-charcoal.jpg' | asset_url
+          assign dark_src = 'rb-bento-soap.jpg' | asset_url
         endif
 
         assign primary_href = routes.collections_url
@@ -137,8 +137,8 @@
     { "type": "textarea", "id": "note_text", "label": "Note text", "default": "Handcrafted herbal bars, where every lather tells a story of care." },
     { "type": "text", "id": "note_heading", "label": "Note heading", "default": "Into a gallery of elegance" },
     { "type": "image_picker", "id": "dark_image", "label": "Dark card image" },
-    { "type": "text", "id": "dark_asset", "label": "Dark theme asset", "default": "rb-bento-charcoal.jpg" },
-    { "type": "text", "id": "dark_alt", "label": "Dark image alt", "default": "Activated charcoal bar for a deep-cleansing ritual" },
+    { "type": "text", "id": "dark_asset", "label": "Dark theme asset", "default": "rb-bento-soap.jpg" },
+    { "type": "text", "id": "dark_alt", "label": "Dark image alt", "default": "Hands holding a sage Royal Being soap bar" },
     { "type": "text", "id": "dark_badge", "label": "Dark badge", "default": "PURE & NATURAL" },
     { "type": "text", "id": "dark_text", "label": "Dark text", "default": "Indulge in the art of everyday living" },
     { "type": "url", "id": "dark_link", "label": "Dark card link" }
