@@ -31,71 +31,26 @@
       </header>
 
       <div class="rkids-grid">
-        {%- for i in (1..3) -%}
-          {%- liquid
-            assign heading_key = 'card_' | append: i | append: '_heading'
-            assign text_key = 'card_' | append: i | append: '_text'
-            assign asset_key = 'card_' | append: i | append: '_asset'
-            assign pos_key = 'card_' | append: i | append: '_position'
-            assign alt_key = 'card_' | append: i | append: '_alt'
-            assign img_key = 'card_' | append: i | append: '_image'
-
-            assign heading = section.settings[heading_key]
-            assign text = section.settings[text_key]
-            assign asset_name = section.settings[asset_key]
-            assign objpos = section.settings[pos_key]
-            if objpos == blank
-              assign objpos = '50% 40%'
-            endif
-            assign alt = section.settings[alt_key]
-            if alt == blank
-              assign alt = heading
-            endif
-            assign picker = section.settings[img_key]
-            if asset_name == blank
-              assign asset_name = 'rb-rkids-' | append: i | append: '.jpg'
-            endif
-          -%}
-          <article class="rkids-card reveal" style="--rkids-delay: {{ i | times: 70 }}ms">
-            <div class="rkids-card__media">
-              {%- if picker != blank -%}
-                <img
-                  src="{{ picker | image_url: width: 900 }}"
-                  srcset="{{ picker | image_url: width: 480 }} 480w, {{ picker | image_url: width: 720 }} 720w, {{ picker | image_url: width: 900 }} 900w"
-                  sizes="(max-width: 760px) calc(100vw - 48px), 28vw"
-                  alt="{{ alt | escape }}"
-                  loading="lazy"
-                  decoding="async"
-                  width="{{ picker.width | default: 800 }}"
-                  height="{{ picker.height | default: 1000 }}"
-                  style="object-position: {{ objpos }};"
-                >
-              {%- else -%}
-                <img
-                  src="{{ asset_name | asset_url }}"
-                  alt="{{ alt | escape }}"
-                  loading="lazy"
-                  decoding="async"
-                  width="800"
-                  height="1000"
-                  style="object-position: {{ objpos }};"
-                >
-              {%- endif -%}
-            </div>
-            <div class="rkids-card__body">
-              {%- if heading != blank -%}
-                <h3 class="rkids-card__heading">{{ heading }}</h3>
-              {%- endif -%}
-              {%- if text != blank -%}
-                <p class="rkids-card__text">{{ text }}</p>
-              {%- endif -%}
-              <span class="rkids-card__leaf" aria-hidden="true">
-                {% render 'icon', name: 'leaf' %}
-                {% render 'icon', name: 'leaf' %}
-              </span>
-            </div>
-          </article>
-        {%- endfor -%}
+        <figure class="rkids-photo">
+          <img
+            src="{{ 'rb-rkids-soaps.jpg' | asset_url }}"
+            alt="Royal Kid herbal soaps in coral, cream, violet, and yellow"
+            loading="lazy"
+            decoding="async"
+            width="1024"
+            height="1024"
+          >
+        </figure>
+        <figure class="rkids-photo">
+          <img
+            src="{{ 'rb-ig-kid.jpg' | asset_url }}"
+            alt="Child in a white robe holding a Royal Being soap"
+            loading="lazy"
+            decoding="async"
+            width="1000"
+            height="1000"
+          >
+        </figure>
       </div>
     </div>
   </div>
