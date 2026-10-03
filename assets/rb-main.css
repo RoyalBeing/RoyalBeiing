@@ -2284,7 +2284,7 @@ body.grev-lock{overflow:hidden}
   color:var(--rb-green-900);
   font-size:clamp(2.15rem,3.5vw,3.35rem);
   line-height:1.12;
-  max-width:12ch;
+  max-width:none;
   margin:0;
 }
 .rkids-intro{
@@ -2326,7 +2326,7 @@ body.grev-lock{overflow:hidden}
   .rkids-head__copy{padding-top:0}
   .rkids-heading{
     font-size:clamp(1.85rem,7vw,2.4rem);
-    max-width:16ch;
+    max-width:none;
   }
   .rkids-intro{max-width:none;margin-bottom:18px}
   .rkids-grid{grid-template-columns:1fr;gap:14px}
