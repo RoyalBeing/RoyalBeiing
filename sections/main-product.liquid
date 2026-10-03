@@ -11,6 +11,7 @@
 -%}
 {%- capture rb_one_json -%}{% render 'rb-soap-json', rb_handle: rb_handle %}{%- endcapture -%}
 {%- assign rb_one_json = rb_one_json | strip -%}
+<div id="rb-json-debug" hidden data-len="{{ rb_one_json | size }}" data-start="{{ rb_one_json | truncate: 90 | escape }}" data-title="{{ rb_record.title | escape }}"></div>
 {%- if rb_one_json != blank -%}
   {%- assign rb_one = rb_one_json | parse_json -%}
   {%- if rb_one != blank -%}
