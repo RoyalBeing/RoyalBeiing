@@ -2481,6 +2481,7 @@ body.grev-lock{overflow:hidden}
 .about-legal--ip p{margin:0;color:#55584f;max-width:80ch}
 html.rb-about-route .rb-404-fallback{display:none!important}
 html.rb-about-route .rb-about-virtual{display:block!important}
+html.rb-about-route .rb-virtual-product{display:none!important}
 .rb-about-virtual[hidden]{display:none}
 .rb-about-virtual:not([hidden]) ~ .rb-404-fallback{display:none!important}
 html.rb-product-route .rb-404-fallback{display:none!important}
