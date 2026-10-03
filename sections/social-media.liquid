@@ -1,53 +1,60 @@
 <section class="section rb-social" {{ section.shopify_attributes }}>
-  <div class="wrap center">
-    <div class="sec-head center reveal" style="margin-bottom:28px">
-      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-      <h2>{{ section.settings.heading }}</h2>
-      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
-    </div>
-    <div class="social-cta reveal">
-      {%- liquid
-        assign ig = settings.social_instagram
-        if ig == blank
-          assign ig = section.settings.instagram_url
-        endif
-        assign fb = settings.social_facebook
-        if fb == blank
-          assign fb = section.settings.facebook_url
-        endif
-        if ig == blank
-          assign ig = 'https://www.instagram.com/royalbeing2026/'
-        endif
-      -%}
-      {%- if section.settings.instagram_label != blank and ig != blank -%}
-        <a class="btn btn-outline" href="{{ ig }}" target="_blank" rel="noopener">{{ section.settings.instagram_label }}</a>
-      {%- endif -%}
-      {%- if section.settings.facebook_label != blank and fb != blank -%}
-        <a class="btn btn-outline" href="{{ fb }}" target="_blank" rel="noopener">{{ section.settings.facebook_label }}</a>
-      {%- endif -%}
-    </div>
-  </div>
+  {%- liquid
+    assign ig = settings.social_instagram
+    if ig == blank
+      assign ig = section.settings.instagram_url
+    endif
+    assign fb = settings.social_facebook
+    if fb == blank
+      assign fb = section.settings.facebook_url
+    endif
+    if ig == blank
+      assign ig = 'https://www.instagram.com/royalbeing2026/'
+    endif
+  -%}
+  <div class="wrap">
+    <div class="rb-social__card reveal">
+      <div class="rb-social__copy">
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h2>{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text }}</p>{%- endif -%}
+        <div class="social-cta">
+          {%- if section.settings.instagram_label != blank and ig != blank -%}
+            <a class="btn btn-primary" href="{{ ig }}" target="_blank" rel="noopener">{{ section.settings.instagram_label }}</a>
+          {%- endif -%}
+          {%- if section.settings.facebook_label != blank and fb != blank -%}
+            <a class="btn btn-outline" href="{{ fb }}" target="_blank" rel="noopener">{{ section.settings.facebook_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
 
-  {%- comment -%} Six matched daylight frames — robes, stone, and botanicals {%- endcomment -%}
-  <div class="rb-ig reveal" aria-label="Royal Being soap gallery">
-    <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
-      <img src="{{ 'rb-ig-female.jpg' | asset_url }}" alt="Royal Being ambassador in a sage robe holding herbal soap" loading="lazy" width="1000" height="1000">
-    </a>
-    <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
-      <img src="{{ 'rb-ig-kid.jpg' | asset_url }}" alt="Child in a white robe holding Royal Being soap" loading="lazy" width="1000" height="1000">
-    </a>
-    <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
-      <img src="{{ 'rb-ig-family.jpg' | asset_url }}" alt="Family cleansing ritual with Royal Being soaps" loading="lazy" width="1000" height="1000">
-    </a>
-    <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
-      <img src="{{ 'rb-ig-teakwood.jpg' | asset_url }}" alt="Royal Being teakwood soap with wood, eucalyptus, and steam" loading="lazy" width="1000" height="1000">
-    </a>
-    <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
-      <img src="{{ 'rb-ig-ingredients.jpg' | asset_url }}" alt="Royal Being soap with citrus, botanicals, and steam" loading="lazy" width="1000" height="1000">
-    </a>
-    <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
-      <img src="{{ 'rb-ig-floral.jpg' | asset_url }}" alt="Pink Royal Being soap with rose petals on marble" loading="lazy" width="1000" height="1000">
-    </a>
+      <div class="rb-ig" aria-label="Royal Being soap gallery">
+        <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
+          <img src="{{ 'rb-ig-female.jpg' | asset_url }}" alt="Royal Being ambassador in a sage robe holding herbal soap" loading="lazy" width="1000" height="1000">
+          <span class="rb-ig__mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg></span>
+        </a>
+        <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
+          <img src="{{ 'rb-ig-kid.jpg' | asset_url }}" alt="Child in a white robe holding Royal Being soap" loading="lazy" width="1000" height="1000">
+          <span class="rb-ig__mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg></span>
+        </a>
+        <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
+          <img src="{{ 'rb-ig-family.jpg' | asset_url }}" alt="Family cleansing ritual with Royal Being soaps" loading="lazy" width="1000" height="1000">
+          <span class="rb-ig__mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg></span>
+        </a>
+        <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
+          <img src="{{ 'rb-ig-teakwood.jpg' | asset_url }}" alt="Royal Being teakwood soap with wood, eucalyptus, and steam" loading="lazy" width="1000" height="1000">
+          <span class="rb-ig__mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg></span>
+        </a>
+        <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
+          <img src="{{ 'rb-ig-ingredients.jpg' | asset_url }}" alt="Royal Being soap with citrus, botanicals, and steam" loading="lazy" width="1000" height="1000">
+          <span class="rb-ig__mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg></span>
+        </a>
+        <a class="rb-ig__cell" href="{{ ig }}" target="_blank" rel="noopener">
+          <img src="{{ 'rb-ig-floral.jpg' | asset_url }}" alt="Pink Royal Being soap with rose petals on marble" loading="lazy" width="1000" height="1000">
+          <span class="rb-ig__mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg></span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
