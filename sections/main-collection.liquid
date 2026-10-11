@@ -38,6 +38,7 @@
   assign banner_h = 341
   assign hero_editorial = false
   assign hero_plain = false
+  assign hero_video = blank
   case col_key
     when 'royal'
       assign banner_asset = 'rb-banner-royal.jpg'
@@ -63,6 +64,7 @@
       assign banner_asset = 'rb-banner-all.jpg'
       assign banner_h = 576
       assign hero_plain = true
+      assign hero_video = 'https://cdn.shopify.com/videos/c/vp/73d871756d4f43bd8e1c1f56dd667d75/73d871756d4f43bd8e1c1f56dd667d75.HD-1080p-7.2Mbps-90385254.mp4'
   endcase
   if collection.handle == 'all'
     assign hero_title = 'Shop All Soaps'
@@ -71,7 +73,24 @@
   endif
 -%}
 <section class="page-banner col-hero{% if hero_editorial %} col-hero--editorial{% endif %}{% if hero_plain %} col-hero--plain{% endif %}" {{ section.shopify_attributes }}>
-  {%- if banner_asset != blank -%}
+  {%- if hero_video != blank -%}
+    <div class="page-banner__media col-hero__film is-muted" data-autoplay-video>
+      <video
+        class="col-hero__video"
+        muted
+        loop
+        autoplay
+        playsinline
+        webkit-playsinline
+        preload="metadata"
+        poster="{{ banner_asset | asset_url }}"
+        aria-label="{{ hero_title | escape }}"
+      >
+        <source src="{{ hero_video }}" type="video/mp4">
+      </video>
+      {% render 'video-sound-control' %}
+    </div>
+  {%- elsif banner_asset != blank -%}
     <div class="page-banner__media"><img src="{{ banner_asset | asset_url }}" alt="{{ hero_title | escape }}" width="1024" height="{{ banner_h }}" fetchpriority="high"></div>
   {%- elsif rec != blank and rec.hero != blank -%}
     <div class="page-banner__media"><img src="{{ rec.hero | asset_url }}" alt="{{ hero_title | escape }}" width="1024" height="341" fetchpriority="high"></div>
