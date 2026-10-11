@@ -2649,6 +2649,11 @@ body.grev-lock{overflow:hidden}
 }
 .site-hero--about .page-banner__media img,
 .site-hero--contact .page-banner__media img{object-position:center center}
+.page-banner.col-hero.site-hero--contact{
+  aspect-ratio:1024 / 341;
+  min-height:0;
+}
+.site-hero--contact .page-banner__scrim{display:none}
 .about-page .about-block__copy p,
 .about-page .about-card p,
 .about-page .about-legal__intro,
