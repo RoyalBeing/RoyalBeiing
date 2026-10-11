@@ -277,12 +277,41 @@
           {%- assign rb_bundle_ids = rb_bundle_ids | append: rb_bv.id -%}
         {%- endif -%}
       {%- endfor -%}
-      {%- assign rb_bundle_sale = rb_bundle_total | times: 80 | divided_by: 100 -%}
+      {%- assign rb_bundle_sale = rb_bundle_total | times: 75 | divided_by: 100 -%}
+      {%- case col_key -%}
+        {%- when 'royal-duke' -%}
+          {%- assign rb_slides = 'rb-duke-ensemble-lineup.jpg|rb-schema-duke.jpg|rb-duke-ensemble-schematic.jpg|rb-cbox-duke.jpg|rb-duke-ensemble-ritual.jpg' | split: '|' -%}
+        {%- when 'royal' -%}
+          {%- assign rb_slides = 'rb-schema-royal.jpg|rb-cbox-royal.jpg|rb-col-royal.jpg' | split: '|' -%}
+        {%- when 'common' -%}
+          {%- assign rb_slides = 'rb-schema-common.jpg|rb-cbox-common.jpg|rb-col-common.jpg' | split: '|' -%}
+        {%- when 'signature' -%}
+          {%- assign rb_slides = 'rb-schema-signature.jpg|rb-cbox-signature.jpg|rb-col-signature.jpg' | split: '|' -%}
+        {%- when 'royal-kid' -%}
+          {%- assign rb_slides = 'rb-schema-kid.jpg|rb-cbox-kid.jpg|rb-col-royal-kid.jpg' | split: '|' -%}
+        {%- else -%}
+          {%- assign rb_slides = '' | split: '|' -%}
+      {%- endcase -%}
       {%- if rb_bundle_ids != blank -%}
         <div class="col-bundle reveal">
+          {%- if rb_slides.size > 0 -%}
+            <div class="col-bundle__scroller" data-bundle-scroll>
+              <button type="button" class="col-bundle__arrow col-bundle__arrow--prev" data-bundle-prev aria-label="Previous collection visual">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="col-bundle__track" data-bundle-track>
+                {%- for slide in rb_slides -%}
+                  <img src="{{ slide | asset_url }}" alt="{{ collection.title | escape }}" width="1024" height="1024" loading="lazy">
+                {%- endfor -%}
+              </div>
+              <button type="button" class="col-bundle__arrow col-bundle__arrow--next" data-bundle-next aria-label="Next collection visual">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          {%- endif -%}
           <p class="col-bundle__kicker">The whole set</p>
           <h2>Buy the entire collection</h2>
-          <p class="col-bundle__note">Every soap in {{ collection.title }}, added together, with 20% off the total.</p>
+          <p class="col-bundle__note">Every soap in {{ collection.title }}, added together, with 25% off the total.</p>
           <p class="col-bundle__price">
             <s>{{ rb_bundle_total | money }}</s>
             <b>{{ rb_bundle_sale | money }}</b>
@@ -292,7 +321,7 @@
             class="btn btn-primary"
             data-buy-collection
             data-variants="{{ rb_bundle_ids }}"
-            data-discount="ROYAL20"
+            data-discount="ROYAL25"
           >Buy the entire collection</button>
         </div>
       {%- endif -%}

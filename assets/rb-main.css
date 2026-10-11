@@ -1768,97 +1768,9 @@ body.grev-lock{overflow:hidden}
 
 /* Homepage watermelon film — full-bleed landscape, no side copy */
 .rb-film.rb-film--spotlight{
-  position:relative;
   background:#000;
   padding:0;
   margin:0;
-}
-.rb-ensemble{
-  position:absolute;
-  left:50%;
-  bottom:72px;
-  transform:translateX(-50%);
-  z-index:4;
-  width:min(920px, calc(100% - 36px));
-  display:flex;
-  align-items:center;
-  gap:18px;
-  padding:12px;
-  background:rgba(250,247,240,.96);
-  border-radius:18px;
-  box-shadow:0 18px 44px rgba(26,23,14,.32);
-}
-.rb-ensemble__slide{
-  position:relative;
-  flex:0 0 248px;
-  aspect-ratio:1;
-  border-radius:12px;
-  overflow:hidden;
-  background:#f4efe4;
-}
-.rb-ensemble__slide img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  opacity:0;
-  transition:opacity .25s ease;
-}
-.rb-ensemble__slide img.is-active{opacity:1}
-.rb-ensemble__arrow{
-  position:absolute;
-  top:50%;
-  z-index:2;
-  transform:translateY(-50%);
-  width:34px;
-  height:34px;
-  border:0;
-  border-radius:50%;
-  background:rgba(250,247,240,.94);
-  color:#1C1912;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-  box-shadow:0 4px 14px rgba(26,23,14,.18);
-}
-.rb-ensemble__arrow svg{width:16px;height:16px;display:block}
-.rb-ensemble__arrow--prev{left:8px}
-.rb-ensemble__arrow--next{right:8px}
-.rb-ensemble__arrow:hover{background:#fff}
-.rb-ensemble__copy{min-width:0;text-align:left}
-.rb-ensemble__kicker{
-  margin:0 0 4px;
-  font-size:.68rem;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  font-weight:600;
-  color:var(--rb-gold-600);
-}
-.rb-ensemble__title{
-  margin:0 0 6px;
-  font-family:var(--font-display);
-  font-size:clamp(1.25rem,1.6vw,1.7rem);
-  line-height:1.15;
-  color:#1C1912;
-}
-.rb-ensemble__note{margin:0 0 8px;color:#3c4038;font-size:.92rem;line-height:1.45}
-.rb-ensemble__price{display:flex;align-items:baseline;gap:10px;margin:0 0 12px}
-.rb-ensemble__price s{color:#8a8d84;font-size:.95rem}
-.rb-ensemble__price b{font-family:var(--font-display);font-size:1.7rem;font-weight:500;color:var(--rb-green-900)}
-@media(max-width:760px){
-  .rb-ensemble{
-    flex-direction:column;
-    align-items:stretch;
-    bottom:56px;
-    width:calc(100% - 20px);
-    gap:12px;
-    padding:10px;
-  }
-  .rb-ensemble__slide{flex-basis:auto;width:100%;aspect-ratio:16/10}
-  .rb-ensemble__copy{text-align:center}
-  .rb-ensemble__price{justify-content:center}
-  .rb-ensemble .btn{width:100%}
 }
 .rb-film--spotlight .rb-film__player{
   border-radius:0;
@@ -2639,7 +2551,29 @@ body.grev-lock{overflow:hidden}
 .col-intro__deck{font-family:var(--font-display);font-size:clamp(1.35rem,2vw,1.85rem);color:#1C1912;margin:0 0 14px}
 .col-intro p{margin:0 auto;color:#3c4038;line-height:1.7;max-width:62ch}
 .col-intro__meta{margin-top:16px!important;font-size:.95rem;letter-spacing:.04em;color:#5c5344}
-.col-bundle{max-width:40rem;margin:42px auto 8px;text-align:center;padding:28px 24px;background:#fff;border:1px solid var(--rb-line);border-radius:18px}
+.col-bundle{max-width:68rem;margin:42px auto 8px;text-align:center;padding:18px 18px 28px;background:#fff;border:1px solid var(--rb-line);border-radius:18px}
+.col-bundle__scroller{position:relative;margin:0 0 22px}
+.col-bundle__track{
+  display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;border-radius:14px;
+}
+.col-bundle__track::-webkit-scrollbar{display:none}
+.col-bundle__track img{
+  flex:0 0 min(82%,720px);scroll-snap-align:center;
+  width:min(82%,720px);height:auto;aspect-ratio:1;
+  object-fit:contain;background:#f4efe4;border-radius:14px;
+}
+.col-bundle__arrow{
+  position:absolute;top:50%;z-index:2;transform:translateY(-50%);
+  width:40px;height:40px;border:0;border-radius:50%;
+  background:rgba(250,247,240,.94);color:#1C1912;
+  display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 4px 14px rgba(26,23,14,.18);
+}
+.col-bundle__arrow svg{width:18px;height:18px;display:block}
+.col-bundle__arrow--prev{left:10px}
+.col-bundle__arrow--next{right:10px}
+.col-bundle__arrow:hover{background:#fff}
 .col-bundle__kicker{margin:0 0 8px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--rb-gold-600)}
 .col-bundle h2{margin:0 0 10px}
 .col-bundle__note{margin:0 auto 14px;max-width:42ch;color:#55584f}
