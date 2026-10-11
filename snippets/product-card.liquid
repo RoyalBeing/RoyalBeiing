@@ -28,6 +28,9 @@
   if rb_record != blank
     assign card_title = rb_record.title
   endif
+  if product.handle == 'the-matthew'
+    assign card_title = 'The Matthew'
+  endif
   assign coming_soon = false
   if product.tags contains 'Coming Soon' and soap_mto == false
     assign coming_soon = true

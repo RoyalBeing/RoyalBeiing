@@ -30,6 +30,13 @@
   if rb_is_robe and current.available == false
     assign can_buy = false
   endif
+  assign rb_display_title = product.title
+  if rb_record != blank and rb_record.title != blank
+    assign rb_display_title = rb_record.title
+  endif
+  if product.handle == 'the-matthew'
+    assign rb_display_title = 'The Matthew'
+  endif
 -%}
 <section class="section" {{ section.shopify_attributes }}>
   <div class="wrap">
@@ -40,7 +47,7 @@
       {%- elsif product.collections.first -%}
         <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a> /
       {%- endif -%}
-      {{ product.title }}
+      {{ rb_display_title }}
     </nav>
 
     <div class="pdp">
@@ -135,7 +142,7 @@
         {%- elsif product.collections.first -%}
           <div class="pdp__coll"><a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a></div>
         {%- endif -%}
-        <h1>{{ product.title }}</h1>
+        <h1>{{ rb_display_title }}</h1>
         {%- if rb_is_robe and current.available == false -%}
           <span class="badge badge--soldout" style="margin-bottom:10px;display:inline-block">Sold Out</span>
         {%- elsif product.tags contains 'Coming Soon' and soap_mto == false -%}
@@ -277,7 +284,7 @@
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Community</p>
-      <h2>Reviews for {{ product.title }}</h2>
+      <h2>Reviews for {{ rb_display_title }}</h2>
     </div>
     {%- for block in section.blocks -%}
       {%- if block.type == '@app' -%}
@@ -294,7 +301,7 @@
       {%- endfor -%}
     {%- endif -%}
     {%- if rb_review_article != blank -%}
-      {%- assign rb_review_marker = 'Product: ' | append: product.title -%}
+      {%- assign rb_review_marker = 'Product: ' | append: rb_display_title -%}
       <div class="rb-review-list">
         {%- paginate rb_review_article.comments by 50 -%}
           {%- for comment in rb_review_article.comments -%}
@@ -311,7 +318,7 @@
       </div>
       {%- form 'new_comment', rb_review_article, id: 'RoyalBeingProductReview', class: 'review-form card-soft' -%}
         {%- if form.posted_successfully? -%}
-          <p class="form-status form-status--success" role="status">Thank you. Your review of {{ product.title }} is published on this page for other customers to read.</p>
+          <p class="form-status form-status--success" role="status">Thank you. Your review of {{ rb_display_title }} is published on this page for other customers to read.</p>
         {%- else -%}
           {%- if form.errors -%}<div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
           <div class="review-form__grid">
@@ -319,17 +326,17 @@
             <label class="form-field"><span>Email</span><input type="email" name="comment[email]" required autocomplete="email"></label>
           </div>
           <label class="form-field"><span>Your review</span><textarea name="comment[body]" rows="4" required></textarea></label>
-          <p class="note">This written review is for {{ product.title }}. It is published on this page and with the community reviews.</p>
-          <button type="submit" class="btn btn-primary" data-review-product="{{ product.title | escape }}">Submit review</button>
+          <p class="note">This written review is for {{ rb_display_title }}. It is published on this page and with the community reviews.</p>
+          <button type="submit" class="btn btn-primary" data-review-product="{{ rb_display_title | escape }}">Submit review</button>
         {%- endif -%}
       {%- endform -%}
     {%- else -%}
     {%- form 'contact', id: 'RoyalBeingProductReview', class: 'review-form card-soft' -%}
-      <input type="hidden" name="contact[subject]" value="Review: {{ product.title | escape }}">
-      <input type="hidden" name="contact[product]" value="{{ product.title | escape }}">
+      <input type="hidden" name="contact[subject]" value="Review: {{ rb_display_title | escape }}">
+      <input type="hidden" name="contact[product]" value="{{ rb_display_title | escape }}">
       <input type="hidden" name="contact[product_url]" value="{{ shop.url }}{{ product.url }}">
       {%- if form.posted_successfully? -%}
-        <p class="form-status form-status--success" role="status">Thank you. Your review of {{ product.title }} was emailed to Royal Being. It is not published until it is approved.</p>
+        <p class="form-status form-status--success" role="status">Thank you. Your review of {{ rb_display_title }} was emailed to Royal Being. It is not published until it is approved.</p>
       {%- else -%}
         {%- if form.errors -%}<div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
         <div class="review-form__grid">
@@ -337,7 +344,7 @@
           <label class="form-field"><span>Email</span><input type="email" name="contact[email]" required autocomplete="email"></label>
         </div>
         <label class="form-field"><span>Your review</span><textarea name="contact[body]" rows="4" required></textarea></label>
-        <p class="note">This is a written review for {{ product.title }}. Photo and video files cannot be attached here.</p>
+        <p class="note">This is a written review for {{ rb_display_title }}. Photo and video files cannot be attached here.</p>
         <button type="submit" class="btn btn-primary">Submit review</button>
       {%- endif -%}
     {%- endform -%}
@@ -367,7 +374,7 @@
 
 {%- if can_buy -%}
   <div class="buy-bar">
-    <div><div style="font-family:var(--font-display);font-size:1.1rem">{{ product.title }}</div></div>
+    <div><div style="font-family:var(--font-display);font-size:1.1rem">{{ rb_display_title }}</div></div>
     <div class="bb-price">{{ current.price | money }}</div>
     <button type="button" class="btn btn-primary btn-sm" data-add-variant="{{ current.id }}">{{ section.settings.add_label }}</button>
   </div>

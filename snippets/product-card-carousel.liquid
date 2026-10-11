@@ -67,6 +67,9 @@
       assign coll_title = rb_record.collection_title
     endif
   endif
+  if product.handle == 'the-matthew'
+    assign card_title = 'The Matthew'
+  endif
 -%}
 <article
   class="pcar-card"
