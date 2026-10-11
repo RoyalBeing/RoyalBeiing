@@ -676,7 +676,7 @@
             "type": "faq",
             "settings": {
               "question": "Can I leave a video review?",
-              "answer": "Yes. Customers may submit written reviews, photos, and short video testimonials when supported by the website\u2019s review system."
+              "answer": "Written reviews can be submitted on each soap page. They are published on that product page and with the community reviews. This form does not accept photo or video files."
             }
           }
         },
@@ -714,11 +714,11 @@
           "button_label": "READ ALL REVIEWS",
           "button2_label": "SHARE YOUR EXPERIENCE",
           "form_heading": "Share Your Royal Being Ritual",
-          "form_text": "Show us how Royal Being fits into your self-care routine. Upload a photo or video with your review and help inspire our growing community.",
-          "form_consent": "By uploading media, you confirm you own the rights to the content and grant Royal Being permission to display it publicly on this website and social channels. Do not upload images of minors without parental consent.",
+          "form_text": "Share how Royal Being fits into your self-care routine. Written reviews are published with the community reviews.",
+          "form_consent": "By submitting, you confirm this review is your own and allow Royal Being to display it publicly on this website.",
           "form_subject": "Royal Being \u2014 customer review",
           "review_placeholder": "Share how Royal Being fits into your ritual\u2026",
-          "consent_checkbox": "I confirm I own the rights to this content and allow Royal Being to display my review and media publicly.",
+          "consent_checkbox": "I confirm this review is my own and allow Royal Being to display it publicly.",
           "submit_label": "SUBMIT YOUR REVIEW",
           "success_message": "Thank you. Your review was emailed to Royal Being. It is not published on the site until it is approved.",
           "place_id": "",

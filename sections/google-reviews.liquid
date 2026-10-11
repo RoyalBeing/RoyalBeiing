@@ -1,3 +1,4 @@
+{%- include 'rb-review-article' -%}
 {%- liquid
   assign max_reviews = section.settings.max_reviews | default: 12
   assign shown = 0
@@ -14,11 +15,6 @@
   assign total = section.settings.total_reviews | default: ''
   assign google_leave_url = section.settings.google_review_url
   assign google_profile_url = section.settings.google_profile_url
-  assign rb_review_blog = blogs['reviews']
-  assign rb_review_article = blank
-  if rb_review_blog != blank
-    assign rb_review_article = rb_review_blog.articles['customer-reviews']
-  endif
   if rb_review_article != blank and rb_review_article.comments_count > 0
     assign shown = shown | plus: rb_review_article.comments_count
     if shown > max_reviews
@@ -91,7 +87,7 @@
           {%- if rb_review_article != blank -%}
             {%- form 'new_comment', rb_review_article, id: 'RoyalBeingReviewForm', class: 'review-form' -%}
               {%- if form.posted_successfully? -%}
-                <p class="form-status form-status--success" role="status">Thank you. Your review was saved. It will appear in this section after Royal Being approves it.</p>
+                <p class="form-status form-status--success" role="status">Thank you. Your review is published with the community reviews.</p>
               {%- else -%}
                 {%- if form.errors -%}
                   <div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>
@@ -110,7 +106,7 @@
                   <span>Your review</span>
                   <textarea name="comment[body]" rows="3" required placeholder="{{ section.settings.review_placeholder | default: 'Share how Royal Being fits into your ritual…' | escape }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
                 </label>
-                <p class="review-form__file-note">Approved reviews appear in this section. Photo and video files are not stored with this form.</p>
+                <p class="review-form__file-note">Your written review is published in this section and on the product you select. This form does not accept photo or video files.</p>
                 <div class="review-form__grid">
                   <label class="form-field">
                     <span>Star rating</span>
@@ -172,7 +168,7 @@
                 <textarea name="contact[body]" rows="3" required placeholder="{{ section.settings.review_placeholder | default: 'Share how Royal Being fits into your ritual…' | escape }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
               </label>
 
-              <p class="review-form__file-note">Reviews are associated with the product you select. Photo and video uploads appear in the review app widget below when a review app with media is installed on this store.</p>
+              <p class="review-form__file-note">Written reviews are published with the community reviews. This form does not accept photo or video files.</p>
               <div class="review-form__grid">
                 <label class="form-field">
                   <span>Star rating</span>

@@ -284,18 +284,29 @@
         <div class="grev__app" {{ block.shopify_attributes }}>{% render block %}</div>
       {%- endif -%}
     {%- endfor -%}
-    {%- liquid
-      assign rb_review_blog = blogs['reviews']
-      assign rb_review_article = blank
-      if rb_review_blog != blank
-        assign rb_review_article = rb_review_blog.articles['customer-reviews']
-      endif
-    -%}
-    <!-- rb-reviews blog:{{ rb_review_blog.handle | default: 'missing' }} articles:{{ rb_review_blog.articles.size | default: 0 }} found:{{ rb_review_article.handle | default: 'no' }} -->
+    {%- include 'rb-review-article' -%}
     {%- if rb_review_article != blank -%}
+      {%- assign rb_review_marker = 'Product: ' | append: product.title -%}
+      {%- capture rb_review_cards -%}
+        {%- paginate rb_review_article.comments by 50 -%}
+          {%- for comment in rb_review_article.comments -%}
+            {%- if comment.content contains rb_review_marker -%}
+              {%- assign rb_body = comment.content | replace: rb_review_marker, '' | replace: 'Rating: 5', '' | replace: 'Rating: 4', '' | replace: 'Rating: 3', '' | replace: 'Rating: 2', '' | replace: 'Rating: 1', '' | strip -%}
+              <article class="rb-review-card">
+                <h3>{{ comment.author }}</h3>
+                <time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%b %d, %Y' }}</time>
+                <p>{{ rb_body | newline_to_br }}</p>
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endpaginate -%}
+      {%- endcapture -%}
+      {%- if rb_review_cards contains 'rb-review-card' -%}
+        <div class="rb-review-list">{{ rb_review_cards }}</div>
+      {%- endif -%}
       {%- form 'new_comment', rb_review_article, id: 'RoyalBeingProductReview', class: 'review-form card-soft' -%}
         {%- if form.posted_successfully? -%}
-          <p class="form-status form-status--success" role="status">Thank you. Your review of {{ product.title }} was saved. It will appear after Royal Being approves it.</p>
+          <p class="form-status form-status--success" role="status">Thank you. Your review of {{ product.title }} is published on this page for other customers to read.</p>
         {%- else -%}
           {%- if form.errors -%}<div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
           <div class="review-form__grid">
@@ -303,7 +314,7 @@
             <label class="form-field"><span>Email</span><input type="email" name="comment[email]" required autocomplete="email"></label>
           </div>
           <label class="form-field"><span>Your review</span><textarea name="comment[body]" rows="4" required></textarea></label>
-          <p class="note">Approved reviews appear with the community reviews on the homepage. This review is for {{ product.title }}.</p>
+          <p class="note">This written review is for {{ product.title }}. It is published on this page and with the community reviews.</p>
           <button type="submit" class="btn btn-primary" data-review-product="{{ product.title | escape }}">Submit review</button>
         {%- endif -%}
       {%- endform -%}
@@ -321,7 +332,7 @@
           <label class="form-field"><span>Email</span><input type="email" name="contact[email]" required autocomplete="email"></label>
         </div>
         <label class="form-field"><span>Your review</span><textarea name="contact[body]" rows="4" required></textarea></label>
-        <p class="note">Photo and video reviews display through the review app block above when a media-capable review app is installed on this store.</p>
+        <p class="note">This is a written review for {{ product.title }}. Photo and video files cannot be attached here.</p>
         <button type="submit" class="btn btn-primary">Submit review</button>
       {%- endif -%}
     {%- endform -%}
