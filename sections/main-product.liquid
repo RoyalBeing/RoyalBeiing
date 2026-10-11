@@ -291,6 +291,7 @@
         assign rb_review_article = rb_review_blog.articles['customer-reviews']
       endif
     -%}
+    <!-- rb-reviews blog:{{ rb_review_blog.handle | default: 'missing' }} articles:{{ rb_review_blog.articles.size | default: 0 }} found:{{ rb_review_article.handle | default: 'no' }} -->
     {%- if rb_review_article != blank -%}
       {%- form 'new_comment', rb_review_article, id: 'RoyalBeingProductReview', class: 'review-form card-soft' -%}
         {%- if form.posted_successfully? -%}
