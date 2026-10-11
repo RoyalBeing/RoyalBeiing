@@ -1236,7 +1236,51 @@ body.grev-lock{overflow:hidden}
 .pagination{display:flex;gap:10px;justify-content:center;margin-top:40px;flex-wrap:wrap}
 .pagination a,.pagination span{padding:10px 16px;border:1px solid var(--rb-line);border-radius:30px;font-size:.82rem}
 .pagination .current{background:var(--rb-green-900);color:#fff;border-color:var(--rb-green-900)}
-.list-collections .collection-grid{margin-top:20px}
+.list-collections{padding-block:clamp(48px,6vw,88px);background:var(--rb-ivory-50)}
+.list-collections__head{text-align:center;margin:0 auto 28px;max-width:40rem}
+.list-collections__head h1{margin:0;color:var(--rb-green-900)}
+.list-collections .collection-grid{
+  margin-top:0;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:clamp(14px,1.6vw,22px);
+  align-items:stretch;
+}
+.list-collections .col-card{
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  color:inherit;
+  background:transparent;
+  border:0;
+  border-radius:18px;
+  box-shadow:none;
+}
+.list-collections .col-card::after{display:none}
+.list-collections .col-card img{
+  position:static;
+  z-index:0;
+  width:100%;
+  height:auto;
+  aspect-ratio:4 / 5;
+  object-fit:cover;
+  object-position:center 58%;
+  border-radius:18px;
+  background:#f4efe4;
+}
+.list-collections .col-card__body{padding:14px 2px 0;width:100%}
+.list-collections .col-card__body h3{
+  color:var(--rb-green-900);
+  font-size:clamp(1.05rem,1.2vw,1.35rem);
+  margin:0 0 4px;
+}
+.list-collections .col-card__count{color:#5c5344}
+@media(max-width:1100px){
+  .list-collections .collection-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .list-collections .collection-grid{grid-template-columns:1fr 1fr}
+}
 .predictive-search{position:relative}
 .filters label input{accent-color:var(--rb-green-900)}
 

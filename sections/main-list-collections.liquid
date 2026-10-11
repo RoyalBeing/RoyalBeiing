@@ -1,27 +1,72 @@
-<section class="page-banner" {{ section.shopify_attributes }}>
-  <div class="page-banner__scrim" style="position:absolute;inset:0;background:var(--rb-green-900)"></div>
-  <div class="page-banner__inner wrap">
-    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
-    <h1>{{ section.settings.heading }}</h1>
+{%- comment -%}
+  All Collections: full-screen film, the five collection boxes, then the second full-screen film.
+  Same two landscape files and the same full-bleed player as the homepage.
+{%- endcomment -%}
+<section class="rb-film rb-film--spotlight" {{ section.shopify_attributes }}>
+  <div class="rb-film__player is-muted" data-autoplay-video>
+    <video
+      class="rb-video"
+      muted
+      loop
+      autoplay
+      playsinline
+      webkit-playsinline
+      preload="auto"
+      aria-label="Royal Being"
+    >
+      <source src="https://cdn.shopify.com/videos/c/o/v/117cb97df2d84d3797ee650ab396e790.mp4" type="video/mp4">
+    </video>
+    {% render 'video-sound-control' %}
   </div>
 </section>
+
 <section class="section list-collections">
   <div class="wrap">
+    <header class="list-collections__head">
+      <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      <h1>{{ section.settings.heading }}</h1>
+    </header>
     <div class="collection-grid reveal">
-      {%- for collection in collections -%}
-        {%- unless collection.handle == 'all' or collection.products_count == 0 -%}
-          <a class="col-card" href="{{ collection.url }}">
-            {%- if collection.featured_image -%}
-              <img src="{{ collection.featured_image | image_url: width: 1200 }}" alt="{{ collection.title | escape }}" loading="lazy">
-            {%- endif -%}
-            <div class="col-card__body">
-              <h3>{{ collection.title }}</h3>
-              <span class="col-card__count">{{ collection.products_count }} Soaps</span>
-            </div>
-          </a>
-        {%- endunless -%}
+      {%- assign rb_box_order = 'common|royal|royal-duke|royal-kid|signature' | split: '|' -%}
+      {%- for handle in rb_box_order -%}
+        {%- assign col = collections[handle] -%}
+        {%- if col == blank or col.products_count == 0 -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- case handle -%}
+          {%- when 'common' -%}{%- assign box_img = 'rb-cbox-common.jpg' -%}
+          {%- when 'royal' -%}{%- assign box_img = 'rb-cbox-royal.jpg' -%}
+          {%- when 'royal-duke' -%}{%- assign box_img = 'rb-cbox-duke.jpg' -%}
+          {%- when 'royal-kid' -%}{%- assign box_img = 'rb-cbox-kid.jpg' -%}
+          {%- else -%}{%- assign box_img = 'rb-cbox-signature.jpg' -%}
+        {%- endcase -%}
+        <a class="col-card" href="{{ col.url }}">
+          <img src="{{ box_img | asset_url }}" alt="{{ col.title | escape }}" width="1800" height="1004" loading="lazy">
+          <div class="col-card__body">
+            <h3>{{ col.title }}</h3>
+            <span class="col-card__count">{{ col.products_count }} Soaps</span>
+          </div>
+        </a>
       {%- endfor -%}
     </div>
+  </div>
+</section>
+
+<section class="rb-film rb-film--spotlight">
+  <div class="rb-film__player is-muted" data-autoplay-video>
+    <video
+      class="rb-video"
+      muted
+      loop
+      autoplay
+      playsinline
+      webkit-playsinline
+      preload="metadata"
+      aria-label="Watermelon Fusion"
+    >
+      <source src="https://cdn.shopify.com/videos/c/vp/73d871756d4f43bd8e1c1f56dd667d75/73d871756d4f43bd8e1c1f56dd667d75.HD-1080p-7.2Mbps-90385254.mp4" type="video/mp4">
+    </video>
+    {% render 'video-sound-control' %}
   </div>
 </section>
 
