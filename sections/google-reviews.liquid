@@ -84,11 +84,10 @@
         {%- if section.settings.form_heading != blank -%}
           <h3 class="grev-split__form-title">{{ section.settings.form_heading }}</h3>
         {%- endif -%}
-        {%- if section.settings.form_text != blank -%}
-          <p class="grev-split__form-lead">{{ section.settings.form_text }}</p>
-        {%- endif -%}
-        {%- if section.settings.form_consent != blank -%}
-          <p class="note grev-split__form-note">{{ section.settings.form_consent }}</p>
+        <p class="grev-split__form-lead">Your star rating and written review are published in this section and on the soap you select.</p>
+        <p class="note grev-split__form-note">This form publishes the review on the website. It cannot attach a photo or video file.</p>
+        {%- if rb_review_blog != blank -%}
+          <p hidden data-rb-review-meta="mod:{{ rb_review_blog.moderated? }} enabled:{{ rb_review_blog.comments_enabled? }} count:{% if rb_review_article != blank %}{{ rb_review_article.comments_count }}{% else %}0{% endif %}"></p>
         {%- endif -%}
 
         <div class="review-invite__form-wrap" id="review-upload-form">
@@ -448,7 +447,7 @@
 
     { "type": "header", "content": "Right — review form" },
     { "type": "text", "id": "form_heading", "label": "Form heading", "default": "Share Your Royal Being Ritual" },
-    { "type": "textarea", "id": "form_text", "label": "Form text", "default": "Show us how Royal Being fits into your self-care routine. Upload a photo or video with your review and help inspire our growing community." },
+    { "type": "textarea", "id": "form_text", "label": "Form text", "default": "Your star rating and written review are published in this section and on the soap you select." },
     { "type": "textarea", "id": "form_consent", "label": "Consent notice", "default": "By uploading media, you confirm you own the rights to the content and grant Royal Being permission to display it publicly on this website and social channels. Do not upload images of minors without parental consent." },
     { "type": "text", "id": "form_subject", "label": "Form email subject", "default": "Royal Being — customer review" },
     { "type": "text", "id": "review_placeholder", "label": "Review placeholder", "default": "Share how Royal Being fits into your ritual…" },
