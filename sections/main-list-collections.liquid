@@ -18,6 +18,51 @@
     </video>
     {% render 'video-sound-control' %}
   </div>
+  {%- assign duke = collections['royal-duke'] -%}
+  {%- assign rb_bundle_total = 0 -%}
+  {%- assign rb_bundle_ids = '' -%}
+  {%- if duke != blank -%}
+    {%- for product in duke.products -%}
+      {%- assign rb_bv = product.selected_or_first_available_variant -%}
+      {%- if rb_bv != blank and rb_bv.available -%}
+        {%- assign rb_bundle_total = rb_bundle_total | plus: rb_bv.price -%}
+        {%- if rb_bundle_ids != blank -%}{%- assign rb_bundle_ids = rb_bundle_ids | append: ',' -%}{%- endif -%}
+        {%- assign rb_bundle_ids = rb_bundle_ids | append: rb_bv.id -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- assign rb_bundle_sale = rb_bundle_total | times: 80 | divided_by: 100 -%}
+  {%- if rb_bundle_ids != blank -%}
+    <aside class="rb-ensemble" aria-label="The Royal Duke Collection Ensemble">
+      <div class="rb-ensemble__slide" data-ensemble-slide>
+        <img class="is-active" src="{{ 'rb-duke-ensemble-lineup.jpg' | asset_url }}" alt="The Royal Duke Collection, five soaps" width="1024" height="1024">
+        <img src="{{ 'rb-duke-ensemble-schematic.jpg' | asset_url }}" alt="The Royal Duke Collection schematic" width="1024" height="1024">
+        <img src="{{ 'rb-duke-ensemble-ritual.jpg' | asset_url }}" alt="The Ritual of Being, with bonus Charcoal Moment" width="1024" height="577">
+        <button type="button" class="rb-ensemble__arrow rb-ensemble__arrow--prev" data-ensemble-prev aria-label="Previous schematic">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="rb-ensemble__arrow rb-ensemble__arrow--next" data-ensemble-next aria-label="Next schematic">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="rb-ensemble__copy">
+        <p class="rb-ensemble__kicker">The whole set</p>
+        <p class="rb-ensemble__title">The Royal Duke Collection Ensemble</p>
+        <p class="rb-ensemble__note">Every Duke soap, added together, with 20% off the total.</p>
+        <p class="rb-ensemble__price">
+          <s>{{ rb_bundle_total | money }}</s>
+          <b>{{ rb_bundle_sale | money }}</b>
+        </p>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-buy-collection
+          data-variants="{{ rb_bundle_ids }}"
+          data-discount="ROYAL20"
+        >Buy the Royal Duke Collection Ensemble</button>
+      </div>
+    </aside>
+  {%- endif -%}
 </section>
 
 <section class="section list-collections">
