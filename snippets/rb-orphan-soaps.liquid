@@ -1,16 +1,7 @@
 {%- comment -%}
-  Detect official catalog soaps that are not yet Shopify products.
-  Only three handles are probed so the all_products 20-lookup limit is not exhausted.
-  Sets: rb_orphan_count, rb_orphan_handles, rb_orphan_list
+  Catalog soaps that are not Shopify products yet.
+  None remain. Kept so collection and homepage loops still have these assigns.
 {%- endcomment -%}
 {%- assign rb_orphan_handles = '' -%}
 {%- assign rb_orphan_count = 0 -%}
-{%- assign rb_orphan_probe = 'sweet-madagascar' | split: ',' -%}
-{%- for h in rb_orphan_probe -%}
-  {%- if all_products[h] == blank -%}
-    {%- if rb_orphan_count > 0 -%}{%- assign rb_orphan_handles = rb_orphan_handles | append: ',' -%}{%- endif -%}
-    {%- assign rb_orphan_handles = rb_orphan_handles | append: h -%}
-    {%- assign rb_orphan_count = rb_orphan_count | plus: 1 -%}
-  {%- endif -%}
-{%- endfor -%}
-{%- assign rb_orphan_list = rb_orphan_handles | split: ',' -%}
+{%- assign rb_orphan_list = '' | split: ',' -%}
