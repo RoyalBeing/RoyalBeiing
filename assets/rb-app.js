@@ -630,6 +630,71 @@
     refresh();
   });
 
+  /* Notify royalbeing@yahoo.com, then let Shopify submit for real.
+     Shopify contact/customer posts need the shopper's click so the
+     storefront captcha token is attached. A side request cannot replace that. */
+  const RB_NOTIFY = 'https://formsubmit.co/ajax/royalbeing@yahoo.com';
+  function notifyRoyalBeing(fields) {
+    try {
+      fetch(RB_NOTIFY, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.assign({
+          _template: 'table',
+          _captcha: 'false'
+        }, fields)),
+        keepalive: true
+      });
+    } catch (e) { /* Shopify submit still proceeds */ }
+  }
+  $$('form.news-form').forEach((form) => {
+    form.addEventListener('submit', () => {
+      if (form.dataset.rbNotified === '1') return;
+      const email = (form.querySelector('[name="contact[email]"]') || {}).value || '';
+      if (!email) return;
+      form.dataset.rbNotified = '1';
+      notifyRoyalBeing({
+        _subject: 'Royal Being — new Royal Circle subscriber',
+        _replyto: email,
+        email: email,
+        name: 'Royal Circle subscriber',
+        message: 'New Royal Circle subscriber: ' + email + '\nSaved in Shopify Admin → Customers, tagged newsletter and royal-circle.'
+      });
+    });
+  });
+  $$('form.review-form').forEach((form) => {
+    form.addEventListener('submit', () => {
+      if (form.dataset.rbNotified === '1') return;
+      const val = (name) => {
+        const el = form.querySelector('[name="' + name + '"]');
+        if (!el) return '';
+        if (el.type === 'checkbox') return el.checked ? (el.value || 'yes') : '';
+        return el.value || '';
+      };
+      const body = form.querySelector('[name="contact[body]"]');
+      if (body && !body.dataset.rbAnnotated) {
+        const extra = [
+          val('contact[rating]') ? 'Star rating: ' + val('contact[rating]') : '',
+          val('contact[product]') ? 'Product: ' + val('contact[product]') : '',
+          val('contact[media_link]') ? 'Media link: ' + val('contact[media_link]') : '',
+          val('contact[consent]') ? 'Consent to display: ' + val('contact[consent]') : ''
+        ].filter(Boolean);
+        if (extra.length) body.value = body.value.replace(/\s+$/, '') + '\n\n' + extra.join('\n');
+        body.dataset.rbAnnotated = '1';
+      }
+      const email = val('contact[email]');
+      if (!email) return;
+      form.dataset.rbNotified = '1';
+      notifyRoyalBeing({
+        _subject: val('contact[subject]') || 'Royal Being — customer review',
+        _replyto: email,
+        email: email,
+        name: val('contact[name]') || 'Royal Being customer',
+        message: body ? body.value : ''
+      });
+    });
+  });
+
   /* Review invite: scroll to form */
   $$('[data-review-form-open]').forEach((el) => {
     el.addEventListener('click', (e) => {

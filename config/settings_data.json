@@ -609,6 +609,7 @@
           "discount_message": "Use code ROYAL20 to receive 20% off eligible products.",
           "placeholder": "Enter your email address",
           "button_label": "JOIN THE ROYAL CIRCLE",
+          "success": "Welcome to the Royal Circle. Your signup was received.",
           "legal": "By subscribing, you agree to receive Royal Being news and promotional emails. You may unsubscribe at any time.",
           "background_position": "center 40%"
         }

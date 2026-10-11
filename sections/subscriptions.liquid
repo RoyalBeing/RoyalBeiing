@@ -84,6 +84,7 @@
   if plan_desc == blank
     assign plan_desc = section.settings.fallback_desc | default: 'Keep your favorite Royal Being bars delivered on a schedule you choose. Cancel or pause anytime.'
   endif
+  assign plan_desc = plan_desc | replace: 'Favourite', 'Favorite' | replace: 'favourite', 'favorite'
 
   assign benefit_1 = section.settings.benefit_1 | default: 'Recurring delivery on eligible soaps'
   assign benefit_2 = section.settings.benefit_2 | default: 'Manage or skip upcoming orders in your account'
@@ -98,10 +99,10 @@
           <p class="eyebrow">{{ section.settings.eyebrow }}</p>
         {%- endif -%}
         {%- if section.settings.heading != blank -%}
-          <h2>{{ section.settings.heading }}</h2>
+          <h2>{{ section.settings.heading | replace: 'Favourite', 'Favorite' | replace: 'favourite', 'favorite' }}</h2>
         {%- endif -%}
         {%- if section.settings.text != blank -%}
-          <div class="rb-subs__lead">{{ section.settings.text | newline_to_br }}</div>
+          <div class="rb-subs__lead">{{ section.settings.text | replace: 'Favourite', 'Favorite' | replace: 'favourite', 'favorite' | newline_to_br }}</div>
         {%- endif -%}
         <ul class="rb-subs__checklist">
           {%- if benefit_1 != blank -%}
