@@ -172,18 +172,78 @@ p{margin:0 0 1rem}
 .page-banner .breadcrumbs{color:rgba(255,255,255,.75)}
 .page-banner .breadcrumbs a:hover{color:#fff}
 .page-banner.col-hero{
-  aspect-ratio:1024 / 341;
-  min-height:280px;
+  aspect-ratio:auto;
+  height:calc(100svh - var(--rb-header-h) - var(--rb-announce-h));
+  min-height:calc(100svh - var(--rb-header-h) - var(--rb-announce-h));
   display:flex;
-  align-items:center;
-  justify-content:center;
-  padding-block:clamp(36px,5vw,72px);
+  align-items:stretch;
+  padding:0;
 }
 .col-hero .page-banner__media{background:var(--rb-green-900)}
-.col-hero .page-banner__media img{object-fit:cover;object-position:center}
-.col-hero .page-banner__scrim{background:linear-gradient(180deg,rgba(47,51,47,.34),rgba(47,51,47,.46))}
+.col-hero .page-banner__media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 42%;
+}
+.col-hero .page-banner__scrim{
+  background:
+    linear-gradient(180deg, rgba(47,51,47,.36) 0%, rgba(47,51,47,.1) 16%, rgba(47,51,47,0) 38%, rgba(47,51,47,.16) 64%, rgba(47,51,47,.5) 84%, rgba(47,51,47,.62) 100%);
+}
+.col-hero__frame{
+  position:relative;
+  z-index:2;
+  flex:1;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  padding-top:clamp(28px,4.5vh,52px);
+  padding-bottom:clamp(44px,8vh,96px);
+}
+.col-hero .breadcrumbs{
+  align-self:flex-start;
+  margin:0;
+  font-size:.7rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.9);
+  text-shadow:0 1px 10px rgba(47,51,47,.4);
+}
+.col-hero .breadcrumbs a{color:rgba(255,255,255,.9)}
+.col-hero .breadcrumbs span{margin:0 .2em;opacity:.65}
+.col-hero__copy{max-width:14em}
+.col-hero .eyebrow{
+  color:var(--rb-gold-500);
+  margin-bottom:14px;
+  text-shadow:0 1px 12px rgba(47,51,47,.4);
+}
+.col-hero h1{
+  color:#fff;
+  font-weight:500;
+  font-size:clamp(3.2rem,6.4vw,6.6rem);
+  line-height:.92;
+  letter-spacing:-.02em;
+  text-shadow:0 10px 36px rgba(47,51,47,.38);
+}
+@media(max-width:900px){
+  .page-banner.col-hero{
+    height:auto;
+    min-height:82svh;
+  }
+  .col-hero h1{font-size:clamp(2.7rem,9vw,4.4rem)}
+  .col-hero__frame{padding-bottom:clamp(36px,7vh,64px)}
+}
 @media(max-width:700px){
-  .page-banner.col-hero{aspect-ratio:auto;min-height:320px}
+  .page-banner.col-hero{
+    height:78svh;
+    min-height:78svh;
+  }
+  .col-hero .page-banner__media img{object-position:center 38%}
+  .col-hero__frame{padding-top:20px;padding-bottom:32px}
+  .col-hero .breadcrumbs{letter-spacing:.1em;font-size:.62rem}
+  .col-hero h1{font-size:clamp(2.45rem,12vw,3.4rem)}
 }
 
 /* ---------- Trust strip ---------- */

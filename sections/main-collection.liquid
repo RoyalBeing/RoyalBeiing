@@ -52,22 +52,24 @@
 -%}
 <section class="page-banner col-hero" {{ section.shopify_attributes }}>
   {%- if banner_asset != blank -%}
-    <div class="page-banner__media"><img src="{{ banner_asset | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="1024" height="341"></div>
+    <div class="page-banner__media"><img src="{{ banner_asset | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="1024" height="341" fetchpriority="high"></div>
   {%- elsif rec != blank and rec.hero != blank -%}
-    <div class="page-banner__media"><img src="{{ rec.hero | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="1024" height="341"></div>
+    <div class="page-banner__media"><img src="{{ rec.hero | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="1024" height="341" fetchpriority="high"></div>
   {%- elsif collection.featured_image -%}
-    <div class="page-banner__media"><img src="{{ collection.featured_image | image_url: width: 2000 }}" alt="{{ collection.title | escape }}" width="{{ collection.featured_image.width }}" height="{{ collection.featured_image.height }}"></div>
+    <div class="page-banner__media"><img src="{{ collection.featured_image | image_url: width: 2400 }}" alt="{{ collection.title | escape }}" width="{{ collection.featured_image.width }}" height="{{ collection.featured_image.height }}" fetchpriority="high"></div>
   {%- else -%}
     {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', collection: collection %}{%- endcapture -%}
     {%- if rb_col_src != blank -%}
-      <div class="page-banner__media"><img src="{{ rb_col_src | strip }}" alt="{{ collection.title | escape }}" width="1024" height="341"></div>
+      <div class="page-banner__media"><img src="{{ rb_col_src | strip }}" alt="{{ collection.title | escape }}" width="1024" height="341" fetchpriority="high"></div>
     {%- endif -%}
   {%- endif -%}
-  <div class="page-banner__scrim"></div>
-  <div class="page-banner__inner wrap">
-    <nav class="breadcrumbs"><a href="{{ routes.root_url }}">Home</a> / <a href="{{ routes.collections_url }}">Shop</a> / {{ rec.title | default: collection.title }}</nav>
-    <p class="eyebrow">{{ section.settings.eyebrow | default: 'Collection' }}</p>
-    <h1>{% if collection.handle == 'all' %}Shop All Soaps{% else %}{{ rec.title | default: collection.title }}{% endif %}</h1>
+  <div class="page-banner__scrim" aria-hidden="true"></div>
+  <div class="col-hero__frame wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Home</a> <span aria-hidden="true">/</span> <a href="{{ routes.collections_url }}">Shop</a> <span aria-hidden="true">/</span> {{ rec.title | default: collection.title }}</nav>
+    <div class="col-hero__copy">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'Collection' }}</p>
+      <h1>{% if collection.handle == 'all' %}Shop All Soaps{% else %}{{ rec.title | default: collection.title }}{% endif %}</h1>
+    </div>
   </div>
 </section>
 
