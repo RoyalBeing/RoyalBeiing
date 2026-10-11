@@ -1,10 +1,10 @@
 {%- comment -%}
-  Homepage ritual film. Same full-bleed landscape video as the watermelon spotlight.
+  Full-bleed film under the five collections. Shopify file 31725554565177.
 {%- endcomment -%}
 <section class="rb-film rb-film--spotlight" {{ section.shopify_attributes }}>
   {%- liquid
     assign poster = section.settings.poster
-    assign video_url = 'https://cdn.shopify.com/videos/c/vp/73d871756d4f43bd8e1c1f56dd667d75/73d871756d4f43bd8e1c1f56dd667d75.HD-1080p-7.2Mbps-90385254.mp4'
+    assign video_url = 'https://cdn.shopify.com/videos/c/o/v/117cb97df2d84d3797ee650ab396e790.mp4'
   -%}
   <div class="rb-film__player is-muted" data-autoplay-video>
     <video
@@ -32,7 +32,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "See the Ritual in Motion" },
     { "type": "textarea", "id": "text", "label": "Text" },
     { "type": "video", "id": "video", "label": "Shopify-hosted video" },
-    { "type": "text", "id": "video_url", "label": "MP4 URL", "info": "Unused. This section plays the same landscape film as the watermelon spotlight." },
+    { "type": "text", "id": "video_url", "label": "MP4 URL", "info": "Unused. This section plays the landscape film from Shopify Files." },
     { "type": "image_picker", "id": "poster", "label": "Poster image" },
     { "type": "text", "id": "button_label", "label": "Button", "default": "EXPLORE THE COLLECTIONS" },
     { "type": "url", "id": "button_link", "label": "Button link" }
