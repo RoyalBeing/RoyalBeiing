@@ -133,31 +133,14 @@
   </div>
 </section>
 
-{%- if col_key == 'royal-duke' or col_key == 'royal-kid' -%}
-  {%- if col_key == 'royal-duke' -%}
-    {%- assign rb_ad_file = 'rb-ad-duke-horizontal.mp4' -%}
-    {%- assign rb_ad_label = 'The Royal Duke Collection' -%}
-  {%- else -%}
-    {%- assign rb_ad_file = 'rb-ad-kid-bodhi.mp4' -%}
-    {%- assign rb_ad_label = 'The Royal Kid Herbal Collection' -%}
-  {%- endif -%}
-  <section class="rb-film rb-film--spotlight" aria-label="{{ rb_ad_label | escape }}">
-    <div class="rb-film__player is-muted" data-autoplay-video>
-      <video
-        class="rb-video"
-        muted
-        loop
-        autoplay
-        playsinline
-        webkit-playsinline
-        preload="metadata"
-        aria-label="{{ rb_ad_label | escape }}"
-      >
-        <source src="{{ rb_ad_file | asset_url }}" type="video/mp4">
-      </video>
-      {% render 'video-sound-control' %}
-    </div>
-  </section>
+{%- assign rb_ad_file = blank -%}
+{%- assign rb_ad_label = blank -%}
+{%- if col_key == 'royal-duke' -%}
+  {%- assign rb_ad_file = 'rb-ad-duke-horizontal.mp4' -%}
+  {%- assign rb_ad_label = 'The Royal Duke Collection' -%}
+{%- elsif col_key == 'royal-kid' -%}
+  {%- assign rb_ad_file = 'rb-ad-kid-bodhi.mp4' -%}
+  {%- assign rb_ad_label = 'The Royal Kid Herbal Collection' -%}
 {%- endif -%}
 
 <section class="section col-story{% if hero_editorial %} col-story--after-hero{% endif %}">
@@ -166,7 +149,7 @@
       <div class="col-intro reveal">
         {%- if col_key == 'royal-duke' -%}
           <p class="col-intro__deck">Grounded, woody, and quietly powerful.</p>
-          <p>{{ rec.intro | default: "The Royal Duke Collection is a premium five-piece anthology of artisanal herbal soaps engineered specifically for the modern man who values rugged, sophisticated grooming. This collection merges bold, masculine aromatherapy with hard-working botanicals to deliver an authoritative clean that honors a man's daily skin health." }}</p>
+          <p>{{ rec.intro | default: "The Royal Duke Collection is a premium five-piece anthology of artisanal herbal soaps engineered specifically for the modern man who values rugged, sophisticated grooming. This collection merges bold, masculine aromatherapy with hard-working botanicals to deliver an authoritative clean that honors a man's daily skin health." | replace: 'Photographed from the real, tested bars.', '' | replace: 'Photographed from the real, tested bars', '' }}</p>
           <p class="col-intro__meta">5 herbal soaps · For Men · Woody</p>
         {%- else -%}
           <p class="col-intro__deck">Soft, joyful, and gentle — premium care for little ones.</p>
@@ -174,6 +157,29 @@
           <p class="col-intro__meta">4 herbal soaps · For Kids · Gentle</p>
         {%- endif -%}
       </div>
+    {%- endif -%}
+    {%- if rb_ad_file != blank -%}
+  </div>
+</section>
+<section class="rb-film rb-film--spotlight" aria-label="{{ rb_ad_label | escape }}">
+  <div class="rb-film__player is-muted" data-autoplay-video>
+    <video
+      class="rb-video"
+      muted
+      loop
+      autoplay
+      playsinline
+      webkit-playsinline
+      preload="metadata"
+      aria-label="{{ rb_ad_label | escape }}"
+    >
+      <source src="{{ rb_ad_file | asset_url }}" type="video/mp4">
+    </video>
+    {% render 'video-sound-control' %}
+  </div>
+</section>
+<section class="section col-story">
+  <div class="wrap">
     {%- endif -%}
     {%- if rec != blank -%}
       <div class="col-story__grid reveal">
