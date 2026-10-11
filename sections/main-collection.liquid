@@ -50,6 +50,8 @@
       assign hero_editorial = true
     when 'royal-duke'
       assign banner_asset = 'rb-banner-duke.jpg'
+      assign banner_h = 576
+      assign hero_editorial = true
     when 'royal-kid'
       assign banner_asset = 'rb-banner-kid.jpg'
       assign banner_h = 576
@@ -89,6 +91,12 @@
       <p class="col-hero__lead">Botanical opulence for the ritual of royalty. The Royal Collection gathers our most luxurious florals — rose, jasmine, and gilded blooms — into bars crafted for those who cleanse like royalty.</p>
       <span class="col-hero__rule" aria-hidden="true"></span>
       <p class="col-hero__meta">7 herbal soaps · Regal · Floral</p>
+    {%- elsif col_key == 'royal-duke' -%}
+      <h1><span>The Royal Duke</span><br><span>Collection</span></h1>
+      <p class="col-hero__deck">Grounded, woody, and quietly powerful.</p>
+      <p class="col-hero__lead">Soaps for men, built on cedar, sandalwood, teakwood, and warm oud. Grounded and unpretentious — a crisp, wild, refined clean. Photographed from the real, tested bars.</p>
+      <span class="col-hero__rule" aria-hidden="true"></span>
+      <p class="col-hero__meta">5 herbal soaps · For Men · Woody</p>
     {%- elsif col_key == 'royal-kid' -%}
       <h1><span>The Royal Kid</span><br><span>Herbal Collection</span></h1>
       <p class="col-hero__deck">Soft, joyful, and gentle — premium care for little ones.</p>
