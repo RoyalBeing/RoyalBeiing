@@ -43,6 +43,9 @@
                 </div>
               {%- endif -%}
               <p>{{ rb_public_body }}</p>
+              {%- if rb_public_media != blank -%}
+                <p class="rb-review-media"><a href="{{ rb_public_media }}" target="_blank" rel="noopener">View photo or video</a></p>
+              {%- endif -%}
             </article>
           {%- endfor -%}
         </div>
@@ -93,7 +96,11 @@
                 <span>Your review</span>
                 <textarea name="comment[body]" rows="5" required placeholder="{{ section.settings.review_placeholder | default: 'Share how Royal Being fits into your ritual…' | escape }}"></textarea>
               </label>
-              <p class="note">Your star rating and written review are published here and on that product page.</p>
+              <label class="form-field">
+                <span>Photo or video link <em>(optional)</em></span>
+                <input type="url" data-review-media inputmode="url" placeholder="https:// — a photo, or a video of about 15 seconds">
+              </label>
+              <p class="note">Paste a shareable link. It is published with your review. A file cannot be attached in this form.</p>
               <button type="submit" class="btn btn-primary btn-block">{{ section.settings.submit_label | default: 'Submit review' }}</button>
             {%- endif -%}
           {%- endform -%}

@@ -783,6 +783,9 @@
       const productSelect = form.querySelector('select[name="contact[product]"], select[data-review-product]');
       const productMark = form.querySelector('[data-review-product]');
       const rating = ratingEl && ratingEl.tagName === 'SELECT' ? ratingEl.value : '';
+      const mediaInput = form.querySelector('[data-review-media]');
+      let mediaLink = mediaInput && mediaInput.value ? mediaInput.value.trim() : '';
+      if (mediaLink && !/^https?:\/\//i.test(mediaLink)) mediaLink = '';
       let productName = productSelect ? productSelect.value : '';
       if (!productName && productMark && productMark.tagName !== 'SELECT') {
         productName = productMark.getAttribute('data-review-product') || '';
@@ -791,14 +794,16 @@
         if (body.name === 'comment[body]') {
           const head = [
             rating ? 'Rating: ' + rating : '',
-            productName ? 'Product: ' + productName : ''
+            productName ? 'Product: ' + productName : '',
+            mediaLink ? 'Media: ' + mediaLink : ''
           ].filter(Boolean);
           if (head.length) body.value = head.join('\n') + '\n\n' + body.value.replace(/^\s+/, '');
         } else {
           const extra = [
             rating ? 'Star rating: ' + rating : '',
             productName ? 'Product: ' + productName : '',
-            val('contact[media_link]') ? 'Media link: ' + val('contact[media_link]') : '',
+            mediaLink ? 'Media: ' + mediaLink : '',
+            val('contact[media_link]') ? 'Media: ' + val('contact[media_link]') : '',
             val('contact[consent]') ? 'Consent to display: ' + val('contact[consent]') : ''
           ].filter(Boolean);
           if (extra.length) body.value = body.value.replace(/\s+$/, '') + '\n\n' + extra.join('\n');

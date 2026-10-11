@@ -1,5 +1,5 @@
 {%- comment -%}
-  Reads comment. Sets rb_public_stars and rb_public_body for the parent template.
+  Reads comment. Sets rb_public_stars, rb_public_body, and rb_public_media.
 {%- endcomment -%}
 {%- liquid
   assign rb_public_stars = 0
@@ -14,21 +14,21 @@
   elsif comment.content contains 'Rating: 1'
     assign rb_public_stars = 1
   endif
-  assign rb_public_body = comment.content
-  if rb_public_body contains 'Product:'
-    assign rb_after = rb_public_body | split: 'Product:' | last | newline_to_br | split: '<br />'
-    assign rb_public_body = ''
-    for line in rb_after
-      unless forloop.first
-        assign rb_bit = line | strip
-        if rb_bit != blank
-          if rb_public_body != blank
-            assign rb_public_body = rb_public_body | append: ' '
-          endif
-          assign rb_public_body = rb_public_body | append: rb_bit
+  assign rb_public_media = ''
+  assign rb_public_body = ''
+  assign rb_lines = comment.content | newline_to_br | split: '<br />'
+  for line in rb_lines
+    assign rb_bit = line | strip
+    if rb_bit contains 'Media:'
+      assign rb_public_media = rb_bit | split: 'Media:' | last | strip
+    elsif rb_bit != blank
+      unless rb_bit contains 'Product:' or rb_bit contains 'Rating:'
+        if rb_public_body != blank
+          assign rb_public_body = rb_public_body | append: ' '
         endif
+        assign rb_public_body = rb_public_body | append: rb_bit
       endunless
-    endfor
-  endif
-  assign rb_public_body = rb_public_body | replace: 'Rating: 5', '' | replace: 'Rating: 4', '' | replace: 'Rating: 3', '' | replace: 'Rating: 2', '' | replace: 'Rating: 1', '' | strip
+    endif
+  endfor
+  assign rb_public_body = rb_public_body | strip
 -%}

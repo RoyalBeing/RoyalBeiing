@@ -25,6 +25,9 @@
               </div>
             {%- endif -%}
             <p>{{ rb_public_body }}</p>
+            {%- if rb_public_media != blank -%}
+              <p class="rb-review-media"><a href="{{ rb_public_media }}" target="_blank" rel="noopener">View photo or video</a></p>
+            {%- endif -%}
           </article>
         {%- endfor -%}
       {%- endpaginate -%}

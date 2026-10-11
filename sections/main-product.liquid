@@ -338,6 +338,9 @@
                 </div>
               {%- endif -%}
               <p>{{ rb_public_body }}</p>
+              {%- if rb_public_media != blank -%}
+                <p class="rb-review-media"><a href="{{ rb_public_media }}" target="_blank" rel="noopener">View photo or video</a></p>
+              {%- endif -%}
             </article>
           {%- endif -%}
         {%- endfor -%}
@@ -363,7 +366,11 @@
             </select>
           </label>
           <label class="form-field"><span>Your review</span><textarea name="comment[body]" rows="4" required></textarea></label>
-          <p class="note">Your star rating and written review for {{ rb_display_title }} are published on this page and with the community reviews.</p>
+          <label class="form-field">
+            <span>Photo or video link <em>(optional)</em></span>
+            <input type="url" data-review-media inputmode="url" placeholder="https:// — a photo, or a video of about 15 seconds">
+          </label>
+          <p class="note">Your star rating, written review, and media link for {{ rb_display_title }} are published on this page and with the community reviews. A file cannot be attached here.</p>
           <button type="submit" class="btn btn-primary" data-review-product="{{ rb_display_title | escape }}">Submit review</button>
         {%- endif -%}
       {%- endform -%}

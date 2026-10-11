@@ -78,12 +78,8 @@
             {%- if section.settings.eyebrow != blank -%}
               <p class="eyebrow robeing-kicker">{{ section.settings.eyebrow }}</p>
             {%- endif -%}
-            {%- if section.settings.heading != blank -%}
-              <h2 class="robeing-heading">{{ section.settings.heading | newline_to_br }}</h2>
-            {%- endif -%}
-            {%- if section.settings.intro != blank -%}
-              <p class="robeing-intro">{{ section.settings.intro }}</p>
-            {%- endif -%}
+            <h2 class="robeing-heading">Beyond Cleansing.<br>A Ritual Entirely Your Own.</h2>
+            <p class="robeing-intro">Crafted for rare moments of calm and intentional care. Awaken the deeper side of your Royal Being through rich lathers, pure botanicals, and the definitive experience of our Herbal Bars.</p>
           </header>
 
           <div class="robeing-rows">
@@ -134,8 +130,8 @@
   "name": "Ritual of Being",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE RITUAL OF BEING" },
-    { "type": "textarea", "id": "heading", "label": "Heading", "default": "More Than Cleansing.\nA Ritual That Belongs to You." },
-    { "type": "textarea", "id": "intro", "label": "Intro", "default": "A refined ritual created for moments of calm, confidence, and intentional care. Discover the deeper side of Royal Being through rich lathers, natural ingredients, and the distinctive cleansing experience of The Charcoal Moment." },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Beyond Cleansing.\nA Ritual Entirely Your Own." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Crafted for rare moments of calm and intentional care. Awaken the deeper side of your Royal Being through rich lathers, pure botanicals, and the definitive experience of our Herbal Bars." },
     { "type": "image_picker", "id": "image", "label": "Ambassador image" },
     { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Royal Being male ambassador holding The Charcoal Moment soap in a dark luxury spa setting" },
     { "type": "text", "id": "image_position", "label": "Image object-position", "default": "52% 72%" },

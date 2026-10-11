@@ -110,7 +110,11 @@
                   <span>Your review</span>
                   <textarea name="comment[body]" rows="3" required placeholder="{{ section.settings.review_placeholder | default: 'Share how Royal Being fits into your ritual…' | escape }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
                 </label>
-                <p class="review-form__file-note">Your written review is published in this section and on the product you select. This form does not accept photo or video files.</p>
+                <label class="form-field">
+                  <span>Photo or video link <em>(optional)</em></span>
+                  <input type="url" data-review-media inputmode="url" placeholder="https:// — a photo, or a video of about 15 seconds">
+                </label>
+                <p class="review-form__file-note">Paste a shareable link. It is published with your star rating and written review, and a copy is emailed to Royal Being. A file cannot be attached in this form.</p>
                 <div class="review-form__grid">
                   <label class="form-field">
                     <span>Star rating</span>
@@ -253,6 +257,10 @@
       {%- include 'rb-review-public' -%}
       {%- assign comment_rating = rb_public_stars -%}
       {%- assign display_body = rb_public_body -%}
+      {%- assign modal_body = display_body -%}
+      {%- if rb_public_media != blank -%}
+        {%- assign modal_body = display_body | append: ' Photo or video: ' | append: rb_public_media -%}
+      {%- endif -%}
       {%- assign comment_date = comment.created_at | date: '%b %d, %Y' -%}
       {
         "id": {{ comment.id | json }},
@@ -261,7 +269,7 @@
         "date": {{ comment_date | json }},
         "rating": {{ comment_rating | json }},
         "excerpt": {{ display_body | truncate: 160 | json }},
-        "body": {{ display_body | json }},
+        "body": {{ modal_body | json }},
         "avatar": null,
         "verified": false,
         "google_url": null,

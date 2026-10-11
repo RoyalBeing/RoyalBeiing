@@ -2781,6 +2781,8 @@ html.rb-product-route .rb-virtual-pdp[hidden]{display:none!important}
 .rb-review-card h3{margin:0 0 4px;font-size:1.35rem;font-weight:500}
 .rb-review-card time{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#6c6f66;margin-bottom:8px}
 .rb-review-card p{margin:0;color:#3c4038}
+.rb-review-media{margin:10px 0 0}
+.rb-review-media a{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:900px){
   .contact-grid{grid-template-columns:1fr}
   .contact-form__grid{grid-template-columns:1fr}
