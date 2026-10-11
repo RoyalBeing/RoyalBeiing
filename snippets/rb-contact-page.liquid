@@ -1,9 +1,10 @@
 <section class="contact-page">
-  <header class="page-hero contact-hero">
-    <div class="page-hero__media">
-      <img src="{{ 'rb-banner-all.jpg' | asset_url }}" alt="Royal Being herbal soaps" width="1024" height="585">
+  <header class="page-banner col-hero site-hero site-hero--contact">
+    <div class="page-banner__media">
+      <img src="{{ 'rb-banner-all.jpg' | asset_url }}" alt="Royal Being herbal soaps" width="1024" height="576" fetchpriority="high">
     </div>
-    <div class="wrap page-hero__inner">
+    <div class="page-banner__scrim" aria-hidden="true"></div>
+    <div class="col-hero__copy">
       <nav class="breadcrumbs" aria-label="Breadcrumb">
         <a href="{{ routes.root_url }}">Home</a>
         <span aria-hidden="true"> / </span>

@@ -4,12 +4,12 @@
 {%- capture rb_copy_herbal -%}Our products are for all skin types. They are especially perfect for those seeking a natural and holistic approach to skincare health and wellness. Whether you are looking to unwind after a long day, seeking to boost your mood, or just wanting to sleep restfully at night, our herbal soaps and products can help in achieving your mindful, wellness goals.{%- endcapture -%}
 {%- capture rb_copy_promise -%}Cruelty-Free. Biodegradable. Formulated without parabens, synthetic sulfates, or phthalates. Made in small batches for our Royal Beings.{%- endcapture -%}
 <section class="about-page">
-  <header class="page-hero">
-    <div class="page-hero__media">
-      <img src="{{ 'rb-life-female-4.jpg' | asset_url }}" alt="Royal Being ambassador in a terry robe" width="1600" height="900">
+  <header class="page-banner col-hero site-hero site-hero--about">
+    <div class="page-banner__media">
+      <img src="{{ 'rb-life-female-4.jpg' | asset_url }}" alt="Royal Being ambassador in a terry robe" width="1600" height="900" fetchpriority="high">
     </div>
-    <div class="page-hero__scrim"></div>
-    <div class="wrap page-hero__inner">
+    <div class="page-banner__scrim" aria-hidden="true"></div>
+    <div class="col-hero__copy">
       <nav class="breadcrumbs" aria-label="Breadcrumb">
         <a href="{{ routes.root_url }}">Home</a>
         <span aria-hidden="true"> / </span>
