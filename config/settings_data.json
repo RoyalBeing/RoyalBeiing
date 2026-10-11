@@ -609,7 +609,7 @@
           "discount_message": "Use code ROYAL20 to receive 20% off eligible products.",
           "placeholder": "Enter your email address",
           "button_label": "JOIN THE ROYAL CIRCLE",
-          "success": "Welcome to the Royal Circle. Your signup was received.",
+          "success": "Welcome to the Royal Circle. Your email was saved. This joins the news list. It does not start a monthly soap delivery.",
           "legal": "By subscribing, you agree to receive Royal Being news and promotional emails. You may unsubscribe at any time.",
           "background_position": "center 40%"
         }
@@ -720,7 +720,7 @@
           "review_placeholder": "Share how Royal Being fits into your ritual\u2026",
           "consent_checkbox": "I confirm I own the rights to this content and allow Royal Being to display my review and media publicly.",
           "submit_label": "SUBMIT YOUR REVIEW",
-          "success_message": "Thank you \u2014 your review was sent. If you included a media link, our team will review it before display.",
+          "success_message": "Thank you. Your review was emailed to Royal Being. It is not published on the site until it is approved.",
           "place_id": "",
           "google_review_url": "",
           "google_profile_url": "",

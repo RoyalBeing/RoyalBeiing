@@ -280,12 +280,35 @@
         <div class="grev__app" {{ block.shopify_attributes }}>{% render block %}</div>
       {%- endif -%}
     {%- endfor -%}
+    {%- liquid
+      assign rb_review_blog = blogs['reviews']
+      assign rb_review_article = blank
+      if rb_review_blog != blank
+        assign rb_review_article = rb_review_blog.articles['customer-reviews']
+      endif
+    -%}
+    {%- if rb_review_article != blank -%}
+      {%- form 'new_comment', rb_review_article, id: 'RoyalBeingProductReview', class: 'review-form card-soft' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="form-status form-status--success" role="status">Thank you. Your review of {{ product.title }} was saved. It will appear after Royal Being approves it.</p>
+        {%- else -%}
+          {%- if form.errors -%}<div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+          <div class="review-form__grid">
+            <label class="form-field"><span>Name</span><input type="text" name="comment[author]" required autocomplete="name"></label>
+            <label class="form-field"><span>Email</span><input type="email" name="comment[email]" required autocomplete="email"></label>
+          </div>
+          <label class="form-field"><span>Your review</span><textarea name="comment[body]" rows="4" required></textarea></label>
+          <p class="note">Approved reviews appear with the community reviews on the homepage. This review is for {{ product.title }}.</p>
+          <button type="submit" class="btn btn-primary" data-review-product="{{ product.title | escape }}">Submit review</button>
+        {%- endif -%}
+      {%- endform -%}
+    {%- else -%}
     {%- form 'contact', id: 'RoyalBeingProductReview', class: 'review-form card-soft' -%}
       <input type="hidden" name="contact[subject]" value="Review: {{ product.title | escape }}">
       <input type="hidden" name="contact[product]" value="{{ product.title | escape }}">
       <input type="hidden" name="contact[product_url]" value="{{ shop.url }}{{ product.url }}">
       {%- if form.posted_successfully? -%}
-        <p class="form-status form-status--success" role="status">Thank you. Your review of {{ product.title }} was sent.</p>
+        <p class="form-status form-status--success" role="status">Thank you. Your review of {{ product.title }} was emailed to Royal Being. It is not published until it is approved.</p>
       {%- else -%}
         {%- if form.errors -%}<div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
         <div class="review-form__grid">
@@ -297,6 +320,7 @@
         <button type="submit" class="btn btn-primary">Submit review</button>
       {%- endif -%}
     {%- endform -%}
+    {%- endif -%}
   </div>
 </section>
 

@@ -34,8 +34,8 @@
       {%- if form.posted_successfully? -%}
         {%- liquid
           assign news_success = section.settings.success
-          if news_success == blank or news_success contains 'check your inbox'
-            assign news_success = 'Welcome to the Royal Circle. Your signup was received.'
+          if news_success == blank or news_success contains 'check your inbox' or news_success == 'Welcome to the Royal Circle. Your signup was received.'
+            assign news_success = 'Welcome to the Royal Circle. Your email was saved. This joins the news list. It does not start a monthly soap delivery.'
           endif
         -%}
         <p class="form-status form-status--success" style="width:100%">{{ news_success }}</p>
@@ -60,7 +60,7 @@
     { "type": "text", "id": "discount_message", "label": "Discount message", "default": "Use code ROYAL20 to receive 20% off eligible products." },
     { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "Enter your email address" },
     { "type": "text", "id": "button_label", "label": "Button", "default": "JOIN THE ROYAL CIRCLE" },
-    { "type": "text", "id": "success", "label": "Success message", "default": "Welcome to the Royal Circle. Your signup was received." },
+    { "type": "text", "id": "success", "label": "Success message", "default": "Welcome to the Royal Circle. Your email was saved. This joins the news list. It does not start a monthly soap delivery." },
     { "type": "textarea", "id": "legal", "label": "Legal text", "default": "By subscribing, you agree to receive Royal Being news and promotional emails. You may unsubscribe at any time." },
     { "type": "image_picker", "id": "background_image", "label": "Background image" },
     { "type": "text", "id": "background_position", "label": "Background object-position", "default": "center 42%" }

@@ -14,6 +14,17 @@
   assign total = section.settings.total_reviews | default: ''
   assign google_leave_url = section.settings.google_review_url
   assign google_profile_url = section.settings.google_profile_url
+  assign rb_review_blog = blogs['reviews']
+  assign rb_review_article = blank
+  if rb_review_blog != blank
+    assign rb_review_article = rb_review_blog.articles['customer-reviews']
+  endif
+  if rb_review_article != blank and rb_review_article.comments_count > 0
+    assign shown = shown | plus: rb_review_article.comments_count
+    if shown > max_reviews
+      assign shown = max_reviews
+    endif
+  endif
 -%}
 <section
   class="section grev grev--split"
@@ -77,13 +88,66 @@
         {%- endif -%}
 
         <div class="review-invite__form-wrap" id="review-upload-form">
+          {%- if rb_review_article != blank -%}
+            {%- form 'new_comment', rb_review_article, id: 'RoyalBeingReviewForm', class: 'review-form' -%}
+              {%- if form.posted_successfully? -%}
+                <p class="form-status form-status--success" role="status">Thank you. Your review was saved. It will appear in this section after Royal Being approves it.</p>
+              {%- else -%}
+                {%- if form.errors -%}
+                  <div class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</div>
+                {%- endif -%}
+                <div class="review-form__grid">
+                  <label class="form-field">
+                    <span>Name</span>
+                    <input type="text" name="comment[author]" value="{% if form.author %}{{ form.author }}{% elsif customer %}{{ customer.name }}{% endif %}" required autocomplete="name">
+                  </label>
+                  <label class="form-field">
+                    <span>Email</span>
+                    <input type="email" name="comment[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required autocomplete="email">
+                  </label>
+                </div>
+                <label class="form-field">
+                  <span>Your review</span>
+                  <textarea name="comment[body]" rows="3" required placeholder="{{ section.settings.review_placeholder | default: 'Share how Royal Being fits into your ritual…' | escape }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                </label>
+                <p class="review-form__file-note">Approved reviews appear in this section. Photo and video files are not stored with this form.</p>
+                <div class="review-form__grid">
+                  <label class="form-field">
+                    <span>Star rating</span>
+                    <select data-review-rating required>
+                      <option value="">Select a rating</option>
+                      <option value="5">5 — Excellent</option>
+                      <option value="4">4 — Very good</option>
+                      <option value="3">3 — Good</option>
+                      <option value="2">2 — Fair</option>
+                      <option value="1">1 — Poor</option>
+                    </select>
+                  </label>
+                  <label class="form-field">
+                    <span>Product</span>
+                    <select data-review-product required>
+                      <option value="">Select a product</option>
+                      {%- for p in collections.all.products -%}
+                        <option value="{{ p.title | escape }}">{{ p.title }}</option>
+                      {%- endfor -%}
+                    </select>
+                  </label>
+                </div>
+                <label class="review-form__consent">
+                  <input type="checkbox" value="yes" required>
+                  <span>{{ section.settings.consent_checkbox | default: 'I confirm I own the rights to this content and allow Royal Being to display my review and media publicly.' }}</span>
+                </label>
+                <button type="submit" class="btn btn-primary btn-block">{{ section.settings.submit_label | default: 'SUBMIT YOUR REVIEW' }}</button>
+              {%- endif -%}
+            {%- endform -%}
+          {%- else -%}
           {%- form 'contact', id: 'RoyalBeingReviewForm', class: 'review-form' -%}
             <input type="hidden" name="contact[subject]" value="{{ section.settings.form_subject | default: 'Royal Being — customer review' | escape }}">
             <input type="hidden" name="contact[tags]" value="customer-review,media-review">
 
             {%- if form.posted_successfully? -%}
               <p class="form-status form-status--success" role="status">
-                {{ section.settings.success_message | default: 'Thank you — your review was sent. If you included a media link, our team will review it before display.' }}
+                {{ section.settings.success_message | default: 'Thank you. Your review was emailed to Royal Being. It is not published on the site until it is approved.' }}
               </p>
             {%- else -%}
               {%- if form.errors -%}
@@ -140,6 +204,7 @@
               <button type="submit" class="btn btn-primary btn-block">{{ section.settings.submit_label | default: 'SUBMIT YOUR REVIEW' }}</button>
             {%- endif -%}
           {%- endform -%}
+          {%- endif -%}
         </div>
       </aside>
     </div>
@@ -179,6 +244,38 @@
     {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
+{%- if rb_review_article != blank -%}
+  {%- for comment in rb_review_article.comments -%}
+    {%- if json_i < max_reviews and comment.author != blank and comment.content != blank -%}
+      {%- if json_i > 0 -%},{%- endif -%}
+      {%- assign json_i = json_i | plus: 1 -%}
+      {%- assign initial = comment.author | strip | slice: 0, 1 | upcase -%}
+      {%- assign comment_rating = 0 -%}
+      {%- if comment.content contains 'Rating: 1' -%}{%- assign comment_rating = 1 -%}
+      {%- elsif comment.content contains 'Rating: 2' -%}{%- assign comment_rating = 2 -%}
+      {%- elsif comment.content contains 'Rating: 3' -%}{%- assign comment_rating = 3 -%}
+      {%- elsif comment.content contains 'Rating: 4' -%}{%- assign comment_rating = 4 -%}
+      {%- elsif comment.content contains 'Rating: 5' -%}{%- assign comment_rating = 5 -%}
+      {%- endif -%}
+      {%- assign display_body = comment.content | replace: 'Rating: 1', '' | replace: 'Rating: 2', '' | replace: 'Rating: 3', '' | replace: 'Rating: 4', '' | replace: 'Rating: 5', '' | strip -%}
+      {%- assign comment_date = comment.created_at | date: '%b %d, %Y' -%}
+      {
+        "id": {{ comment.id | json }},
+        "name": {{ comment.author | json }},
+        "initial": {{ initial | json }},
+        "date": {{ comment_date | json }},
+        "rating": {{ comment_rating | json }},
+        "excerpt": {{ display_body | truncate: 160 | json }},
+        "body": {{ display_body | json }},
+        "avatar": null,
+        "verified": false,
+        "google_url": null,
+        "reply": null,
+        "reply_label": "OWNER REPLY"
+      }
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
 ]
     {%- endcapture -%}
     <script type="application/json" data-grev-data>{{ grev_json | strip }}</script>
@@ -236,6 +333,50 @@
                 {%- endif -%}
               {%- endif -%}
             {%- endfor -%}
+            {%- if rb_review_article != blank -%}
+              {%- for comment in rb_review_article.comments -%}
+                {%- if card_i < max_reviews and comment.author != blank and comment.content != blank -%}
+                  {%- assign card_i = card_i | plus: 1 -%}
+                  {%- assign initial = comment.author | strip | slice: 0, 1 | upcase -%}
+                  {%- assign comment_rating = 0 -%}
+                  {%- if comment.content contains 'Rating: 1' -%}{%- assign comment_rating = 1 -%}
+                  {%- elsif comment.content contains 'Rating: 2' -%}{%- assign comment_rating = 2 -%}
+                  {%- elsif comment.content contains 'Rating: 3' -%}{%- assign comment_rating = 3 -%}
+                  {%- elsif comment.content contains 'Rating: 4' -%}{%- assign comment_rating = 4 -%}
+                  {%- elsif comment.content contains 'Rating: 5' -%}{%- assign comment_rating = 5 -%}
+                  {%- endif -%}
+                  {%- assign display_body = comment.content | replace: 'Rating: 1', '' | replace: 'Rating: 2', '' | replace: 'Rating: 3', '' | replace: 'Rating: 4', '' | replace: 'Rating: 5', '' | strip -%}
+                  {%- assign excerpt = display_body | truncate: 160 -%}
+                  {%- assign comment_date = comment.created_at | date: '%b %d, %Y' -%}
+                  <div class="grev__slide" data-grev-slide>
+                    <article class="grev-card" data-grev-open data-grev-id="{{ comment.id }}">
+                      <button type="button" class="grev-card__hit" aria-label="Read full review from {{ comment.author | escape }}">
+                        <div class="grev-card__panel">
+                          {%- if comment_rating > 0 -%}
+                          <div class="grev-card__stars" aria-label="{{ comment_rating }} out of 5 stars">
+                            {%- for i in (1..5) -%}
+                              <span class="grev-star{% if i > comment_rating %} grev-star--empty{% endif %}" aria-hidden="true">★</span>
+                            {%- endfor -%}
+                          </div>
+                          {%- endif -%}
+                          <p class="grev-card__excerpt">{{ excerpt }}</p>
+                          <span class="grev-card__more">Read more</span>
+                        </div>
+                        <div class="grev-card__who">
+                          <span class="grev-avatar" aria-hidden="true">
+                            <span class="grev-avatar__initial" data-tone="{{ card_i | modulo: 5 }}">{{ initial }}</span>
+                          </span>
+                          <span class="grev-card__meta">
+                            <span class="grev-card__name">{{ comment.author }}</span>
+                            <span class="grev-card__date">{{ comment_date }}</span>
+                          </span>
+                        </div>
+                      </button>
+                    </article>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
           </div>
         </div>
         <button type="button" class="grev__nav grev__nav--next" data-grev-next aria-label="Next reviews">
@@ -309,7 +450,7 @@
     { "type": "text", "id": "review_placeholder", "label": "Review placeholder", "default": "Share how Royal Being fits into your ritual…" },
     { "type": "text", "id": "consent_checkbox", "label": "Consent checkbox", "default": "I confirm I own the rights to this content and allow Royal Being to display my review and media publicly." },
     { "type": "text", "id": "submit_label", "label": "Submit button", "default": "SUBMIT YOUR REVIEW" },
-    { "type": "textarea", "id": "success_message", "label": "Success message", "default": "Thank you — your review was sent. If you included a media link, our team will review it before display." },
+    { "type": "textarea", "id": "success_message", "label": "Success message", "default": "Thank you. Your review was emailed to Royal Being. It is not published on the site until it is approved." },
 
     { "type": "header", "content": "Reviews data" },
     { "type": "url", "id": "google_review_url", "label": "Google review-request URL" },

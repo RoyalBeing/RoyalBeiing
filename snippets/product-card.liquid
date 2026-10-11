@@ -58,7 +58,15 @@
       {%- elsif soap_mto and variant.available == false -%}
         <span class="badge badge--mto">Made to order</span>
       {%- endif -%}
-      {%- if product.tags contains 'Subscription Eligible' and sold_out == false -%}
+      {%- liquid
+        assign show_sub = false
+        if product.selling_plan_groups.size > 0
+          assign show_sub = true
+        elsif product.handle == 'beef-tallow' or product.handle == 'aloe-vera-wave' or product.handle == 'african-rhapsody'
+          assign show_sub = true
+        endif
+      -%}
+      {%- if show_sub and sold_out == false -%}
         <span class="badge badge--sub">Subscribe</span>
       {%- endif -%}
     </div>

@@ -671,25 +671,41 @@
         if (el.type === 'checkbox') return el.checked ? (el.value || 'yes') : '';
         return el.value || '';
       };
-      const body = form.querySelector('[name="contact[body]"]');
+      const body = form.querySelector('[name="contact[body]"], [name="comment[body]"]');
+      const ratingEl = form.querySelector('[name="contact[rating]"], [data-review-rating]');
+      const productSelect = form.querySelector('select[name="contact[product]"], select[data-review-product]');
+      const productMark = form.querySelector('[data-review-product]');
+      const rating = ratingEl && ratingEl.tagName === 'SELECT' ? ratingEl.value : '';
+      let productName = productSelect ? productSelect.value : '';
+      if (!productName && productMark && productMark.tagName !== 'SELECT') {
+        productName = productMark.getAttribute('data-review-product') || '';
+      }
       if (body && !body.dataset.rbAnnotated) {
-        const extra = [
-          val('contact[rating]') ? 'Star rating: ' + val('contact[rating]') : '',
-          val('contact[product]') ? 'Product: ' + val('contact[product]') : '',
-          val('contact[media_link]') ? 'Media link: ' + val('contact[media_link]') : '',
-          val('contact[consent]') ? 'Consent to display: ' + val('contact[consent]') : ''
-        ].filter(Boolean);
-        if (extra.length) body.value = body.value.replace(/\s+$/, '') + '\n\n' + extra.join('\n');
+        if (body.name === 'comment[body]') {
+          const head = [
+            rating ? 'Rating: ' + rating : '',
+            productName ? 'Product: ' + productName : ''
+          ].filter(Boolean);
+          if (head.length) body.value = head.join('\n') + '\n\n' + body.value.replace(/^\s+/, '');
+        } else {
+          const extra = [
+            rating ? 'Star rating: ' + rating : '',
+            productName ? 'Product: ' + productName : '',
+            val('contact[media_link]') ? 'Media link: ' + val('contact[media_link]') : '',
+            val('contact[consent]') ? 'Consent to display: ' + val('contact[consent]') : ''
+          ].filter(Boolean);
+          if (extra.length) body.value = body.value.replace(/\s+$/, '') + '\n\n' + extra.join('\n');
+        }
         body.dataset.rbAnnotated = '1';
       }
-      const email = val('contact[email]');
+      const email = val('contact[email]') || val('comment[email]');
       if (!email) return;
       form.dataset.rbNotified = '1';
       notifyRoyalBeing({
         _subject: val('contact[subject]') || 'Royal Being — customer review',
         _replyto: email,
         email: email,
-        name: val('contact[name]') || 'Royal Being customer',
+        name: val('contact[name]') || val('comment[author]') || 'Royal Being customer',
         message: body ? body.value : ''
       });
     });

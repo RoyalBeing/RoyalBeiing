@@ -69,6 +69,55 @@
     endif
   endfor
 
+  if plan_found == false
+    assign probe_handles = 'beef-tallow,aloe-vera-wave,african-rhapsody' | split: ','
+    for handle in probe_handles
+      if plan_found == false
+        assign product = all_products[handle]
+        if product != blank and product.selling_plan_groups.size > 0
+          for group in product.selling_plan_groups
+            if plan_found == false
+              for plan in group.selling_plans
+                if plan_found == false
+                  assign plan_found = true
+                  assign plan_name = plan.name
+                  assign plan_href = product.url
+                  if plan.description != blank
+                    assign plan_desc = plan.description | strip_html | truncate: 160
+                  endif
+                  assign plan_cadence = ''
+                  for option in plan.options
+                    if plan_cadence == blank
+                      assign plan_cadence = option.value
+                    else
+                      assign plan_cadence = plan_cadence | append: ' · ' | append: option.value
+                    endif
+                  endfor
+                  if plan_cadence == blank and plan.recurring_deliveries
+                    assign plan_cadence = 'Deliver every month'
+                  endif
+                  assign adj = plan.price_adjustments.first
+                  if adj != blank
+                    if adj.value_type == 'percentage'
+                      assign save_amount = adj.value | append: '%'
+                      assign save_label = adj.value | append: '% off with subscription'
+                    elsif adj.value_type == 'fixed_amount'
+                      assign save_amount = adj.value | money
+                      assign save_label = adj.value | money | append: ' off with subscription'
+                    elsif adj.value_type == 'price'
+                      assign save_amount = adj.value | money
+                      assign save_label = 'From ' | append: adj.value | money
+                    endif
+                  endif
+                endif
+              endfor
+            endif
+          endfor
+        endif
+      endif
+    endfor
+  endif
+
   if plan_name == blank
     assign plan_name = section.settings.fallback_name | default: 'Deliver every month'
   endif
