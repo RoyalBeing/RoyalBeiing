@@ -1776,7 +1776,7 @@ body.grev-lock{overflow:hidden}
 .rb-ensemble{
   position:absolute;
   left:50%;
-  bottom:22px;
+  bottom:72px;
   transform:translateX(-50%);
   z-index:4;
   width:min(920px, calc(100% - 36px));
