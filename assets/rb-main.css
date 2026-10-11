@@ -2673,6 +2673,7 @@ body.grev-lock{overflow:hidden}
   box-shadow:var(--shadow-sm);
 }
 .about-block__media--wide{aspect-ratio:5 / 4}
+.about-block__media--wide img{object-position:center 32%}
 .about-block__media img{
   width:100%;
   height:100%;
