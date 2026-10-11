@@ -50,6 +50,8 @@
       assign banner_asset = 'rb-banner-duke.jpg'
     when 'royal-kid'
       assign banner_asset = 'rb-banner-kid.jpg'
+      assign banner_h = 576
+      assign hero_editorial = true
     when 'all'
       assign banner_asset = 'rb-banner-all.jpg'
   endcase
@@ -74,11 +76,17 @@
   {%- endif -%}
   <div class="page-banner__scrim" aria-hidden="true"></div>
   <div class="col-hero__copy">
-    {%- if hero_editorial -%}
+    {%- if col_key == 'common' -%}
       <h1><span>Clear, calm,</span><br><span>everyday wellness.</span></h1>
       <p class="col-hero__lead">Considered essentials for the daily ritual. The Common Collection makes wholesome, plant-based cleansing an effortless part of every morning and every evening.</p>
       <span class="col-hero__rule" aria-hidden="true"></span>
       <p class="col-hero__meta">7 herbal soaps · Everyday · Calm</p>
+    {%- elsif col_key == 'royal-kid' -%}
+      <h1><span>The Royal Kid</span><br><span>Herbal Collection</span></h1>
+      <p class="col-hero__deck">Soft, joyful, and gentle — premium care for little ones.</p>
+      <p class="col-hero__lead">Delicate herbal bars formulated for a child’s skin. Heart, cube, and square shapes with gentle lavender, chamomile, and sweet orange — a joyful, premium bath-time ritual.</p>
+      <span class="col-hero__rule" aria-hidden="true"></span>
+      <p class="col-hero__meta">4 herbal soaps · For Kids · Gentle</p>
     {%- else -%}
       <h1>{{ hero_title }}</h1>
     {%- endif -%}
@@ -89,6 +97,7 @@
   <div class="wrap">
     {%- if rec != blank -%}
       <div class="col-story__grid reveal">
+        {%- unless hero_editorial -%}
         <div class="col-story__copy">
           <p class="lead">{{ rec.intro }}</p>
           {%- if rec.gift_set != blank or rec.sample_kit != blank -%}
@@ -98,6 +107,7 @@
             </p>
           {%- endif -%}
         </div>
+        {%- endunless -%}
         {%- if rec.schema != blank -%}
           <figure class="col-story__schema">
             <img src="{{ rec.schema | asset_url }}" alt="{{ rec.title | escape }} lineup" width="1200" height="900" loading="lazy">

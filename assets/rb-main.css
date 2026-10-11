@@ -221,6 +221,15 @@ p{margin:0 0 1rem}
   font-weight:500;
   text-shadow:none;
 }
+.col-hero .col-hero__deck{
+  color:#1C1912;
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(1.2rem, 1.65vw, 1.85rem);
+  line-height:1.28;
+  max-width:16em;
+  margin:0 0 .65em;
+}
 .col-hero .col-hero__lead{
   font-size:clamp(1.08rem, 1.45vw, 1.62rem);
   line-height:1.4;
