@@ -7,7 +7,18 @@
     assign poster = section.settings.poster
     assign video_url = 'https://cdn.shopify.com/videos/c/vp/73d871756d4f43bd8e1c1f56dd667d75/73d871756d4f43bd8e1c1f56dd667d75.HD-1080p-7.2Mbps-90385254.mp4'
   -%}
+  {%- liquid
+    assign spot_product = section.settings.product
+    assign spot_url = '/products/watermelon-fusion'
+    if spot_product != blank and spot_product.url != blank
+      assign spot_url = spot_product.url
+    endif
+    assign spot_label = section.settings.button_label | default: 'Shop Watermelon Fusion'
+  -%}
   <div class="rb-film__player is-muted" data-autoplay-video>
+    <a class="rb-film__hit" href="{{ spot_url }}">
+      <span class="rb-film__shop">{{ spot_label }}</span>
+    </a>
     <video
       class="rb-video"
       muted

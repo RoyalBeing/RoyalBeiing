@@ -1781,6 +1781,30 @@ body.grev-lock{overflow:hidden}
   min-height:calc(100svh - var(--rb-header-h));
   margin:0;
 }
+.rb-film--spotlight .rb-film__hit{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:block;
+}
+.rb-film--spotlight .rb-film__shop{
+  position:absolute;
+  left:clamp(28px, 5vw, 72px);
+  bottom:clamp(28px, 5vw, 56px);
+  display:inline-flex;
+  align-items:center;
+  padding:14px 22px;
+  border-radius:999px;
+  background:rgba(250,247,240,.94);
+  color:#1A170E;
+  font-family:var(--font-body);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  text-decoration:none;
+}
+.rb-film--spotlight .rb-film__sound{z-index:4}
 .rb-film--spotlight .rb-film__player video,
 .rb-film--spotlight .rb-film__player .rb-video{
   width:100%;
