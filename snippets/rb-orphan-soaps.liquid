@@ -5,7 +5,7 @@
 {%- endcomment -%}
 {%- assign rb_orphan_handles = '' -%}
 {%- assign rb_orphan_count = 0 -%}
-{%- assign rb_orphan_probe = 'watermelon-fusion,herbal-galaxy-renewal,sweet-madagascar' | split: ',' -%}
+{%- assign rb_orphan_probe = 'herbal-galaxy-renewal,sweet-madagascar' | split: ',' -%}
 {%- for h in rb_orphan_probe -%}
   {%- if all_products[h] == blank -%}
     {%- if rb_orphan_count > 0 -%}{%- assign rb_orphan_handles = rb_orphan_handles | append: ',' -%}{%- endif -%}

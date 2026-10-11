@@ -6,7 +6,7 @@
   endif
 -%}
 {%- assign virt_handle = pth | split: '/products/' | last | split: '/' | first | split: '?' | first -%}
-{%- assign virt_handles = '|watermelon-fusion|herbal-galaxy-renewal|sweet-madagascar|' -%}
+{%- assign virt_handles = '|herbal-galaxy-renewal|sweet-madagascar|' -%}
 {%- assign virt_key = '|' | append: virt_handle | append: '|' -%}
 {%- assign is_virtual_product = false -%}
 {%- if pth contains '/products/' and virt_handles contains virt_key -%}
@@ -16,7 +16,6 @@
   {% render 'rb-about-page' %}
 </div>
 <div class="rb-virtual-product">
-  {% render 'rb-virtual-product', rb_handle: 'watermelon-fusion' %}
   {% render 'rb-virtual-product', rb_handle: 'herbal-galaxy-renewal' %}
   {% render 'rb-virtual-product', rb_handle: 'sweet-madagascar' %}
 </div>

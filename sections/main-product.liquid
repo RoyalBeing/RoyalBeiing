@@ -280,6 +280,27 @@
   </div>
 </section>
 
+{%- if product.handle == 'watermelon-fusion' -%}
+  <section class="rb-film rb-film--spotlight" aria-label="Watermelon Fusion film">
+    <div class="rb-film__player is-muted" data-autoplay-video>
+      <video
+        class="rb-video"
+        muted
+        loop
+        autoplay
+        playsinline
+        webkit-playsinline
+        preload="metadata"
+        poster="{{ 'rb-p-watermelon-fusion.jpg' | asset_url }}"
+        aria-label="Watermelon Fusion"
+      >
+        <source src="https://cdn.shopify.com/videos/c/vp/73d871756d4f43bd8e1c1f56dd667d75/73d871756d4f43bd8e1c1f56dd667d75.HD-1080p-7.2Mbps-90385254.mp4" type="video/mp4">
+      </video>
+      {% render 'video-sound-control' %}
+    </div>
+  </section>
+{%- endif -%}
+
 <section class="section rb-pdp-reviews" id="product-reviews">
   <div class="wrap">
     <div class="sec-head">
