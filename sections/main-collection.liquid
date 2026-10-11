@@ -35,6 +35,8 @@
 {%- assign rec = rb_catalog.col_records[col_key] -%}
 {%- liquid
   assign banner_asset = blank
+  assign banner_h = 341
+  assign hero_editorial = false
   case col_key
     when 'royal'
       assign banner_asset = 'rb-banner-royal.jpg'
@@ -42,6 +44,8 @@
       assign banner_asset = 'rb-banner-signature.jpg'
     when 'common'
       assign banner_asset = 'rb-banner-common.jpg'
+      assign banner_h = 576
+      assign hero_editorial = true
     when 'royal-duke'
       assign banner_asset = 'rb-banner-duke.jpg'
     when 'royal-kid'
@@ -49,31 +53,39 @@
     when 'all'
       assign banner_asset = 'rb-banner-all.jpg'
   endcase
+  if collection.handle == 'all'
+    assign hero_title = 'Shop All Soaps'
+  else
+    assign hero_title = rec.title | default: collection.title
+  endif
 -%}
-<section class="page-banner col-hero" {{ section.shopify_attributes }}>
+<section class="page-banner col-hero{% if hero_editorial %} col-hero--editorial{% endif %}" {{ section.shopify_attributes }}>
   {%- if banner_asset != blank -%}
-    <div class="page-banner__media"><img src="{{ banner_asset | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="1024" height="341" fetchpriority="high"></div>
+    <div class="page-banner__media"><img src="{{ banner_asset | asset_url }}" alt="{{ hero_title | escape }}" width="1024" height="{{ banner_h }}" fetchpriority="high"></div>
   {%- elsif rec != blank and rec.hero != blank -%}
-    <div class="page-banner__media"><img src="{{ rec.hero | asset_url }}" alt="{{ rec.title | default: collection.title | escape }}" width="1024" height="341" fetchpriority="high"></div>
+    <div class="page-banner__media"><img src="{{ rec.hero | asset_url }}" alt="{{ hero_title | escape }}" width="1024" height="341" fetchpriority="high"></div>
   {%- elsif collection.featured_image -%}
     <div class="page-banner__media"><img src="{{ collection.featured_image | image_url: width: 2400 }}" alt="{{ collection.title | escape }}" width="{{ collection.featured_image.width }}" height="{{ collection.featured_image.height }}" fetchpriority="high"></div>
   {%- else -%}
     {%- capture rb_col_src -%}{% render 'rb-collection-fallback-image', collection: collection %}{%- endcapture -%}
     {%- if rb_col_src != blank -%}
-      <div class="page-banner__media"><img src="{{ rb_col_src | strip }}" alt="{{ collection.title | escape }}" width="1024" height="341" fetchpriority="high"></div>
+      <div class="page-banner__media"><img src="{{ rb_col_src | strip }}" alt="{{ hero_title | escape }}" width="1024" height="341" fetchpriority="high"></div>
     {%- endif -%}
   {%- endif -%}
   <div class="page-banner__scrim" aria-hidden="true"></div>
-  <div class="col-hero__frame wrap">
-    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">Home</a> <span aria-hidden="true">/</span> <a href="{{ routes.collections_url }}">Shop</a> <span aria-hidden="true">/</span> {{ rec.title | default: collection.title }}</nav>
-    <div class="col-hero__copy">
-      <p class="eyebrow">{{ section.settings.eyebrow | default: 'Collection' }}</p>
-      <h1>{% if collection.handle == 'all' %}Shop All Soaps{% else %}{{ rec.title | default: collection.title }}{% endif %}</h1>
-    </div>
+  <div class="col-hero__copy">
+    {%- if hero_editorial -%}
+      <h1>Clear, calm,<br>everyday wellness.</h1>
+      <p class="col-hero__lead">Considered essentials for the daily ritual. The Common Collection makes wholesome, plant-based cleansing an effortless part of every morning and every evening.</p>
+      <span class="col-hero__rule" aria-hidden="true"></span>
+      <p class="col-hero__meta">7 herbal soaps · Everyday · Calm</p>
+    {%- else -%}
+      <h1>{{ hero_title }}</h1>
+    {%- endif -%}
   </div>
 </section>
 
-<section class="section col-story">
+<section class="section col-story{% if hero_editorial %} col-story--after-hero{% endif %}">
   <div class="wrap">
     {%- if rec != blank -%}
       <div class="col-story__grid reveal">
@@ -120,7 +132,7 @@
           <img src="{{ rec.matrix | asset_url }}" alt="{{ rec.title | escape }} skin type matrix" width="1600" height="1200" loading="lazy">
         </figure>
       {%- endif -%}
-    {%- elsif collection.description != blank -%}
+    {%- elsif collection.description != blank and hero_editorial == false -%}
       <div class="prose reveal" style="margin-bottom:40px">{{ collection.description }}</div>
     {%- endif -%}
 
