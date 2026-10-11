@@ -113,6 +113,41 @@
     }
     if (e.target.closest('[data-filter-toggle]')) $('.filters') && $('.filters').classList.toggle('open');
 
+    const bundle = e.target.closest('[data-buy-collection]');
+    if (bundle) {
+      e.preventDefault();
+      const ids = (bundle.dataset.variants || '').split(',').map((id) => id.trim()).filter(Boolean);
+      if (!ids.length) return;
+      bundle.disabled = true;
+      const items = ids.map((id) => ({
+        id: Number(id),
+        quantity: 1,
+        properties: {
+          Preparation: 'Made to Order — Handcrafted within approximately 48 hours before dispatch.'
+        }
+      }));
+      try {
+        const res = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ items }),
+          credentials: 'same-origin',
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          alert(err.description || err.message || 'Could not add the collection');
+          bundle.disabled = false;
+          return;
+        }
+        const code = bundle.dataset.discount || 'ROYAL20';
+        window.location.href = '/discount/' + encodeURIComponent(code) + '?redirect=/cart';
+      } catch (err) {
+        bundle.disabled = false;
+        alert('Could not add the collection');
+      }
+      return;
+    }
+
     const add = e.target.closest('[data-add-variant]');
     if (add) {
       e.preventDefault();

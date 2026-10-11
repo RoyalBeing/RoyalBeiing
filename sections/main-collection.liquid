@@ -123,16 +123,8 @@
       <p class="col-hero__meta">10 herbal soaps · Flagship · Balanced</p>
     {%- elsif col_key == 'royal-duke' -%}
       <h1><span>The Royal Duke</span><br><span>Collection</span></h1>
-      <p class="col-hero__deck">Grounded, woody, and quietly powerful.</p>
-      <p class="col-hero__lead">Soaps for men, built on cedar, sandalwood, teakwood, and warm oud. Grounded and unpretentious — a crisp, wild, refined clean. Photographed from the real, tested bars.</p>
-      <span class="col-hero__rule" aria-hidden="true"></span>
-      <p class="col-hero__meta">5 herbal soaps · For Men · Woody</p>
     {%- elsif col_key == 'royal-kid' -%}
       <h1><span>The Royal Kid</span><br><span>Herbal Collection</span></h1>
-      <p class="col-hero__deck">Soft, joyful, and gentle — premium care for little ones.</p>
-      <p class="col-hero__lead">Delicate herbal bars formulated for a child’s skin. Heart, cube, and square shapes with gentle lavender, chamomile, and sweet orange — a joyful, premium bath-time ritual.</p>
-      <span class="col-hero__rule" aria-hidden="true"></span>
-      <p class="col-hero__meta">4 herbal soaps · For Kids · Gentle</p>
     {%- elsif hero_plain -%}
       <h1 class="visually-hidden">{{ hero_title }}</h1>
     {%- else -%}
@@ -141,8 +133,48 @@
   </div>
 </section>
 
+{%- if col_key == 'royal-duke' or col_key == 'royal-kid' -%}
+  {%- if col_key == 'royal-duke' -%}
+    {%- assign rb_ad_file = 'rb-ad-duke-horizontal.mp4' -%}
+    {%- assign rb_ad_label = 'The Royal Duke Collection' -%}
+  {%- else -%}
+    {%- assign rb_ad_file = 'rb-ad-kid-bodhi.mp4' -%}
+    {%- assign rb_ad_label = 'The Royal Kid Herbal Collection' -%}
+  {%- endif -%}
+  <section class="rb-film rb-film--spotlight" aria-label="{{ rb_ad_label | escape }}">
+    <div class="rb-film__player is-muted" data-autoplay-video>
+      <video
+        class="rb-video"
+        muted
+        loop
+        autoplay
+        playsinline
+        webkit-playsinline
+        preload="metadata"
+        aria-label="{{ rb_ad_label | escape }}"
+      >
+        <source src="{{ rb_ad_file | asset_url }}" type="video/mp4">
+      </video>
+      {% render 'video-sound-control' %}
+    </div>
+  </section>
+{%- endif -%}
+
 <section class="section col-story{% if hero_editorial %} col-story--after-hero{% endif %}">
   <div class="wrap">
+    {%- if col_key == 'royal-duke' or col_key == 'royal-kid' -%}
+      <div class="col-intro reveal">
+        {%- if col_key == 'royal-duke' -%}
+          <p class="col-intro__deck">Grounded, woody, and quietly powerful.</p>
+          <p>{{ rec.intro | default: "The Royal Duke Collection is a premium five-piece anthology of artisanal herbal soaps engineered specifically for the modern man who values rugged, sophisticated grooming. This collection merges bold, masculine aromatherapy with hard-working botanicals to deliver an authoritative clean that honors a man's daily skin health." }}</p>
+          <p class="col-intro__meta">5 herbal soaps · For Men · Woody</p>
+        {%- else -%}
+          <p class="col-intro__deck">Soft, joyful, and gentle — premium care for little ones.</p>
+          <p>{{ rec.intro | default: "The Royal Kid Herbal Collection is an ultra-gentle, four-piece anthology of artisanal herbal soaps handcrafted to transform bath time into a playful, palace-worthy ritual. Engineered specifically for children's delicate skin, this collection blends whimsical, kid-friendly scents with deeply soothing botanicals to ensure a tear-free, skin-softening wash." | replace: 'whimiscal', 'whimsical' }}</p>
+          <p class="col-intro__meta">4 herbal soaps · For Kids · Gentle</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
     {%- if rec != blank -%}
       <div class="col-story__grid reveal">
         {%- unless hero_editorial -%}
@@ -156,20 +188,20 @@
           {%- endif -%}
         </div>
         {%- endunless -%}
-        {%- if rec.schema != blank -%}
+        {%- if rec.schema != blank and col_key != 'royal-duke' and col_key != 'royal-kid' -%}
           <figure class="col-story__schema">
             <img src="{{ rec.schema | asset_url }}" alt="{{ rec.title | escape }} lineup" width="1200" height="900" loading="lazy">
           </figure>
         {%- endif -%}
       </div>
-      {%- if rec.lifestyle.size > 0 -%}
+      {%- if rec.lifestyle.size > 0 and col_key != 'royal-duke' and col_key != 'royal-kid' -%}
         <div class="col-life reveal">
           {%- for img in rec.lifestyle limit: 4 -%}
             <img src="{{ img | asset_url }}" alt="{{ rec.title | escape }} lifestyle" width="800" height="1000" loading="lazy">
           {%- endfor -%}
         </div>
       {%- endif -%}
-      {%- if rec.video != blank -%}
+      {%- if rec.video != blank and col_key != 'royal-duke' and col_key != 'royal-kid' -%}
         <div class="col-film reveal" data-hover-video>
           {% render 'video-sound-control' %}
           <video
@@ -185,7 +217,7 @@
           </video>
         </div>
       {%- endif -%}
-      {%- if rec.matrix != blank -%}
+      {%- if rec.matrix != blank and col_key != 'royal-duke' and col_key != 'royal-kid' -%}
         <figure class="col-matrix reveal">
           <img src="{{ rec.matrix | asset_url }}" alt="{{ rec.title | escape }} skin type matrix" width="1600" height="1200" loading="lazy">
         </figure>
@@ -234,6 +266,37 @@
         {%- endif -%}
       {%- endpaginate -%}
     </div>
+    {%- if col_key == 'common' or col_key == 'royal' or col_key == 'signature' or col_key == 'royal-duke' or col_key == 'royal-kid' -%}
+      {%- assign rb_bundle_total = 0 -%}
+      {%- assign rb_bundle_ids = '' -%}
+      {%- for product in collection.products -%}
+        {%- assign rb_bv = product.selected_or_first_available_variant -%}
+        {%- if rb_bv != blank and rb_bv.available -%}
+          {%- assign rb_bundle_total = rb_bundle_total | plus: rb_bv.price -%}
+          {%- if rb_bundle_ids != blank -%}{%- assign rb_bundle_ids = rb_bundle_ids | append: ',' -%}{%- endif -%}
+          {%- assign rb_bundle_ids = rb_bundle_ids | append: rb_bv.id -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign rb_bundle_sale = rb_bundle_total | times: 80 | divided_by: 100 -%}
+      {%- if rb_bundle_ids != blank -%}
+        <div class="col-bundle reveal">
+          <p class="col-bundle__kicker">The whole set</p>
+          <h2>Buy the entire collection</h2>
+          <p class="col-bundle__note">Every soap in {{ collection.title }}, added together, with 20% off the total.</p>
+          <p class="col-bundle__price">
+            <s>{{ rb_bundle_total | money }}</s>
+            <b>{{ rb_bundle_sale | money }}</b>
+          </p>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-buy-collection
+            data-variants="{{ rb_bundle_ids }}"
+            data-discount="ROYAL20"
+          >Buy the entire collection</button>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
   </div>
 </section>
 
