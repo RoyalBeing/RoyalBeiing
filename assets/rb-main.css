@@ -254,10 +254,10 @@ p{margin:0 0 1rem}
   .col-hero--editorial .page-banner__scrim{
     background:linear-gradient(90deg, rgba(255,252,246,.9) 0%, rgba(255,252,246,.62) 46%, rgba(255,252,246,0) 72%);
   }
-  .col-hero__copy{width:min(86%, 22rem);padding:28px 20px 32px 22px}
-  .col-hero h1{font-size:clamp(2.15rem, 9.2vw, 2.85rem);max-width:8.5em}
-  .col-hero__lead{font-size:1rem;max-width:24em}
-  .col-hero__meta{font-size:.95rem}
+  .col-hero__copy{width:min(68%, 16.2rem);padding:24px 12px 28px 20px}
+  .col-hero h1{font-size:clamp(2.05rem, 8.4vw, 2.6rem);max-width:8.5em}
+  .col-hero .col-hero__lead{font-size:.95rem;max-width:17em}
+  .col-hero .col-hero__meta{font-size:.92rem}
 }
 
 /* ---------- Trust strip ---------- */
