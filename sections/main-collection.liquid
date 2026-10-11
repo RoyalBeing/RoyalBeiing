@@ -40,6 +40,8 @@
   case col_key
     when 'royal'
       assign banner_asset = 'rb-banner-royal.jpg'
+      assign banner_h = 576
+      assign hero_editorial = true
     when 'signature'
       assign banner_asset = 'rb-banner-signature.jpg'
     when 'common'
@@ -81,6 +83,12 @@
       <p class="col-hero__lead">Considered essentials for the daily ritual. The Common Collection makes wholesome, plant-based cleansing an effortless part of every morning and every evening.</p>
       <span class="col-hero__rule" aria-hidden="true"></span>
       <p class="col-hero__meta">7 herbal soaps · Everyday · Calm</p>
+    {%- elsif col_key == 'royal' -%}
+      <h1><span>The Royal</span><br><span>Collection</span></h1>
+      <p class="col-hero__deck">Elegant, floral, and unmistakably regal.</p>
+      <p class="col-hero__lead">Botanical opulence for the ritual of royalty. The Royal Collection gathers our most luxurious florals — rose, jasmine, and gilded blooms — into bars crafted for those who cleanse like royalty.</p>
+      <span class="col-hero__rule" aria-hidden="true"></span>
+      <p class="col-hero__meta">7 herbal soaps · Regal · Floral</p>
     {%- elsif col_key == 'royal-kid' -%}
       <h1><span>The Royal Kid</span><br><span>Herbal Collection</span></h1>
       <p class="col-hero__deck">Soft, joyful, and gentle — premium care for little ones.</p>
