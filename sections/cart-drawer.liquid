@@ -8,10 +8,11 @@
     <div class="cart-items" id="cart-items"></div>
     <div class="cart-drawer__foot">
       <div class="cart-row cart-row--total"><span>Subtotal</span><span id="cart-subtotal">{{ cart.total_price | money }}</span></div>
+      <p class="cart-drawer__mto" id="cart-mto" hidden>Made to Order — Handcrafted within approximately 48 hours before dispatch.</p>
       {%- if settings.cart_note_coupon -%}
         <p class="note cart-drawer__note">Shipping & taxes calculated at checkout · {{ settings.coupon_code }} for 20% off</p>
       {%- endif -%}
-      <a class="btn btn-primary btn-block" id="cart-checkout" href="{{ routes.cart_url }}">{{ section.settings.button_label }}</a>
+      <a class="btn btn-primary btn-block" id="cart-checkout" href="{{ routes.cart_url }}/checkout">{{ section.settings.button_label }}</a>
     </div>
   </aside>
 </div>
@@ -21,7 +22,7 @@
   "name": "Cart drawer",
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Your Ritual" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "View cart / Checkout" }
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Proceed to Checkout" }
   ]
 }
 {% endschema %}

@@ -99,6 +99,7 @@
           type="button"
           class="btn btn-primary btn-sm"
           data-add-variant="{{ variant.id }}"
+          {% if soap_mto %}data-mto="1"{% endif %}
         >Add</button>
       {%- endif -%}
     </div>

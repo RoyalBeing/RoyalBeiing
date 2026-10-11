@@ -38,8 +38,17 @@
           </div>
         {%- endfor -%}
 
-        <div class="card-soft" style="margin-top:20px">
+        <div class="card-soft rb-cart-checkout" style="margin-top:20px">
           <div class="cart-row cart-row--total"><span>Subtotal</span><span>{{ cart.total_price | money }}</span></div>
+          {%- assign cart_mto = false -%}
+          {%- for item in cart.items -%}
+            {%- if item.product.type == 'Herbal Soap' or item.product.type == 'Soap' or item.product.tags contains 'Herbal Soap' -%}
+              {%- assign cart_mto = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if cart_mto -%}
+            <p class="rb-cart-mto">Made to Order — Handcrafted within approximately 48 hours before dispatch.</p>
+          {%- endif -%}
           <p class="note" style="margin:10px 0 16px">Shipping & taxes calculated at checkout. Use <b>{{ settings.coupon_code }}</b> for 20% off.</p>
           <button class="btn btn-light btn-block" type="submit" name="update" style="margin-bottom:10px">Update cart</button>
           <button class="btn btn-primary btn-block" type="submit" name="checkout">{{ section.settings.checkout_label }}</button>

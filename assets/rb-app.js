@@ -46,6 +46,11 @@
     }
     const sub = $('#cart-subtotal');
     if (sub) sub.textContent = money(cart.total_price);
+    const mtoNote = $('#cart-mto');
+    if (mtoNote) {
+      const hasMto = (cart.items || []).some((i) => /soap/i.test(i.product_type || '') || (i.properties && i.properties.Preparation));
+      mtoNote.hidden = !hasMto;
+    }
     const co = $('#cart-checkout');
     if (co) {
       co.style.opacity = cart.item_count ? '1' : '.5';
@@ -67,9 +72,14 @@
     renderCart(await res.json());
   }
 
-  async function addToCart(id, quantity, sellingPlan) {
+  async function addToCart(id, quantity, sellingPlan, madeToOrder) {
     const item = { id: Number(id), quantity: Number(quantity) || 1 };
     if (sellingPlan) item.selling_plan = Number(sellingPlan);
+    if (madeToOrder) {
+      item.properties = {
+        Preparation: 'Made to Order — Handcrafted within approximately 48 hours before dispatch.'
+      };
+    }
     const res = await fetch('/cart/add.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -110,7 +120,7 @@
       const qtyEl = fromCarousel ? null : $('#pdp-qty');
       const planInput = fromCarousel ? null : $('[data-selling-plan-input]');
       const sellingPlan = planInput && planInput.value ? planInput.value : null;
-      addToCart(add.dataset.addVariant, qtyEl ? parseInt(qtyEl.textContent, 10) : 1, sellingPlan);
+      addToCart(add.dataset.addVariant, qtyEl ? parseInt(qtyEl.textContent, 10) : 1, sellingPlan, add.dataset.mto === '1');
     }
     const change = e.target.closest('[data-qty-change]');
     if (change) {
@@ -126,6 +136,21 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { closeCart(); $('.mobile-nav') && $('.mobile-nav').classList.remove('open'); document.body.style.overflow = ''; }
   });
+
+  /* Shopify theme preview bar sits over the cart footer. Lift checkout above it. */
+  function syncPreviewBar() {
+    const bar = document.getElementById('preview-bar-iframe');
+    let h = 0;
+    if (bar) {
+      const rect = bar.getBoundingClientRect();
+      h = Math.ceil(rect.height || bar.offsetHeight || 0);
+    }
+    document.documentElement.style.setProperty('--rb-preview-bar', h + 'px');
+  }
+  syncPreviewBar();
+  window.addEventListener('resize', syncPreviewBar);
+  window.addEventListener('load', syncPreviewBar);
+  new MutationObserver(syncPreviewBar).observe(document.documentElement, { childList: true });
 
   const header = $('.site-header');
   if (header) window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 10), { passive: true });

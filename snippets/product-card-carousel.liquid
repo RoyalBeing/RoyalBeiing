@@ -119,7 +119,7 @@
     </span>
     <div class="pcar-card__actions">
       {%- if sold_out == false and variant != blank -%}
-        <button type="button" class="pcar-card__atc" data-add-variant="{{ variant.id }}">Add to cart</button>
+        <button type="button" class="pcar-card__atc" data-add-variant="{{ variant.id }}" {% if soap_mto %}data-mto="1"{% endif %}>Add to cart</button>
       {%- endif -%}
       <a class="pcar-card__ritual" href="{{ product.url }}">View ritual<span aria-hidden="true"> →</span></a>
     </div>
