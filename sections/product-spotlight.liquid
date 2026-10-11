@@ -1,11 +1,11 @@
 {%- comment -%}
-  Homepage watermelon film. Landscape cut only (assets/rb-watermelon-fusion.mp4).
-  The CDN file in settings is the vertical version and must not render here.
+  Homepage watermelon film. Landscape file from Shopify Files:
+  FINAL CUT - WATERMELON FUSION Wide (1920x1080).
 {%- endcomment -%}
 <section class="rb-film rb-film--spotlight" {{ section.shopify_attributes }}>
   {%- liquid
     assign poster = section.settings.poster
-    assign video_url = 'rb-watermelon-fusion.mp4' | asset_url
+    assign video_url = 'https://cdn.shopify.com/videos/c/vp/73d871756d4f43bd8e1c1f56dd667d75/73d871756d4f43bd8e1c1f56dd667d75.HD-1080p-7.2Mbps-90385254.mp4'
   -%}
   <div class="rb-film__player is-muted" data-autoplay-video>
     <video
