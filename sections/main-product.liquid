@@ -59,24 +59,24 @@
             {%- assign rb_luxury_handles = ',african-rhapsody,aloe-vera-wave,anti-aging-herbal,aquatic-escape,beef-tallow,blissful-lavender,calm,charcoal-moment,citrus-heaven,detoxify,fresh-floral-fiesta,gilded-age,glow-rify,herbal-galaxy-renewal,islander,melanin-popping,sweet-madagascar,the-aristocrat,the-bodhi,the-chloe,the-duchess,the-enchanted-garden,the-iris,the-matthew,the-reiny,the-rose-garden,turmeric-swirl,watermelon-fusion,zen-moment,' -%}
             {%- if rb_luxury_handles contains rb_soap_key -%}
               {%- capture rb_stage_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
-              <img data-pdp-stage src="{{ rb_stage_img | strip }}" alt="{{ product.title | escape }}" width="1400" height="1400">
+              <img data-pdp-stage src="{{ rb_stage_img | strip }}" alt="{{ rb_display_title | escape }}" width="1400" height="1400">
             {%- elsif product.featured_media -%}
               {%- if product.featured_media.media_type == 'video' or product.featured_media.media_type == 'external_video' -%}
                 {{ product.featured_media | video_tag: image_size: '1400x', controls: true, muted: false, autoplay: false, loop: false, playsinline: true }}
               {%- else -%}
-                <img data-pdp-stage src="{{ product.featured_media | image_url: width: 1400 }}" alt="{{ product.featured_media.alt | default: product.title | escape }}" width="1400" height="1400">
+                <img data-pdp-stage src="{{ product.featured_media | image_url: width: 1400 }}" alt="{{ rb_display_title | escape }}" width="1400" height="1400">
               {%- endif -%}
             {%- elsif rb_record != blank and rb_record.hero != blank -%}
               <img
                 data-pdp-stage
                 src="{{ rb_record.hero | asset_url }}"
-                alt="{{ product.title | escape }}"
+                alt="{{ rb_display_title | escape }}"
                 width="1400"
                 height="1400"
               >
             {%- else -%}
               {%- capture rb_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
-              <img data-pdp-stage src="{{ rb_img | strip }}" alt="{{ product.title | escape }}" width="1400" height="1400">
+              <img data-pdp-stage src="{{ rb_img | strip }}" alt="{{ rb_display_title | escape }}" width="1400" height="1400">
             {%- endif -%}
           </div>
           <button type="button" class="pdp__nav pdp__nav--next" data-pdp-next aria-label="Next image">›</button>
@@ -91,9 +91,9 @@
                 class="{% if forloop.first %}active{% endif %}"
                 data-kind="{% if m.media_type == 'video' or m.media_type == 'external_video' %}video{% else %}image{% endif %}"
                 data-src="{% if m.media_type == 'video' %}{{ m.sources.last.url }}{% else %}{{ m | image_url: width: 1400 }}{% endif %}"
-                data-alt="{{ m.alt | default: product.title | escape }}"
+                data-alt="{{ rb_display_title | escape }}"
               >
-                <img src="{{ m | image_url: width: 200 }}" alt="{{ product.title | escape }} view {{ forloop.index }}" width="200" height="200" loading="lazy">
+                <img src="{{ m | image_url: width: 200 }}" alt="{{ rb_display_title | escape }} view {{ forloop.index }}" width="200" height="200" loading="lazy">
               </button>
             {%- endfor -%}
           {%- elsif rb_record != blank -%}
@@ -104,9 +104,9 @@
                 class="{% if thumb_i == 1 %}active{% endif %}"
                 data-kind="image"
                 data-src="{{ asset_name | asset_url }}"
-                data-alt="{{ product.title | escape }}"
+                data-alt="{{ rb_display_title | escape }}"
               >
-                <img src="{{ asset_name | asset_url }}" alt="{{ product.title | escape }} view {{ thumb_i }}" width="200" height="200" loading="lazy">
+                <img src="{{ asset_name | asset_url }}" alt="{{ rb_display_title | escape }} view {{ thumb_i }}" width="200" height="200" loading="lazy">
               </button>
             {%- endfor -%}
             {%- if rb_record.video != blank -%}
@@ -115,11 +115,11 @@
                 class="pdp__thumbs--video"
                 data-kind="video"
                 data-src="{{ rb_record.video }}"
-                data-alt="{{ product.title | escape }} film"
+                data-alt="{{ rb_display_title | escape }} film"
                 data-poster="{% if rb_record.hero != blank %}{{ rb_record.hero | asset_url }}{% endif %}"
               >
                 <span class="pdp__play">▶</span>
-                <img src="{{ rb_record.hero | asset_url }}" alt="{{ product.title | escape }} video" width="200" height="200" loading="lazy">
+                <img src="{{ rb_record.hero | asset_url }}" alt="{{ rb_display_title | escape }} video" width="200" height="200" loading="lazy">
               </button>
             {%- endif -%}
             {%- if rb_record.matrix != blank -%}

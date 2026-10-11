@@ -77,7 +77,7 @@
   data-mood="{{ mood }}"
   data-tilt="{{ tilt }}"
 >
-  <a class="pcar-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+  <a class="pcar-card__media" href="{{ product.url }}" aria-label="{{ card_title | escape }}">
     <span class="pcar-card__stage" aria-hidden="true"></span>
     <span class="pcar-card__atm" aria-hidden="true"></span>
     {%- if on_sale -%}
@@ -88,7 +88,7 @@
       <img
         class="pcar-card__soap"
         src="{{ rb_img | strip }}"
-        alt="{{ product.title | escape }}"
+        alt="{{ card_title | escape }}"
         loading="lazy"
         width="900"
         height="900"
@@ -97,13 +97,13 @@
       <img
         class="pcar-card__soap"
         src="{{ product.featured_media | image_url: width: 900 }}"
-        alt="{{ product.featured_media.alt | default: product.title | escape }}"
+        alt="{{ card_title | escape }}"
         loading="lazy"
         width="{{ product.featured_media.width }}"
         height="{{ product.featured_media.height }}"
       >
     {%- else -%}
-      <img class="pcar-card__soap" src="{{ 'rb-life-stack.jpg' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy" width="800" height="800">
+      <img class="pcar-card__soap" src="{{ 'rb-life-stack.jpg' | asset_url }}" alt="{{ card_title | escape }}" loading="lazy" width="800" height="800">
     {%- endif -%}
   </a>
   <div class="pcar-card__body">
