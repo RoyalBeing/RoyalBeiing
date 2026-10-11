@@ -284,10 +284,18 @@
         <div class="grev__app" {{ block.shopify_attributes }}>{% render block %}</div>
       {%- endif -%}
     {%- endfor -%}
-    {%- include 'rb-review-article' -%}
+    {%- assign rb_review_blog = blogs['reviews'] -%}
+    {%- assign rb_review_article = blank -%}
+    {%- if rb_review_blog != blank -%}
+      {%- for rb_article in rb_review_blog.articles -%}
+        {%- if rb_article.handle == 'customer-reviews' or rb_review_blog.articles.size == 1 -%}
+          {%- assign rb_review_article = rb_article -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
     {%- if rb_review_article != blank -%}
       {%- assign rb_review_marker = 'Product: ' | append: product.title -%}
-      {%- capture rb_review_cards -%}
+      <div class="rb-review-list">
         {%- paginate rb_review_article.comments by 50 -%}
           {%- for comment in rb_review_article.comments -%}
             {%- if comment.content contains rb_review_marker -%}
@@ -300,10 +308,7 @@
             {%- endif -%}
           {%- endfor -%}
         {%- endpaginate -%}
-      {%- endcapture -%}
-      {%- if rb_review_cards contains 'rb-review-card' -%}
-        <div class="rb-review-list">{{ rb_review_cards }}</div>
-      {%- endif -%}
+      </div>
       {%- form 'new_comment', rb_review_article, id: 'RoyalBeingProductReview', class: 'review-form card-soft' -%}
         {%- if form.posted_successfully? -%}
           <p class="form-status form-status--success" role="status">Thank you. Your review of {{ product.title }} is published on this page for other customers to read.</p>

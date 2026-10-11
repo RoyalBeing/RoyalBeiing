@@ -1,4 +1,12 @@
-{%- include 'rb-review-article' -%}
+{%- assign rb_review_blog = blogs['reviews'] -%}
+{%- assign rb_review_article = blank -%}
+{%- if rb_review_blog != blank -%}
+  {%- for rb_article in rb_review_blog.articles -%}
+    {%- if rb_article.handle == 'customer-reviews' or rb_review_blog.articles.size == 1 -%}
+      {%- assign rb_review_article = rb_article -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
 {%- liquid
   assign max_reviews = section.settings.max_reviews | default: 12
   assign shown = 0
