@@ -190,6 +190,7 @@ p{margin:0 0 1rem}
   background:linear-gradient(90deg, rgba(250,247,240,.94) 0%, rgba(250,247,240,.78) 26%, rgba(250,247,240,.28) 46%, rgba(250,247,240,0) 62%);
 }
 .col-hero--editorial .page-banner__scrim{background:none}
+.col-hero--plain .page-banner__scrim{background:none}
 .col-hero__copy{
   position:absolute;
   z-index:2;

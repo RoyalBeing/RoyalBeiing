@@ -37,6 +37,7 @@
   assign banner_asset = blank
   assign banner_h = 341
   assign hero_editorial = false
+  assign hero_plain = false
   case col_key
     when 'royal'
       assign banner_asset = 'rb-banner-royal.jpg'
@@ -60,6 +61,8 @@
       assign hero_editorial = true
     when 'all'
       assign banner_asset = 'rb-banner-all.jpg'
+      assign banner_h = 576
+      assign hero_plain = true
   endcase
   if collection.handle == 'all'
     assign hero_title = 'Shop All Soaps'
@@ -67,7 +70,7 @@
     assign hero_title = rec.title | default: collection.title
   endif
 -%}
-<section class="page-banner col-hero{% if hero_editorial %} col-hero--editorial{% endif %}" {{ section.shopify_attributes }}>
+<section class="page-banner col-hero{% if hero_editorial %} col-hero--editorial{% endif %}{% if hero_plain %} col-hero--plain{% endif %}" {{ section.shopify_attributes }}>
   {%- if banner_asset != blank -%}
     <div class="page-banner__media"><img src="{{ banner_asset | asset_url }}" alt="{{ hero_title | escape }}" width="1024" height="{{ banner_h }}" fetchpriority="high"></div>
   {%- elsif rec != blank and rec.hero != blank -%}
@@ -111,6 +114,8 @@
       <p class="col-hero__lead">Delicate herbal bars formulated for a child’s skin. Heart, cube, and square shapes with gentle lavender, chamomile, and sweet orange — a joyful, premium bath-time ritual.</p>
       <span class="col-hero__rule" aria-hidden="true"></span>
       <p class="col-hero__meta">4 herbal soaps · For Kids · Gentle</p>
+    {%- elsif hero_plain -%}
+      <h1 class="visually-hidden">{{ hero_title }}</h1>
     {%- else -%}
       <h1>{{ hero_title }}</h1>
     {%- endif -%}
