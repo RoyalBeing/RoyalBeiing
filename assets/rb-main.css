@@ -1716,6 +1716,37 @@ body.grev-lock{overflow:hidden}
   .rb-film__player{aspect-ratio:16/9;min-height:0}
 }
 
+/* Homepage watermelon film — full-bleed landscape, no side copy */
+.rb-film.rb-film--spotlight{
+  background:#000;
+  padding:0;
+  margin:0;
+}
+.rb-film--spotlight .rb-film__player{
+  border-radius:0;
+  background:#000;
+  aspect-ratio:auto;
+  width:100%;
+  height:calc(100svh - var(--rb-header-h));
+  min-height:calc(100svh - var(--rb-header-h));
+  margin:0;
+}
+.rb-film--spotlight .rb-film__player video,
+.rb-film--spotlight .rb-film__player .rb-video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  background:#000;
+}
+@media(max-width:860px){
+  .rb-film--spotlight .rb-film__player{
+    aspect-ratio:auto;
+    height:calc(100svh - var(--rb-header-h));
+    min-height:calc(100svh - var(--rb-header-h));
+  }
+}
+
 .sub-benefits{list-style:none;margin:24px auto;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;max-width:640px;text-align:left}
 .sub-benefits li{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:#55584f}
 .sub-benefits svg{width:18px;height:18px;color:var(--rb-green-900);flex-shrink:0;margin-top:2px}

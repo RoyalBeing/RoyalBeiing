@@ -332,6 +332,53 @@
     syncSoundUi();
   });
 
+  /* Full-bleed spotlight: autoplay muted, loop, optional sound. Do not pause on hover. */
+  $$('[data-autoplay-video]').forEach((wrap) => {
+    const v = wrap.querySelector('video');
+    if (!v) return;
+    v.playsInline = true;
+    v.loop = true;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const soundBtn = wrap.querySelector('[data-video-sound]');
+    const soundLabel = soundBtn && soundBtn.querySelector('.rb-film__sound-label');
+    let soundOn = false;
+
+    const syncSoundUi = () => {
+      wrap.classList.toggle('is-muted', v.muted || !soundOn);
+      if (soundLabel) soundLabel.textContent = soundOn && !v.muted ? 'Sound off' : 'Sound on';
+      if (soundBtn) soundBtn.setAttribute('aria-label', soundOn && !v.muted ? 'Turn sound off' : 'Turn sound on');
+    };
+    const tryPlay = () => {
+      const p = v.play();
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+      wrap.classList.add('is-playing');
+    };
+
+    v.muted = true;
+    soundOn = false;
+    syncSoundUi();
+    if (!reduceMotion) {
+      if (v.readyState >= 2) tryPlay();
+      else v.addEventListener('canplay', () => tryPlay(), { once: true });
+    }
+
+    if (soundBtn) {
+      soundBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (v.muted || !soundOn) {
+          soundOn = true;
+          v.muted = false;
+          tryPlay();
+        } else {
+          soundOn = false;
+          v.muted = true;
+        }
+        syncSoundUi();
+      });
+    }
+  });
+
   /* Featured product carousel */
   $$('[data-product-carousel]').forEach((root) => {
     const track = root.querySelector('[data-pcar-track]');

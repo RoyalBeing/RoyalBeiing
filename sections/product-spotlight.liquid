@@ -1,84 +1,27 @@
-<section class="section section--compact rb-film rb-film--spotlight" {{ section.shopify_attributes }}>
-  <div class="wrap">
-    <div class="rb-film__grid reveal">
-      <div class="rb-film__media">
-        {%- liquid
-          assign product = section.settings.product
-          assign poster = section.settings.poster
-          assign video = section.settings.video
-          assign video_url = section.settings.video_url
-          if video_url == blank
-            assign video_url = 'rb-watermelon-fusion.mp4' | asset_url
-          endif
-        -%}
-        {%- if video != blank -%}
-          <div class="rb-film__player is-muted" data-hover-video>
-            {{ video | video_tag: image_size: '1200x', controls: false, muted: true, autoplay: false, loop: true, class: 'rb-video', playsinline: true }}
-            <span class="rb-film__hint" aria-hidden="true">Hover to play</span>
-            {% render 'video-sound-control' %}
-          </div>
-        {%- elsif video_url != blank -%}
-          <div class="rb-film__player is-muted" data-hover-video>
-            <video
-              class="rb-video"
-              muted
-              loop
-              playsinline
-              webkit-playsinline
-              preload="metadata"
-              {% if poster != blank %}poster="{{ poster | image_url: width: 1400 }}"{% elsif product != blank and product.featured_media %}poster="{{ product.featured_media | image_url: width: 1400 }}"{% else %}poster="{{ 'rb-p-watermelon-fusion.jpg' | asset_url }}"{% endif %}
-              aria-label="{{ section.settings.heading | escape }}"
-            >
-              <source src="{{ video_url }}" type="video/mp4">
-            </video>
-            <span class="rb-film__hint" aria-hidden="true">Hover to play</span>
-            {% render 'video-sound-control' %}
-          </div>
-        {%- elsif section.settings.image != blank -%}
-          <div class="rb-film__player">
-            <img src="{{ section.settings.image | image_url: width: 1400 }}" alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}" loading="lazy" width="1400" height="788">
-          </div>
-        {%- elsif product != blank and product.featured_media -%}
-          <div class="rb-film__player">
-            <img src="{{ product.featured_media | image_url: width: 1400 }}" alt="{{ product.title | escape }}" loading="lazy" width="1400" height="788">
-          </div>
-        {%- else -%}
-          <div class="rb-film__player rb-film__player--empty">
-            <p class="note">Watermelon Fusion film coming soon.</p>
-          </div>
-        {%- endif -%}
-      </div>
-
-      <div class="rb-film__copy">
-        {%- if section.settings.eyebrow != blank -%}
-          <p class="eyebrow">{{ section.settings.eyebrow }}</p>
-        {%- endif -%}
-        {%- if section.settings.heading != blank -%}
-          <h2>{{ section.settings.heading }}</h2>
-        {%- endif -%}
-        {%- if section.settings.subheading != blank -%}
-          <p class="serif-accent rb-film__sub">{{ section.settings.subheading }}</p>
-        {%- endif -%}
-        {%- if section.settings.text != blank -%}
-          <div class="rb-film__text lead">{{ section.settings.text | newline_to_br }}</div>
-        {%- endif -%}
-        {%- if section.settings.closing != blank -%}
-          <p class="serif-accent rb-film__closing">{{ section.settings.closing }}</p>
-        {%- endif -%}
-
-        {%- if product != blank -%}
-          <div class="pdp__meta rb-film__meta">
-            {%- if section.settings.meta_natural != blank -%}<span><b>{{ section.settings.meta_natural }}</b></span>{%- endif -%}
-            {%- if section.settings.meta_weight != blank -%}<span>Weight: <b>{{ section.settings.meta_weight }}</b></span>{%- endif -%}
-            <span>Price: <b>{{ product.price | money }}</b></span>
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.button_label != blank -%}
-          <a class="btn btn-primary" href="{% if product != blank %}{{ product.url }}{% else %}{{ section.settings.button_link }}{% endif %}">{{ section.settings.button_label }}</a>
-        {%- endif -%}
-      </div>
-    </div>
+{%- comment -%}
+  Homepage watermelon film. Landscape cut only (assets/rb-watermelon-fusion.mp4).
+  The CDN file in settings is the vertical version and must not render here.
+{%- endcomment -%}
+<section class="rb-film rb-film--spotlight" {{ section.shopify_attributes }}>
+  {%- liquid
+    assign poster = section.settings.poster
+    assign video_url = 'rb-watermelon-fusion.mp4' | asset_url
+  -%}
+  <div class="rb-film__player is-muted" data-autoplay-video>
+    <video
+      class="rb-video"
+      muted
+      loop
+      autoplay
+      playsinline
+      webkit-playsinline
+      preload="auto"
+      {% if poster != blank %}poster="{{ poster | image_url: width: 2000 }}"{% endif %}
+      aria-label="Watermelon Fusion"
+    >
+      <source src="{{ video_url }}" type="video/mp4">
+    </video>
+    {% render 'video-sound-control' %}
   </div>
 </section>
 
@@ -87,19 +30,16 @@
   "name": "Product spotlight",
   "settings": [
     { "type": "product", "id": "product", "label": "Product" },
-    { "type": "image_picker", "id": "image", "label": "Image (if no video)" },
-    { "type": "image_picker", "id": "poster", "label": "Video poster" },
-    { "type": "video", "id": "video", "label": "Shopify-hosted video" },
-    { "type": "text", "id": "video_url", "label": "Or direct MP4 URL", "info": "Leave blank to use the theme Watermelon Fusion film" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A SIGNATURE ESCAPE" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A signature escape" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Watermelon Fusion" },
     { "type": "text", "id": "subheading", "label": "Subheading", "default": "The Ritual of Being" },
-    { "type": "textarea", "id": "text", "label": "Main text", "default": "Elevate your skincare cleansing routine with Watermelon Fusion — a luxurious herbal bar with goat’s milk, watermelon, peppermint, and gentle poppy-seed exfoliation." },
+    { "type": "textarea", "id": "text", "label": "Description" },
     { "type": "text", "id": "closing", "label": "Closing line", "default": "Elevate your daily cleansing into a sacred spa ritual." },
-    { "type": "text", "id": "meta_natural", "label": "Natural line", "default": "100% Natural & Handmade" },
-    { "type": "text", "id": "meta_weight", "label": "Weight", "default": "6.7 oz" },
-    { "type": "text", "id": "button_label", "label": "Primary button", "default": "SHOP WATERMELON FUSION" },
-    { "type": "url", "id": "button_link", "label": "Primary link (if no product)" }
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop Watermelon Fusion" },
+    { "type": "video", "id": "video", "label": "Video (Shopify file)" },
+    { "type": "text", "id": "video_url", "label": "Video URL", "info": "Unused. This section always plays the landscape theme film." },
+    { "type": "image_picker", "id": "poster", "label": "Poster image" },
+    { "type": "image_picker", "id": "image", "label": "Still image" }
   ],
   "presets": [{ "name": "Product spotlight" }]
 }
