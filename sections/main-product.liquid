@@ -215,7 +215,6 @@
           {%- if can_buy -%}
             {%- if soap_mto -%}
               <input type="hidden" name="properties[Preparation]" value="Made to Order — Handcrafted within approximately 48 hours before dispatch.">
-              <p class="pdp__mto">Made to Order — Handcrafted within approximately 48 hours before dispatch.</p>
             {%- endif -%}
             <div class="pdp__actions">
               <div class="qty">
@@ -233,7 +232,7 @@
         {%- endform -%}
 
         <div class="pdp__meta">
-          {%- if soap_mto -%}<span>Made to order · <b>~48 hours</b></span>{%- endif -%}
+          {%- if soap_mto -%}<span>Made to order · <b>Approximately 48 hours</b></span>{%- endif -%}
           <span>{{ section.settings.ships_note }}</span>
         </div>
 
