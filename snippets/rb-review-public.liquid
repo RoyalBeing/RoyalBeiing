@@ -1,0 +1,34 @@
+{%- comment -%}
+  Reads comment. Sets rb_public_stars and rb_public_body for the parent template.
+{%- endcomment -%}
+{%- liquid
+  assign rb_public_stars = 0
+  if comment.content contains 'Rating: 5'
+    assign rb_public_stars = 5
+  elsif comment.content contains 'Rating: 4'
+    assign rb_public_stars = 4
+  elsif comment.content contains 'Rating: 3'
+    assign rb_public_stars = 3
+  elsif comment.content contains 'Rating: 2'
+    assign rb_public_stars = 2
+  elsif comment.content contains 'Rating: 1'
+    assign rb_public_stars = 1
+  endif
+  assign rb_public_body = comment.content
+  if rb_public_body contains 'Product:'
+    assign rb_after = rb_public_body | split: 'Product:' | last | newline_to_br | split: '<br />'
+    assign rb_public_body = ''
+    for line in rb_after
+      unless forloop.first
+        assign rb_bit = line | strip
+        if rb_bit != blank
+          if rb_public_body != blank
+            assign rb_public_body = rb_public_body | append: ' '
+          endif
+          assign rb_public_body = rb_public_body | append: rb_bit
+        endif
+      endunless
+    endfor
+  endif
+  assign rb_public_body = rb_public_body | replace: 'Rating: 5', '' | replace: 'Rating: 4', '' | replace: 'Rating: 3', '' | replace: 'Rating: 2', '' | replace: 'Rating: 1', '' | strip
+-%}

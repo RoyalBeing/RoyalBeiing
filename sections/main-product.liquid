@@ -324,18 +324,23 @@
     {%- if rb_review_article != blank -%}
       {%- assign rb_review_marker = 'Product: ' | append: rb_display_title -%}
       <div class="rb-review-list">
-        {%- paginate rb_review_article.comments by 50 -%}
-          {%- for comment in rb_review_article.comments -%}
-            {%- if comment.content contains rb_review_marker -%}
-              {%- assign rb_body = comment.content | replace: rb_review_marker, '' | replace: 'Rating: 5', '' | replace: 'Rating: 4', '' | replace: 'Rating: 3', '' | replace: 'Rating: 2', '' | replace: 'Rating: 1', '' | strip -%}
-              <article class="rb-review-card">
-                <h3>{{ comment.author }}</h3>
-                <time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%b %d, %Y' }}</time>
-                <p>{{ rb_body | newline_to_br }}</p>
-              </article>
-            {%- endif -%}
-          {%- endfor -%}
-        {%- endpaginate -%}
+        {%- for comment in rb_review_article.comments -%}
+          {%- if comment.content contains rb_review_marker -%}
+            {%- include 'rb-review-public' -%}
+            <article class="rb-review-card">
+              <h3>{{ comment.author }}</h3>
+              <time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%b %d, %Y' }}</time>
+              {%- if rb_public_stars > 0 -%}
+                <div class="grev-card__stars" aria-label="{{ rb_public_stars }} out of 5 stars">
+                  {%- for i in (1..5) -%}
+                    <span class="grev-star{% if i > rb_public_stars %} grev-star--empty{% endif %}" aria-hidden="true">★</span>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+              <p>{{ rb_public_body }}</p>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
       {%- form 'new_comment', rb_review_article, id: 'RoyalBeingProductReview', class: 'review-form card-soft' -%}
         {%- if form.posted_successfully? -%}
@@ -346,8 +351,19 @@
             <label class="form-field"><span>Name</span><input type="text" name="comment[author]" required autocomplete="name"></label>
             <label class="form-field"><span>Email</span><input type="email" name="comment[email]" required autocomplete="email"></label>
           </div>
+          <label class="form-field">
+            <span>Star rating</span>
+            <select data-review-rating required>
+              <option value="">Select a rating</option>
+              <option value="5">5 — Excellent</option>
+              <option value="4">4 — Very good</option>
+              <option value="3">3 — Good</option>
+              <option value="2">2 — Fair</option>
+              <option value="1">1 — Poor</option>
+            </select>
+          </label>
           <label class="form-field"><span>Your review</span><textarea name="comment[body]" rows="4" required></textarea></label>
-          <p class="note">This written review is for {{ rb_display_title }}. It is published on this page and with the community reviews.</p>
+          <p class="note">Your star rating and written review for {{ rb_display_title }} are published on this page and with the community reviews.</p>
           <button type="submit" class="btn btn-primary" data-review-product="{{ rb_display_title | escape }}">Submit review</button>
         {%- endif -%}
       {%- endform -%}

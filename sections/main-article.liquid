@@ -1,0 +1,40 @@
+<section class="section" {{ section.shopify_attributes }}>
+  <div class="wrap" style="max-width:760px">
+    <nav class="breadcrumbs">
+      <a href="{{ routes.root_url }}">Home</a> /
+      <a href="{{ blog.url }}">{{ blog.title }}</a> /
+      {{ article.title }}
+    </nav>
+    <h1>{{ article.title }}</h1>
+    {%- if article.content != blank -%}
+      <div class="rte" style="margin:18px 0 28px">{{ article.content }}</div>
+    {%- endif -%}
+
+    <div class="rb-review-list">
+      {%- paginate article.comments by 50 -%}
+        {%- for comment in article.comments -%}
+          {%- include 'rb-review-public' -%}
+          <article class="rb-review-card">
+            <h3>{{ comment.author }}</h3>
+            <time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%b %d, %Y' }}</time>
+            {%- if rb_public_stars > 0 -%}
+              <div class="grev-card__stars" aria-label="{{ rb_public_stars }} out of 5 stars">
+                {%- for i in (1..5) -%}
+                  <span class="grev-star{% if i > rb_public_stars %} grev-star--empty{% endif %}" aria-hidden="true">★</span>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+            <p>{{ rb_public_body }}</p>
+          </article>
+        {%- endfor -%}
+      {%- endpaginate -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": []
+}
+{% endschema %}
