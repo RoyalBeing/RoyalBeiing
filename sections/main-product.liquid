@@ -50,8 +50,9 @@
           <button type="button" class="pdp__nav pdp__nav--prev" data-pdp-prev aria-label="Previous image">‹</button>
           <div class="pdp__main-img pdp__main-img--pop" id="pdp-main-img">
             {%- assign rb_luxury_handles = ',african-rhapsody,aloe-vera-wave,anti-aging-herbal,aquatic-escape,beef-tallow,blissful-lavender,calm,charcoal-moment,citrus-heaven,detoxify,fresh-floral-fiesta,gilded-age,glow-rify,herbal-galaxy-renewal,islander,melanin-popping,sweet-madagascar,the-aristocrat,the-bodhi,the-chloe,the-duchess,the-enchanted-garden,the-iris,the-matthew,the-reiny,the-rose-garden,turmeric-swirl,watermelon-fusion,zen-moment,' -%}
-            {%- if rb_is_soap and rb_luxury_handles contains rb_soap_key and rb_record != blank and rb_record.hero != blank -%}
-              <img data-pdp-stage src="{{ rb_record.hero | asset_url }}" alt="{{ product.title | escape }}" width="1400" height="1400">
+            {%- if rb_luxury_handles contains rb_soap_key -%}
+              {%- capture rb_stage_img -%}{% render 'rb-product-fallback-image', product: product %}{%- endcapture -%}
+              <img data-pdp-stage src="{{ rb_stage_img | strip }}" alt="{{ product.title | escape }}" width="1400" height="1400">
             {%- elsif product.featured_media -%}
               {%- if product.featured_media.media_type == 'video' or product.featured_media.media_type == 'external_video' -%}
                 {{ product.featured_media | video_tag: image_size: '1400x', controls: true, muted: false, autoplay: false, loop: false, playsinline: true }}
