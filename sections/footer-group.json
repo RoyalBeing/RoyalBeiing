@@ -4,7 +4,9 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {}
+      "settings": {
+        "blurb": "Honest, plant-based, wholesome goodness for daily self-care. Handmade and hand-poured in small batches. Royal Being LLC Est. 2021."
+      }
     }
   },
   "order": ["footer"]

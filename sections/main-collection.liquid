@@ -105,7 +105,8 @@
   <div class="page-banner__scrim" aria-hidden="true"></div>
   <div class="col-hero__copy">
     {%- if col_key == 'common' -%}
-      <h1><span>Clear, calm,</span><br><span>everyday wellness.</span></h1>
+      <h1><span>The Common</span><br><span>Collection</span></h1>
+      <p class="col-hero__deck">Clear, calm, everyday wellness.</p>
       <p class="col-hero__lead">Considered essentials for the daily ritual. The Common Collection makes wholesome, plant-based cleansing an effortless part of every morning and every evening.</p>
       <span class="col-hero__rule" aria-hidden="true"></span>
       <p class="col-hero__meta">7 herbal soaps · Everyday · Calm</p>
@@ -123,8 +124,16 @@
       <p class="col-hero__meta">10 herbal soaps · Flagship · Balanced</p>
     {%- elsif col_key == 'royal-duke' -%}
       <h1><span>The Royal Duke</span><br><span>Collection</span></h1>
+      <p class="col-hero__deck">Grounded, woody, and quietly powerful.</p>
+      <p class="col-hero__lead">{{ rec.intro | default: "The Royal Duke Collection is a premium five-piece anthology of artisanal herbal soaps engineered specifically for the modern man who values rugged, sophisticated grooming. This collection merges bold, masculine aromatherapy with hard-working botanicals to deliver an authoritative clean that honors a man's daily skin health." | replace: 'Photographed from the real, tested bars.', '' | replace: 'Photographed from the real, tested bars', '' }}</p>
+      <span class="col-hero__rule" aria-hidden="true"></span>
+      <p class="col-hero__meta">5 herbal soaps · For Men · Woody</p>
     {%- elsif col_key == 'royal-kid' -%}
       <h1><span>The Royal Kid</span><br><span>Herbal Collection</span></h1>
+      <p class="col-hero__deck">Soft, joyful, and gentle — premium care for little ones.</p>
+      <p class="col-hero__lead">{{ rec.intro | default: "The Royal Kid Herbal Collection is an ultra-gentle, four-piece anthology of artisanal herbal soaps handcrafted to transform bath time into a playful, palace-worthy ritual. Engineered specifically for children's delicate skin, this collection blends whimsical, kid-friendly scents with deeply soothing botanicals to ensure a tear-free, skin-softening wash." | replace: 'whimiscal', 'whimsical' }}</p>
+      <span class="col-hero__rule" aria-hidden="true"></span>
+      <p class="col-hero__meta">4 herbal soaps · For Kids · Gentle</p>
     {%- elsif hero_plain -%}
       <h1 class="visually-hidden">{{ hero_title }}</h1>
     {%- else -%}
@@ -133,34 +142,30 @@
   </div>
 </section>
 
+{%- comment -%} Duke/Kid keep their existing ads above the product grid. Royal/Signature/Common get placeholder ads below the soap lineup. {%- endcomment -%}
 {%- assign rb_ad_file = blank -%}
 {%- assign rb_ad_label = blank -%}
+{%- assign rb_ad_src = blank -%}
+{%- assign rb_ad_below_grid = false -%}
 {%- if col_key == 'royal-duke' -%}
   {%- assign rb_ad_file = 'rb-ad-duke-horizontal.mp4' -%}
   {%- assign rb_ad_label = 'The Royal Duke Collection' -%}
 {%- elsif col_key == 'royal-kid' -%}
   {%- assign rb_ad_file = 'rb-ad-kid-bodhi.mp4' -%}
   {%- assign rb_ad_label = 'The Royal Kid Herbal Collection' -%}
+{%- elsif col_key == 'royal' or col_key == 'signature' or col_key == 'common' -%}
+  {%- assign rb_ad_below_grid = true -%}
+  {%- assign rb_ad_src = 'https://cdn.shopify.com/videos/c/o/v/117cb97df2d84d3797ee650ab396e790.mp4' -%}
+  {%- if col_key == 'royal' -%}
+    {%- assign rb_ad_label = 'The Royal Collection' -%}
+  {%- elsif col_key == 'signature' -%}
+    {%- assign rb_ad_label = 'The Signature Collection' -%}
+  {%- else -%}
+    {%- assign rb_ad_label = 'The Common Collection' -%}
+  {%- endif -%}
 {%- endif -%}
 
-<section class="section col-story{% if hero_editorial %} col-story--after-hero{% endif %}">
-  <div class="wrap">
-    {%- if col_key == 'royal-duke' or col_key == 'royal-kid' -%}
-      <div class="col-intro reveal">
-        {%- if col_key == 'royal-duke' -%}
-          <p class="col-intro__deck">Grounded, woody, and quietly powerful.</p>
-          <p>{{ rec.intro | default: "The Royal Duke Collection is a premium five-piece anthology of artisanal herbal soaps engineered specifically for the modern man who values rugged, sophisticated grooming. This collection merges bold, masculine aromatherapy with hard-working botanicals to deliver an authoritative clean that honors a man's daily skin health." | replace: 'Photographed from the real, tested bars.', '' | replace: 'Photographed from the real, tested bars', '' }}</p>
-          <p class="col-intro__meta">5 herbal soaps · For Men · Woody</p>
-        {%- else -%}
-          <p class="col-intro__deck">Soft, joyful, and gentle — premium care for little ones.</p>
-          <p>{{ rec.intro | default: "The Royal Kid Herbal Collection is an ultra-gentle, four-piece anthology of artisanal herbal soaps handcrafted to transform bath time into a playful, palace-worthy ritual. Engineered specifically for children's delicate skin, this collection blends whimsical, kid-friendly scents with deeply soothing botanicals to ensure a tear-free, skin-softening wash." | replace: 'whimiscal', 'whimsical' }}</p>
-          <p class="col-intro__meta">4 herbal soaps · For Kids · Gentle</p>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
-    {%- if rb_ad_file != blank -%}
-  </div>
-</section>
+{%- if rb_ad_file != blank -%}
 <section class="rb-film rb-film--spotlight" aria-label="{{ rb_ad_label | escape }}">
   <div class="rb-film__player is-muted" data-autoplay-video>
     <video
@@ -178,9 +183,9 @@
     {% render 'video-sound-control' %}
   </div>
 </section>
-<section class="section col-story">
+{%- endif -%}
+<section class="section col-story{% if hero_editorial %} col-story--after-hero{% endif %}">
   <div class="wrap">
-    {%- endif -%}
     {%- if rec != blank -%}
       <div class="col-story__grid reveal">
         {%- unless hero_editorial -%}
@@ -205,22 +210,6 @@
           {%- for img in rec.lifestyle limit: 4 -%}
             <img src="{{ img | asset_url }}" alt="{{ rec.title | escape }} lifestyle" width="800" height="1000" loading="lazy">
           {%- endfor -%}
-        </div>
-      {%- endif -%}
-      {%- if rec.video != blank and col_key != 'royal-duke' and col_key != 'royal-kid' -%}
-        <div class="col-film reveal" data-hover-video>
-          {% render 'video-sound-control' %}
-          <video
-            playsinline
-            webkit-playsinline
-            muted
-            loop
-            preload="metadata"
-            poster="{% if rec.hero != blank %}{{ rec.hero | asset_url }}{% endif %}"
-            controls
-          >
-            <source src="{{ rec.video }}" type="video/mp4">
-          </video>
         </div>
       {%- endif -%}
       {%- if rec.matrix != blank and col_key != 'royal-duke' and col_key != 'royal-kid' -%}
@@ -272,6 +261,29 @@
         {%- endif -%}
       {%- endpaginate -%}
     </div>
+  </div>
+</section>
+{%- if rb_ad_below_grid and rb_ad_src != blank -%}
+<section class="rb-film rb-film--spotlight rb-film--collection-break" aria-label="{{ rb_ad_label | escape }}">
+  <div class="rb-film__player is-muted" data-autoplay-video>
+    <video
+      class="rb-video"
+      muted
+      loop
+      autoplay
+      playsinline
+      webkit-playsinline
+      preload="metadata"
+      aria-label="{{ rb_ad_label | escape }} advertisement placeholder"
+    >
+      <source src="{{ rb_ad_src }}" type="video/mp4">
+    </video>
+    {% render 'video-sound-control' %}
+  </div>
+</section>
+{%- endif -%}
+<section class="section col-story col-story--bundle">
+  <div class="wrap">
     {%- if col_key == 'common' or col_key == 'royal' or col_key == 'signature' or col_key == 'royal-duke' or col_key == 'royal-kid' -%}
       {%- assign rb_bundle_total = 0 -%}
       {%- assign rb_bundle_ids = '' -%}

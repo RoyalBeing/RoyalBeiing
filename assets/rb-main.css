@@ -51,13 +51,34 @@ h2{font-size:clamp(2.1rem,3.8vw,3.4rem)}
 h3{font-size:clamp(1.4rem,2.5vw,1.9rem)}
 p{margin:0 0 1rem}
 
+/* Box / justified body copy — luxury clean edges on both sides */
+.prose p,
+.lead,
+.col-hero__lead,
+.col-intro p,
+.col-story__copy .lead,
+.col-bundle__note,
+.about-block__copy p,
+.about-card p,
+.about-legal__intro,
+.about-legal li,
+.about-legal--ip p,
+.footer-brand p,
+.contact-info > p,
+.value-card p,
+.rb-social__copy .lead{
+  text-align:justify;
+  text-justify:inter-word;
+  hyphens:auto;
+}
+
 .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad-x)}
 .section{padding-block:var(--sec-y)}
 .section--compact{padding-block:clamp(36px,5vw,72px)}
 .eyebrow{font-family:var(--font-body);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--rb-gold-600);font-weight:600;margin:0 0 14px}
 .lead{font-size:1.12rem;color:#55584f;max-width:60ch}
 .center{text-align:center}
-.center .lead{margin-inline:auto}
+.center .lead{margin-inline:auto;text-align:center}
 .muted{color:#6c6f66}
 .serif-accent{font-family:var(--font-display);font-style:italic}
 .skip-link{position:absolute;left:-999px;top:0;background:var(--rb-green-900);color:#fff;padding:12px 18px;z-index:2000}
@@ -240,6 +261,9 @@ p{margin:0 0 1rem}
   line-height:1.4;
   max-width:22em;
   margin:0;
+}
+.col-hero--editorial .col-hero__lead{
+  max-width:26em;
 }
 .col-hero__rule{
   display:block;
@@ -2723,7 +2747,9 @@ body.grev-lock{overflow:hidden}
 .about-legal--ip p{
   margin:0;
   color:#5c5f56;
-  text-align:left;
+  text-align:justify;
+  text-justify:inter-word;
+  hyphens:auto;
   line-height:1.7;
   max-width:46ch;
 }
@@ -2767,7 +2793,10 @@ body.grev-lock{overflow:hidden}
 .about-legal li{margin-bottom:12px;max-width:none;line-height:1.65}
 .about-legal li:last-child{margin-bottom:0}
 .about-legal a{text-decoration:underline;text-underline-offset:3px}
-.about-legal--ip p{max-width:72ch;line-height:1.7}
+.about-legal--ip p{max-width:none;line-height:1.7}
+.about-legal__intro{max-width:none}
+.col-story--bundle{padding-top:clamp(28px,3.5vw,48px)}
+.rb-film--collection-break{margin:0}
 html.rb-about-route .rb-404-fallback{display:none!important}
 html.rb-about-route .rb-about-virtual{display:block!important}
 html.rb-about-route .rb-virtual-product{display:none!important}
