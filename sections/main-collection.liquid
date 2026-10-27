@@ -142,30 +142,28 @@
   </div>
 </section>
 
-{%- comment -%} Duke/Kid keep their existing ads above the product grid. Royal/Signature/Common get placeholder ads below the soap lineup. {%- endcomment -%}
+{%- comment -%} Collection films sit directly under the banner, same player as Duke and Kid. {%- endcomment -%}
 {%- assign rb_ad_file = blank -%}
 {%- assign rb_ad_label = blank -%}
 {%- assign rb_ad_src = blank -%}
-{%- assign rb_ad_below_grid = false -%}
 {%- if col_key == 'royal-duke' -%}
   {%- assign rb_ad_file = 'rb-ad-duke-horizontal.mp4' -%}
   {%- assign rb_ad_label = 'The Royal Duke Collection' -%}
 {%- elsif col_key == 'royal-kid' -%}
   {%- assign rb_ad_file = 'rb-ad-kid-bodhi.mp4' -%}
   {%- assign rb_ad_label = 'The Royal Kid Herbal Collection' -%}
-{%- elsif col_key == 'royal' or col_key == 'signature' or col_key == 'common' -%}
-  {%- assign rb_ad_below_grid = true -%}
-  {%- assign rb_ad_src = 'https://cdn.shopify.com/videos/c/o/v/117cb97df2d84d3797ee650ab396e790.mp4' -%}
-  {%- if col_key == 'royal' -%}
-    {%- assign rb_ad_label = 'The Royal Collection' -%}
-  {%- elsif col_key == 'signature' -%}
-    {%- assign rb_ad_label = 'The Signature Collection' -%}
-  {%- else -%}
-    {%- assign rb_ad_label = 'The Common Collection' -%}
-  {%- endif -%}
+{%- elsif col_key == 'royal' -%}
+  {%- assign rb_ad_src = 'https://cdn.shopify.com/videos/c/o/v/108b9921e4e54e578033f0ed924d7343.mp4' -%}
+  {%- assign rb_ad_label = 'The Royal Collection' -%}
+{%- elsif col_key == 'common' -%}
+  {%- assign rb_ad_src = 'https://cdn.shopify.com/videos/c/o/v/2bc6b7bbe7224aed9c6cf305db9659ec.mp4' -%}
+  {%- assign rb_ad_label = 'The Common Collection' -%}
+{%- elsif col_key == 'signature' -%}
+  {%- assign rb_ad_src = 'https://cdn.shopify.com/videos/c/o/v/72b9d85ce19f4c23b1564c1710b141d3.mp4' -%}
+  {%- assign rb_ad_label = 'The Signature Collection' -%}
 {%- endif -%}
 
-{%- if rb_ad_file != blank -%}
+{%- if rb_ad_file != blank or rb_ad_src != blank -%}
 <section class="rb-film rb-film--spotlight" aria-label="{{ rb_ad_label | escape }}">
   <div class="rb-film__player is-muted" data-autoplay-video>
     <video
@@ -178,7 +176,11 @@
       preload="metadata"
       aria-label="{{ rb_ad_label | escape }}"
     >
-      <source src="{{ rb_ad_file | asset_url }}" type="video/mp4">
+      {%- if rb_ad_src != blank -%}
+        <source src="{{ rb_ad_src }}" type="video/mp4">
+      {%- else -%}
+        <source src="{{ rb_ad_file | asset_url }}" type="video/mp4">
+      {%- endif -%}
     </video>
     {% render 'video-sound-control' %}
   </div>
@@ -263,25 +265,6 @@
     </div>
   </div>
 </section>
-{%- if rb_ad_below_grid and rb_ad_src != blank -%}
-<section class="rb-film rb-film--spotlight rb-film--collection-break" aria-label="{{ rb_ad_label | escape }}">
-  <div class="rb-film__player is-muted" data-autoplay-video>
-    <video
-      class="rb-video"
-      muted
-      loop
-      autoplay
-      playsinline
-      webkit-playsinline
-      preload="metadata"
-      aria-label="{{ rb_ad_label | escape }} advertisement placeholder"
-    >
-      <source src="{{ rb_ad_src }}" type="video/mp4">
-    </video>
-    {% render 'video-sound-control' %}
-  </div>
-</section>
-{%- endif -%}
 <section class="section col-story col-story--bundle">
   <div class="wrap">
     {%- if col_key == 'common' or col_key == 'royal' or col_key == 'signature' or col_key == 'royal-duke' or col_key == 'royal-kid' -%}
