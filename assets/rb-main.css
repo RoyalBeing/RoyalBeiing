@@ -2733,7 +2733,8 @@ body.grev-lock{overflow:hidden}
 .col-bundle__arrow:hover{background:#fff}
 .col-bundle__kicker{margin:0 0 8px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--rb-gold-600)}
 .col-bundle h2{margin:0 0 10px}
-.col-bundle__note{margin:0 auto 14px;max-width:42ch;color:#55584f}
+.col-bundle__note{margin:0 auto 14px;max-width:42ch;color:#55584f;text-align:center;hyphens:manual}
+.col-bundle__set{display:block;margin:0 0 6px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;color:var(--rb-charcoal)}
 .col-bundle__price{display:flex;justify-content:center;align-items:baseline;gap:12px;margin:0 0 16px}
 .col-bundle__price s{color:#8a8d84;font-size:1.05rem}
 .col-bundle__price b{font-family:var(--font-display);font-size:2rem;font-weight:500;color:var(--rb-green-900)}

@@ -279,6 +279,14 @@
         {%- endif -%}
       {%- endfor -%}
       {%- assign rb_bundle_sale = rb_bundle_total | times: 75 | divided_by: 100 -%}
+      {%- assign rb_bundle_value = rb_bundle_total | plus: 50 | divided_by: 100 | times: 100 -%}
+      {%- case col_key -%}
+        {%- when 'royal' -%}{%- assign rb_set_name = 'The Royal Collection Set' -%}
+        {%- when 'common' -%}{%- assign rb_set_name = 'The Common Collection Set' -%}
+        {%- when 'signature' -%}{%- assign rb_set_name = 'The Signature Collection Set' -%}
+        {%- when 'royal-duke' -%}{%- assign rb_set_name = 'The Royal Duke Collection Set' -%}
+        {%- when 'royal-kid' -%}{%- assign rb_set_name = 'The Royal Kid Collection Set' -%}
+      {%- endcase -%}
       {%- case col_key -%}
         {%- when 'royal-duke' -%}
           {%- assign rb_slides = 'rb-duke-ensemble-lineup.jpg|rb-schema-duke.jpg|rb-duke-ensemble-schematic.jpg|rb-duke-visual-4.jpg|rb-duke-visual-5.jpg' | split: '|' -%}
@@ -312,7 +320,7 @@
           {%- endif -%}
           <p class="col-bundle__kicker">The whole set</p>
           <h2>Buy the entire collection</h2>
-          <p class="col-bundle__note">Every soap in {{ collection.title }}, added together, with 25% off the total.</p>
+          <p class="col-bundle__note"><span class="col-bundle__set">{{ rb_set_name }}</span>{%- if col_key == 'royal' -%}25% OFF (Valued at $156){%- else -%}25% OFF (Valued at {{ rb_bundle_value | money_without_trailing_zeros }}){%- endif -%}</p>
           <p class="col-bundle__price">
             <s>{{ rb_bundle_total | money }}</s>
             <b>{{ rb_bundle_sale | money }}</b>
