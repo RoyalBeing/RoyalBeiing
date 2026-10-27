@@ -95,6 +95,7 @@
 
     <div class="header-actions">
       <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Search">{% render 'icon', name: 'search' %}</a>
+      {% render 'rb-locale' %}
       <a class="icon-btn" href="{{ routes.account_url }}" aria-label="Account">{% render 'icon', name: 'user' %}</a>
       <button class="icon-btn" type="button" data-open-cart aria-label="Cart">
         {% render 'icon', name: 'bag' %}

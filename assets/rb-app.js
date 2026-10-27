@@ -168,24 +168,64 @@
     if (rm) await changeQty(rm.dataset.remove, 0);
   });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { closeCart(); $('.mobile-nav') && $('.mobile-nav').classList.remove('open'); document.body.style.overflow = ''; }
+  function closeLocale() {
+    $$('[data-locale]').forEach((root) => {
+      const panel = $('[data-locale-panel]', root);
+      const btn = $('[data-locale-toggle]', root);
+      if (panel) panel.hidden = true;
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
+  }
+  $$('[data-locale]').forEach((root) => {
+    const btn = $('[data-locale-toggle]', root);
+    const panel = $('[data-locale-panel]', root);
+    if (!btn || !panel) return;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = panel.hidden;
+      closeLocale();
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-locale]')) closeLocale();
   });
 
-  /* Shopify theme preview bar sits over the cart footer. Lift checkout above it. */
-  function syncPreviewBar() {
-    const bar = document.getElementById('preview-bar-iframe');
-    let h = 0;
-    if (bar) {
-      const rect = bar.getBoundingClientRect();
-      h = Math.ceil(rect.height || bar.offsetHeight || 0);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeCart();
+      closeLocale();
+      $('.mobile-nav') && $('.mobile-nav').classList.remove('open');
+      document.body.style.overflow = '';
     }
+  });
+
+  /* Shopify's staff preview bar is not part of the storefront. Lift checkout above it. */
+  function syncPreviewBar() {
+    const nodes = document.querySelectorAll(
+      '#preview-bar-iframe, #PBarNextFrame, #PBarNextFrameWrapper, iframe[title="Preview Bar"], [id*="preview-bar" i], [class*="preview-bar" i]'
+    );
+    let h = 0;
+    nodes.forEach((bar) => {
+      const style = window.getComputedStyle(bar);
+      if (style.display === 'none' || style.visibility === 'hidden') return;
+      const rect = bar.getBoundingClientRect();
+      if (rect.height < 8 || rect.bottom < window.innerHeight - 8) return;
+      h = Math.max(h, Math.ceil(Math.min(rect.height, 140)));
+    });
     document.documentElement.style.setProperty('--rb-preview-bar', h + 'px');
   }
+  let previewTimer;
+  function schedulePreviewBar() {
+    clearTimeout(previewTimer);
+    previewTimer = setTimeout(syncPreviewBar, 40);
+  }
   syncPreviewBar();
-  window.addEventListener('resize', syncPreviewBar);
+  window.addEventListener('resize', schedulePreviewBar);
   window.addEventListener('load', syncPreviewBar);
-  new MutationObserver(syncPreviewBar).observe(document.documentElement, { childList: true });
+  [300, 1000, 2500].forEach((delay) => setTimeout(syncPreviewBar, delay));
+  new MutationObserver(schedulePreviewBar).observe(document.documentElement, { childList: true, subtree: true });
 
   const header = $('.site-header');
   if (header) window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 10), { passive: true });

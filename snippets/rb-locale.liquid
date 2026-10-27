@@ -1,0 +1,61 @@
+{%- comment -%}
+  Header country and language control. Options come from Shopify Markets
+  and published languages. The panel sits in the ivory header, not a bar.
+{%- endcomment -%}
+<div class="rb-locale" data-locale>
+  <button
+    class="icon-btn rb-locale__btn"
+    type="button"
+    data-locale-toggle
+    aria-expanded="false"
+    aria-controls="rb-locale-panel"
+    aria-label="Country and language, {{ localization.country.name | escape }}, {{ localization.language.endonym_name | escape }}"
+  >
+    <img
+      class="rb-locale__flag"
+      src="https://flagcdn.com/w40/{{ localization.country.iso_code | downcase }}.png"
+      width="22"
+      height="16"
+      alt=""
+    >
+  </button>
+  <div class="rb-locale__panel" id="rb-locale-panel" data-locale-panel hidden>
+    {%- form 'localization', class: 'rb-locale__form' -%}
+      <p class="rb-locale__label">Country</p>
+      <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+      <div class="rb-locale__grid" role="list">
+        {%- for country in localization.available_countries -%}
+          <button
+            class="rb-locale__opt{% if country.iso_code == localization.country.iso_code %} is-current{% endif %}"
+            type="submit"
+            name="country_code"
+            value="{{ country.iso_code }}"
+            aria-label="{{ country.name | escape }}"
+            {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %}
+          >
+            <img src="https://flagcdn.com/w40/{{ country.iso_code | downcase }}.png" alt="" width="20" height="14">
+            <span>{{ country.currency.iso_code }} {{ country.currency.symbol }}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endform -%}
+
+    {%- form 'localization', class: 'rb-locale__form' -%}
+      <p class="rb-locale__label">Language</p>
+      <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+      <div class="rb-locale__grid" role="list">
+        {%- for language in localization.available_languages -%}
+          <button
+            class="rb-locale__opt{% if language.iso_code == localization.language.iso_code %} is-current{% endif %}"
+            type="submit"
+            name="language_code"
+            value="{{ language.iso_code }}"
+            {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %}
+          >
+            {{ language.endonym_name }}
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endform -%}
+  </div>
+</div>
