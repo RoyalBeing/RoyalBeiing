@@ -54,7 +54,7 @@
       assign hero_editorial = true
     when 'royal-duke'
       assign banner_asset = 'rb-banner-duke.jpg'
-      assign banner_h = 576
+      assign banner_h = 553
       assign hero_editorial = true
     when 'royal-kid'
       assign banner_asset = 'rb-banner-kid.jpg'
@@ -72,7 +72,7 @@
     assign hero_title = rec.title | default: collection.title
   endif
 -%}
-<section class="page-banner col-hero{% if hero_editorial %} col-hero--editorial{% endif %}{% if hero_plain %} col-hero--plain{% endif %}" {{ section.shopify_attributes }}>
+<section class="page-banner col-hero{% if hero_editorial %} col-hero--editorial{% endif %}{% if hero_plain %} col-hero--plain{% endif %}{% if col_key == 'royal-duke' %} col-hero--duke{% endif %}" {{ section.shopify_attributes }}>
   {%- if hero_video != blank -%}
     <div class="page-banner__media col-hero__film is-muted" data-autoplay-video>
       <video
